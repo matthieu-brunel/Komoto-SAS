@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "The Tiny Spark <contact@the-tiny-spark.com> (http://the-tiny-spark.com)",
