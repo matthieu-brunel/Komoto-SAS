@@ -39,6 +39,7 @@ router.get("/", (req, res) => {
     }
   });
 });
+
 router.get("/:id", (req, res) => {
   const idReferenceOne = parseInt(req.params.id);
   const sql = "SELECT * FROM reference where id = ?";
@@ -50,6 +51,7 @@ router.get("/:id", (req, res) => {
     }
   });
 });
+
 router.put("/:id", (req, res) => {
   const idReference = req.params.id;
   const reference = req.body;
@@ -74,6 +76,7 @@ router.put("/:id", (req, res) => {
     }
   );
 });
+
 router.delete("/:id", (req, res) => {
   const idReference = req.params.id;
   const sql = "DELETE  FROM reference WHERE id=?";

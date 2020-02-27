@@ -30,11 +30,8 @@ describe("test reference CRUD", () => {
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
-
         obj.id = body.id;
-
         data = body;
-
         reference.id = body.id;
         expect(data.category).toBe(reference.category);
         expect(data.type).toBe(reference.type);
@@ -76,7 +73,6 @@ describe("test reference CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
         expect(body.category).toBe(reference.category);
         expect(body.type).toBe(reference.type);
         expect(body.section).toBe(reference.section);
