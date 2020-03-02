@@ -6,17 +6,19 @@ import Reference from './Components/Reference/Reference';
 import Contact from './Components/Contact/Contact';
 import Demonstration from './Components/Demonstration/Demonstration';
 import Admin from './Components/Admin/Admin';
-
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Accueil/>
-      <Solution/>
-      <Reference/>
-      <Contact/>
-      <Demonstration/>
-      <Admin/>
+      <Switch>
+        <Route exact path="/" component={Accueil} />
+        <Route exact path="/Solution" component={Solution} />
+        <Route exact path="/Reference" component={Reference} />
+        <Route exact path="/Contact" component={Contact} />
+        <Route exact path="/Demonstration" component={Demonstration} />
+        <Route exact path="/Admin" component={Admin} />
+      </Switch>
     </div>
   );
 }
