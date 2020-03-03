@@ -9,14 +9,6 @@ let obj = {
 
 
 
-/* 
-CREATE TABLE `komoto`.`file` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `name` TEXT NOT NULL,
-    `category` TEXT NOT NULL,
-    `mail_id` INT NOT NULL,
-    PRIMARY KEY(id)
-); */
 
 describe("test file CRUD", () => {
   let server = null;
@@ -29,13 +21,37 @@ describe("test file CRUD", () => {
 
   };
 
+
+
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
+
   it("post file", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/file",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: file
       },
       (error, response, body) => {
@@ -79,7 +95,7 @@ describe("test file CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/file/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: file
       },
 
@@ -99,7 +115,7 @@ describe("test file CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/file/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const connection = require("../config");
 const parser = require("body-parser");
-
+const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
 
 
 
-router.post("/", (req, res) => {
+router.post("/",Auth, (req, res) => {
   const file = req.body;
   const sql =
     "INSERT INTO file (name , category , mail_id) VALUES (? , ? , ? )";
@@ -52,9 +52,10 @@ router.get("/:id", (req, res) => {
     }
   });
 });
-router.put("/:id", (req, res) => {
+router.put("/:id", Auth,(req, res) => {
   const idfile = req.params.id;
   const file = req.body;
+
   console.log("text", req.body);
   const sql = `UPDATE file SET name=?, category=?, mail_id=? WHERE id=${idfile}`;
   connection.query(
@@ -74,7 +75,7 @@ router.put("/:id", (req, res) => {
     }
   );
 });
-router.delete("/:id", (req, res) => {
+router.delete("/:id", Auth,(req, res) => {
   const idfile = req.params.id;
   const sql = "DELETE  FROM file WHERE id=?";
   connection.query(sql, [idfile], (error, results, fields) => {

@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const connection = require("../config");
 const parser = require("body-parser");
-
+const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
-router.post("/", (req, res) => {
+router.post("/", Auth,(req, res) => {
     const mail = req.body;
     const sql = "INSERT INTO mail (category, description, mail_destinataire) VALUES (? , ? , ?)";
     connection.query(
@@ -50,9 +50,10 @@ router.post("/", (req, res) => {
     });
   });
 
-  router.put("/:id", (req, res) => {
+  router.put("/:id", Auth,(req, res) => {
     const idmail = req.params.id;
     const mail = req.body;
+    
     const sql = `UPDATE mail SET category=?, description=?, mail_destinataire=? WHERE id=${idmail}`;
     connection.query(
       sql,
@@ -72,7 +73,7 @@ router.post("/", (req, res) => {
     );
   });
 
-  router.delete("/:id", (req, res) => {
+  router.delete("/:id",Auth, (req, res) => {
     const idmail = req.params.id;
     const sql = "DELETE FROM mail WHERE id=?";
     connection.query(sql, [idmail], (error, results, fields) => {

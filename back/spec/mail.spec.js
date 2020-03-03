@@ -17,13 +17,37 @@ describe("test mail CRUD", () => {
     mail_destinataire:'mail destinaire'
   };
 
+
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
+
+
   it("post mail", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: mail
       },
       (error, response, body) => {
@@ -62,7 +86,7 @@ describe("test mail CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: mail
       },
 
@@ -81,7 +105,7 @@ describe("test mail CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

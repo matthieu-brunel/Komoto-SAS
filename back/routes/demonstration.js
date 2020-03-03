@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const connection = require("../config");
 const parser = require("body-parser");
-
+const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
-router.post("/", (req, res) => {
+router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
   const sql =
     "INSERT INTO demonstration (category, type, section, description, model_url) VALUES (?, ?, ?, ?, ?)";
@@ -50,9 +50,10 @@ router.get("/:id", (req, res) => {
     }
   });
 });
-router.put("/:id", (req, res) => {
+router.put("/:id",Auth, (req, res) => {
   const idDemonstration = req.params.id;
   const demonstration = req.body;
+
   console.log("text", req.body);
   const sql = `UPDATE demonstration SET category=?, type=?, section=?, description=?, model_url=? WHERE id=${idDemonstration}`;
   connection.query(
@@ -74,7 +75,7 @@ router.put("/:id", (req, res) => {
     }
   );
 });
-router.delete("/:id", (req, res) => {
+router.delete("/:id",Auth, (req, res) => {
   const idDemonstration = req.params.id;
   const sql = "DELETE  FROM demonstration WHERE id=?";
   connection.query(sql, [idDemonstration], (error, results, fields) => {

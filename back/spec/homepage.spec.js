@@ -20,13 +20,37 @@ describe("test homepage CRUD", () => {
     image_id: 1
   };
 
+
+
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
+
   it("post homepage", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/homepage",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: homepage
       },
       (error, response, body) => {
@@ -73,7 +97,7 @@ describe("test homepage CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: homepage
       },
 
@@ -96,7 +120,7 @@ it("delete homepage", done => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

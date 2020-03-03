@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const connection = require("../config");
 const parser = require("body-parser");
-
+const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
-router.post("/", (req, res) => {
+router.post("/",Auth, (req, res) => {
   const image = req.body;
   console.log(image);
   const sql = "INSERT INTO image (name, url, alt) VALUES (? , ? , ?)";
@@ -46,7 +46,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id",Auth, (req, res) => {
   const idImage = req.params.id;
   const image = req.body;
   const sql = `UPDATE image SET name=?, url=?, alt=? WHERE id=${idImage}`;
@@ -63,7 +63,7 @@ router.put("/:id", (req, res) => {
   );
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id",Auth, (req, res) => {
   const idImage = req.params.id;
   const sql = "DELETE FROM image WHERE id=?";
   connection.query(sql, [idImage], (error, results, fields) => {
