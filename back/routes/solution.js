@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const connection = require("../config");
 const parser = require("body-parser");
-
+const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
 
 
-router.post("/", (req, res) => {
+router.post("/", Auth,(req, res) => {
   const solution = req.body;
   const sql =
     "INSERT INTO solution (category, type, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
@@ -53,7 +53,7 @@ router.get("/:id", (req, res) => {
     }
   });
 });
-router.put("/:id", (req, res) => {
+router.put("/:id", Auth,(req, res) => {
   const idsolution = req.params.id;
   const solution = req.body;
   console.log("text", req.body);
@@ -78,7 +78,7 @@ router.put("/:id", (req, res) => {
     }
   );
 });
-router.delete("/:id", (req, res) => {
+router.delete("/:id",Auth, (req, res) => {
   const idsolution = req.params.id;
   const sql = "DELETE  FROM solution WHERE id=?";
   connection.query(sql, [idsolution], (error, results, fields) => {

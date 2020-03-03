@@ -20,13 +20,35 @@ describe("test solution CRUD", () => {
     image_id: 1
   };
 
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
+
   it("post solution", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: solution
       },
       (error, response, body) => {
@@ -73,7 +95,7 @@ describe("test solution CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: solution
       },
 
@@ -96,7 +118,7 @@ it("delete solution", done => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

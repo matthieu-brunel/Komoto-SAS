@@ -19,13 +19,36 @@ describe("test reference CRUD", () => {
     image_id: 1
   };
 
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
   it("post reference", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/reference",
-        headers: {},
+        headers:  {
+          authorization: 'Bearer ' + token
+        },
         body: reference
       },
       (error, response, body) => {
@@ -68,7 +91,7 @@ describe("test reference CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
         json: true,
-        headers: {},
+        headers: { authorization: 'Bearer ' + token},
         body: reference
       },
 
@@ -89,7 +112,7 @@ describe("test reference CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

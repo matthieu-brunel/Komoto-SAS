@@ -16,13 +16,39 @@ describe("test admin CRUD", () => {
     password: "test_password"
   };
 
+
+
+
+
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+
+        done();
+      }
+    );
+  });
+
+
   it("post admin", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: admin
       },
       (error, response, body) => {
@@ -40,19 +66,7 @@ describe("test admin CRUD", () => {
     );
   });
 
-  it("get admin", done => {
-    request(
-      {
-        method: "get",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/admin"
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  });
+
 
   it("should update admin", done => {
     admin.user = "put";
@@ -62,7 +76,7 @@ describe("test admin CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: admin
       },
 
@@ -81,7 +95,7 @@ describe("test admin CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

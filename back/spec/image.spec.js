@@ -17,13 +17,39 @@ describe("test image CRUD", () => {
     alt: "test_alt"
   };
 
+
+
+
+
+
+  beforeAll(done => {
+    server = require('../server');
+    request.post(
+      SERVER_ADDRESS_FULL + '/api/login',
+      {
+        json: true,
+        body: {
+          user: 'admin',
+          password: 'admin'
+        }
+      },
+      (error, response, body) => {
+        token = response.body.token;
+        console.log("***********************************");
+        console.log(response.body);
+        done();
+      }
+    );
+  });
+
+
   it("post image", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/image",
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: image
       },
       (error, response, body) => {
@@ -62,7 +88,7 @@ describe("test image CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
         json: true,
-        headers: {},
+        headers: {authorization: 'Bearer ' + token},
         body: image
       },
 
@@ -81,7 +107,7 @@ describe("test image CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
-        headers: {}
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
