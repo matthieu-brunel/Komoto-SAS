@@ -12,8 +12,8 @@ describe("test homepage CRUD", () => {
   let data = {};
 
   const homepage = {
-    category: "test_category",
-    type: "test_type",
+    subtitle: "test_subtitle",
+    title: "test_title",
     section: "test_section",
     description: "test_description",
     language: "french",
@@ -61,8 +61,8 @@ describe("test homepage CRUD", () => {
         data = body;
 
         homepage.id = body.id;
-        expect(data.category).toBe(homepage.category);
-        expect(data.type).toBe(homepage.type);
+        expect(data.subtitle).toBe(homepage.subtitle);
+        expect(data.title).toBe(homepage.title);
         expect(data.section).toBe(homepage.section);
         expect(data.description).toBe(homepage.description);
         expect(data.language).toBe(homepage.language);
@@ -87,10 +87,11 @@ describe("test homepage CRUD", () => {
   });
 
   it("should update homepage", done => {
-    homepage.category = "new put";
-    homepage.type = "new put";
+    homepage.subtitle = "new put";
+    homepage.title = "new put";
     homepage.section = "new put";
     homepage.description = "new put";
+    homepage.language = "new put";
     homepage.image_id = 2;
 
     request.put(
@@ -103,8 +104,8 @@ describe("test homepage CRUD", () => {
 
       (error, response, body) => {
         console.log("PUT", body);
-        expect(body.category).toBe(homepage.category);
-        expect(body.type).toBe(homepage.type);
+        expect(body.subtitle).toBe(homepage.subtitle);
+        expect(body.title).toBe(homepage.title);
         expect(body.section).toBe(homepage.section);
         expect(body.description).toBe(homepage.description);
         expect(body.language).toBe(homepage.language);
