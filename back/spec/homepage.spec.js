@@ -21,9 +21,6 @@ describe("test homepage CRUD", () => {
   };
 
 
-
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(

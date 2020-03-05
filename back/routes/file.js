@@ -55,8 +55,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idfile = req.params.id;
   const file = req.body;
-
-  console.log("text", req.body);
+  
   const sql = `UPDATE file SET name=?, category=?, mail_id=? WHERE id=${idfile}`;
   connection.query(
     sql,

@@ -51,7 +51,6 @@ router.get("/:id",Auth, (req, res) => {
 router.put("/:id",Auth, (req, res) => {
   const idAdmin = req.params.id;
   const admin = req.body;
-  console.log("text", req.body);
   const sql = `UPDATE admin SET user=?, password=? WHERE id=${idAdmin}`;
   connection.query(
     sql,
