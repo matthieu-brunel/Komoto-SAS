@@ -12,8 +12,8 @@ describe("test solution CRUD", () => {
   let data = {};
 
   const solution = {
-    category: "test_category",
-    type: "test_type",
+    subtitle: "test_subtitle",
+    title: "test_title",
     section: "test_section",
     description: "test_description",
     language: "french",
@@ -59,8 +59,8 @@ describe("test solution CRUD", () => {
         data = body;
 
         solution.id = body.id;
-        expect(data.category).toBe(solution.category);
-        expect(data.type).toBe(solution.type);
+        expect(data.subtitle).toBe(solution.subtitle);
+        expect(data.title).toBe(solution.title);
         expect(data.section).toBe(solution.section);
         expect(data.description).toBe(solution.description);
         expect(data.language).toBe(solution.language);
@@ -85,10 +85,11 @@ describe("test solution CRUD", () => {
   });
 
   it("should update solution", done => {
-    solution.category = "new put";
-    solution.type = "new put";
+    solution.subtitle = "new put";
+    solution.title = "new put";
     solution.section = "new put";
     solution.description = "new put";
+    solution.language = "new put";
     solution.image_id = 2;
 
     request.put(
@@ -101,8 +102,8 @@ describe("test solution CRUD", () => {
 
       (error, response, body) => {
         console.log("PUT", body);
-        expect(body.category).toBe(solution.category);
-        expect(body.type).toBe(solution.type);
+        expect(body.subtitle).toBe(solution.subtitle);
+        expect(body.title).toBe(solution.title);
         expect(body.section).toBe(solution.section);
         expect(body.description).toBe(solution.description);
         expect(body.language).toBe(solution.language);

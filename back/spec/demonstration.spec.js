@@ -12,8 +12,8 @@ describe("test demonstration CRUD", () => {
   let data = {};
 
   const demonstration = {
-    category: "test_category",
-    type: "test_type",
+    subtitle: "test_subtitle",
+    title: "test_title",
     section: "test_section",
     description: "test_description",
     model_url: "test_model_url"
@@ -63,8 +63,8 @@ describe("test demonstration CRUD", () => {
         data = body;
 
         demonstration.id = body.id;
-        expect(data.category).toBe(demonstration.category);
-        expect(data.type).toBe(demonstration.type);
+        expect(data.subtitle).toBe(demonstration.subtitle);
+        expect(data.title).toBe(demonstration.title);
         expect(data.section).toBe(demonstration.section);
         expect(data.description).toBe(demonstration.description);
         expect(data.model_url).toBe(demonstration.model_url);
@@ -88,8 +88,8 @@ describe("test demonstration CRUD", () => {
   });
 
   it("should update demonstration", done => {
-    demonstration.category = "put_cat";
-    demonstration.type = "put_ty";
+    demonstration.subtitle = "put_cat";
+    demonstration.title = "put_ty";
     demonstration.section = "put_sec";
     demonstration.description = "put_des";
     demonstration.model_url = "put_mod";
@@ -104,8 +104,8 @@ describe("test demonstration CRUD", () => {
 
       (error, response, body) => {
         console.log("PUT", body);
-        expect(body.category).toBe(demonstration.category);
-        expect(body.type).toBe(demonstration.type);
+        expect(body.subtitle).toBe(demonstration.subtitle);
+        expect(body.title).toBe(demonstration.title);
         expect(body.section).toBe(demonstration.section);
         expect(body.description).toBe(demonstration.description);
         expect(body.model_url).toBe(demonstration.model_url);

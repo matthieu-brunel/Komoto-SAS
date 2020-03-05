@@ -14,7 +14,8 @@ describe("test image CRUD", () => {
   const image = {
     name: "test_name",
     url: "test_url",
-    alt: "test_alt"
+    alt: "test_alt",
+    section : "test_section"
   };
 
 
@@ -60,6 +61,7 @@ describe("test image CRUD", () => {
         expect(data.name).toBe(image.name);
         expect(data.url).toBe(image.url);
         expect(data.alt).toBe(image.alt);
+        expect(data.section).toBe(image.section);
         done();
       }
     );
@@ -83,6 +85,7 @@ describe("test image CRUD", () => {
     image.name = "new put";
     image.url = "new put";
     image.alt = "new put";
+    image.section = "new put";
 
     request.put(
       {
@@ -96,6 +99,7 @@ describe("test image CRUD", () => {
         expect(body.name).toBe(image.name);
         expect(body.url).toBe(image.url);
         expect(body.alt).toBe(image.alt);
+        expect(body.section).toBe(image.section);
         done();
       }
     );
