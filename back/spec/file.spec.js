@@ -88,7 +88,6 @@ describe("test file CRUD", () => {
     file.category = "new put";
     file.type = "new put";
     file.section = "new put";
-    file.description = "new put";
     file.image_id = 2;
 
     request.put(

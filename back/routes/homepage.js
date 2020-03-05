@@ -10,12 +10,12 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
   const sql =
-    "INSERT INTO homepage (title, subtitle, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
+    "INSERT INTO homepage (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(
     sql,
     [
-      homepage.title,
       homepage.subtitle,
+      homepage.title,
       homepage.section,
       homepage.description,
       homepage.language,
@@ -58,13 +58,13 @@ router.get("/:id", (req, res) => {
 router.put("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
   const homepage = req.body;
-  
-  const sql = `UPDATE homepage SET title=?, subtitle=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
+  console.log("text", req.body);
+  const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
   connection.query(
     sql,
     [
-      homepage.title,
       homepage.subtitle,
+      homepage.title,
       homepage.section,
       homepage.description,
       homepage.language,

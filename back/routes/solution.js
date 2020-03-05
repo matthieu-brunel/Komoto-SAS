@@ -10,12 +10,12 @@ router.use(parser.json());
 router.post("/", Auth,(req, res) => {
   const solution = req.body;
   const sql =
-    "INSERT INTO solution (category, type, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
+    "INSERT INTO solution (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(
     sql,
     [
-      solution.category,
-      solution.type,
+      solution.subtitle,
+      solution.title,
       solution.section,
       solution.description,
       solution.language,
@@ -56,12 +56,13 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idsolution = req.params.id;
   const solution = req.body;
-  const sql = `UPDATE solution SET category=?, type=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
+  console.log("text", req.body);
+  const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,
     [
-      solution.category,
-      solution.type,
+      solution.subtitle,
+      solution.title,
       solution.section,
       solution.description,
       solution.language,

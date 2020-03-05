@@ -12,8 +12,8 @@ describe("test reference CRUD", () => {
   let data = {};
 
   const reference = {
-    category: "test_category",
-    type: "test_type",
+    subtitle: "test_subtitle",
+    title: "test_title",
     section: "test_section",
     description: "test_description",
     image_id: 1
@@ -56,8 +56,8 @@ describe("test reference CRUD", () => {
         obj.id = body.id;
         data = body;
         reference.id = body.id;
-        expect(data.category).toBe(reference.category);
-        expect(data.type).toBe(reference.type);
+        expect(data.subtitle).toBe(reference.subtitle);
+        expect(data.title).toBe(reference.title);
         expect(data.section).toBe(reference.section);
         expect(data.description).toBe(reference.description);
         expect(data.image_id).toBe(reference.image_id);
@@ -81,8 +81,8 @@ describe("test reference CRUD", () => {
   });
 
   it("should update reference", done => {
-    reference.category = "new put";
-    reference.type = "new put";
+    reference.subtitle = "new put";
+    reference.title = "new put";
     reference.section = "new put";
     reference.description = "new put";
     reference.image_id = 2;
@@ -96,8 +96,8 @@ describe("test reference CRUD", () => {
       },
 
       (error, response, body) => {
-        expect(body.category).toBe(reference.category);
-        expect(body.type).toBe(reference.type);
+        expect(body.subtitle).toBe(reference.subtitle);
+        expect(body.title).toBe(reference.title);
         expect(body.section).toBe(reference.section);
         expect(body.description).toBe(reference.description);
         expect(body.image_id).toBe(reference.image_id);

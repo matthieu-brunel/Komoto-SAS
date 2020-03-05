@@ -8,12 +8,12 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const reference = req.body;
   const sql =
-    "INSERT INTO reference (category, type, section, description, image_id) VALUES (? , ? , ? , ?, ?)";
+    "INSERT INTO reference (subtitle, title, section, description, image_id) VALUES (? , ? , ? , ?, ?)";
   connection.query(
     sql,
     [
-      reference.category,
-      reference.type,
+      reference.subtitle,
+      reference.title,
       reference.section,
       reference.description,
       reference.image_id
@@ -55,12 +55,13 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idReference = req.params.id;
   const reference = req.body;
-  const sql = `UPDATE reference SET category=?, type=?, section=?, description=?, image_id=? WHERE id=${idReference}`;
+  console.log("text", req.body);
+  const sql = `UPDATE reference SET subtitle=?, title=?, section=?, description=?, image_id=? WHERE id=${idReference}`;
   connection.query(
     sql,
     [
-      reference.category,
-      reference.type,
+      reference.subtitle,
+      reference.title,
       reference.section,
       reference.description,
       reference.image_id,
