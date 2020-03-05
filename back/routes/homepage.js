@@ -10,12 +10,12 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
   const sql =
-    "INSERT INTO homepage (category, type, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
+    "INSERT INTO homepage (title, subtitle, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(
     sql,
     [
-      homepage.category,
-      homepage.type,
+      homepage.title,
+      homepage.subtitle,
       homepage.section,
       homepage.description,
       homepage.language,
@@ -33,8 +33,8 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = "SELECT * FROM homepage";
-  connection.query(sql, (error, results, fields) => {
+  const sql = `SELECT DISTINCT h.id, h.title, h.subtitle, h.section, h.description, h.language, i.name, i.url, i.alt FROM homepage AS h JOIN image AS i ON h.image_id = i.section WHERE h.section=?`;
+  connection.query(sql,[req.query.section], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get homepage");
     } else {
@@ -42,6 +42,8 @@ router.get("/", (req, res) => {
     }
   });
 });
+
+
 router.get("/:id", (req, res) => {
   const idhomepageOne = parseInt(req.params.id);
   const sql = "SELECT * FROM homepage where id = ?";
@@ -56,13 +58,13 @@ router.get("/:id", (req, res) => {
 router.put("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
   const homepage = req.body;
-  console.log("text", req.body);
-  const sql = `UPDATE homepage SET category=?, type=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
+  
+  const sql = `UPDATE homepage SET title=?, subtitle=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
   connection.query(
     sql,
     [
-      homepage.category,
-      homepage.type,
+      homepage.title,
+      homepage.subtitle,
       homepage.section,
       homepage.description,
       homepage.language,
@@ -89,4 +91,7 @@ router.delete("/:id",Auth, (req, res) => {
     }
   });
 });
+
+
+
 module.exports = router;

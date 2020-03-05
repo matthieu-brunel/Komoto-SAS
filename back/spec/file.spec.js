@@ -100,7 +100,6 @@ describe("test file CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
         expect(body.name).toBe(file.name);
         expect(body.category).toBe(file.category);
         expect(body.mail_id).toBe(file.mail_id);

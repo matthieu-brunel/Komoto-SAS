@@ -21,9 +21,6 @@ describe("test homepage CRUD", () => {
   };
 
 
-
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(
@@ -102,7 +99,6 @@ describe("test homepage CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
         expect(body.category).toBe(homepage.category);
         expect(body.type).toBe(homepage.type);
         expect(body.section).toBe(homepage.section);

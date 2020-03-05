@@ -7,11 +7,11 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const image = req.body;
-  console.log(image);
-  const sql = "INSERT INTO image (name, url, alt) VALUES (? , ? , ?)";
+
+  const sql = "INSERT INTO image (name, url, alt, homepage_id) VALUES (? , ? , ?, ?)";
   connection.query(
     sql,
-    [image.name, image.url, image.alt],
+    [image.name, image.url, image.alt, image.homepage_id],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't post image" + error);

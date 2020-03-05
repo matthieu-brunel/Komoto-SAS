@@ -53,8 +53,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id",Auth, (req, res) => {
   const idDemonstration = req.params.id;
   const demonstration = req.body;
-
-  console.log("text", req.body);
+  
   const sql = `UPDATE demonstration SET category=?, type=?, section=?, description=?, model_url=? WHERE id=${idDemonstration}`;
   connection.query(
     sql,

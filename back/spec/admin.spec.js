@@ -17,11 +17,6 @@ describe("test admin CRUD", () => {
   };
 
 
-
-
-
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(
@@ -81,7 +76,6 @@ describe("test admin CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
         expect(body.user).toBe(admin.user);
         expect(body.password).toBe(admin.password);
         done();

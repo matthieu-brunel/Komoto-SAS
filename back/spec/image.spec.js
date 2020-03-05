@@ -35,8 +35,6 @@ describe("test image CRUD", () => {
       },
       (error, response, body) => {
         token = response.body.token;
-        console.log("***********************************");
-        console.log(response.body);
         done();
       }
     );

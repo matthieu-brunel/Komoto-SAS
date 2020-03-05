@@ -103,7 +103,6 @@ describe("test demonstration CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
         expect(body.category).toBe(demonstration.category);
         expect(body.type).toBe(demonstration.type);
         expect(body.section).toBe(demonstration.section);
