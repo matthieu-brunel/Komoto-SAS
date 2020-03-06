@@ -26,6 +26,7 @@ render(){
       {this.state.specialisation.map((specialisation, index) => {
         return (
           <div key={index}>
+             {this.state.specialisation.length > 0 && <h2>{this.state.specialisation[0].title}</h2>}
              <NavLink  to="/">specialisation {specialisation.id}</NavLink>
           </div>
         )
