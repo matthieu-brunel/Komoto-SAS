@@ -33,7 +33,7 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT DISTINCT h.id, h.title, h.subtitle, h.section, h.description, h.language, i.name, i.url, i.alt FROM homepage AS h JOIN image AS i ON h.image_id = i.section WHERE h.section=?`;
+  const sql = `SELECT i.name, i.url, i.alt FROM homepage AS h JOIN image AS i ON h.image_id = i.section WHERE h.section=?`;
   connection.query(sql,[req.query.section], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get homepage");
@@ -55,10 +55,11 @@ router.get("/:id", (req, res) => {
     }
   });
 });
+
+
 router.put("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
   const homepage = req.body;
-  console.log("text", req.body);
   const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
   connection.query(
     sql,
@@ -80,9 +81,11 @@ router.put("/:id",Auth, (req, res) => {
     }
   );
 });
+
+
 router.delete("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
-  const sql = "DELETE  FROM homepage WHERE id=?";
+  const sql = "DELETE FROM homepage WHERE id=?";
   connection.query(sql, [idhomepage], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put homepage" + error);

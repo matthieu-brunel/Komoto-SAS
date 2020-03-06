@@ -1,0 +1,10 @@
+.container-div-img{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.img-reference{
+    width:100%;
+}
