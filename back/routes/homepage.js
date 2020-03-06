@@ -33,7 +33,7 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT i.name, i.url, i.alt FROM homepage AS h JOIN image AS i ON h.image_id = i.section WHERE h.section=?`;
+  const sql = `SELECT h.title, h.subtitle, h.description, i.name, i.url, i.alt FROM homepage AS h JOIN image AS i ON h.image_id = i.section WHERE h.section=?`;
   connection.query(sql,[req.query.section], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get homepage");

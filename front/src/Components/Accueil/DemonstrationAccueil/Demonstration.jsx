@@ -14,7 +14,7 @@ class DemonstrationAccueil extends Component {
   }
   componentDidMount = async () => {
     let data = await getRessources("homepage", "demonstration");
-    console.log(data);
+    console.log("demonstration : ",data);
     this.setState({
       demonstration: data
     });
@@ -22,6 +22,7 @@ class DemonstrationAccueil extends Component {
   render() {
     return (
       <div>
+        {this.state.demonstration.length > 0 && <h2>{this.state.demonstration[0].title}</h2>}
         {this.state.demonstration.map((demonstration, index) => {
           return (
             <div key={index}>
