@@ -12,7 +12,7 @@ class SavoirFaireAccueil extends Component {
   }
   componentDidMount = async () => {
     let data = await getRessources("homepage", "SavoirFaire");
-    console.log(data);
+    console.log("savoirfaire : ",data);
     this.setState({
       SavoirFaire: data
     });
@@ -20,6 +20,7 @@ class SavoirFaireAccueil extends Component {
   render() {
     return (
       <div>
+        {this.state.SavoirFaire.length > 0 && <h2>{this.state.SavoirFaire[0].title}</h2>}
         {this.state.SavoirFaire.map((SavoirFaire, index) => {
           return (
             <div key={index}>

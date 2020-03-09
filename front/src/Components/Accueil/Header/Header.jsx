@@ -24,7 +24,7 @@ componentDidMount = async () => {
     return (
       <div className="container-div-img">
         <div className="div-header">
-          {this.state.header.length > 0 && <img className="img-header" src={this.state.header[2].url} alt={this.state.header[2].alt}/>}
+          {this.state.header.length > 0 && <img className="img-header" src={this.state.header[0].url} alt={this.state.header[0].alt}/>}
         </div>
       </div>
 

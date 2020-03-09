@@ -22,7 +22,9 @@ componentDidMount = async () => {
 
   render(){
     return (
-      <div className="container-div-img">
+      <div className="container">
+        {this.state.reference.length > 0 && <h2>{this.state.reference[0].title}</h2>}
+        <div className="container-div-img">
         {this.state.reference.map((element, index) => (
           <div className="div-reference" key={index}>
             <Link to={`/Reference`}><img className="img-reference" src={element.alt} alt={element.alt}/></Link>
@@ -30,6 +32,8 @@ componentDidMount = async () => {
         )
 
         )}
+        </div>
+
       </div>
 
     
