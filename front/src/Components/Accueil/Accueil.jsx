@@ -15,7 +15,7 @@ function Accueil() {
   return (
     <div className="">
       <NavBar />
-      <HeaderAccueil />
+      <HeaderAccueil /> 
       <SavoirFaireAccueil />
       <SpecialisationAccueil />
       <SolutionAccueil />
