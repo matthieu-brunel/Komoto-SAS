@@ -11,26 +11,39 @@ class SpecialisationAccueil extends Component {
     }
 }
 
+getTextToList(data){
+  let objet = data;
+  let array_description = data.description.split('/');
+  objet.description = array_description;
+  this.setState({specialisation:[...this.state.specialisation, objet]});
+}
+
 componentDidMount = async () => {
 
   let data2 = await getRessources('homepage','specialisation');
-   this.setState({
-    specialisation:data2
-  })
-  
+  for(let i = 0; i < data2.length ; i++){
+    this.getTextToList(data2[i]);
+  }
 }
 
 render(){
+  console.log("this.state.specialisation : ", this.state.specialisation);
   return (
-    <div className="">
-      {this.state.specialisation.map((specialisation, index) => {
-        return (
-          <div key={index}>
-             {this.state.specialisation.length > 0 && <h2>{this.state.specialisation[0].title}</h2>}
-             <NavLink  to="/">specialisation {specialisation.id}</NavLink>
-          </div>
-        )
-      })}
+    <div className="container container-specialisation">
+      <h2 className="p-4">Nos spécialisations</h2>
+      <div className="container-specialisation-card row">
+        {this.state.specialisation.map((specialisation, index) => {
+          return (
+            <div className="div-container-specialisation col col-lg-6 col-12 mb-5" key={index}>
+              <div className="div-img-specialisation"><img className="img-specialisation" src={specialisation.url} alt={specialisation.alt}/></div>
+              <div className="div-titre-specialisation"><h6>{this.state.specialisation[index].title}</h6></div>
+              <div className="div-text-specialisation">
+                {specialisation.description.map((list, index) => ( <div key={index}><ul><li>{list}</li></ul></div>))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   );
 }
