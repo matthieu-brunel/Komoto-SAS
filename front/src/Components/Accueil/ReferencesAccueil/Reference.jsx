@@ -12,13 +12,13 @@ class ReferenceAccueil extends Component {
     }
 }
 
-componentDidMount = async () => {
+ componentDidMount = async () => {
 
   let data2 = await getRessources('homepage','reference');
    this.setState({
     reference:data2
   }) 
-}
+} 
 
   render(){
     return (
@@ -27,7 +27,7 @@ componentDidMount = async () => {
         <div className="container-div-img">
         {this.state.reference.map((element, index) => (
           <div className="div-reference" key={index}>
-            <Link to={`/Reference`}><img className="img-reference" src={element.alt} alt={element.alt}/></Link>
+             <Link to={`/Reference`}><img className="img-reference" src={element.alt} alt={element.alt}/></Link> 
           </div>
         )
 

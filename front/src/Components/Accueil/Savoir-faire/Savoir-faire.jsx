@@ -16,7 +16,7 @@ class SavoirFaireAccueil extends Component {
     this.setState({
       SavoirFaire: data
     });
-  };
+  }; 
   render() {
     return (
       <div>
@@ -24,7 +24,7 @@ class SavoirFaireAccueil extends Component {
         {this.state.SavoirFaire.map((SavoirFaire, index) => {
           return (
             <div key={index}>
-              <NavLink to="/SavoirFaire">{SavoirFaire.title}</NavLink>
+               <NavLink to="/SavoirFaire">{SavoirFaire.title}</NavLink> 
             </div>
           );
         })}
