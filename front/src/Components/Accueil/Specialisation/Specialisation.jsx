@@ -30,7 +30,7 @@ render(){
   console.log("this.state.specialisation : ", this.state.specialisation);
   return (
     <div className="container container-specialisation">
-      <h2 className="p-4">Nos spécialisations</h2>
+      <h2 className="text-specialisation text-left p-4">Nos spécialisations</h2>
       <div className="container-specialisation-card row">
         {this.state.specialisation.map((specialisation, index) => {
           return (
