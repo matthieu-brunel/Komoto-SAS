@@ -1,29 +1,30 @@
 import React, { Component } from "react";
 import "./SolutionAccueil.css";
 import getRessources from "../../../utils/getRessources";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class SolutionAccueil extends Component {
   constructor() {
     super();
     this.state = {
-      Solution: []
+      solution: []
     };
   }
-  componentDidMount = async () => {
-    let data = await getRessources("homepage", "Solution");
+componentDidMount = async () => {
+    let data = await getRessources("homepage", "solution");
     console.log(data);
     this.setState({
-      Solution: data
+      solution: data
     });
-  };
+  }; 
   render() {
     return (
       <div>
-        {this.state.Solution.map((Solution, index) => {
+        {this.state.solution.length > 0 && <h2>{this.state.solution[0].title}</h2>}
+        {this.state.solution.map((solution, index) => {
           return (
             <div key={index}>
-              <NavLink to="/Solution">{Solution.title}</NavLink>
+               <Link to={`/Reference`}><img className="img-reference" src={solution.alt} alt={solution.alt}/></Link> 
             </div>
           );
         })}

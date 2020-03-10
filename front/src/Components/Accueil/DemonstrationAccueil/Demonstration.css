@@ -1,0 +1,26 @@
+.demo-text{
+    width: 50%;
+    margin-right: 5%;
+    padding-bottom: 1px;
+}
+
+.demo-img{
+    width: 50%;
+    margin-right: 5%;
+    padding-bottom: 1px;
+}
+
+.demo-title{
+    
+    background-color: grey;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 1px;
+}
+
+.demo-title-text{
+    text-align: left;
+    padding-left: 10%;
+    color: white;
+    text-decoration: underline;
+}
