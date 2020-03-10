@@ -21,13 +21,13 @@ class DemonstrationAccueil extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="center">
         {this.state.demonstration.length > 0 && <div className="demo-title"><h2 className="demo-title-text">{this.state.demonstration[0].title}</h2></div>}
         {this.state.demonstration.map((demonstration, index) => {
           return (
             <div key={index}>
 
-              <div className="d-flex ">
+              <div className="all-demo">
                 <div className="demo-img pt-5">
                   <img className="" src={demonstration.url} alt={demonstration.alt} />
                 </div>
