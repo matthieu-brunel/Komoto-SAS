@@ -4,6 +4,10 @@
     padding-bottom: 1px;
 }
 
+.all-demo{
+    display: flex;
+}
+
 .demo-img{
     width: 50%;
     margin-right: 5%;
@@ -23,4 +27,28 @@
     padding-left: 10%;
     color: white;
     text-decoration: underline;
+}
+
+
+
+
+@media screen and (max-width:767px) {
+
+
+.all-demo{
+    display: flex;
+    flex-direction: column;
+}
+.demo-text{
+    width: 100%;
+    
+}
+
+
+
+.demo-img{
+    width: 100%;
+    
+}
+
 }
