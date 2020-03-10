@@ -29,8 +29,10 @@ componentDidMount = async () => {
 render(){
   console.log("this.state.specialisation : ", this.state.specialisation);
   return (
-    <div className="container container-specialisation">
-      <h2 className="text-specialisation text-left p-4">Nos spécialisations</h2>
+    <div className="container-specialisation">
+      <div className="div-title-specialisation mb-5">
+        <h2 className="title-specialisation text-left">nos spécialisations</h2>
+      </div>
       <div className="container-specialisation-card row">
         {this.state.specialisation.map((specialisation, index) => {
           return (

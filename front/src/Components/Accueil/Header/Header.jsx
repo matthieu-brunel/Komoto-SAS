@@ -11,14 +11,14 @@ class HeaderAccueil extends Component {
     }
 }
 
-componentDidMount = async () => {
+ componentDidMount = async () => {
 
   let data2 = await getRessources('homepage','header');
   console.log(data2);
    this.setState({
     header:data2
   }) 
-}
+} 
 
   render(){
     return (
