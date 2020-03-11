@@ -12,19 +12,42 @@ class SavoirFaireAccueil extends Component {
   }
   componentDidMount = async () => {
     let data = await getRessources("homepage", "SavoirFaire");
-    console.log("savoirfaire : ",data);
+    console.log("savoirfaire : ", data);
     this.setState({
       SavoirFaire: data
     });
-  }; 
+  };
   render() {
     return (
       <div>
-        {this.state.SavoirFaire.length > 0 && <h2>{this.state.SavoirFaire[0].title}</h2>}
+        {this.state.SavoirFaire.length > 0 && (
+          <h2>{this.state.SavoirFaire[0].title}</h2>
+        )}
         {this.state.SavoirFaire.map((SavoirFaire, index) => {
           return (
             <div key={index}>
-               <NavLink to="/SavoirFaire">{SavoirFaire.title}</NavLink> 
+              <div>
+                <div>
+                  <img src={SavoirFaire.url} alt={SavoirFaire.alt} />
+                  <div>
+                    <p>{SavoirFaire.description}</p>
+                  </div>
+                  <div>
+                    <h2>{SavoirFaire.title}</h2>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <img src={SavoirFaire.url} alt={SavoirFaire.alt} />
+                  </div>
+                  <div>
+                    <h4>{SavoirFaire.subtitle}</h4>
+                  </div>
+                  <div>
+                    <p>{SavoirFaire.description}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           );
         })}
