@@ -29,7 +29,7 @@ class ReferenceAccueil extends Component {
         <div className="container-div-img">
         {this.state.reference.map((element, index) => (
           <div className="div-reference" key={index}>
-             <Link to={`/Reference`}><img className="img-reference" src={element.alt} alt={element.alt}/></Link> 
+             <Link to={`/Reference`}><img className="img-reference" src={element.url} alt={element.alt}/></Link> 
           </div>
         )
 

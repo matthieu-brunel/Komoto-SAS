@@ -21,15 +21,15 @@ class DemonstrationAccueil extends Component {
   };
   render() {
     return (
-      <div className="center">
+      <div className="center mb-5">
         {this.state.demonstration.length > 0 && <div className="demo-title"><h2 className="demo-title-text">{this.state.demonstration[0].title}</h2></div>}
         {this.state.demonstration.map((demonstration, index) => {
           return (
             <div key={index}>
 
-              <div className="all-demo">
+              <div className="container all-demo">
                 <div className="demo-img pt-5">
-                  <img className="" src={demonstration.url} alt={demonstration.alt} />
+                  <img className="img-demonstration" src={demonstration.url} alt={demonstration.alt} />
                 </div>
                 <div className="demo-text pt-5">
                   <div>
