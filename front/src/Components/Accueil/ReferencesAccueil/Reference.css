@@ -1,0 +1,24 @@
+.container-div-img{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.img-reference{
+    width:100%;
+}
+
+.div-title-reference{
+    background-color:grey;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 1px;
+}
+
+.title-reference{
+    text-align: left;
+    padding-left: 10%;
+    color:white;
+    text-decoration: underline;
+}

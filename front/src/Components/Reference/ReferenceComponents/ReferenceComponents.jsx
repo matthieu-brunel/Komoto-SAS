@@ -5,8 +5,7 @@ import './ReferenceComponents.css';
 
 function ReferenceComponents() {
   return (
-    <div className="">
-      
+    <div className="container container-references">
     </div>
   );
 }
