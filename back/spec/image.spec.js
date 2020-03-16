@@ -79,11 +79,16 @@ describe("test image CRUD", () => {
     );
   });
 
+
+
+
+
   it("should update image", done => {
     image.name = "new put";
     image.url = "new put";
     image.alt = "new put";
     image.section = "new put";
+    
 
     request.put(
       {
