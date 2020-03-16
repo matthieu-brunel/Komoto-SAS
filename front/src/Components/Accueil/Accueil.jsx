@@ -14,6 +14,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 function Accueil() {
   return (
     <div className="">
+
       
      <div className="vignets">
        
@@ -58,6 +59,7 @@ function Accueil() {
         <Footer />
       </div>
       </ScrollAnimation>
+
     </div>
   );
 }
