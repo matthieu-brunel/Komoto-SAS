@@ -1,0 +1,50 @@
+
+/*permet de baisser le contenu .container-savoirFaire*/
+.container-savoirFaire{
+    position: relative;
+    top: 25rem;
+}
+
+/*on injecte une image e narriere plan depuis la balise style (voir dans le render)
+ on peut regler la hauteur de l'image avec height: 100vh;
+*/
+.div-header-savoirFaire {
+    position: absolute;
+    display: flex;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 70vh;
+}
+
+/*reset des margin sinon scroll horizontal*/
+.container-savoirFaire-card{
+    margin-right:0!important;
+    margin-left:0!important;
+}
+
+/*Div vide qui sera en dessous de .container-savoirFaire
+afin de pousser le reste du contenu vers le bas
+
+*/
+.div-vide-savoirFaire{
+    height:30rem;
+    background-color: #fff;
+}
+
+.div-description-header{
+    width:100%;
+}
+
+.img-savoirfaire{
+    width:100%;
+}
+
+.card-savoirfaire{
+    width:50%;
+} 
+
+
+
+
