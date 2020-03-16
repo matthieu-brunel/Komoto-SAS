@@ -34,38 +34,38 @@ class SpecialisationAccueil extends Component {
   render() {
     console.log("this.state.specialisation : ", this.state.specialisation);
     return (
-      <div className="container-specialisation">
-        <div className="div-title-specialisation mb-5">
-          <h2 className="title-reference text-left">{this.state.specialisation.length > 0 ? this.state.specialisation[0].title : "Titre 1"}</h2>
+      <div className="">
+        <div className="">
+          <h2 className="div-title-specialisation title-specialisation">{this.state.specialisation.length > 0 ? this.state.specialisation[0].title : "Titre 1"}</h2>
         </div>
-        <div className="container-specialisation-card row">
+        <div className="container test1">
           {this.state.specialisation.map((specialisation, index) => {
             return (
-             
-             
-             
-             <div className="div-container-specialisation " key={index}>
-              
-               
-                <div class="card ffff" >
-                   <div className="div-img-specialisation">
-                  <img  src={specialisation.url} class="card-img-top img-specialisation" alt={specialisation.alt} />
-                  </div>
-                  <div class="card-body">
-                   
-                  <div className="div-titre-specialisation">
-                    <h6 class="card-title">{this.state.specialisation[index].title}</h6>
-                  </div>
-                  
-                    <div className="div-text-specialisation card-text">
-                  {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
-                </div>
-                  </div>
-               
-                </div>
 
 
-             </div>
+
+             
+
+                
+                  <div class="card p-5 mb-5 mr-5 tl-card"key={index} >
+                    <div className="div-img-spe container ">
+                      <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
+                    </div>
+                    <div class="card-body">
+
+                      <div className="">
+                        <h5 class="card-title">{this.state.specialisation[index].title}</h5>
+                      </div>
+
+                      <div className=" card-text">
+                        {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
+                      </div>
+                    </div>
+
+                  </div>
+                
+
+           
             )
           })}
         </div>
