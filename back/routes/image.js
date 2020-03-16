@@ -52,7 +52,14 @@ router.put("/:id",Auth, (req, res) => {
   const sql = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${idImage}`;
   connection.query(
     sql,
-    [image.name, image.url, image.alt, image.homepage_id, image.section, idImage],
+    [
+      image.name, 
+      image.url,
+      image.alt, 
+      image.homepage_id, 
+      image.section, 
+      idImage
+    ],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't put Image" + error);

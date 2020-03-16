@@ -1,10 +1,15 @@
 
 .div-img-specialisation{
     width:100%;
+    
+}
+
+.ffff{
+    width: 100%;
 }
 
 .img-specialisation{
-    width:30%;
+    width:20%;
 }
 
 .div-title-specialisation{
@@ -21,10 +26,7 @@
     text-decoration: underline;
 }
 
-.container-specialisation-card{
-    margin-right:0!important;
-    margin-left:0!important;
-}
+
 
 
 
