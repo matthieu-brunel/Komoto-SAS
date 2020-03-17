@@ -50,7 +50,7 @@ class SpecialisationAccueil extends Component {
 
 
 
-              <div class="card p-2 mb-5 mr-5 tl-card" key={index} >
+              <div class="card p-2  tl-card" key={index} >
                 <ScrollAnimation animateIn='fadeIn'>
                   <div className="div-img-spe container ">
                     <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
