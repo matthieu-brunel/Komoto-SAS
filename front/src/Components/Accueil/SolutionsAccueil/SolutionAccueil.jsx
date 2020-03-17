@@ -10,6 +10,7 @@ class SolutionAccueil extends Component {
       solution: []
     };
   }
+
   componentDidMount = async () => {
     let data = await getRessources("homepage", "solution");
     console.log(data);
@@ -17,7 +18,9 @@ class SolutionAccueil extends Component {
       solution: data
     });
   };
+  
   render() {
+
     return (
       <div>
         {this.state.solution.length > 0 && <div className="sol-title"><h2 className="sol-title-text">{this.state.solution[0].title}</h2></div>}
@@ -33,7 +36,7 @@ class SolutionAccueil extends Component {
                     <h5>{solution.subtitle}</h5>
                   </div>
                   <div className="pt-5">
-                    <a className="text-solution" href="solution">{solution.description}</a>
+                    <a className="text-solution" href={`/solution-${solution.subtitle.toLowerCase()}`}>{solution.description}</a>
                   </div>
                 </div>
               </div>
