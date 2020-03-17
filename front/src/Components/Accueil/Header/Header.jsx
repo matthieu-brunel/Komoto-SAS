@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/* import React, { Component } from 'react';
 import './Header.css';
 
 import getRessources from '../../../utils/getRessources';
@@ -33,4 +33,4 @@ class HeaderAccueil extends Component {
   }
 }
 
-export default HeaderAccueil;
+export default HeaderAccueil; */
