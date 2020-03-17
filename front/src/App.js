@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Accueil from './Components/Accueil/Accueil'
-import Solution from './Components/Solution/Solution';
+import SolutionKetra from './../src/Components/Solution/ketra/SolutionKetra';
 import Reference from './Components/Reference/Reference';
 import Contact from './Components/Contact/Contact';
 import Demonstration from './Components/Demonstration/Demonstration';
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Accueil} />
-        <Route exact path="/Solution" component={Solution} />
+        <Route exact path="/Solution-ketra" component={SolutionKetra} />
         <Route exact path="/Reference" component={Reference} />
         <Route exact path="/Contact" component={Contact} />
         <Route exact path="/Demonstration" component={Demonstration} />
