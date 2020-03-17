@@ -1,5 +1,9 @@
 .all{
     display: flex;
     justify-content: flex-end;
-    
+}
+
+.link-nav{
+    font-style: none;
+    color: gray;
 }
