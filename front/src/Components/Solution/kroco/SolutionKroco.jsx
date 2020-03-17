@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import './SolutionKetra.css';
-import HeaderSolutionKetra from './Header/HeaderSolutionKetra';
-import SolutionTextKetra from './SolutionText/SolutionTextKetra';
-import SolutionImageKetra from './SolutionImage/SolutionImageKetra';
-import getRessources from './../../../utils/getRessources';
+import './Solutionkroco.css';
+import HeaderSolutionkroco from './Header/HeaderSolutionKroco';
+import SolutionTextkroco from './SolutionText/SolutionTextkroco';
+import SolutionImagekroco from './SolutionImage/SolutionImageKroco';
+import getRessources from '../../../utils/getRessources';
 import NavBar from '../../NavBar/NavBar';
 import Footer from '../../Footer/Footer';
 
 
-class SolutionKetra extends Component{
+class Solutionkroco extends Component{
   constructor(props){
     super(props);
     this.state = {
-      ketra:[]
+      kroco:[]
     }
   }
 
@@ -26,11 +26,11 @@ class SolutionKetra extends Component{
     objet.description = array_description;
     objet.url = array_image;
     //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
-    this.setState({ ketra: [...this.state.ketra, objet] });
+    this.setState({ kroco: [...this.state.kroco, objet] });
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("solution", "ketra");
+    let data = await getRessources("solution", "kroco");
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }
@@ -41,9 +41,9 @@ class SolutionKetra extends Component{
       return (
           <div className="">
             <NavBar />
-            <HeaderSolutionKetra header={this.state.ketra}/>
-            <SolutionTextKetra texte={this.state.ketra}/>
-            { this.state.ketra.length > 0 && <SolutionImageKetra image={this.state.ketra[0].url}/>}
+            <HeaderSolutionkroco header={this.state.kroco}/>
+            <SolutionTextkroco texte={this.state.kroco}/>
+            { this.state.kroco.length > 0 && <SolutionImagekroco image={this.state.kroco[0].url}/>}
             <Footer />
           </div>
         );
@@ -51,4 +51,4 @@ class SolutionKetra extends Component{
 
 }
 
-export default SolutionKetra;
+export default Solutionkroco;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SolutionTextKetra.css';
+import './SolutionTextkroco.css';
 
 
 
@@ -31,11 +31,11 @@ class SolutionText extends Component {
   render(){
     const { texte } = this.props;
     return (
-        <div className="container container-solution-ketra text-left">
+        <div className="container container-solution-kroco text-left">
         {texte.map((element, index) => (
-          <div className="div-solution-ketra mb-5" key={index}>
-            <div className="div-title-solution-ketra"><h3 className="title-solution-ketra">{element.subtitle !== 'header' ? element.title : ""}</h3></div>
-            <div className="div-texte-solution-ketra">
+          <div className="div-solution-kroco mb-5" key={index}>
+            <div className="div-title-solution-kroco"><h3 className="title-solution-kroco">{element.subtitle !== 'header' ? element.title : ""}</h3></div>
+            <div className="div-texte-solution-kroco">
             <ul>
               {element.subtitle !== 'header' ? element.description.map((description, index) => (
                 <li key={index}>{description}</li>

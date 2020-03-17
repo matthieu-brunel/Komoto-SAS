@@ -1,27 +1,27 @@
-.container-image-solution-ketra{
+.container-image-solution-kroco{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.div-image-solution-ketra{
+.div-image-solution-kroco{
     width:50%;
     padding: 1rem;
 }
 
-.img-solution-ketra{
+.img-solution-kroco{
     width:100%;
 }
 
 @media screen and (max-width:767px) {
 
-    .container-image-solution-ketra{
+    .container-image-solution-kroco{
         display: flex;
         flex-direction: column;
         width: 100%;
     }
 
-    .div-image-solution-ketra{
+    .div-image-solution-kroco{
         width:100%;
         padding: 1rem;
     }
