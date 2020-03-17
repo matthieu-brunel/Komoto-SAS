@@ -22,9 +22,9 @@ function Accueil() {
        
       </div>
       
-      <div className="vignets">
+     {/*  <div className="vignets">
         <HeaderAccueil />
-      </div>
+      </div> */}
       
       
       <ScrollAnimation animateIn='fadeIn'>
