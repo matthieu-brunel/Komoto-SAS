@@ -23,7 +23,7 @@ class SolutionAccueil extends Component {
   render() {
     return (
       <div className=" ">
-        {this.state.solution.length > 0 && <div className="sol-title"><h2 className="sol-title-text">{this.state.solution[0].title}</h2></div>}
+        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title"><h2 className="sol-title-text">{this.state.solution[0].title}</h2></div>}
         {this.state.solution.map((solution, index) => {
           return (
             <div key={index} className="sol-card-all">
