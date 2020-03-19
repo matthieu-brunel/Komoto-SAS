@@ -26,20 +26,20 @@ class SavoirFaireAccueil extends Component {
   render() {
     return (
       <div className="container-header-savoirFaire">
-        <div className="div-header-savoirFaire" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${this.state.Header.length > 0 && this.state.Header[0].url})` }}>
+        {/* <div className="div-header-savoirFaire" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${this.state.Header.length > 0 && this.state.Header[0].url})` }}>
           <div className="container div-description-header d-flex justify-content-center">
-            {this.state.Header.length > 0 && <h1 className="text-center mt-5">{this.state.Header[0].description}</h1>}
+            {this.state.Header.length > 0 && <h1 className="text-center mt-5 pt-5">{this.state.Header[0].description}</h1>}
           </div>
 
-        </div>
-        <div className="container-savoirFaire">
+        </div> */}
+        <div className="container-savoirFaire ">
           {this.state.SavoirFaire.length > 0 && (
 
-            <div className="div-title-savoirFaire">
+            <div className="div-title-savoirFaire ">
              <ScrollAnimation animateIn='fadeIn'>
               <h2 className="title-savoirFaire">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
-              <div className="container-savoirFaire-card row d-flex justify-content-around">
+              <div className="container-savoirFaire-card test55 justify-content-around">
 
 
                 {this.state.SavoirFaire.map((SavoirFaire, index) => {
@@ -62,9 +62,9 @@ class SavoirFaireAccueil extends Component {
               </div>
             </div>)}
         </div>
-        <div className="div-vide-savoirFaire">
+        {/* <div className="div-vide-savoirFaire">
 
-        </div>
+        </div> */}
       </div>
     );
   }

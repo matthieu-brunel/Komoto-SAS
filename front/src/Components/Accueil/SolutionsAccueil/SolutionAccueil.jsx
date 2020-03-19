@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./SolutionAccueil.css";
 import getRessources from "../../../utils/getRessources";
-import { Link } from "react-router-dom";
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
 

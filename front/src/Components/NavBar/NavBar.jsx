@@ -19,7 +19,7 @@ const NavBar = (props) => {
 
 
   return (
-    <div className="">
+    <div className="test3">
       <Navbar color="white" light expand="xl">
         <NavbarBrand className="pl-3" href="/"><img className="" src="" alt="logo" /></NavbarBrand>
         <NavbarToggler onClick={toggle} />
