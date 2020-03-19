@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Specialisation.css';
 import getRessources from '../../../utils/getRessources';
 import { NavLink } from 'react-router-dom';
+import "animate.css/animate.min.css";
+import ScrollAnimation from 'react-animate-on-scroll';
 
 class SpecialisationAccueil extends Component {
   constructor() {
@@ -38,37 +40,44 @@ class SpecialisationAccueil extends Component {
         <div className="">
           <h2 className="div-title-specialisation title-specialisation">{this.state.specialisation.length > 0 ? this.state.specialisation[0].title : "Titre 1"}</h2>
         </div>
+
         <div className="container test1">
           {this.state.specialisation.map((specialisation, index) => {
             return (
 
 
 
-             
 
-                
-                  <div class="card p-5 mb-5 mr-5 tl-card"key={index} >
-                    <div className="div-img-spe container ">
-                      <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
-                    </div>
-                    <div class="card-body">
 
-                      <div className="">
-                        <h5 class="card-title">{this.state.specialisation[index].title}</h5>
-                      </div>
 
-                      <div className=" card-text">
-                        {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
-                      </div>
-                    </div>
-
+              <div class="card p-2  tl-card" key={index} >
+                <ScrollAnimation animateIn='fadeIn'>
+                  <div className="div-img-spe container ">
+                    <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
                   </div>
-                
+                </ScrollAnimation>
+                <div class="card-body">
+                  <ScrollAnimation animateIn='fadeIn'>
+                    <div className="">
+                      <h5 class="card-title">{this.state.specialisation[index].title}</h5>
+                    </div>
+                  </ScrollAnimation>
 
-           
+                  <ScrollAnimation animateIn='fadeIn'>
+                  <div className=" card-text">
+                    {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
+                  </div>
+                  </ScrollAnimation>
+                </div>
+
+              </div>
+
+
+
             )
           })}
         </div>
+
       </div>
     );
   }

@@ -22,3 +22,25 @@
     color:white;
     text-decoration: underline;
 }
+
+
+@media screen and (max-width:767px) {
+
+    .container-div-img{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-around;
+        flex-wrap: wrap;
+       
+    }
+
+    .img-reference{
+        width:auto;
+    }
+
+    .div-reference{
+        padding-bottom: 30px;
+        padding-top: 10px;
+    }
+
+}

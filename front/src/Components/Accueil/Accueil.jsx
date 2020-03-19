@@ -3,7 +3,7 @@ import './Accueil.css';
 import NavBar from './../NavBar/NavBar'
 import SpecialisationAccueil from './Specialisation/Specialisation';
 import HeaderAccueil from './Header/Header';
-import SavoirFaireAccueil from './Savoir-faire/Savoir-faire';
+/* import SavoirFaireAccueil from './Savoir-faire/Savoir-faire'; */
 import SolutionAccueil from './SolutionsAccueil/SolutionAccueil';
 import DemonstrationAccueil from './DemonstrationAccueil/Demonstration';
 import ReferenceAccueil from './ReferencesAccueil/Reference'
@@ -21,21 +21,22 @@ function Accueil() {
         <NavBar />
        
       </div>
-      
-{/*       <div className="vignets">
+    
+     
+      <div className="vignets">
         <HeaderAccueil />
-      </div> */}
+      </div> 
       
       
-      <ScrollAnimation animateIn='fadeIn'>
+  {/*     <ScrollAnimation animateIn='fadeIn'>
       <div className="">
         <SavoirFaireAccueil />
       </div>
-    </ScrollAnimation>
-    
+    </ScrollAnimation> */}
+   
      
     <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
+      <div className="special">
         <SpecialisationAccueil />
       </div>
       </ScrollAnimation>

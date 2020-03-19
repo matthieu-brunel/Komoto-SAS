@@ -8,7 +8,9 @@ import Footer from "./../Footer/Footer"
 function Contact() {
   return (
     <div className="">
+      <div className="sticky-wrap">
       <NavBar />
+</div>
       <ContactPage/>
       <Footer />
     </div>
