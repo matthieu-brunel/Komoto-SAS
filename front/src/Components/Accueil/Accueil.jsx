@@ -16,51 +16,43 @@ class Accueil extends Component {
 
     return (
       <div className="">
-  
-        
        <div className="vignets">
-         
           <NavBar />
-         
         </div>
-        
   {/*       <div className="vignets">
           <HeaderAccueil />
         </div> */}
         
         
         <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <SavoirFaireAccueil />
-        </div>
-      </ScrollAnimation>
+          <div className="">
+            <SavoirFaireAccueil />
+          </div>
+        </ScrollAnimation>
       
-       
-      <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <SpecialisationAccueil />
-        </div>
-        </ScrollAnimation>
-        <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <SolutionAccueil/>
-        </div>
-       </ScrollAnimation>
-        <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <DemonstrationAccueil />
-        </div>
-       </ScrollAnimation>
-        <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <ReferenceAccueil />
-        </div>
-      </ScrollAnimation>
-        <ScrollAnimation animateIn='fadeIn'>
-        <div className="">
-          <Footer />
-        </div>
-        </ScrollAnimation>
+  
+      <div className="vignets">
+        <HeaderAccueil />
+      </div> 
+      
+      
+  {/*     <ScrollAnimation animateIn='fadeIn'>
+      <div className="">
+        <SavoirFaireAccueil />
+      </div>
+    </ScrollAnimation> */}
+   
+     
+    <ScrollAnimation animateIn='fadeIn'>
+      <div className="special">
+        <SpecialisationAccueil />
+      </div>
+    </ScrollAnimation>
+    <ScrollAnimation animateIn='fadeIn'>
+      <div className="">
+        <Footer />
+      </div>
+    </ScrollAnimation>
   
       </div>
     );

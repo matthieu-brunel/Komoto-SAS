@@ -1,0 +1,6 @@
+  
+.sticky-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 5vh;
+}

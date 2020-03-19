@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import './Header.css';
-
+import SavoirFaireAccueil from './../Savoir-faire/Savoir-faire';
 import getRessources from '../../../utils/getRessources';
 
 class HeaderAccueil extends Component {
@@ -23,8 +23,16 @@ class HeaderAccueil extends Component {
   render(){
     return (
       <div className="container-div-img">
-        <div className="div-header">
-          {this.state.header.length > 0 && <img className="img-header" src={this.state.header[0].url} alt={this.state.header[0].alt}/>}
+        <div className="" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${this.state.header.length > 0 && this.state.header[0].url})` }}>
+          <div className="container div-description-header d-flex justify-content-center">
+            {this.state.header.length > 0 && <h1 className="text-center mt-5 pt-5">{this.state.header[0].description}</h1>}
+          </div>
+          <div className="test44 ">
+          <SavoirFaireAccueil />
+          </div>
+        </div>
+        <div className="div-vide-savoirFaire">
+
         </div>
       </div>
 
