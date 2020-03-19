@@ -32,7 +32,6 @@ class SpecialisationAccueil extends Component {
   }
 
   render() {
-    console.log("this.state.specialisation : ", this.state.specialisation);
     return (
       <div className="">
         <div className="">
@@ -42,19 +41,14 @@ class SpecialisationAccueil extends Component {
           {this.state.specialisation.map((specialisation, index) => {
             return (
 
-
-
-             
-
-                
-                  <div class="card p-5 mb-5 mr-5 tl-card"key={index} >
+                  <div className="card p-5 mb-5 mr-5 tl-card"key={index} >
                     <div className="div-img-spe container ">
-                      <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
+                      <img src={specialisation.url} className="card-img-top size-img " alt={specialisation.alt} />
                     </div>
-                    <div class="card-body">
+                    <div className="card-body">
 
                       <div className="">
-                        <h5 class="card-title">{this.state.specialisation[index].title}</h5>
+                        <h5 className="card-title">{this.state.specialisation[index].title}</h5>
                       </div>
 
                       <div className=" card-text">

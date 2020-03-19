@@ -1,33 +1,33 @@
-.container-header-solution-kroco{
+.container-header-solution{
     display: flex;
     padding: 1rem;
 }
 
-.div-logo-solution-kroco{
+.div-logo-solution{
     width:50%;
 }
 
-.img-logo-page-solution-kroco{
+.img-logo-page-solution{
     width:100%; 
 }
 
-.div-titre-page-solution-kroco{
+.div-titre-page-solution{
     display: flex;
     align-items: center;
 }
 
 @media screen and (max-width:767px) {
-    .container-header-solution-kroco{
+    .container-header-solution{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 1rem;
     }
-    .titre-page-solution-kroco{
+    .titre-page-solution{
         font-size: 1.5rem;
     }
 
-    .div-logo-solution-kroco{
+    .div-logo-solution{
         width:80%;
     }
 

@@ -14,7 +14,7 @@ class DemonstrationAccueil extends Component {
   }
   componentDidMount = async () => {
     let data = await getRessources("homepage", "demonstration");
-    console.log("demonstration : ", data);
+
     this.setState({
       demonstration: data
     });

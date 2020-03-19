@@ -13,11 +13,11 @@ class SavoirFaireAccueil extends Component {
   }
   componentDidMount = async () => {
     let savoirFaire = await getRessources("homepage", "SavoirFaire");
-    console.log("savoirfaire : ", savoirFaire);
+
     this.setState({SavoirFaire: savoirFaire});
 
     let header = await getRessources("homepage", "header");
-    console.log(" header : ",  header);
+ 
     this.setState({Header:  header});
   };
   render() {

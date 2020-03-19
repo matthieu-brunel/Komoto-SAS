@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import './SolutionKetra.css';
-import HeaderSolutionKetra from './Header/HeaderSolutionKetra';
-import SolutionTextKetra from './SolutionText/SolutionTextKetra';
-import SolutionImageKetra from './SolutionImage/SolutionImageKetra';
-import getRessources from './../../../utils/getRessources';
-import NavBar from '../../NavBar/NavBar';
-import Footer from '../../Footer/Footer';
+import './Solution.css';
+import HeaderSolution from './Header/HeaderSolution';
+import SolutionText from './SolutionText/SolutionText';
+import SolutionImage from './SolutionImage/SolutionImage';
+import getRessources from './../../utils/getRessources';
+import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
+import { connect } from "react-redux";
 
 
-class SolutionKetra extends Component{
+class Solution extends Component{
   constructor(props){
     super(props);
     this.state = {
-      ketra:[]
+      solution:[]
     }
   }
 
@@ -26,11 +27,14 @@ class SolutionKetra extends Component{
     objet.description = array_description;
     objet.url = array_image;
     //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
-    this.setState({ ketra: [...this.state.ketra, objet] });
+    this.setState({ solution: [...this.state.solution, objet] });
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("solution", "ketra");
+  
+    let get_data_store = await JSON.parse((await localStorage.getItem('data_store')));
+    console.log(get_data_store);
+    let data = await getRessources("solution", get_data_store.solutionSelected);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }
@@ -41,9 +45,9 @@ class SolutionKetra extends Component{
       return (
           <div className="">
             <NavBar />
-            <HeaderSolutionKetra header={this.state.ketra}/>
-            <SolutionTextKetra texte={this.state.ketra}/>
-            { this.state.ketra.length > 0 && <SolutionImageKetra image={this.state.ketra[0].url}/>}
+            <HeaderSolution header={this.state.solution}/>
+            <SolutionText texte={this.state.solution}/>
+            { this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url}/>}
             <Footer />
           </div>
         );
@@ -51,4 +55,5 @@ class SolutionKetra extends Component{
 
 }
 
-export default SolutionKetra;
+
+export default connect()(Solution);
