@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./SolutionAccueil.css";
 import getRessources from "../../../utils/getRessources";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { GET_NAME_SOLUTION_SELECTED} from './../../actionTypes';
 import "animate.css/animate.min.css";
@@ -58,12 +58,7 @@ class SolutionAccueil extends Component {
                     <NavLink to={`/solution-${solution.subtitle.toLowerCase()}`} className="text-solution" id={solution.subtitle} onClick={ this.handleClickSolution}  /* href={`/solution-${solution.subtitle.toLowerCase()}`} */ >{solution.description}</NavLink>
                   </div>
                   </ScrollAnimation>
-                  <ScrollAnimation animateIn='fadeIn'>
-                  <div className="">
-                    <a className="text-solution" href="solution">{solution.description}</a>
-                  </div>
-                  </ScrollAnimation>
-               
+
                 </div>
               </div>
             </div>

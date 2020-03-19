@@ -1,4 +1,3 @@
-import { GET_LINK_SOLUTION } from "./actionTypes";
 import { GET_NAME_SOLUTION_SELECTED } from "./actionTypes";
 
 const STORE = {

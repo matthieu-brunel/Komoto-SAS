@@ -38,7 +38,7 @@ class SolutionText extends Component {
             <div className="div-texte-solution">
             <ul>
               {element.subtitle !== 'header' ? element.description.map((description, index) => (
-                <li key={index}>{description}</li>
+                <li className="mb-3" key={index}>{description}</li>
               )) 
               : ""}
               </ul></div>

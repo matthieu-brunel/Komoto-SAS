@@ -24,11 +24,11 @@ class Accueil extends Component {
         </div> */}
         
         
-        <ScrollAnimation animateIn='fadeIn'>
+{/*         <ScrollAnimation animateIn='fadeIn'>
           <div className="">
             <SavoirFaireAccueil />
           </div>
-        </ScrollAnimation>
+        </ScrollAnimation> */}
       
   
       <div className="vignets">
@@ -48,6 +48,25 @@ class Accueil extends Component {
         <SpecialisationAccueil />
       </div>
     </ScrollAnimation>
+
+    <ScrollAnimation animateIn='fadeIn'>
+      <div className="">
+        <Footer />
+      </div>
+    </ScrollAnimation>
+
+    <ScrollAnimation animateIn='fadeIn'>
+      <div className="">
+        <SolutionAccueil />
+      </div>
+    </ScrollAnimation>
+
+    <ScrollAnimation animateIn='fadeIn'>
+      <div className="">
+        <ReferenceAccueil />
+      </div>
+    </ScrollAnimation>
+
     <ScrollAnimation animateIn='fadeIn'>
       <div className="">
         <Footer />

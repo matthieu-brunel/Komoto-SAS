@@ -43,7 +43,7 @@ class Solution extends Component{
   render(){
 
       return (
-          <div className="">
+          <div className="mt-5">
             <NavBar />
             <HeaderSolution header={this.state.solution}/>
             <SolutionText texte={this.state.solution}/>

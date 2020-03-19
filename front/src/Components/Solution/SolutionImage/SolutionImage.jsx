@@ -11,7 +11,7 @@ class SolutionImage extends Component {
       <div className="container container-image-solution">
         {image.map((image, index) => (
           <div key={index} className="div-image-solution">
-            {image != 'logo.png' ? <img  className="img-solution" src={'/images/'+image} alt={image.alt} /> : ""}
+            {image !== 'logo.png' ? <img  className="img-solution" src={'/images/'+image} alt={image.alt} /> : ""}
           </div>
         ))}
       </div>
