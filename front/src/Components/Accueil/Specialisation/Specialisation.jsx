@@ -34,7 +34,6 @@ class SpecialisationAccueil extends Component {
   }
 
   render() {
-    console.log("this.state.specialisation : ", this.state.specialisation);
     return (
       <div className="">
         <div className="">
@@ -44,11 +43,6 @@ class SpecialisationAccueil extends Component {
         <div className="container test1">
           {this.state.specialisation.map((specialisation, index) => {
             return (
-
-
-
-
-
 
               <div class="card p-2  tl-card" key={index} >
                 <ScrollAnimation animateIn='fadeIn'>
@@ -71,8 +65,6 @@ class SpecialisationAccueil extends Component {
                 </div>
 
               </div>
-
-
 
             )
           })}
