@@ -11,6 +11,7 @@ function Contact() {
         <NavBar />
       </div>
       <ContactPage />
+
       <Footer />
     </div>
   );
