@@ -16,7 +16,7 @@ class Accueil extends Component {
 
     return (
       <div className="">
-       <div className="vignets">
+       <div className="">
           <NavBar />
         </div>
   {/*       <div className="vignets">
