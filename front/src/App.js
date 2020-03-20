@@ -11,17 +11,21 @@ import { connect } from "react-redux";
 
 class App extends Component{
 
+
+
   render(){
-    const { data } = this.props;
+    let { data } = this.props;
+    
     return (
       <div className="App">
         <Switch>
+          
           <Route exact path="/" component={Accueil}/>
-          <Route exact path={data.linkSolution} component={ () => <Solution nameSolution={data.solutionSelected} />}/>
           <Route exact path="/Reference" component={Reference} />
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/Demonstration" component={Demonstration} />
           <Route exact path="/Admin" component={Admin} />
+          <Route exact path={data.linkSolution} component={Solution}/>
         </Switch>
       </div>
     );
