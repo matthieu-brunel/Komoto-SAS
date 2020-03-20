@@ -55,7 +55,7 @@ class SolutionAccueil extends Component {
                     <h5 className="sol-title-card">{solution.subtitle}</h5>
                   </div>
                   <div className="pt-5">
-                    <NavLink to={`/solution-${solution.subtitle.toLowerCase()}`} className="text-solution" id={solution.subtitle} onClick={ this.handleClickSolution}  /* href={`/solution-${solution.subtitle.toLowerCase()}`} */ >{solution.description}</NavLink>
+                    <NavLink to={`/solution-${solution.subtitle.toLowerCase()}`} className="text-solution" id={solution.subtitle} onClick={ this.handleClickSolution} >{solution.description}</NavLink>
                   </div>
                   </ScrollAnimation>
 
