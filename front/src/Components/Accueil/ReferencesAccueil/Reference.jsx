@@ -13,11 +13,26 @@ class ReferenceAccueil extends Component {
   }
 
   componentDidMount = async () => {
-    let data2 = await getRessources("homepage", "reference");
-    this.setState({
-      reference: data2
-    });
+    let data = await getRessources("homepage", "reference");
+    for (let i = 0; i < data.length; i++) {
+      this.getTextToList(data[i]);
+    }
   };
+
+  getTextToList(data) {
+    //variable objet qui servira à accueillir les données
+    let objet = data;
+    //variable array_description qui servira a convertir le contenu description en tableau grace au slash
+    let array_url = data.url.split('|');
+    let array_alt = data.alt.split('|');
+    //on remplace le contenu description de l'objet.description par la nouvelle description
+    objet.url = array_url;
+    objet.alt = array_alt;
+
+    //on met a jour le state avec la nouvelle valeur [reference=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
+    this.setState({ reference: [...this.state.reference, objet] });
+  }
+
 
   render() {
     return (
@@ -35,8 +50,8 @@ class ReferenceAccueil extends Component {
               <Link to={`/Reference`}>
                 <img
                   className="img-reference"
-                  src={element.url}
-                  alt={element.alt}
+                  src={element.url[0]}
+                  alt={element.alt[0]}
                 />
               </Link>
             </div>
