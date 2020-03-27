@@ -5,7 +5,7 @@ const multer = require("multer");
 const cors = require("cors");
 
 const api = require("./routes");
-const Auth = require("./middleware/auth")
+const Auth = require("./middleware/auth");
 
 require("dotenv").config();
 const SERVER_ADDRESS = process.env.REACT_APP_SERVER_ADDRESS;
@@ -45,8 +45,8 @@ app.post("/api/uploadFile", [Auth], (req, res) => {
       return res.status(200).send(req.file);
     }
   });
-});
- */
+}); */
+
 const server = app.listen(parseInt(SERVER_ADDRESS), () => {
   console.log(`server is listening on port ${SERVER_ADDRESS}`);
 });
