@@ -24,152 +24,128 @@ class ContactPage extends Component {
           </div>
         </form>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-8 col-lg-offset-2">
-              <form id="contact-form" method="post" action="" role="form">
-                <div className="message"></div>
-                <div className="controls"></div>
-              </form>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label for="form-société">Votre société *</label>
-                  <input
-                    id="form-société"
-                    type="text"
-                    name="société"
-                    class="form-control"
-                    placeholder="rentrer le nom de votre société *"
-                    requiered="requiered"
-                    data-errorr="société is required"
-                  ></input>
-                </div>
-              </div>
+          <label className="col-md-3 control-label" for="name">
+            Société *
+          </label>
+          <div className="">
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder=""
+              className="form-control"
+            ></input>
+          </div>
+          <div className="form-group">
+            <label className="col-6 col-md-3 control-label" for="name">
+              Nom *
+            </label>
+            <div className="">
+              <input
+                id="email"
+                name="name"
+                type="text"
+                placeholder=""
+                className="form-control"
+              ></input>
             </div>
+          </div>
+          <div className="form-group">
+            <label className="col-md-3 control-label" for="prénom">
+              Prénom
+            </label>
+            <div className="">
+              <input
+                id="email"
+                name="prénom"
+                type="text"
+                placeholder=""
+                className="form-control"
+              ></input>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-md-3 control-label" for="adresse">
+              Adresse
+            </label>
+            <div className="">
+              <input
+                id="email"
+                name="adresse"
+                type="text"
+                placeholder=""
+                className="form-control"
+              ></input>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-md-3 control-label" for="telephone">
+              Téléphone *
+            </label>
+            <div className="">
+              <input
+                id="email"
+                name="tel"
+                type="text"
+                placeholder=""
+                className="form-control"
+              ></input>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-md-3 control-label" for="email">
+              Email *
+            </label>
+            <div className="">
+              <input
+                id="email"
+                name="email"
+                type="text"
+                placeholder="ex:myname@example.fr"
+                className="form-control"
+              ></input>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-md-3 control-label" for="message">
+              Description du besoin *
+            </label>
+            <div className="">
+              <textarea
+                className="form-control"
+                id="message"
+                name="message"
+                placeholder=""
+                rows="5"
+              ></textarea>
+            </div>
+          </div>
+          <label
+            className="form-label form-label-top"
+            id="label_18"
+            for="input_18"
+          >
+            {" "}
+            Pièce jointe si nécessaire{" "}
+          </label>
+        </div>
+        <input
+          type="file"
+          id="input_18"
+          name="q18_pieceJointe"
+          className="form-upload validate[upload]"
+          data-file-accept="pdf, doc, docx, xls, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif"
+          data-file-maxsize="1024"
+          data-file-minsize="0"
+          data-file-limit="0"
+          data-component="fileupload"
+        ></input>
 
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-name">Nom *</label>
-                <input
-                  id="form-name"
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  placeholder="rentrer votre nom *"
-                  requiered="requiered"
-                  data-errorr="nom is required"
-                ></input>
-              </div>
-            </div>
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Genre
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">
-                  Mr
-                </a>
-                <a class="dropdown-item" href="#">
-                  Mme
-                </a>
-                <a class="dropdown-item" href="#">
-                  Mlle
-                </a>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-prenom">Prénom</label>
-                <input
-                  id="form-prenom"
-                  type="text"
-                  name="prenom"
-                  class="form-control"
-                  placeholder="rentrer votre prénom"
-                  requiered="requiered"
-                  data-errorr="prénom is required"
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-name">Fonction</label>
-                <input
-                  id="form-name"
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  placeholder=""
-                  requiered="requiered"
-                  data-errorr="société is required"
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-tel">Téléphone *</label>
-                <input
-                  id="form-tel"
-                  type="text"
-                  name="tel"
-                  class="form-control"
-                  placeholder="rentrer votre numéro de téléphone"
-                  requiered="requiered"
-                  data-errorr="téléphone is required"
-                ></input>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-adresse">Adresse</label>
-                <input
-                  id="form-adresse"
-                  type="text"
-                  name="adresse"
-                  class="form-control"
-                  placeholder="rentrer votre adresse "
-                  requiered="requiered"
-                  data-errorr="adresse is required"
-                ></input>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-code-postal">Code postal</label>
-                <input
-                  id="form-code-postal"
-                  type="text"
-                  name="code-postal"
-                  class="form-control"
-                  placeholder="rentrer votre code postal"
-                  requiered="requiered"
-                  data-errorr="code postal is required"
-                ></input>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group">
-                <label for="form-ville">Ville</label>
-                <input
-                  id="form-ville"
-                  type="text"
-                  name="ville"
-                  class="form-control"
-                  placeholder="rentrer votre ville"
-                  requiered="requiered"
-                  data-errorr="ville is required"
-                ></input>
-              </div>
-            </div>
+        <div className="form-group">
+          <div className="col-md-12 text-right">
+            <button type="submit" classNamen="btn btn-secondary btn-lg">
+              Soumettre
+            </button>
           </div>
         </div>
       </div>
