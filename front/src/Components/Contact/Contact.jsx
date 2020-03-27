@@ -6,13 +6,16 @@ import Footer from "./../Footer/Footer";
 
 function Contact() {
   return (
-    <div className="">
-      <div className="sticky-wrap">
+    <div className="sticky-wrap">
+      <div className="">
         <NavBar />
       </div>
-      <ContactPage />
-
-      <Footer />
+      <div>
+        <ContactPage />
+      </div>
+      <div className="sticky-footer">
+        <Footer />
+      </div>
     </div>
   );
 }

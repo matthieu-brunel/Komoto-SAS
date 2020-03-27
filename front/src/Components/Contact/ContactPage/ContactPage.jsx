@@ -11,13 +11,13 @@ class ContactPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="pt-4 mt-1">
         <form action="mail" method="post">
           <div className="border-secondary rounded-0">
             <div className="card-header p-0">
               <div className="bg-secondary text-white text-center py-2">
                 <h3>
-                  <p>Nous contacter</p>
+                  <p className="pt-4">Nous contacter</p>
                 </h3>
               </div>
             </div>
