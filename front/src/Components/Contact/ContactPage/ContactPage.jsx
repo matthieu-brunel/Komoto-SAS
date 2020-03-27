@@ -1,18 +1,183 @@
 import React, { Component } from "react";
+//import Recaptcha from "react-recaptcha";
 import "./ContactPage.css";
 import getRessources from "../../../utils/getRessources";
 import { Link } from "react-router-dom";
+const SERVER_ADRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
+console.log("SERVER_ADRESS : " + SERVER_ADRESS);
 
 class ContactPage extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      societe: "",
+      nom: "",
+      prenom: "",
+      adresse: "",
+      telephone: "",
+      email: "",
+      message: "",
+      isSent: false,
+      confirmationSent: "",
+      document: null,
+      isLoading: false,
+      isSent: false,
+      isActive: true,
+      messageIsSent: ""
+    };
+
+    //this.verifyCallback = this.verifyCallback.bind(this);
+    //this.RecaptchapLoader = this.RecaptchapLoader.bind(this);
   }
+  handlerChange = event => {
+    console.log(event.target.name);
+    switch (event.target.name) {
+      case "societe":
+        this.setState({ societe: event.target.value });
+        break;
+      case "nom":
+        this.setState({ nom: event.target.value });
+        break;
+      case "prenom":
+        this.setState({ prenom: event.target.value });
+        break;
+      case "telephone":
+        this.setState({ telephone: event.target.value });
+        break;
+      case "adresse":
+        this.setState({ adresse: event.target.value });
+        break;
+      case "email":
+        this.setState({ email: event.target.value });
+        break;
+      case "message":
+        this.setState({ message: event.target.value });
+        break;
+      default:
+        break;
+    }
+  };
+
+  handlerUploadFile = event => {
+    let file = event.target.files[0] ? event.target.files[0] : "";
+    this.setState({ document: file });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isActive: false });
+  };
+
+  handlerSubmit = event => {
+    event.preventDefault();
+
+    let file = this.state.document !== null ? this.state.document.name : "";
+
+    const content = {
+      societe: this.state.societe,
+      nom: this.state.nom,
+      prenom: this.state.prenom,
+      telephone: this.state.telephone,
+      adresse: this.state.adresse,
+      email: this.state.email,
+      message: this.state.message,
+      document: file
+    };
+
+    this.setState({ isLoading: true });
+
+    if (this.state.document !== null) {
+      const data = new FormData();
+      data.append("file", this.state.document);
+
+      fetch(SERVER_ADRESS + "/api/uploadcontact", {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        redirect: "follow",
+        referrer: "no-referrer",
+        body: data
+      }).then(res => res.json());
+    }
+
+    fetch(SERVER_ADRESS + "/api/contact", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(content)
+    })
+      .then(res => res.json())
+      .then(res =>
+        this.setState({
+          isSent: true,
+          confirmationSent: res.message,
+          societe: "",
+          nom: "",
+          prenom: "",
+          telephone: "",
+          adresse: "",
+          email: "",
+          message: "",
+          messageIsSent: res.message,
+          isLoading: false,
+          document: null,
+          isSent: true,
+          isActive: true
+        })
+      );
+  };
+
+  messageSentMail = () => {
+    return (
+      <div class="alert alert-primary" role="alert">
+        {this.state.confirmationSent}
+      </div>
+    );
+  };
 
   render() {
+    const {
+      societe,
+      nom,
+      prenom,
+      adresse,
+      telephone,
+      email,
+      message,
+      document
+    } = this.state;
+    console.log("societe : ", societe);
+    console.log("nom : ", nom);
+    console.log("prenom : ", prenom);
+    console.log("adresse : ", adresse);
+    console.log("telephone : ", telephone);
+    console.log("email : ", email);
+    console.log("message : ", message);
+    console.log("document: ", document);
+
     return (
-      <div className="pt-4 mt-1">
-        <form action="mail" method="post">
+      <div>
+        {this.state.isSent && (
+          <div
+            className={`alert alert-success ${
+              this.state.isActive ? "div-active" : "div-desactive"
+            }`}
+            role="alert"
+          >
+            {this.state.messageIsSent}
+            <div className="div-btn-success-envoi">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={this.handleCloseModal}
+              >
+                ok
+              </button>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={this.handlerSubmit}>
           <div className="border-secondary rounded-0">
             <div className="card-header p-0">
               <div className="bg-secondary text-white text-center py-2">
@@ -22,132 +187,162 @@ class ContactPage extends Component {
               </div>
             </div>
           </div>
-        </form>
-        <div className="container">
-          <label className="col-md-3 control-label" for="name">
-            Société *
-          </label>
-          <div className="">
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder=""
-              className="form-control"
-            ></input>
-          </div>
-          <div className="form-group">
-            <label className="col-6 col-md-3 control-label" for="name">
-              Nom *
+          <div className="container">
+            <label className="col-md-3 control-label" for="societe">
+              societe *
             </label>
             <div className="">
               <input
-                id="email"
-                name="name"
+                id="societe"
+                name="societe"
                 type="text"
                 placeholder=""
                 className="form-control"
+                value={this.state.societe}
+                onChange={this.handlerChange}
+                required="required"
+                data-error="societe is required."
               ></input>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-md-3 control-label" for="prénom">
-              Prénom
-            </label>
-            <div className="">
-              <input
-                id="email"
-                name="prénom"
-                type="text"
-                placeholder=""
-                className="form-control"
-              ></input>
+            <div className="form-group">
+              <label className="col-6 col-md-3 control-label" for="name">
+                Nom *
+              </label>
+              <div className="">
+                <input
+                  id="nom"
+                  name="nom"
+                  type="text"
+                  placeholder=""
+                  className="form-control"
+                  value={this.state.nom}
+                  onChange={this.handlerChange}
+                  required="required"
+                  data-error="nom is required."
+                ></input>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-md-3 control-label" for="adresse">
-              Adresse
-            </label>
-            <div className="">
-              <input
-                id="email"
-                name="adresse"
-                type="text"
-                placeholder=""
-                className="form-control"
-              ></input>
+            <div className="form-group">
+              <label className="col-md-3 control-label" for="prenom">
+                prenom
+              </label>
+              <div className="">
+                <input
+                  id="prenom"
+                  name="prenom"
+                  type="text"
+                  placeholder=""
+                  className="form-control"
+                  value={this.state.prenom}
+                  onChange={this.handlerChange}
+                ></input>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-md-3 control-label" for="telephone">
-              Téléphone *
-            </label>
-            <div className="">
-              <input
-                id="email"
-                name="tel"
-                type="text"
-                placeholder=""
-                className="form-control"
-              ></input>
+            <div className="form-group">
+              <label className="col-md-3 control-label" for="adresse">
+                Adresse
+              </label>
+              <div className="">
+                <input
+                  id="adresse"
+                  name="adresse"
+                  type="text"
+                  placeholder=""
+                  className="form-control"
+                  value={this.state.adresse}
+                  onChange={this.handlerChange}
+                ></input>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-md-3 control-label" for="email">
-              Email *
-            </label>
-            <div className="">
-              <input
-                id="email"
-                name="email"
-                type="text"
-                placeholder="ex:myname@example.fr"
-                className="form-control"
-              ></input>
+            <div className="form-group">
+              <label className="col-md-3 control-label" for="telephone">
+                telephone *
+              </label>
+              <div className="">
+                <input
+                  id="telephone"
+                  name="telephone"
+                  type="text"
+                  placeholder=""
+                  className="form-control"
+                  value={this.state.telephone}
+                  onChange={this.handlerChange}
+                  required="required"
+                  data-error="telephone is required."
+                ></input>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-md-3 control-label" for="message">
-              Description du besoin *
-            </label>
-            <div className="">
-              <textarea
-                className="form-control"
-                id="message"
-                name="message"
-                placeholder=""
-                rows="5"
-              ></textarea>
+            <div className="form-group">
+              <label className="col-md-3 control-label" for="email">
+                Email *
+              </label>
+              <div className="">
+                <input
+                  id="email"
+                  name="email"
+                  type="text"
+                  placeholder="ex:myname@example.fr"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handlerChange}
+                  required="required"
+                  data-error="email is required."
+                ></input>
+              </div>
             </div>
+            <div className="form-group">
+              <label className="col-md-3 control-label" for="message">
+                Description du besoin *
+              </label>
+              <div className="">
+                <textarea
+                  className="form-control"
+                  value={this.state.message}
+                  onChange={this.handlerChange}
+                  id="message"
+                  name="message"
+                  placeholder=""
+                  rows="5"
+                  required="required"
+                  data-error="message is required."
+                ></textarea>
+              </div>
+            </div>
+            <label
+              className="form-label form-label-top"
+              id="label_18"
+              for="input_18"
+            >
+              {" "}
+              Pièce jointe si nécessaire{" "}
+            </label>
           </div>
-          <label
-            className="form-label form-label-top"
-            id="label_18"
-            for="input_18"
-          >
-            {" "}
-            Pièce jointe si nécessaire{" "}
-          </label>
-        </div>
-        <input
-          type="file"
-          id="input_18"
-          name="q18_pieceJointe"
-          className="form-upload validate[upload]"
-          data-file-accept="pdf, doc, docx, xls, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif"
-          data-file-maxsize="1024"
-          data-file-minsize="0"
-          data-file-limit="0"
-          data-component="fileupload"
-        ></input>
+          <input
+            type="file"
+            name="file"
+            className="form-upload validate[upload]"
+            data-file-accept="pdf, doc, docx, xls, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif"
+            data-file-maxsize="1024"
+            data-file-minsize="0"
+            data-file-limit="0"
+            onChange={this.handlerUploadFile}
+          ></input>
 
-        <div className="form-group">
-          <div className="col-md-12 text-right">
-            <button type="submit" classNamen="btn btn-secondary btn-lg">
+          {this.state.isLoading ? (
+            <button class="btn btn-primary btn-lg" type="button" disabled>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Envoi en cours
+            </button>
+          ) : (
+            <button type="submit" className="btn btn-secondary btn-lg">
               Soumettre
             </button>
-          </div>
-        </div>
+          )}
+        </form>
       </div>
     );
   }
