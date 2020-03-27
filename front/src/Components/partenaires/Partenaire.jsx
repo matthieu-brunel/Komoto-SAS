@@ -1,19 +1,21 @@
 import React from 'react';
-import './Reference.css';
-import ReferenceComponents from './ReferenceComponents/ReferenceComponents';
+import './Partenaire.css';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 
-function Reference() {
+
+
+
+function Partenaire() {
   return (
     <div className="sticky-wrap">
       <NavBar />
-      <ReferenceComponents/>
-     <div className="sticky-footer">
+      
+      <div className="sticky-wrap">
       <Footer />
       </div>
     </div>
   );
 }
 
-export default Reference;
+export default Partenaire;

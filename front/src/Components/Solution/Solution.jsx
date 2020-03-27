@@ -43,12 +43,14 @@ class Solution extends Component{
   render(){
 
       return (
-          <div className="mt-5">
+          <div className="mt-5 sticky-wrap">
             <NavBar />
             <HeaderSolution header={this.state.solution}/>
             <SolutionText texte={this.state.solution}/>
             { this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url}/>}
+            <div className="sticky-footer">
             <Footer />
+            </div>
           </div>
         );
   }
