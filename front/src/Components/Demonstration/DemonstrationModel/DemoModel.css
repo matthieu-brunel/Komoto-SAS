@@ -1,0 +1,23 @@
+.show-title{
+    
+    background-color: grey;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 1px;
+}
+
+.show-title-text{
+    text-align: left;
+    padding-left: 10%;
+    color: white;
+    text-decoration: underline;
+}
+
+.img-show{
+
+    width: 100%;
+}
+
+.description-show{
+    width: 25%;
+}

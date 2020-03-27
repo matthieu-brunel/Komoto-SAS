@@ -31,6 +31,20 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
+  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, i.name, i.url, i.alt, i.section FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id WHERE d.section='demonstration_model' AND i.section='demonstration_model'`;
+  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
+    console.log(req.query)
+    if (error) {
+      res.status(501).send("couldn't get demonstration");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+
+router.get("/", (req, res) => {
   const sql = "SELECT * FROM demonstration";
   connection.query(sql, (error, results, fields) => {
     if (error) {

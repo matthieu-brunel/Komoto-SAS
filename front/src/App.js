@@ -8,6 +8,8 @@ import Demonstration from './Components/Demonstration/Demonstration';
 import Admin from './Components/Admin/Admin';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from "react-redux";
+import Mention from "./Components/Mention/Mention";
+import Partenaire from './Components/partenaires/Partenaire';
 
 class App extends Component{
 
@@ -25,6 +27,8 @@ class App extends Component{
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/Demonstration" component={Demonstration} />
           <Route exact path="/Admin" component={Admin} />
+          <Route exact path="/Mention" component={Mention} />
+          <Route exact path="/Partenaire" component={Partenaire} />
           <Route exact path={data.linkSolution} component={Solution}/>
         </Switch>
       </div>

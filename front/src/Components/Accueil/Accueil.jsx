@@ -15,8 +15,8 @@ class Accueil extends Component {
   render(){
 
     return (
-      <div className="">
-       <div className="vignets">
+      <div className="sticky-wrap">
+       <div className="">
           <NavBar />
         </div>
   {/*       <div className="vignets">
@@ -49,11 +49,7 @@ class Accueil extends Component {
       </div>
     </ScrollAnimation>
 
-    <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <Footer />
-      </div>
-    </ScrollAnimation>
+   
 
     <ScrollAnimation animateIn='fadeIn'>
       <div className="">
@@ -67,11 +63,11 @@ class Accueil extends Component {
       </div>
     </ScrollAnimation>
 
-    <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
+   
+      <div className="sticky-footer">
         <Footer />
       </div>
-    </ScrollAnimation>
+   
   
       </div>
     );
