@@ -3,6 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express();
 const nodemailer = require("nodemailer");
+const email_emetteur = process.env.EMAIL_EXPEDITEUR;
+const password_emetteur = process.env.PASSWORD;
+const email_destinataire = process.env.EMAIL_DESTINATAIRE;
 
 router.use(bodyParser.json());
 router.use(
@@ -15,8 +18,8 @@ let smtp = {
   service: "gmail",
   host: "smtp.gmail.com",
   auth: {
-    user: "morthis1014@gmail.com",
-    pass: "morthis1014"
+    user: email_emetteur,
+    pass: password_emetteur
   }
 };
 
@@ -48,8 +51,8 @@ router.post("/", (req, res) => {
   if (document !== "") {
     // send mail with defined transport object
     var mailOptions = {
-      from: "morthis1014@gmail.com", // adresse email expediteur
-      to: "b_jayson@hotmail.com", // adresse email receptionnaire
+      from: email_emetteur, // adresse email expediteur
+      to: email_destinataire, // adresse email receptionnaire
       subject: " contact " + req.body.nom, // Subject line
       html: body_mail,
       attachments: [
@@ -62,8 +65,8 @@ router.post("/", (req, res) => {
   } else {
     // send mail with defined transport object
     var mailOptions = {
-      from: "morthis1014@gmail.com", // adresse email expediteur
-      to: "b_jayson@hotmail.com", // adresse email receptionnaire
+      from: email_emetteur, // adresse email expediteur
+      to: email_destinataire, // adresse email receptionnaire
       subject: " contact " + req.body.nom, // Subject line
       html: body_mail
     };

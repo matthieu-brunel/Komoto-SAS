@@ -23,7 +23,9 @@ class ContactPage extends Component {
       isLoading: false,
       isSent: false,
       isActive: true,
-      messageIsSent: ""
+      messageIsSent: "",
+      isTooHeavy: false,
+      message_too_heavy: "Format non pris en charge ou fichier trop lourd."
     };
 
     //this.verifyCallback = this.verifyCallback.bind(this);
@@ -59,12 +61,43 @@ class ContactPage extends Component {
   };
 
   handlerUploadFile = event => {
+    const format_type = [
+      "application/pdf",
+      "application/doc",
+      "application/docx",
+      "application/xls",
+      "application/csv",
+      "application/txt",
+      "application/rtf",
+      "application/html",
+      "application/zip",
+      "audio/mp3",
+      "video/wma",
+      "video/mpg",
+      "video/flv",
+      "video/avi",
+      "image/jpg",
+      "image/jpeg",
+      "image/png",
+      "image/gif"
+    ];
+
     let file = event.target.files[0] ? event.target.files[0] : "";
-    this.setState({ document: file });
+
+    if (
+      format_type.includes(event.target.files[0].type) &&
+      event.target.files[0].size <= 2000000
+    ) {
+      alert("ok");
+      this.setState({ document: file });
+    } else {
+      this.setState({ isTooHeavy: true });
+      event.target.value = "";
+    }
   };
 
   handleCloseModal = () => {
-    this.setState({ isActive: false });
+    this.setState({ isActive: false, isTooHeavy: false });
   };
 
   handlerSubmit = event => {
@@ -129,7 +162,7 @@ class ContactPage extends Component {
 
   messageSentMail = () => {
     return (
-      <div class="alert alert-primary" role="alert">
+      <div class="alert alert-secondary" role="alert">
         {this.state.confirmationSent}
       </div>
     );
@@ -159,16 +192,36 @@ class ContactPage extends Component {
       <div>
         {this.state.isSent && (
           <div
-            className={`alert alert-success ${
+            className={`${
               this.state.isActive ? "div-active" : "div-desactive"
             }`}
-            role="alert"
           >
-            {this.state.messageIsSent}
-            <div className="div-btn-success-envoi">
+            <h5 className="text-alert-success">{this.state.messageIsSent}</h5>
+            <div className="div-btn-secondary-envoi mt-3">
               <button
                 type="button"
-                className="btn btn-secondary btn-sm"
+                className="btn btn-secondary btn-sm "
+                onClick={this.handleCloseModal}
+              >
+                ok
+              </button>
+            </div>
+          </div>
+        )}
+
+        {this.state.isTooHeavy && (
+          <div
+            className={`${
+              this.state.isActive ? "div-active" : "div-desactive"
+            }`}
+          >
+            <h5 className="text-alert-success">
+              {this.state.message_too_heavy}
+            </h5>
+            <div className="div-btn-secondary-envoi mt-3">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm "
                 onClick={this.handleCloseModal}
               >
                 ok
@@ -321,15 +374,11 @@ class ContactPage extends Component {
             type="file"
             name="file"
             className="form-upload validate[upload]"
-            data-file-accept="pdf, doc, docx, xls, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif"
-            data-file-maxsize="1024"
-            data-file-minsize="0"
-            data-file-limit="0"
             onChange={this.handlerUploadFile}
           ></input>
 
           {this.state.isLoading ? (
-            <button class="btn btn-primary btn-lg" type="button" disabled>
+            <button class="btn btn-secondary btn-lg" type="button" disabled>
               <span
                 class="spinner-border spinner-border-sm"
                 role="status"
