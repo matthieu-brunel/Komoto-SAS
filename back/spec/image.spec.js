@@ -15,10 +15,9 @@ describe("test image CRUD", () => {
     name: "test_name",
     url: "test_url",
     alt: "test_alt",
+    homepage_id:1,
     section : "test_section"
   };
-
-
 
 
 
