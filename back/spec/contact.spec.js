@@ -35,7 +35,7 @@ describe("test formulaire (POST)", () => {
     done();
   });
 
-  fit("post contact", done => {
+  it("post contact", done => {
     request(
       {
         method: "post",
@@ -66,7 +66,7 @@ describe("test formulaire (POST)", () => {
     );
   });
 
-  fit("post contact", done => {
+  it("post contact", done => {
     formulaire.document = "";
     request(
       {
@@ -102,7 +102,7 @@ describe("test formulaire (POST)", () => {
     if (formulaire.document !== "") {
       fs.unlink("./public/documents/" + formulaire.document, err => {
         if (err) throw err;
-        console.log("successfully deleted");
+        //console.log("successfully deleted");
       });
     }
     done();
