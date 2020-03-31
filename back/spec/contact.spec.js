@@ -20,7 +20,6 @@ describe("test formulaire (POST)", () => {
   };
 
   beforeAll(done => {
-    console.log("beforeAll");
     server = require("../server");
 
     fs.open("./public/documents/" + formulaire.document, "wx", (err, fd) => {
@@ -36,8 +35,7 @@ describe("test formulaire (POST)", () => {
     done();
   });
 
-  it("post contact", done => {
-    console.log("TRAITEMENT DU TEST CONTACT AVEC PIECE JOINTE");
+  fit("post contact", done => {
     request(
       {
         method: "post",
@@ -68,8 +66,7 @@ describe("test formulaire (POST)", () => {
     );
   });
 
-  it("post contact", done => {
-    console.log("TRAITEMENT DU TEST CONTACT SANS PIECE JOINTE");
+  fit("post contact", done => {
     formulaire.document = "";
     request(
       {
@@ -108,7 +105,6 @@ describe("test formulaire (POST)", () => {
         console.log("successfully deleted");
       });
     }
-    console.log("afterEach");
     done();
   });
 });
