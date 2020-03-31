@@ -14,7 +14,7 @@ describe("test mail CRUD", () => {
   const mail = {
     category: "test_category",
     description: "test_description",
-    mail_destinataire:'mail destinaire'
+    date:'mail destinaire'
   };
 
 
@@ -47,7 +47,6 @@ describe("test mail CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail",
-        headers: {authorization: 'Bearer ' + token},
         body: mail
       },
       (error, response, body) => {
@@ -57,7 +56,7 @@ describe("test mail CRUD", () => {
         mail.id = body.id;
         expect(data.category).toBe(mail.category);
         expect(data.description).toBe(mail.description);
-        expect(data.mail_destinataire).toBe(mail.mail_destinataire);
+        expect(data.date).toBe(mail.date);
         done();
       }
     );
@@ -68,7 +67,8 @@ describe("test mail CRUD", () => {
       {
         method: "get",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/mail"
+        url: SERVER_ADDRESS_FULL + "/api/mail",
+        headers: {authorization: 'Bearer ' + token}
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
@@ -80,7 +80,7 @@ describe("test mail CRUD", () => {
   it("should update mail", done => {
     mail.category = "new put";
     mail.description = "new put";
-    mail.mail_destinataire = "new put";
+    mail.date = "new put";
 
     request.put(
       {
@@ -93,7 +93,7 @@ describe("test mail CRUD", () => {
       (error, response, body) => {
         expect(body.category).toBe(mail.category);
         expect(body.description).toBe(mail.description);
-        expect(body.mail_destinataire).toBe(mail.mail_destinataire);
+        expect(body.date).toBe(mail.date);
         done();
       }
     );

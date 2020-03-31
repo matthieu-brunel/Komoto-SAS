@@ -101,7 +101,7 @@ describe("test solution CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
+
         expect(body.subtitle).toBe(solution.subtitle);
         expect(body.title).toBe(solution.title);
         expect(body.section).toBe(solution.section);

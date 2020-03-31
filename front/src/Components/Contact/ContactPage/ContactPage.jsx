@@ -84,20 +84,22 @@ class ContactPage extends Component {
 
     let file = event.target.files[0] ? event.target.files[0] : "";
 
-    if (
-      format_type.includes(event.target.files[0].type) &&
-      event.target.files[0].size <= 2000000
-    ) {
-      alert("ok");
+    if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
+     
       this.setState({ document: file });
     } else {
       this.setState({ isTooHeavy: true });
       event.target.value = "";
+      this.setState({isActive:true});
     }
   };
 
   handleCloseModal = () => {
     this.setState({ isActive: false, isTooHeavy: false });
+  };
+
+  handleCloseModalSentContact = () => {
+    window.location.reload();
   };
 
   handlerSubmit = event => {
@@ -140,7 +142,7 @@ class ContactPage extends Component {
       body: JSON.stringify(content)
     })
       .then(res => res.json())
-      .then(res =>
+      .then(res => {
         this.setState({
           isSent: true,
           confirmationSent: res.message,
@@ -156,7 +158,12 @@ class ContactPage extends Component {
           document: null,
           isSent: true,
           isActive: true
-        })
+        });
+
+
+      }
+
+        
       );
   };
 
@@ -190,46 +197,6 @@ class ContactPage extends Component {
 
     return (
       <div>
-        {this.state.isSent && (
-          <div
-            className={`${
-              this.state.isActive ? "div-active" : "div-desactive"
-            }`}
-          >
-            <h5 className="text-alert-success">{this.state.messageIsSent}</h5>
-            <div className="div-btn-secondary-envoi mt-3">
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm "
-                onClick={this.handleCloseModal}
-              >
-                ok
-              </button>
-            </div>
-          </div>
-        )}
-
-        {this.state.isTooHeavy && (
-          <div
-            className={`${
-              this.state.isActive ? "div-active" : "div-desactive"
-            }`}
-          >
-            <h5 className="text-alert-success">
-              {this.state.message_too_heavy}
-            </h5>
-            <div className="div-btn-secondary-envoi mt-3">
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm "
-                onClick={this.handleCloseModal}
-              >
-                ok
-              </button>
-            </div>
-          </div>
-        )}
-
         <form onSubmit={this.handlerSubmit}>
           <div className="border-secondary rounded-0">
             <div className="card-header p-0">
@@ -361,6 +328,36 @@ class ContactPage extends Component {
                 ></textarea>
               </div>
             </div>
+
+            {/* [début:popup sent contact] quand le formulaire s'est correctement envoyé */}
+            {this.state.isSent && (
+          <div
+            className={`${
+              this.state.isActive ? "div-active" : "div-desactive"
+            }`}
+          >
+            <span className="text-alert-success">{this.state.messageIsSent}</span>{" "}
+            <button type="button" className="btn btn-success btn-sm" onClick={this.handleCloseModalSentContact}>ok</button></div>
+        )}
+             {/* [fin:popup sent contact] */}
+
+
+            {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
+            {this.state.isTooHeavy && (
+          <div
+            className={`${
+              this.state.isActive ? "div-active-error" : "div-desactive-error"
+            }`}
+          >
+            <span className="text-alert-error">
+              {this.state.message_too_heavy}
+            </span>
+            {" "}<button type="button" className="btn btn-danger btn-sm" onClick={this.handleCloseModal}>ok</button>
+          </div>
+        )}
+          {/* [fin:popup error] */}
+
+
             <label
               className="form-label form-label-top"
               id="label_18"
@@ -378,9 +375,9 @@ class ContactPage extends Component {
           ></input>
 
           {this.state.isLoading ? (
-            <button class="btn btn-secondary btn-lg" type="button" disabled>
+            <button className="btn btn-secondary btn-lg" type="button" disabled>
               <span
-                class="spinner-border spinner-border-sm"
+                className="spinner-border spinner-border-sm"
                 role="status"
                 aria-hidden="true"
               ></span>
@@ -392,6 +389,9 @@ class ContactPage extends Component {
             </button>
           )}
         </form>
+{/*         <div class="alert alert-success" role="alert">
+          This is a danger alert—check it out!
+        </div> */}
       </div>
     );
   }

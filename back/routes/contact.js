@@ -6,6 +6,8 @@ const nodemailer = require("nodemailer");
 const email_emetteur = process.env.EMAIL_EXPEDITEUR;
 const password_emetteur = process.env.PASSWORD;
 const email_destinataire = process.env.EMAIL_DESTINATAIRE;
+const SERVER_ADDRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
+const fetch = require("node-fetch");
 
 router.use(bodyParser.json());
 router.use(
@@ -24,6 +26,28 @@ let smtp = {
 };
 
 let transporter = nodemailer.createTransport(smtp);
+
+function save_mail(content){
+  let date = new Date();
+  date.setTime( date.getTime() - new Date().getTimezoneOffset()*60*1000 );
+  const data = {
+    category:'mail',
+    description:JSON.stringify(content),
+    date: date
+  }
+
+  fetch(SERVER_ADDRESS + '/api/mail',
+  {
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+    method:'POST',
+    body:JSON.stringify(data)
+  })
+  .then(res => res.json())
+} 
+
 
 router.post("/", (req, res) => {
   const societe = req.body.societe;
@@ -48,6 +72,9 @@ router.post("/", (req, res) => {
        </div>
         `;
 
+  save_mail(req.body);
+
+  
   if (document !== "") {
     // send mail with defined transport object
     var mailOptions = {

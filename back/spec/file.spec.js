@@ -45,7 +45,7 @@ describe("test file CRUD", () => {
   });
 
 
-  it("post file", done => {
+ it("post file", done => {
     request(
       {
         method: "post",
@@ -55,10 +55,10 @@ describe("test file CRUD", () => {
         body: file
       },
       (error, response, body) => {
+
         expect(response.statusCode).toBe(200);
-
         obj.id = body.id;
-
+   
         data = body;
 
         file.id = body.id;
@@ -75,7 +75,8 @@ describe("test file CRUD", () => {
       {
         method: "get",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/file"
+        url: SERVER_ADDRESS_FULL + "/api/file",
+        headers: {authorization: 'Bearer ' + token},
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
