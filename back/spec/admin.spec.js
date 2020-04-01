@@ -7,6 +7,8 @@ let obj = {
   id: null
 };
 
+let token;
+
 describe("test admin CRUD", () => {
   let server = null;
   let data = {};

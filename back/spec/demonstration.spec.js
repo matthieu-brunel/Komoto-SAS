@@ -103,7 +103,7 @@ describe("test demonstration CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
+        //console.log("PUT", body);
         expect(body.subtitle).toBe(demonstration.subtitle);
         expect(body.title).toBe(demonstration.title);
         expect(body.section).toBe(demonstration.section);
