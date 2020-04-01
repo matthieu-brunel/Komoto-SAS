@@ -56,7 +56,7 @@ class Reference extends Component {
   
 
   render(){
-    const { reference } = this.state;
+    const { reference } = this.state; 
     console.log(reference);
     return (
       <div className="">

@@ -8,7 +8,7 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
   const sql =
-    "INSERT INTO demonstration (subtitle, title, section, description, model_url) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO demonstration (subtitle, title, section, description, model_url , model_alt) VALUES (?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -16,7 +16,8 @@ router.post("/",Auth, (req, res) => {
       demonstration.title,
       demonstration.section,
       demonstration.description,
-      demonstration.model_url
+      demonstration.model_url,
+      demonstration.model_alt
     ],
     (error, results, fields) => {
       if (error) {
@@ -31,7 +32,7 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, i.name, i.url, i.alt, i.section FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id WHERE d.section='demonstration_model' AND i.section='demonstration_model'`;
+  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, d.model_alt, i.name, i.url, i.alt, i.section FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id WHERE d.section='demonstration_model' AND i.section='demonstration_model'`;
   connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
     console.log(req.query)
     if (error) {
@@ -70,7 +71,7 @@ router.put("/:id",Auth, (req, res) => {
   const demonstration = req.body;
 
   console.log("text", req.body);
-  const sql = `UPDATE demonstration SET subtitle=?, title=?, section=?, description=?, model_url=? WHERE id=${idDemonstration}`;
+  const sql = `UPDATE demonstration SET subtitle=?, title=?, section=?, description=?, model_url=? , model_alt=? WHERE id=${idDemonstration}`;
   connection.query(
     sql,
     [
@@ -79,6 +80,7 @@ router.put("/:id",Auth, (req, res) => {
       demonstration.section,
       demonstration.description,
       demonstration.model_url,
+      demonstration.model_alt,
       idDemonstration
     ],
     (error, results, fields) => {
@@ -102,3 +104,6 @@ router.delete("/:id",Auth, (req, res) => {
   });
 });
 module.exports = router;
+
+
+

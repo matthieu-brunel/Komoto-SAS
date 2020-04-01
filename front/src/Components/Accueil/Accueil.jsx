@@ -36,12 +36,9 @@ class Accueil extends Component {
       </div> 
       
       
-  {/*     <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <SavoirFaireAccueil />
-      </div>
-    </ScrollAnimation> */}
-   
+ 
+    
+
      
     <ScrollAnimation animateIn='fadeIn'>
       <div className="special">
@@ -54,6 +51,12 @@ class Accueil extends Component {
     <ScrollAnimation animateIn='fadeIn'>
       <div className="">
         <SolutionAccueil />
+      </div>
+    </ScrollAnimation>
+
+<ScrollAnimation animateIn='fadeIn'>
+      <div className="special">
+      <DemonstrationAccueil/>
       </div>
     </ScrollAnimation>
 
