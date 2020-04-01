@@ -21,6 +21,16 @@ router.post("/",(req, res) => {
         } else {
           req.body.id = results.insertId;
           res.json(req.body);
+          if(req.body){
+            let sql = `DELETE FROM mail WHERE date <= DATE_ADD(NOW(),INTERVAL -3 MONTH)`;
+            connection.query(sql, true, (error, results, fields) => {
+              if (error) {
+                return console.error(error.message);
+              }else{
+                res.json(results[0]);
+              }
+            });
+          }
         }
       }
     );
