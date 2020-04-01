@@ -6,7 +6,6 @@ const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
 router.post("/",(req, res) => {
-  //console.log("req.body : ", req.body);
     const mail = req.body;
     const sql = "INSERT INTO mail (category, description, date) VALUES (? , ? , ?)";
     connection.query(
@@ -22,13 +21,23 @@ router.post("/",(req, res) => {
         } else {
           req.body.id = results.insertId;
           res.json(req.body);
+          if(req.body){
+            let sql = `DELETE FROM mail WHERE date <= DATE_ADD(NOW(),INTERVAL -3 MONTH)`;
+            connection.query(sql, true, (error, results, fields) => {
+              if (error) {
+                return console.error(error.message);
+              }else{
+                res.json(results[0]);
+              }
+            });
+          }
         }
       }
     );
   });
 
 
-  router.get("/", Auth, (req, res) => {
+  router.get("/",Auth, (req, res) => {
     const sql = "SELECT * FROM mail";
     connection.query(sql, (error, results, fields) => {
       if (error) {

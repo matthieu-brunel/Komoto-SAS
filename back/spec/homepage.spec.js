@@ -100,7 +100,7 @@ describe("test homepage CRUD", () => {
       },
 
       (error, response, body) => {
-      
+        //console.log("PUT", body);
         expect(body.subtitle).toBe(homepage.subtitle);
         expect(body.title).toBe(homepage.title);
         expect(body.section).toBe(homepage.section);

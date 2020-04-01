@@ -18,8 +18,6 @@ describe("test mail CRUD", () => {
   };
 
 
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(
@@ -50,6 +48,7 @@ describe("test mail CRUD", () => {
         body: mail
       },
       (error, response, body) => {
+        //console.log("body",body);
         expect(response.statusCode).toBe(200);
         obj.id = body.id;
         data = body;

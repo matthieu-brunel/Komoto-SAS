@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const moment = require("moment");
 const bodyParser = require("body-parser");
 const router = express();
 const nodemailer = require("nodemailer");
@@ -29,7 +30,8 @@ let transporter = nodemailer.createTransport(smtp);
 
 function save_mail(content){
   let date = new Date();
-  date.setTime( date.getTime() - new Date().getTimezoneOffset()*60*1000 );
+  date = moment(date.getTime()).format('YYYY-MM-DD hh:mm:ss');
+
   const data = {
     category:'mail',
     description:JSON.stringify(content),
@@ -99,7 +101,7 @@ router.post("/", (req, res) => {
     };
   }
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error, info) => { 
     if (error) {
       res.status(501).send(error.message);
     } else {

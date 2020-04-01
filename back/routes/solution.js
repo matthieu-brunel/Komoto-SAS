@@ -70,7 +70,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idsolution = req.params.id;
   const solution = req.body;
-  console.log("text", req.body);
+  //console.log("text", req.body);
   const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,

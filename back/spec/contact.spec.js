@@ -1,6 +1,6 @@
 const request = require("request");
 require("dotenv").config();
-var fs = require('fs-js');
+var fs = require("fs-js");
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -16,21 +16,21 @@ describe("test formulaire (POST)", () => {
     telephone: "test_telephone",
     email: "test_email",
     message: "test_message",
-    document: "test_image.jpg",
+    document: "test_image.jpg"
   };
 
-   beforeAll(done => {
+  beforeAll(done => {
     server = require("../server");
-  
-    fs.open('./public/documents/' + formulaire.document, 'wx', (err, fd) => {
-        if (err) {
-            if (err.code === 'EEXIST') {
-            console.error('myfile already exists');
-            return;
-            }
-            throw err;
+
+    fs.open("./public/documents/" + formulaire.document, "wx", (err, fd) => {
+      if (err) {
+        if (err.code === "EEXIST") {
+          console.error("myfile already exists");
+          return;
         }
-        });
+        throw err;
+      }
+    });
 
     done();
   });
@@ -47,7 +47,7 @@ describe("test formulaire (POST)", () => {
         if (error) {
           expect(response.statusCode).toBe(501);
         } else {
-            let data = JSON.parse(response.request.body);
+          let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
           expect(response.body.message).toBe("Votre demande de contact a bien été envoyée.");
           expect(data.societe).toBe(formulaire.societe);
@@ -57,13 +57,12 @@ describe("test formulaire (POST)", () => {
           expect(data.telephone).toBe(formulaire.telephone);
           expect(data.email).toBe(formulaire.email);
           expect(data.message).toBe(formulaire.message);
-          expect(data.document).toBe(formulaire.document); 
+          expect(data.document).toBe(formulaire.document);
         }
         done();
       }
     );
   });
-
 
   it("post contact", done => {
     formulaire.document = "";
@@ -96,13 +95,12 @@ describe("test formulaire (POST)", () => {
   });
 
   afterEach(done => {
-    if(formulaire.document !== ""){
-        fs.unlink('./public/documents/' + formulaire.document, (err) => {
-            if (err) throw err;
-            //console.log('successfully deleted');
-        });
+    if (formulaire.document !== "") {
+      fs.unlink("./public/documents/" + formulaire.document, err => {
+        if (err) throw err;
+        //console.log("successfully deleted");
+      });
     }
     done();
-  })
-
+  });
 });
