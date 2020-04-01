@@ -14,10 +14,15 @@
 }
 
 .img-show{
-
-    width: 100%;
+     width: 100%;
 }
 
 .description-show{
     width: 25%;
+}
+
+
+.md-show{
+    width: 100%;
+    height: 700px;
 }
