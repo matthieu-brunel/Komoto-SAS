@@ -47,11 +47,8 @@ function save_mail(content){
     method:'POST',
     body:JSON.stringify(data)
   })
-}
-
-
- 
-
+  .then(res => res.json())
+} 
 
 
 router.post("/", (req, res) => {

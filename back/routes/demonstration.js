@@ -8,7 +8,7 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
   const sql =
-    "INSERT INTO demonstration (subtitle, title, section, description, model_url , model_alt) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -17,7 +17,8 @@ router.post("/",Auth, (req, res) => {
       demonstration.section,
       demonstration.description,
       demonstration.model_url,
-      demonstration.model_alt
+      demonstration.model_alt,
+      demonstration.model_id
     ],
     (error, results, fields) => {
       if (error) {
@@ -71,7 +72,7 @@ router.put("/:id",Auth, (req, res) => {
   const demonstration = req.body;
 
 
-  console.log("text", req.body);
+  //console.log("text", req.body);
   const sql = `UPDATE demonstration SET subtitle=?, title=?, section=?, description=?, model_url=? , model_alt=? WHERE id=${idDemonstration}`;
 
   connection.query(
