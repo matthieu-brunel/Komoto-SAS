@@ -36,7 +36,7 @@ class ReferenceAccueil extends Component {
 
   render() {
     return (
-      <div className="container-reference">
+      <div id="ReferenceAccueil" className="container-reference">
         <div className="div-title-reference mb-5">
           <h2 className="title-reference text-left">
             {this.state.reference.length > 0
