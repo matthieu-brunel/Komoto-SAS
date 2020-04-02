@@ -8,10 +8,12 @@ function ReferenceComponents({reference}) {
   return (
     <div className="container container-references mt-5">
       {reference.length > 0 ? reference.map((element, index) => (
-        <Fragment key={index}>
+        
+        <div key={index} >
+          <div id={element.url[index]} className="reference-div-vide"></div>
           <div className="div-header-reference d-flex justify-content-around mb-5">
 
-            <div className="div-logo-reference"><img src={element.url[0]} alt={element.alt[0]} /></div>
+            <div  className="div-logo-reference"><img  src={element.url[0]} alt={element.alt[0]} /></div>
             <div className="div-logo-solution"><img className="w-50" src={'/images/' + element.url[1]} alt={element.alt[1]} /></div>
 
           </div>
@@ -65,9 +67,9 @@ function ReferenceComponents({reference}) {
             </div>
             
 
-            <hr className="mt-5 mb-5"></hr>
+            <hr   className="mt-5 mb-5"></hr>
           </div>
-        </Fragment>
+        </div>
       )) 
       : 
       " pas de partenaire de disponible"}

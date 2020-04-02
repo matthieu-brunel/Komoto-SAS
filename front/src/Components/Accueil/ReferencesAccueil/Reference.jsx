@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Reference.css";
-import { Link } from "react-router-dom";
+import { HashLink as NavLink } from "react-router-hash-link";
 
 import getRessources from "../../../utils/getRessources";
 
@@ -36,7 +36,7 @@ class ReferenceAccueil extends Component {
 
   render() {
     return (
-      <div id="ReferenceAccueil" className="container-reference">
+      <div  className="container-reference">
         <div className="div-title-reference mb-5">
           <h2 className="title-reference text-left">
             {this.state.reference.length > 0
@@ -46,14 +46,14 @@ class ReferenceAccueil extends Component {
         </div>
         <div className="container-div-img">
           {this.state.reference.map((element, index) => (
-            <div className="div-reference" key={index}>
-              <Link to={`/Reference`}>
+            <div id="ReferenceAccueil" className="div-reference" key={index}>
+              <NavLink to={`/Reference/#${element.url[index]}`}>
                 <img
                   className="img-reference"
                   src={element.url[0]}
                   alt={element.alt[0]}
                 />
-              </Link>
+              </NavLink>
             </div>
           ))}
         </div>
