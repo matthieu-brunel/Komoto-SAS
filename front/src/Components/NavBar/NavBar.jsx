@@ -33,7 +33,7 @@ const NavBar = (props) => {
               <NavLink to="/#SolutionAccueil" className=""><li className="link-nav pr-5">Solution</li></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/Reference" className=""><li className="link-nav pr-5">Reference</li></NavLink>
+              <NavLink to="/#ReferenceAccueil" className=""><li className="link-nav pr-5">Reference</li></NavLink>
             </NavItem>
 
             <NavItem>
