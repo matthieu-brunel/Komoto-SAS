@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Reference.css";
-import { Link } from "react-router-dom";
+import { HashLink as NavLink } from "react-router-hash-link";
 
 import getRessources from "../../../utils/getRessources";
 
@@ -47,13 +47,13 @@ class ReferenceAccueil extends Component {
         <div className="container-div-img">
           {this.state.reference.map((element, index) => (
             <div className="div-reference" key={index}>
-              <Link to={`/Reference`}>
+              <NavLink to={`/Reference/#${element.url[index]}`}>
                 <img
                   className="img-reference"
                   src={element.url[0]}
                   alt={element.alt[0]}
                 />
-              </Link>
+              </NavLink>
             </div>
           ))}
         </div>
