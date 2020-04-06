@@ -1,20 +1,23 @@
-import React from 'react';
-import './Contact.css';
-import NavBar from './../NavBar/NavBar'
-import ContactPage from './ContactPage/ContactPage'
-import Footer from "./../Footer/Footer"
-
+import React from "react";
+import "./Contact.css";
+import NavBar from "./../NavBar/NavBar";
+import ContactPage from "./ContactPage/ContactPage";
+import Footer from "./../Footer/Footer";
 
 function Contact() {
   return (
-    <div className="">
-      <NavBar />
-      <ContactPage/>
-      <Footer />
+    <div className="sticky-wrap">
+      <div className="">
+        <NavBar />
+      </div>
+      <div>
+        <ContactPage />
+      </div>
+      <div className="sticky-footer">
+        <Footer />
+      </div>
     </div>
   );
 }
 
 export default Contact;
-
-

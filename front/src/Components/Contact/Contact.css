@@ -1,0 +1,10 @@
+.sticky-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
+
+.sticky-footer {
+  margin-top: auto;
+}

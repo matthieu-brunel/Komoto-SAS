@@ -31,4 +31,18 @@
 }
  
 
+.special{
+    margin-top: 15rem;
+}
 
+
+
+.sticky-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.sticky-footer {
+    margin-top: auto
+}

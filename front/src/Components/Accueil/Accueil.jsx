@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component} from 'react';
 import './Accueil.css';
 import NavBar from './../NavBar/NavBar'
 import SpecialisationAccueil from './Specialisation/Specialisation';
@@ -11,57 +11,71 @@ import Footer from "./../Footer/Footer"
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
 
-function Accueil() {
-  return (
-    <div className="">
+class Accueil extends Component {
+  render(){
 
+    return (
+      <div className="sticky-wrap">
+       <div className="">
+          <NavBar />
+        </div>
+  {/*       <div className="vignets">
+          <HeaderAccueil />
+        </div> */}
+        
+        
+{/*         <ScrollAnimation animateIn='fadeIn'>
+          <div className="">
+            <SavoirFaireAccueil />
+          </div>
+        </ScrollAnimation> */}
       
-     <div className="vignets">
-       
-        <NavBar />
-       
-      </div>
-      
+  
       <div className="vignets">
         <HeaderAccueil />
-      </div>
+      </div> 
       
       
-      <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <SavoirFaireAccueil />
-      </div>
-    </ScrollAnimation>
+ 
     
+
      
     <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
+      <div className="special">
         <SpecialisationAccueil />
       </div>
-      </ScrollAnimation>
-      <ScrollAnimation animateIn='fadeIn'>
+    </ScrollAnimation>
+
+   
+
+    <ScrollAnimation animateIn='fadeIn'>
       <div className="">
         <SolutionAccueil />
       </div>
-     </ScrollAnimation>
-      <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <DemonstrationAccueil />
+    </ScrollAnimation>
+
+<ScrollAnimation animateIn='fadeIn'>
+      <div className="special">
+      <DemonstrationAccueil/>
       </div>
-     </ScrollAnimation>
-      <ScrollAnimation animateIn='fadeIn'>
+    </ScrollAnimation>
+
+    <ScrollAnimation animateIn='fadeIn'>
       <div className="">
         <ReferenceAccueil />
       </div>
     </ScrollAnimation>
-      <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
+
+   
+      <div className="sticky-footer">
         <Footer />
       </div>
-      </ScrollAnimation>
+   
+  
+      </div>
+    );
+  }
 
-    </div>
-  );
 }
 
 export default Accueil;

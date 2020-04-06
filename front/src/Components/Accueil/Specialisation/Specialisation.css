@@ -1,15 +1,21 @@
-
-.div-img-specialisation{
-    width:100%;
-    
+.test1{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 50px;
 }
 
-.ffff{
+.div-img-spe{
     width: 100%;
 }
 
-.img-specialisation{
-    width:20%;
+
+.tl-card{
+    width: 50%;
+}
+
+.size-img{
+    width: 100%;
 }
 
 .div-title-specialisation{
@@ -26,6 +32,40 @@
     text-decoration: underline;
 }
 
+
+@media screen and (max-width:767px) {
+
+    .test1{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 30px;
+    }
+    
+    .tl-card{
+        width: 100%;
+    }
+    
+    .size-img{
+        width: 100%;
+    }
+    
+    .div-title-specialisation{
+        background-color:grey;
+        margin-left: 5%;
+        margin-right: 5%;
+        padding-bottom: 1px;
+    }
+    
+    .title-specialisation{
+        text-align: left;
+        padding-left: 10%;
+        color:white;
+        text-decoration: underline;
+    }
+    
+    
+    }
 
 
 

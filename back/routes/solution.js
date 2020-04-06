@@ -33,6 +33,18 @@ router.post("/", Auth,(req, res) => {
 });
 
 router.get("/", (req, res) => {
+  const sql = `SELECT s.title, s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.homepage_id WHERE s.section=? && i.section=?`;
+  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
+    if (error) {
+      //console.log
+      res.status(501).send("couldn't get solution");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+router.get("/all", (req, res) => {
   const sql = "SELECT * FROM solution";
   connection.query(sql, (error, results, fields) => {
     if (error) {
@@ -42,6 +54,8 @@ router.get("/", (req, res) => {
     }
   });
 });
+
+
 router.get("/:id", (req, res) => {
   const idsolutionOne = parseInt(req.params.id);
   const sql = "SELECT * FROM solution where id = ?";
@@ -56,7 +70,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idsolution = req.params.id;
   const solution = req.body;
-  console.log("text", req.body);
+  //console.log("text", req.body);
   const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,
