@@ -12,11 +12,13 @@ describe("test demonstration CRUD", () => {
   let data = {};
 
   const demonstration = {
-    subtitle: "test_subtitle",
     title: "test_title",
+    subtitle: "test_subtitle",
     section: "test_section",
     description: "test_description",
-    model_url: "test_model_url"
+    model_url: "test_model_url",
+    model_alt:"test_model_alt",
+    model_id:1
   };
 
 
@@ -67,6 +69,7 @@ describe("test demonstration CRUD", () => {
         expect(data.title).toBe(demonstration.title);
         expect(data.section).toBe(demonstration.section);
         expect(data.description).toBe(demonstration.description);
+        expect(data.model_alt).toBe(demonstration.model_alt);
         expect(data.model_url).toBe(demonstration.model_url);
         done();
       }
@@ -92,6 +95,7 @@ describe("test demonstration CRUD", () => {
     demonstration.title = "put_ty";
     demonstration.section = "put_sec";
     demonstration.description = "put_des";
+    demonstration.model_alt = "put_model_alt";
     demonstration.model_url = "put_mod";
 
     request.put(
@@ -103,11 +107,12 @@ describe("test demonstration CRUD", () => {
       },
 
       (error, response, body) => {
-        console.log("PUT", body);
+        //console.log("PUT", body);
         expect(body.subtitle).toBe(demonstration.subtitle);
         expect(body.title).toBe(demonstration.title);
         expect(body.section).toBe(demonstration.section);
         expect(body.description).toBe(demonstration.description);
+        expect(body.model_alt).toBe(demonstration.model_alt);
         expect(body.model_url).toBe(demonstration.model_url);
         done();
       }

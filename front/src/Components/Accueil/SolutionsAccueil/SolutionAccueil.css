@@ -3,7 +3,7 @@
     margin-right: 5%;
     padding-bottom: 1px;
     text-align: left;
-   
+   padding-right: 3rem;
 }
 
 .img-solution{
@@ -20,6 +20,7 @@
     width: 50%;
     margin-right: 5%;
     padding-bottom: 1px;
+    padding-right: 3rem;
 }
 
 .sol-title{
@@ -35,4 +36,59 @@
     padding-left: 10%;
     color: white;
     text-decoration: underline;
+}
+
+@media screen and (max-width:767px) {
+
+    .solution {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+        width: 100%;
+        padding: 5rem;
+        margin-right: 3rem;
+        margin-bottom: 3rem;
+        
+    }
+
+    .sol-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+    }
+
+    .sol-title-card {
+        margin-bottom: .75rem;
+    }
+
+    .sol-card-all {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 30px;
+    }
+
+    .sol-img{
+        width: 100%;
+        margin-right: 5%;
+        padding-bottom: 1px;
+    }
+
+    .sol-text{
+        width: 100%;
+        margin-right: 5%;
+        padding-bottom: 1px;
+        text-align: center;
+    }
+    .img-solution{
+        width: 100%;
+    }
 }

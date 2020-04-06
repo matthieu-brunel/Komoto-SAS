@@ -5,15 +5,15 @@ const parser = require("body-parser");
 const Auth = require('./../middleware/auth');
 router.use(parser.json());
 
-router.post("/", Auth,(req, res) => {
+router.post("/",(req, res) => {
     const mail = req.body;
-    const sql = "INSERT INTO mail (category, description, mail_destinataire) VALUES (? , ? , ?)";
+    const sql = "INSERT INTO mail (category, description, date) VALUES (? , ? , ?)";
     connection.query(
       sql,
       [
         mail.category,
         mail.description,
-        mail.mail_destinataire
+        mail.date
       ],
       (error, results, fields) => {
         if (error) {
@@ -21,13 +21,23 @@ router.post("/", Auth,(req, res) => {
         } else {
           req.body.id = results.insertId;
           res.json(req.body);
+          if(req.body){
+            let sql = `DELETE FROM mail WHERE date <= DATE_ADD(NOW(),INTERVAL -3 MONTH)`;
+            connection.query(sql, true, (error, results, fields) => {
+              if (error) {
+                return console.error(error.message);
+              }else{
+                res.json(results[0]);
+              }
+            });
+          }
         }
       }
     );
   });
 
 
-  router.get("/", (req, res) => {
+  router.get("/",Auth, (req, res) => {
     const sql = "SELECT * FROM mail";
     connection.query(sql, (error, results, fields) => {
       if (error) {
@@ -38,7 +48,7 @@ router.post("/", Auth,(req, res) => {
     });
   });
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id", Auth, (req, res) => {
     const idmailOne = parseInt(req.params.id);
     const sql = "SELECT * FROM mail where id = ?";
     connection.query(sql, [idmailOne], (error, results, fields) => {
@@ -54,13 +64,13 @@ router.post("/", Auth,(req, res) => {
     const idmail = req.params.id;
     const mail = req.body;
     
-    const sql = `UPDATE mail SET category=?, description=?, mail_destinataire=? WHERE id=${idmail}`;
+    const sql = `UPDATE mail SET category=?, description=?, date=? WHERE id=${idmail}`;
     connection.query(
       sql,
       [
         mail.category,
         mail.description,
-        mail.mail_destinataire,
+        mail.date,
         idmail
       ],
       (error, results, fields) => {

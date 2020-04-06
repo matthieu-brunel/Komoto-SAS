@@ -1,0 +1,27 @@
+.container-image-solution{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.div-image-solution{
+    width:50%;
+    padding: 1rem;
+}
+
+
+
+@media screen and (max-width:767px) {
+
+    .container-image-solution{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .div-image-solution{
+        width:100%;
+        padding: 1rem;
+    }
+
+}

@@ -1,0 +1,41 @@
+body {
+  padding-top: 20px;
+}
+
+body {
+  padding-top: 20px;
+}
+
+.div-active {
+  display: block;
+  z-index: 9999;
+  background-color: #d4edda;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #c3e6cb;
+}
+
+.text-alert-success {
+  color: #155724;
+}
+
+.div-desactive {
+  display: none;
+}
+
+.div-active-error {
+  display: block;
+  z-index: 9999;
+  background-color:#f8d7da;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #f5c6cb;
+}
+
+.text-alert-error {
+  color: #721c24;
+}
+
+.div-desactive-error {
+  display: none;
+}
