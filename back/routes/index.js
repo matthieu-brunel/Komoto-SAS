@@ -9,6 +9,7 @@ const file = require("./file");
 const homepage = require("./homepage");
 const reference = require("./reference");
 const solution = require("./solution");
+const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
 
@@ -19,6 +20,7 @@ router.use("/login", login);
 router.use("/image", image);
 router.use("/mail", mail);
 router.use("/homepage", homepage);
+router.use("/language", language);
 router.use("/reference", reference);
 router.use("/solution", solution);
 router.use("/contact", contact);

@@ -7,8 +7,14 @@ export default async function getRessources(table, section) {
             'authorization': 'Bearer ' + localStorage.getItem('token')
         }),
     }
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table +'?section=' + section;
-    const data = await (await (fetch(url, options))).json();
+    if(table !== 'language'){
+        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table +'?section=' + section;
+        const data = await (await (fetch(url, options))).json();
+        return data;
+    }else{
+        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table +'/' + section;
+        const data = await (await (fetch(url, options))).json();
+        return data;
+    }
 
-    return data;
 }

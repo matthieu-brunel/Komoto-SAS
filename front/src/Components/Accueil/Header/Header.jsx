@@ -2,30 +2,36 @@
 import './Header.css';
 import SavoirFaireAccueil from './../Savoir-faire/Savoir-faire';
 import getRessources from '../../../utils/getRessources';
+import {FormattedMessage, FormattedDate } from "react-intl";
+
 
 class HeaderAccueil extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       header:[]
     }
+    
 }
 
- componentDidMount = async () => {
+  componentDidMount = async () => {
 
   let data2 = await getRessources('homepage','header');
   console.log(data2);
    this.setState({
-    header:data2
+    url:data2[0].url
   }) 
 } 
 
   render(){
+   
+    const { url } = this.state;
+    console.log(url);
     return (
       <div className="container-div-img">
-        <div className="" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${this.state.header.length > 0 && this.state.header[0].url})` }}>
+        <div className="" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${url})` }}>
           <div className="container div-description-header d-flex justify-content-center">
-            {this.state.header.length > 0 && <h1 className="text-center mt-5 pt-5">{this.state.header[0].description}</h1>}
+            <h1 className="text-center mt-5 pt-5"><FormattedMessage id="homepage.header.description" defaultMessage="Préparation de commandes pour la logistique du e-commerce, le réassort de détail et la gestion des retours "/></h1>
           </div>
           <div className="test44 ">
           <SavoirFaireAccueil />
