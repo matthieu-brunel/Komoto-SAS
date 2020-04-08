@@ -4,7 +4,7 @@ import getRessources from '../../../utils/getRessources';
 import { NavLink } from 'react-router-dom';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
-import {FormattedMessage, FormattedDate } from "react-intl";
+
 
 let array_global = [];
 
@@ -27,53 +27,30 @@ class SpecialisationAccueil extends Component {
     this.setState({ specialisation: [...this.state.specialisation, objet] });
   } 
 
-  getTextToListLang(lang, data) {
-    //variable array_description qui servira a convertir le contenu description en tableau grace au slash
-    let array_description = lang[data].split('/');
-    array_global.push(array_description);
-
-  }
-
    componentDidMount = async () => {
-    
+    const { locale } = this.props;
     //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-    let data2 = await getRessources('homepage', 'specialisation');
+    let data = await getRessources('homepage', 'specialisation',locale);
+    
     //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-    for (let i = 0; i < data2.length; i++) {
-      this.getTextToList(data2[i]);
+     for (let i = 0; i < data.length; i++) {
+      this.getTextToList(data[i]);
+     
     }
   }
 
-  componentWillMount =  () => {
-    const { lang } = this.props;
-   
-    let array = [];
-    array_global = [];
-   
-    //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-    //let data2 = await getRessources('homepage', 'specialisation');
-    //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-    
-    let count = 1;
-    for(let i in lang) {
-      if(`homepage.specialisation.description${count}` === i){
-        this.getTextToListLang(lang, i)
-        count++;
-      }
-    }
-
-
-  }
 
   render() {
+    const { specialisation } = this.state;
+   
     return (
       <div className="">
         <div className="">
-          <h2 className="div-title-specialisation title-specialisation">{this.state.specialisation.length > 0 ? <FormattedMessage id="homepage.specialisation.titre" defaultMessage=" "   /> : " "}</h2>
+    <h2 className="div-title-specialisation title-specialisation">{specialisation.length > 0 && specialisation[0].title}</h2>
         </div>
 
         <div className="container test1">
-          {this.state.specialisation.map((specialisation, index) => {
+          {specialisation.map((specialisation, index) => {
             return (
 
               <div class="card p-2  tl-card" key={index} >
@@ -85,13 +62,14 @@ class SpecialisationAccueil extends Component {
                 <div class="card-body">
                   <ScrollAnimation animateIn='fadeIn'>
                     <div className="">
-                      <h5 class="card-title">{<FormattedMessage id={`homepage.specialisation.subtitle${index+1}`} defaultMessage=" "   />}</h5>
+                      <h5 class="card-title">{specialisation.subtitle}</h5>
                     </div>
                   </ScrollAnimation>
 
                   <ScrollAnimation animateIn='fadeIn'>
                   <div className=" card-text">
-            {array_global.length >  0 && array_global[index].map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
+                 
+                  {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
                   </div>
                   </ScrollAnimation>
                 </div>

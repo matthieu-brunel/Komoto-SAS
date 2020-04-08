@@ -17,7 +17,7 @@ class SavoirFaireAccueil extends Component {
   componentDidMount = async () => {
     const { locale } = this.props;
     let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
-    console.log("savoirfaire : ", savoirFaire);
+  
     this.setState({ SavoirFaire: savoirFaire });
   };
 

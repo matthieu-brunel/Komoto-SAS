@@ -18,7 +18,7 @@ class HeaderAccueil extends Component {
     const { locale } = this.props;
 
     let data = await getRessources('homepage','header',locale);
-    console.log(data);
+  
     this.setState({
       header:data
   }) 
@@ -27,7 +27,7 @@ class HeaderAccueil extends Component {
   render(){
     const { locale } = this.props;
     const { header } = this.state;
-    console.log("langue selectionnée : ", locale);
+    //console.log("langue selectionnée : ", locale);
 
 
     return (

@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import './NavBar.css';
 import { HashLink as NavLink } from "react-router-hash-link";
-import {FormattedMessage, FormattedDate } from "react-intl";
+
 
 
 
@@ -29,20 +29,20 @@ const NavBar = (props) => {
 
           <Nav className="  " navbar>
             <NavItem >
-              <NavLink to="/" className=""><li className="link-nav pr-5"><FormattedMessage id="homepage.navbar.accueil" defaultMessage="Accueil"/></li></NavLink>
+              <NavLink to="/" className=""><li className="link-nav pr-5"></li></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/#SolutionAccueil" className=""><li className="link-nav pr-5"><FormattedMessage id="homepage.navbar.solution" defaultMessage="Solution"/></li></NavLink>
+              <NavLink to="/#SolutionAccueil" className=""><li className="link-nav pr-5"></li></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/#ReferenceAccueil" className=""><li className="link-nav pr-5"><FormattedMessage id="homepage.navbar.références" defaultMessage="Références"/></li></NavLink>
+              <NavLink to="/#ReferenceAccueil" className=""><li className="link-nav pr-5"></li></NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink to="/Contact" className=""><li className="link-nav pr-5"><FormattedMessage id="homepage.navbar.contact" defaultMessage="Contact"/></li></NavLink>
+              <NavLink to="/Contact" className=""><li className="link-nav pr-5"></li></NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/Demonstration" className=""><li className="link-nav pr-5"><FormattedMessage id="homepage.navbar.showroom" defaultMessage="Showroom"/></li></NavLink>
+              <NavLink to="/Demonstration" className=""><li className="link-nav pr-5"></li></NavLink>
             </NavItem>
 
           </Nav>
