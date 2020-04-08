@@ -15,26 +15,29 @@ class HeaderAccueil extends Component {
 }
 
   componentDidMount = async () => {
+    const { locale } = this.props;
 
-  let data2 = await getRessources('homepage','header');
-  console.log(data2);
-   this.setState({
-    url:data2[0].url
+    let data = await getRessources('homepage','header',locale);
+    console.log(data);
+    this.setState({
+      header:data
   }) 
 } 
 
   render(){
-   
-    const { url } = this.state;
-    console.log(url);
+    const { locale } = this.props;
+    const { header } = this.state;
+    console.log("langue selectionnée : ", locale);
+
+
     return (
       <div className="container-div-img">
-        <div className="" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${url})` }}>
+        <div className="" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${header.length > 0 ? header[0].url : ""})` }}>
           <div className="container div-description-header d-flex justify-content-center">
-            <h1 className="text-center mt-5 pt-5"><FormattedMessage id="homepage.header.description" defaultMessage="Préparation de commandes pour la logistique du e-commerce, le réassort de détail et la gestion des retours "/></h1>
+    <h1 className="text-center mt-5 pt-5">{header.length > 0 ? header[0].description : ""}</h1>
           </div>
           <div className="test44 ">
-          <SavoirFaireAccueil />
+          <SavoirFaireAccueil locale={locale}/>
           </div>
         </div>
         <div className="div-vide-savoirFaire">

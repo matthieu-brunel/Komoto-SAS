@@ -17,64 +17,48 @@ class Accueil extends Component {
     //console.log("CLASS ACCUEIL : ",props);
   }
   render(){
-    const { handleChangeLang, state_header } = this.props;
+    const { locale } = this.props;
     return (
       <div className="sticky-wrap">
-{/*        <div className="">
-          <NavBar handleChangeLang={handleChangeLang}/>
-        </div> */}
-  {/*       <div className="vignets">
-          <HeaderAccueil />
-        </div> */}
+  {/*        <div className="">
+            <NavBar handleChangeLang={handleChangeLang}/>
+          </div> */}
+    {/*       <div className="vignets">
+            <HeaderAccueil />
+          </div> */}
+          
+          
+  {/*         <ScrollAnimation animateIn='fadeIn'>
+            <div className="">
+              <SavoirFaireAccueil />
+            </div>
+          </ScrollAnimation> */}
         
-        
-{/*         <ScrollAnimation animateIn='fadeIn'>
-          <div className="">
-            <SavoirFaireAccueil />
-          </div>
-        </ScrollAnimation> */}
-      
-  
-      <div className="vignets">
-        <HeaderAccueil  state_header={state_header}/>
-      </div> 
-      
-      
- 
     
+        <div className="vignets">
+          <HeaderAccueil locale={locale} />
+        </div> 
+        
+    
+        <div className="special">
+          <SpecialisationAccueil locale={locale}/>
+        </div>
 
-     
+        <div className="">
+          <SolutionAccueil />
+        </div>
 
-      <div className="special">
-        <SpecialisationAccueil />
-      </div>
+        <div className="special">
+        <DemonstrationAccueil/>
+        </div>
 
+        <div className="">
+          <ReferenceAccueil />
+        </div>
 
-   
-
-      <div className="">
-        <SolutionAccueil />
-      </div>
-
-
-
-      <div className="special">
-      <DemonstrationAccueil/>
-      </div>
-
-
-
-      <div className="">
-        <ReferenceAccueil />
-      </div>
-
-
-   
-      <div className="sticky-footer">
-        <Footer />
-      </div>
-   
-  
+        <div className="sticky-footer">
+          <Footer />
+        </div>
       </div>
     );
   }

@@ -15,24 +15,15 @@ class SavoirFaireAccueil extends Component {
     };
   }
   componentDidMount = async () => {
-    let savoirFaire = await getRessources("homepage", "SavoirFaire");
-    //console.log("savoirfaire : ", savoirFaire);
+    const { locale } = this.props;
+    let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
+    console.log("savoirfaire : ", savoirFaire);
     this.setState({ SavoirFaire: savoirFaire });
-
-/*     let header = await getRessources("homepage", "header");
-    console.log(" header : ", header);
-    this.setState({ Header: header }); */
   };
 
   render() {
     return (
       <div className="container-header-savoirFaire">
-        {/* <div className="div-header-savoirFaire" style={{ 'backgroundImage': `linear-gradient( rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url(${this.state.Header.length > 0 && this.state.Header[0].url})` }}>
-          <div className="container div-description-header d-flex justify-content-center">
-            {this.state.Header.length > 0 && <h1 className="text-center mt-5 pt-5">{this.state.Header[0].description}</h1>}
-          </div>
-
-        </div> */}
         <div className="container-savoirFaire ">
           {this.state.SavoirFaire.length > 0 && (
 
@@ -63,9 +54,6 @@ class SavoirFaireAccueil extends Component {
               </div>
             </div>)}
         </div>
-        {/* <div className="div-vide-savoirFaire">
-
-        </div> */}
       </div>
     );
   }

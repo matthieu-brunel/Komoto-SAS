@@ -4,6 +4,9 @@ import getRessources from '../../../utils/getRessources';
 import { NavLink } from 'react-router-dom';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
+import {FormattedMessage, FormattedDate } from "react-intl";
+
+let array_global = [];
 
 class SpecialisationAccueil extends Component {
   constructor() {
@@ -13,7 +16,7 @@ class SpecialisationAccueil extends Component {
     }
   }
 
-  getTextToList(data) {
+   getTextToList(data) {
     //variable objet qui servira à accueillir les données
     let objet = data;
     //variable array_description qui servira a convertir le contenu description en tableau grace au slash
@@ -22,9 +25,17 @@ class SpecialisationAccueil extends Component {
     objet.description = array_description;
     //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
     this.setState({ specialisation: [...this.state.specialisation, objet] });
+  } 
+
+  getTextToListLang(lang, data) {
+    //variable array_description qui servira a convertir le contenu description en tableau grace au slash
+    let array_description = lang[data].split('/');
+    array_global.push(array_description);
+
   }
 
-  componentDidMount = async () => {
+   componentDidMount = async () => {
+    
     //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
     let data2 = await getRessources('homepage', 'specialisation');
     //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
@@ -33,11 +44,32 @@ class SpecialisationAccueil extends Component {
     }
   }
 
+  componentWillMount =  () => {
+    const { lang } = this.props;
+   
+    let array = [];
+    array_global = [];
+   
+    //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
+    //let data2 = await getRessources('homepage', 'specialisation');
+    //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
+    
+    let count = 1;
+    for(let i in lang) {
+      if(`homepage.specialisation.description${count}` === i){
+        this.getTextToListLang(lang, i)
+        count++;
+      }
+    }
+
+
+  }
+
   render() {
     return (
       <div className="">
         <div className="">
-          <h2 className="div-title-specialisation title-specialisation">{this.state.specialisation.length > 0 ? this.state.specialisation[0].title : "Titre 1"}</h2>
+          <h2 className="div-title-specialisation title-specialisation">{this.state.specialisation.length > 0 ? <FormattedMessage id="homepage.specialisation.titre" defaultMessage=" "   /> : " "}</h2>
         </div>
 
         <div className="container test1">
@@ -53,13 +85,13 @@ class SpecialisationAccueil extends Component {
                 <div class="card-body">
                   <ScrollAnimation animateIn='fadeIn'>
                     <div className="">
-                      <h5 class="card-title">{this.state.specialisation[index].title}</h5>
+                      <h5 class="card-title">{<FormattedMessage id={`homepage.specialisation.subtitle${index+1}`} defaultMessage=" "   />}</h5>
                     </div>
                   </ScrollAnimation>
 
                   <ScrollAnimation animateIn='fadeIn'>
                   <div className=" card-text">
-                    {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
+            {array_global.length >  0 && array_global[index].map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
                   </div>
                   </ScrollAnimation>
                 </div>
