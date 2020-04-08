@@ -57,7 +57,7 @@ class Accueil extends Component {
         </div>
 
         <div className="sticky-footer">
-          <Footer />
+          <Footer locale={locale}/>
         </div>
       </div>
     );

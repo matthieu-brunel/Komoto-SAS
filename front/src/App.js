@@ -24,9 +24,18 @@ class App extends Component{
   handleChangeLang = async (event) => {
     
     let lang_selected = event.target.options[event.target.selectedIndex].id;
+    localStorage.setItem('data_lang', JSON.stringify(lang_selected));
      this.setState({
       idLang:lang_selected
     });
+  }
+
+  componentWillMount = async() => {
+    let get_data_lang = await JSON.parse((await localStorage.getItem('data_lang')));
+
+    if(get_data_lang !== null){
+      this.setState({idLang:get_data_lang});
+    } 
   }
 
 
@@ -34,21 +43,21 @@ class App extends Component{
     
     let { data } = this.props;
     const { idLang} = this.state;
-
+    console.log(idLang);
     return (
       <div className="App">
         <div className="">
-          <NavBar handleChangeLang={this.handleChangeLang}/>
+          <NavBar locale={idLang} handleChangeLang={this.handleChangeLang}/>
         </div>
         <Switch>
           <Route exact path="/" component={ () => <Accueil  locale={idLang} handleChangeLang={this.handleChangeLang} />}/>
-{/*           <Route exact path="/Reference" component={Reference} />
+          <Route exact path="/Reference" component={ () => <Reference locale={idLang} />} />
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/Demonstration" component={Demonstration} />
           <Route exact path="/Admin" component={Admin} />
           <Route exact path="/Mention" component={Mention} />
           <Route exact path="/Partenaire" component={Partenaire} />
-          <Route exact path={data.linkSolution} component={Solution}/> */}
+          <Route exact path={data.linkSolution} component={ () => <Solution locale={idLang} handleChangeLang={this.handleChangeLang}/>}/>
         </Switch>
       </div>
     );

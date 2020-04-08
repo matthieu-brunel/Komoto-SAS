@@ -25,7 +25,6 @@ class SolutionText extends Component {
       }
     }
     
-    console.log(texte);
 
   }
   render(){

@@ -33,8 +33,9 @@ router.post("/", Auth,(req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT s.title, s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.homepage_id WHERE s.section=? && i.section=?`;
-  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
+  console.log(req.query);
+  const sql = `SELECT s.title, s.subtitle, s.description, i.name, i.url, i.alt, s.language FROM solution AS s JOIN image AS i ON s.image_id = i.homepage_id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=?`;
+  connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
     if (error) {
       //console.log
       res.status(501).send("couldn't get solution");

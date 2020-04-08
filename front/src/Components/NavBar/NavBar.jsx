@@ -17,8 +17,8 @@ const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen); // navbar
-  const { handleChangeLang } = props;
-  //console.log("Fonction :",handleChangeLang);
+  const { handleChangeLang, locale} = props;
+  console.log("Fonction :",locale);
 
   return (
     <div className="test3">
@@ -50,6 +50,7 @@ const NavBar = (props) => {
         </Collapse>
         <div class="form-group" onChange={handleChangeLang}>
           <select class="form-control" id="exampleFormControlSelect1">
+            <option>{`=> ${locale}`}</option>
             <option id="fr" value="0">fr</option>
             <option id="en" value="1">en</option>
           </select>

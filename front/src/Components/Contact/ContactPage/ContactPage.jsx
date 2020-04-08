@@ -4,7 +4,7 @@ import "./ContactPage.css";
 import getRessources from "../../../utils/getRessources";
 import { Link } from "react-router-dom";
 const SERVER_ADRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
-console.log("SERVER_ADRESS : " + SERVER_ADRESS);
+
 
 class ContactPage extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class ContactPage extends Component {
     //this.RecaptchapLoader = this.RecaptchapLoader.bind(this);
   }
   handlerChange = event => {
-    console.log(event.target.name);
+    
     switch (event.target.name) {
       case "societe":
         this.setState({ societe: event.target.value });
