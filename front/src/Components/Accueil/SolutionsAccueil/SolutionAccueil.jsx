@@ -17,7 +17,8 @@ class SolutionAccueil extends Component {
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("homepage", "solution");
+    const { locale } = this.props;
+    let data = await getRessources("homepage", "solution", locale);
     //console.log(data);
     this.setState({
       solution: data

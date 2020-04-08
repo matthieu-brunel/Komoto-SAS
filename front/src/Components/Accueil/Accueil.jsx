@@ -45,7 +45,7 @@ class Accueil extends Component {
         </div>
 
         <div className="">
-          <SolutionAccueil />
+          <SolutionAccueil locale={locale}/>
         </div>
 
         <div className="special">
