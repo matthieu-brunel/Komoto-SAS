@@ -13,7 +13,8 @@ class DemonstrationAccueil extends Component {
     };
   }
   componentDidMount = async () => {
-    let data = await getRessources("homepage", "demonstration");
+    const { locale } = this.props;
+    let data = await getRessources("homepage", "demonstration", locale);
 
     this.setState({
       demonstration: data

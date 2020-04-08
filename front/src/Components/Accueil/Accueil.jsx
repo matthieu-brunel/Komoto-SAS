@@ -49,11 +49,11 @@ class Accueil extends Component {
         </div>
 
         <div className="special">
-        <DemonstrationAccueil/>
+        <DemonstrationAccueil locale={locale}/>
         </div>
 
         <div className="">
-          <ReferenceAccueil />
+          <ReferenceAccueil locale={locale}/>
         </div>
 
         <div className="sticky-footer">
