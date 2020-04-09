@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Reference.css";
 import { HashLink as NavLink } from "react-router-hash-link";
-
 import getRessources from "../../../utils/getRessources";
 
 class ReferenceAccueil extends Component {

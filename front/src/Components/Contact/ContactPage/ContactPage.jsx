@@ -20,7 +20,6 @@ class ContactPage extends Component {
       confirmationSent: "",
       document: null,
       isLoading: false,
-      isSent: false,
       isActive: true,
       messageIsSent: "",
       isTooHeavy: false,
@@ -182,14 +181,6 @@ class ContactPage extends Component {
 
   render() {
     const {
-      societe,
-      nom,
-      prenom,
-      adresse,
-      telephone,
-      email,
-      message,
-      document,
       formulaire_data
     } = this.state;
 

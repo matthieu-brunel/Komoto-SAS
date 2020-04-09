@@ -4,7 +4,6 @@ import HeaderSolution from './Header/HeaderSolution';
 import SolutionText from './SolutionText/SolutionText';
 import SolutionImage from './SolutionImage/SolutionImage';
 import getRessources from './../../utils/getRessources';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import { connect } from "react-redux";
 
@@ -44,7 +43,6 @@ class Solution extends Component{
   };
 
   render(){
-    const {locale, handleChangeLang, num_lang} = this.props;
     ///console.log("render Solution.jsx");
       return (
           <div className="mt-5 sticky-wrap">

@@ -5,6 +5,7 @@ import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle 
 import { Button } from 'reactstrap';
 
 class DemoModel extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -12,21 +13,28 @@ class DemoModel extends Component {
       model_seleted:"",
       model_image:"",
       image_alt:"",
-      chose_image:"default"
+      chose_image:"default",
+      
     };
 
   }
   componentDidMount = async () => {
-    let data = await getRessources("demonstration");
+    this._isMounted = true;
+    const { locale } = this.props;
+    let data = await getRessources("demonstration","demonstration_model", locale);
 
     this.setState({
       showroom: data
     });
   };
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   handlerChangeModel = (event) => {
 
-    console.log("handlerChangeModel : ",event);
+    //console.log("handlerChangeModel : ",event);
     //console.log("model selectionné : ",this.state.showroom[event.target.value].model_url);
     if(event.target.value !== "default"){
       this.setState({
@@ -61,9 +69,9 @@ class DemoModel extends Component {
 
 </div>
 </div>}
-      <div class="form-group">
+      <div className="form-group">
          
-          <select class="form-control container" id="exampleFormControlSelect1" onChange={this.handlerChangeModel}>
+          <select className="form-control container" id="exampleFormControlSelect1" onChange={this.handlerChangeModel}>
             <option value="default" >Charger un model 3D </option>
             {this.state.showroom.length > 0 ? 
             this.state.showroom.map((model, index) => 

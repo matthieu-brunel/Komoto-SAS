@@ -14,6 +14,7 @@ import NavBar from './Components/NavBar/NavBar.jsx';
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class App extends Component{
+  _isMounted = false;
   constructor(props){
     super(props);
     this.state = {
@@ -56,7 +57,7 @@ class App extends Component{
 
   componentDidMount = async() => {
     //console.log("componentDidMount App.js");
-   
+    this._isMounted = true;
     //Chargement de la langue : locale => fr ou en
     let get_data_lang = await JSON.parse((await localStorage.getItem('data_lang')));
 
@@ -88,11 +89,14 @@ class App extends Component{
       });
     }
   }
+  
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
 
   render(){
     
-    let { data } = this.props;
     const { idLang, num_lang, navbar, link_solution, name_solution} = this.state;
 
     return (
@@ -104,7 +108,7 @@ class App extends Component{
           <Route exact path="/" component={ () => <Accueil  locale={idLang} handleClickSolution={this.handleClickSolution}/>}/>
           <Route exact path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
           <Route exact path="/Contact" component={ () => <Contact locale={idLang}/>} />
-          <Route exact path="/Demonstration" component={Demonstration} />
+          <Route exact path="/Demonstration" component={ () => <Demonstration locale={idLang}/>} />
           <Route exact path="/Admin" component={Admin} />
           <Route exact path="/Mention" component={Mention} />
           <Route exact path="/Partenaire" component={Partenaire} />

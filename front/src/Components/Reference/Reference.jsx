@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import './Reference.css';
 import ReferenceComponents from './ReferenceComponents/ReferenceComponents';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import getRessources from "./../../utils/getRessources";
 
@@ -57,7 +56,6 @@ class Reference extends Component {
   
 
   render(){
-    const { locale, handleChangeLang, num_lang } = this.props;
 
     return (
       <div className="">

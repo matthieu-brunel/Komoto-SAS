@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import "./SolutionAccueil.css";
-
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { GET_NAME_SOLUTION_SELECTED} from './../../actionTypes';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
 
@@ -23,7 +21,7 @@ class SolutionAccueil extends Component {
   render() {
     
     const { solution, handleClickSolution } = this.props;
-    console.log(solution);
+    //console.log(solution);
     return (
       <div className=" ">
         {solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5"><h2 className="sol-title-text">{solution[0].title}</h2></div>}
@@ -43,7 +41,7 @@ class SolutionAccueil extends Component {
                   <div className="">
                     <h5 className="sol-title-card">{solution.subtitle}</h5>
                   </div>
-                  {console.log(`/solution-${solution.subtitle.toLowerCase()}`)}
+                 
                   <div className="pt-5" onClick={handleClickSolution}>
                     <NavLink to={`/solution-${solution.subtitle.toLowerCase()}`} className="text-solution" id={solution.subtitle}  >{solution.description}</NavLink>
                   </div>
