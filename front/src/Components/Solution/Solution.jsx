@@ -32,23 +32,20 @@ class Solution extends Component{
   }
 
   componentDidMount = async () => {
-    const {locale } = this.props;
-    let get_data_store = await JSON.parse((await localStorage.getItem('data_store')));
-   //et get_data_lang = await JSON.parse((await localStorage.getItem('data_lang')));
-    //console.log(get_data_lang);
-    let data = await getRessources("solution", get_data_store.solutionSelected, locale);
-    console.log(data);
+    const {locale, name_solution } = this.props;
+    //console.log(" componentDidMount :", locale);
+    let data = await getRessources("solution", name_solution, locale);
+    
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }
   };
 
   render(){
-    const {locale, handleChangeLang } = this.props;
-    console.log("locale solution :",locale);
+    const {locale, handleChangeLang, num_lang} = this.props;
+    ///console.log("render Solution.jsx");
       return (
           <div className="mt-5 sticky-wrap">
-            <NavBar locale={locale} handleChangeLang={handleChangeLang}/>
             <HeaderSolution header={this.state.solution}/>
             <SolutionText texte={this.state.solution}/>
             { this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url}/>}

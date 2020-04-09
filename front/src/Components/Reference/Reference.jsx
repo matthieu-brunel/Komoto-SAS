@@ -16,7 +16,8 @@ class Reference extends Component {
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("reference", "reference");
+    const { locale } = this.props;
+    let data = await getRessources("reference", "reference", locale);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     } 
@@ -56,11 +57,10 @@ class Reference extends Component {
   
 
   render(){
-    const { reference } = this.state; 
-    
+    const { locale, handleChangeLang, num_lang } = this.props;
+
     return (
       <div className="">
-        <NavBar />
        { <ReferenceComponents reference={this.state.reference}/>}
         <Footer />
       </div>

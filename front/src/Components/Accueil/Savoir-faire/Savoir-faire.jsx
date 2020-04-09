@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Savoir-faire.css";
 import getRessources from "../../../utils/getRessources";
-import { NavLink } from "react-router-dom";
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
 

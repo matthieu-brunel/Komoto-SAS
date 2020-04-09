@@ -2,7 +2,7 @@
 import './Header.css';
 import SavoirFaireAccueil from './../Savoir-faire/Savoir-faire';
 import getRessources from '../../../utils/getRessources';
-import {FormattedMessage, FormattedDate } from "react-intl";
+
 
 
 class HeaderAccueil extends Component {

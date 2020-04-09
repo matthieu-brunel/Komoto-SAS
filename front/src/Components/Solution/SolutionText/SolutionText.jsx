@@ -20,7 +20,7 @@ class SolutionText extends Component {
     let array_texte = [];
 
     for(let i = 0; i < texte.length; i++){
-      if(texte.subtitle != 'header'){
+      if(texte.subtitle !== 'header'){
         array_texte.push(texte[i])
       }
     }

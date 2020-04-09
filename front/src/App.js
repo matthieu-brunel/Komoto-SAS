@@ -10,54 +10,105 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import Mention from "./Components/Mention/Mention";
 import Partenaire from './Components/partenaires/Partenaire';
-import NavBar from './../src/Components/NavBar/NavBar';
+import NavBar from './Components/NavBar/NavBar.jsx';
+
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      idLang:'fr'
+      idLang:'fr',
+      num_lang:[],
+      navbar: [],
+      link_solution:"",
+      name_solution:""
     }
   }
 
 
   handleChangeLang = async (event) => {
-    
+  
+
     let lang_selected = event.target.options[event.target.selectedIndex].id;
     localStorage.setItem('data_lang', JSON.stringify(lang_selected));
+
+
      this.setState({
       idLang:lang_selected
     });
   }
 
-  componentWillMount = async() => {
+  handleClickSolution = (event) => {
+    //const { data_store, locale } = this.props;
+    let name_solution = event.target.id.toLowerCase();
+    let link_solution = `/solution-${name_solution.toLowerCase()}`;
+    //this.props.dispatch({type: GET_NAME_SOLUTION_SELECTED.type, name_solution,link_solution});
+    //localStorage.setItem('data_store', JSON.stringify(data_store));
+    this.setState({
+      link_solution:link_solution,
+      name_solution:name_solution
+    });
+  }
+
+  componentDidMount = async() => {
+    //console.log("componentDidMount App.js");
+   
+    //Chargement de la langue : locale => fr ou en
     let get_data_lang = await JSON.parse((await localStorage.getItem('data_lang')));
 
+    const options = {
+      headers: new Headers({
+          'Content-Type': 'application/json'
+      }),
+    }
+
+    //Chargement des données de la table language 
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
+    let data_lang = await(await(fetch(url, options))).json();
+    //console.log(data_lang);
+
+
+    
+    let num_lang = data_lang.map(lang => lang.locale);
+
+
+
     if(get_data_lang !== null){
-      this.setState({idLang:get_data_lang});
-    } 
+      this.setState({
+        idLang:get_data_lang,
+        num_lang:num_lang
+      });
+    }else{
+      this.setState({
+        num_lang:num_lang
+      });
+    }
   }
 
 
   render(){
     
     let { data } = this.props;
-    const { idLang} = this.state;
-    console.log(idLang);
+    const { idLang, num_lang, navbar, link_solution, name_solution} = this.state;
+
+    //console.log("REDUX APP : ",data);
+    //console.log(idLang);
+    //console.log(num_lang);
     return (
       <div className="App">
         <div className="">
-          <NavBar locale={idLang} handleChangeLang={this.handleChangeLang}/>
+          <NavBar  navbar_data={navbar} num_lang={num_lang} locale={idLang} handleChangeLang={this.handleChangeLang}/>
         </div>
         <Switch>
-          <Route exact path="/" component={ () => <Accueil  locale={idLang} handleChangeLang={this.handleChangeLang} />}/>
-          <Route exact path="/Reference" component={ () => <Reference locale={idLang} />} />
+          <Route exact path="/" component={ () => <Accueil  locale={idLang} handleClickSolution={this.handleClickSolution}/>}/>
+          <Route exact path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/Demonstration" component={Demonstration} />
           <Route exact path="/Admin" component={Admin} />
           <Route exact path="/Mention" component={Mention} />
           <Route exact path="/Partenaire" component={Partenaire} />
-          <Route exact path={data.linkSolution} component={ () => <Solution locale={idLang} handleChangeLang={this.handleChangeLang}/>}/>
+          <Route exact path={link_solution} component={ () => <Solution name_solution={name_solution} num_lang={num_lang} locale={idLang} />}/>
         </Switch>
       </div>
     );

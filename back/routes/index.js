@@ -12,6 +12,7 @@ const solution = require("./solution");
 const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
+const navbar = require("./navbar");
 
 router.use("/admin", admin);
 router.use("/demonstration", demonstration);
@@ -26,5 +27,6 @@ router.use("/solution", solution);
 router.use("/contact", contact);
 router.use("/uploadcontact", uploadcontact);
 router.use("/documents", express.static("public/documents"));
+router.use("/navbar", navbar);
 
 module.exports = router;

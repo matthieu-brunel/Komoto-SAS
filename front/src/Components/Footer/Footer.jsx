@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import './Footer.css';
 import getRessources from './../../utils/getRessources';
 
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 class Footer extends Component {

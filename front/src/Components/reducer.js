@@ -17,6 +17,7 @@ const rootReducer = (state = STORE, action) => {
     default:
       break;
   }
+ 
   return state
 
 };

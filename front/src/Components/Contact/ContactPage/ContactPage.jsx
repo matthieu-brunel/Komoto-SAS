@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 //import Recaptcha from "react-recaptcha";
 import "./ContactPage.css";
-import getRessources from "../../../utils/getRessources";
-import { Link } from "react-router-dom";
 const SERVER_ADRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 

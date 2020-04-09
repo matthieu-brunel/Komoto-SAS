@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './Specialisation.css';
 import getRessources from '../../../utils/getRessources';
-import { NavLink } from 'react-router-dom';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
 
-
-let array_global = [];
 
 class SpecialisationAccueil extends Component {
   constructor() {
@@ -53,16 +50,16 @@ class SpecialisationAccueil extends Component {
           {specialisation.map((specialisation, index) => {
             return (
 
-              <div class="card p-2  tl-card" key={index} >
+              <div className="card p-2  tl-card" key={index} >
                 <ScrollAnimation animateIn='fadeIn'>
                   <div className="div-img-spe container ">
-                    <img src={specialisation.url} class="card-img-top size-img " alt={specialisation.alt} />
+                    <img src={specialisation.url} className="card-img-top size-img " alt={specialisation.alt} />
                   </div>
                 </ScrollAnimation>
-                <div class="card-body">
+                <div className="card-body">
                   <ScrollAnimation animateIn='fadeIn'>
                     <div className="">
-                      <h5 class="card-title">{specialisation.subtitle}</h5>
+                      <h5 className="card-title">{specialisation.subtitle}</h5>
                     </div>
                   </ScrollAnimation>
 
