@@ -7,7 +7,6 @@ import Contact from './Components/Contact/Contact';
 import Demonstration from './Components/Demonstration/Demonstration';
 import Admin from './Components/Admin/Admin';
 import { Switch, Route } from 'react-router-dom';
-import { connect } from "react-redux";
 import Mention from "./Components/Mention/Mention";
 import Partenaire from './Components/partenaires/Partenaire';
 import NavBar from './Components/NavBar/NavBar.jsx';
@@ -43,8 +42,12 @@ class App extends Component{
     //const { data_store, locale } = this.props;
     let name_solution = event.target.id.toLowerCase();
     let link_solution = `/solution-${name_solution.toLowerCase()}`;
+    let data = {
+      "name_solution":name_solution,
+      "link_solution":link_solution
+    }
     //this.props.dispatch({type: GET_NAME_SOLUTION_SELECTED.type, name_solution,link_solution});
-    //localStorage.setItem('data_store', JSON.stringify(data_store));
+    localStorage.setItem('data_store', JSON.stringify(data));
     this.setState({
       link_solution:link_solution,
       name_solution:name_solution
@@ -92,9 +95,6 @@ class App extends Component{
     let { data } = this.props;
     const { idLang, num_lang, navbar, link_solution, name_solution} = this.state;
 
-    //console.log("REDUX APP : ",data);
-    //console.log(idLang);
-    //console.log(num_lang);
     return (
       <div className="App">
         <div className="">
@@ -103,7 +103,7 @@ class App extends Component{
         <Switch>
           <Route exact path="/" component={ () => <Accueil  locale={idLang} handleClickSolution={this.handleClickSolution}/>}/>
           <Route exact path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
-          <Route exact path="/Contact" component={Contact} />
+          <Route exact path="/Contact" component={ () => <Contact locale={idLang}/>} />
           <Route exact path="/Demonstration" component={Demonstration} />
           <Route exact path="/Admin" component={Admin} />
           <Route exact path="/Mention" component={Mention} />
@@ -116,8 +116,5 @@ class App extends Component{
 
 }
 
-const mapStateToProps = state => ({
-  data: state
-});
 
-export default connect(mapStateToProps)(App);
+export default App;

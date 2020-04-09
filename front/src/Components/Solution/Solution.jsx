@@ -32,9 +32,11 @@ class Solution extends Component{
   }
 
   componentDidMount = async () => {
-    const {locale, name_solution } = this.props;
-    //console.log(" componentDidMount :", locale);
-    let data = await getRessources("solution", name_solution, locale);
+    const { locale } = this.props;
+    
+    let get_data_store = await JSON.parse((await localStorage.getItem('data_store')));
+    
+    let data = await getRessources("solution", get_data_store.name_solution, locale);
     
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);

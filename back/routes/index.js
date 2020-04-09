@@ -13,6 +13,7 @@ const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
 const navbar = require("./navbar");
+const formulaire = require("./formulaire");
 
 router.use("/admin", admin);
 router.use("/demonstration", demonstration);
@@ -28,5 +29,6 @@ router.use("/contact", contact);
 router.use("/uploadcontact", uploadcontact);
 router.use("/documents", express.static("public/documents"));
 router.use("/navbar", navbar);
+router.use("/formulaire", formulaire);
 
 module.exports = router;

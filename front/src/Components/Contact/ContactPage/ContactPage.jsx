@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 //import Recaptcha from "react-recaptcha";
 import "./ContactPage.css";
+import getRessources from './../../../utils/getRessources';
 const SERVER_ADRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 class ContactPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       societe: "",
       nom: "",
@@ -23,12 +24,25 @@ class ContactPage extends Component {
       isActive: true,
       messageIsSent: "",
       isTooHeavy: false,
-      message_too_heavy: "Format non pris en charge ou fichier trop lourd."
+      message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
+      formulaire_data:[]
     };
-
-    //this.verifyCallback = this.verifyCallback.bind(this);
-    //this.RecaptchapLoader = this.RecaptchapLoader.bind(this);
   }
+
+
+  componentDidMount = async () => {
+    const { locale } = this.props;
+    
+    const result = await getRessources("formulaire", null, locale);
+    let data = result[0].name.split(",");
+    //console.log(data);
+    this.setState({
+      formulaire_data: data,
+      message_too_heavy:data[12]
+    });
+  };
+
+
   handlerChange = event => {
     
     switch (event.target.name) {
@@ -143,15 +157,8 @@ class ContactPage extends Component {
       .then(res => {
         this.setState({
           isSent: true,
-          confirmationSent: res.message,
-          societe: "",
-          nom: "",
-          prenom: "",
-          telephone: "",
-          adresse: "",
-          email: "",
-          message: "",
-          messageIsSent: res.message,
+          confirmationSent: this.state.formulaire_data[13],
+          messageIsSent: this.state.formulaire_data[13],
           isLoading: false,
           document: null,
           isSent: true,
@@ -167,7 +174,7 @@ class ContactPage extends Component {
 
   messageSentMail = () => {
     return (
-      <div class="alert alert-secondary" role="alert">
+      <div className="alert alert-secondary" role="alert">
         {this.state.confirmationSent}
       </div>
     );
@@ -182,33 +189,26 @@ class ContactPage extends Component {
       telephone,
       email,
       message,
-      document
+      document,
+      formulaire_data
     } = this.state;
-    console.log("societe : ", societe);
-    console.log("nom : ", nom);
-    console.log("prenom : ", prenom);
-    console.log("adresse : ", adresse);
-    console.log("telephone : ", telephone);
-    console.log("email : ", email);
-    console.log("message : ", message);
-    console.log("document: ", document);
 
     return (
       <div>
-        <form onSubmit={this.handlerSubmit}>
+        <form className="pt-5" onSubmit={this.handlerSubmit}>
           <div className="border-secondary rounded-0">
             <div className="card-header p-0">
               <div className="bg-secondary text-white text-center py-2">
                 <h3>
-                  <p className="pt-4">Nous contacter</p>
+                  <p className="pt-4">{formulaire_data[0]}</p>
                 </h3>
               </div>
             </div>
           </div>
           <div className="container">
-            <label className="col-md-3 control-label" for="societe">
-              societe *
-            </label>
+          
+            <label className="col-md-6 control-label pt-5" htmlFor="societe">{formulaire_data[1]}</label>
+
             <div className="">
               <input
                 id="societe"
@@ -223,9 +223,8 @@ class ContactPage extends Component {
               ></input>
             </div>
             <div className="form-group">
-              <label className="col-6 col-md-3 control-label" for="name">
-                Nom *
-              </label>
+
+              <label className="col-6 col-md-3 control-label" htmlFor="name">{formulaire_data[2]}</label>
               <div className="">
                 <input
                   id="nom"
@@ -241,8 +240,8 @@ class ContactPage extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="col-md-3 control-label" for="prenom">
-                prenom
+              <label className="col-md-3 control-label" htmlFor="prenom">
+              {formulaire_data[3]}
               </label>
               <div className="">
                 <input
@@ -257,8 +256,8 @@ class ContactPage extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="col-md-3 control-label" for="adresse">
-                Adresse
+              <label className="col-md-3 control-label" htmlFor="adresse">
+              {formulaire_data[4]}
               </label>
               <div className="">
                 <input
@@ -273,8 +272,8 @@ class ContactPage extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="col-md-3 control-label" for="telephone">
-                telephone *
+              <label className="col-md-3 control-label" htmlFor="telephone">
+              {formulaire_data[5]}
               </label>
               <div className="">
                 <input
@@ -291,8 +290,8 @@ class ContactPage extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="col-md-3 control-label" for="email">
-                Email *
+              <label className="col-md-3 control-label" htmlFor="email">
+              {formulaire_data[6]}
               </label>
               <div className="">
                 <input
@@ -309,8 +308,8 @@ class ContactPage extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="col-md-3 control-label" for="message">
-                Description du besoin *
+              <label className="col-md-3 control-label" htmlFor="message">
+              {formulaire_data[7]}
               </label>
               <div className="">
                 <textarea
@@ -356,21 +355,31 @@ class ContactPage extends Component {
           {/* [fin:popup error] */}
 
 
-            <label
+{/*             <label
               className="form-label form-label-top"
               id="label_18"
-              for="input_18"
+              htmlFor="input_18"
             >
               {" "}
-              Pièce jointe si nécessaire{" "}
-            </label>
+              {formulaire_data[8]}{" "}
+            </label> */}
+            <div className="custom-file pb-5">
+              <input type="file" className="custom-file-input"  onChange={this.handlerUploadFile}/>
+              <label className="custom-file-label" htmlFor="inputGroupFile01">{formulaire_data[8]}</label>
+            </div>
           </div>
-          <input
+
+{/*           <input
             type="file"
             name="file"
             className="form-upload validate[upload]"
             onChange={this.handlerUploadFile}
-          ></input>
+          ></input> */}
+          
+          
+
+
+        
 
           {this.state.isLoading ? (
             <button className="btn btn-secondary btn-lg" type="button" disabled>
@@ -379,11 +388,11 @@ class ContactPage extends Component {
                 role="status"
                 aria-hidden="true"
               ></span>
-              Envoi en cours
+              {formulaire_data[9]}
             </button>
           ) : (
             <button type="submit" className="btn btn-secondary btn-lg">
-              Soumettre
+              {formulaire_data[10]}
             </button>
           )}
         </form>
