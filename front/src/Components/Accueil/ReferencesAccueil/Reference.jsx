@@ -8,7 +8,7 @@ class ReferenceAccueil extends Component {
   constructor() {
     super();
     this.state = {
-      reference: []
+      reference: [],
     };
   }
 
@@ -23,8 +23,8 @@ class ReferenceAccueil extends Component {
     //variable objet qui servira à accueillir les données
     let objet = data;
     //variable array_description qui servira a convertir le contenu description en tableau grace au slash
-    let array_url = data.url.split('|');
-    let array_alt = data.alt.split('|');
+    let array_url = data.url.split("|");
+    let array_alt = data.alt.split("|");
     //on remplace le contenu description de l'objet.description par la nouvelle description
     objet.url = array_url;
     objet.alt = array_alt;
@@ -33,10 +33,9 @@ class ReferenceAccueil extends Component {
     this.setState({ reference: [...this.state.reference, objet] });
   }
 
-
   render() {
     return (
-      <div  className="container-reference">
+      <div className="container-reference">
         <div className="div-title-reference mb-5">
           <h2 className="title-reference text-left">
             {this.state.reference.length > 0

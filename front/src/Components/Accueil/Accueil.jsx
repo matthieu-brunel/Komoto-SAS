@@ -1,55 +1,52 @@
-import React, { Component} from 'react';
-import './Accueil.css';
+import React, { Component } from "react";
+import "./Accueil.css";
 
-import SpecialisationAccueil from './Specialisation/Specialisation';
-import HeaderAccueil from './Header/Header';
-import SavoirFaireAccueil from './Savoir-faire/Savoir-faire';
-import SolutionAccueil from './SolutionsAccueil/SolutionAccueil';
-import DemonstrationAccueil from './DemonstrationAccueil/Demonstration';
-import ReferenceAccueil from './ReferencesAccueil/Reference'
-import Footer from "./../Footer/Footer"
+import SpecialisationAccueil from "./Specialisation/Specialisation";
+import HeaderAccueil from "./Header/Header";
+import SavoirFaireAccueil from "./Savoir-faire/Savoir-faire";
+import SolutionAccueil from "./SolutionsAccueil/SolutionAccueil";
+import DemonstrationAccueil from "./DemonstrationAccueil/Demonstration";
+import ReferenceAccueil from "./ReferencesAccueil/Reference";
+import Footer from "./../Footer/Footer";
 import "animate.css/animate.min.css";
 //import ScrollAnimation from 'react-animate-on-scroll';
 
 class Accueil extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     //console.log("CLASS ACCUEIL : ",props);
   }
-  render(){
+  render() {
     const { locale } = this.props;
     return (
       <div className="sticky-wrap">
-  {/*        <div className="">
+        {/*        <div className="">
             <NavBar handleChangeLang={handleChangeLang}/>
           </div> */}
-    {/*       <div className="vignets">
+        {/*       <div className="vignets">
             <HeaderAccueil />
           </div> */}
-          
-          
-  {/*         <ScrollAnimation animateIn='fadeIn'>
+
+        {/*         <ScrollAnimation animateIn='fadeIn'>
             <div className="">
               <SavoirFaireAccueil />
             </div>
           </ScrollAnimation> */}
-        
-    
+
         <div className="vignets">
           <HeaderAccueil locale={locale} />
-        </div> 
-        
-    
-        <div className="special">
-          <SpecialisationAccueil locale={locale}/>
         </div>
 
+        {/* <div className="special">
+          <SpecialisationAccueil locale={locale}/>
+        </div>
+ */}
         <div className="">
           <SolutionAccueil />
         </div>
 
         <div className="special">
-        <DemonstrationAccueil/>
+          <DemonstrationAccueil />
         </div>
 
         <div className="">
@@ -62,7 +59,6 @@ class Accueil extends Component {
       </div>
     );
   }
-
 }
 
 export default Accueil;
