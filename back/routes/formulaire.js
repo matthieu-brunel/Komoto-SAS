@@ -6,14 +6,14 @@ const Auth = require("../middleware/auth");
 router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
-  const contact = req.body;
-  const sql = "INSERT INTO contact (name, id_locale) VALUES (?, ?)";
+  const formulaire = req.body;
+  const sql = "INSERT INTO formulaire (name, id_locale) VALUES (?, ?)";
   connection.query(
     sql,
-    [contact.name, contact.id_locale],
+    [formulaire.name, formulaire.id_locale],
     (error, results, fields) => {
       if (error) {
-        res.status(501).send("couldn't post contact" + error);
+        res.status(501).send("couldn't post formulaire" + error);
       } else {
         req.body.id = results.insertId;
         res.json(req.body);
@@ -23,48 +23,48 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT  c.name, l.locale FROM contact AS c JOIN language AS l ON c.id_locale = l.id WHERE l.locale=?`;
+  const sql = `SELECT  c.name, l.locale FROM formulaire AS c JOIN language AS l ON c.id_locale = l.id WHERE l.locale=?`;
   connection.query(sql, [req.query.locale], (error, results, fields) => {
     if (error) {
-      res.status(501).send("couldn't get contact");
+      res.status(501).send("couldn't get formulaire");
     } else {
       res.json(results);
     }
   });
 });
 router.get("/all", (req, res) => {
-  const sql = "SELECT * FROM contact";
+  const sql = "SELECT * FROM formulaire";
   connection.query(sql, (error, results, fields) => {
     if (error) {
-      res.status(501).send("couldn't get contact");
+      res.status(501).send("couldn't get formulaire");
     } else {
       res.json(results);
     }
   });
 });
 router.get("/:id", (req, res) => {
-  const idcontactOne = parseInt(req.params.id);
-  const sql = "SELECT * FROM contact where id = ?";
-  connection.query(sql, [idcontactOne], (error, results, fields) => {
+  const idformulaireOne = parseInt(req.params.id);
+  const sql = "SELECT * FROM formulaire where id = ?";
+  connection.query(sql, [idformulaireOne], (error, results, fields) => {
     if (error) {
-      res.status(501).send("couldn't get contact");
+      res.status(501).send("couldn't get formulaire");
     } else {
       res.json(results);
     }
   });
 });
 router.put("/:id", Auth, (req, res) => {
-  const idcontact = req.params.id;
-  const contact = req.body;
+  const idformulaire = req.params.id;
+  const formulaire = req.body;
 
-  const sql = `UPDATE contact SET name=?, id_locale=? WHERE id=${idcontact}`;
+  const sql = `UPDATE formulaire SET name=?, id_locale=? WHERE id=${idformulaire}`;
 
   connection.query(
     sql,
-    [contact.name, contact.id_locale, idcontact],
+    [formulaire.name, formulaire.id_locale, idformulaire],
     (error, results, fields) => {
       if (error) {
-        res.status(501).send("couldn't put contact" + error);
+        res.status(501).send("couldn't put formulaire" + error);
       } else {
         res.json(req.body);
       }
@@ -72,11 +72,11 @@ router.put("/:id", Auth, (req, res) => {
   );
 });
 router.delete("/:id", Auth, (req, res) => {
-  const idcontact = req.params.id;
-  const sql = "DELETE  FROM contact WHERE id=?";
-  connection.query(sql, [idcontact], (error, results, fields) => {
+  const idformulaire = req.params.id;
+  const sql = "DELETE  FROM formulaire WHERE id=?";
+  connection.query(sql, [idformulaire], (error, results, fields) => {
     if (error) {
-      res.status(501).send("couldn't put contact" + error);
+      res.status(501).send("couldn't put formulaire" + error);
     } else {
       res.json(req.body);
     }

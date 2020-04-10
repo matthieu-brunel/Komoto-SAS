@@ -112,7 +112,7 @@ class App extends Component{
           <Route exact path="/Admin" component={Admin} />
           <Route exact path="/Mention" component={Mention} />
           <Route exact path="/Partenaire" component={Partenaire} />
-          <Route exact path={link_solution} component={ () => <Solution name_solution={name_solution} num_lang={num_lang} locale={idLang} />}/>
+          <Route exact path={`/solution-${name_solution}`} component={ () => <Solution name_solution={name_solution} num_lang={num_lang} locale={idLang} />}/>
         </Switch>
       </div>
     );

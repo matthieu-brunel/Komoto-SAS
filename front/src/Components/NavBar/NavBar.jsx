@@ -65,7 +65,7 @@ const NavBar = (props) => {
               <NavLink to="/Demonstration" className="p-3">{data[4]}</NavLink>
             </NavItem>
             <select className="form-control" id="selectLang" onChange={handleChangeLang}>
-              <option id={locale} style={{color:"transparent"}}>{locale}</option>
+              <option id={locale} style={{display:"none"}}>{locale}</option>
               {num_lang.length > 0 && num_lang.map((element, index) => <option key={index} id={element} value={index}>{element}</option>)}
             </select>
           </Nav>
