@@ -22,7 +22,7 @@ class Accueil extends Component {
 
   componentDidMount = async () => {
     const { locale } = this.props;
-    const { solution } = this.state;
+   
     let data = await getRessources("homepage", "solution", locale);
   
     this.setState({solution: data});

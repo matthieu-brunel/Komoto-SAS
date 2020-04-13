@@ -30,7 +30,7 @@ class ContactPage extends Component {
 
 
   componentDidMount = async () => {
-    console.log("CONTACTEUUHHH");
+  
     const { locale } = this.props;
     
     const result = await getRessources("formulaire", null, locale);
@@ -156,7 +156,6 @@ class ContactPage extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
-          isSent: true,
           confirmationSent: this.state.formulaire_data[13],
           messageIsSent: this.state.formulaire_data[13],
           isLoading: false,

@@ -84,11 +84,10 @@ class App extends Component{
 
 
   render(){
-   // console.log(this.state.idLang, "render");
-    let route_solution = [];
+
 
     //console.log("FROM REDUCER : ",this.props.data_store.num_lang);
-    const { idLang, num_lang, navbar, link_solution, name_solution } = this.state;
+    const { idLang, num_lang, navbar } = this.state;
 
     return (
       <div className="App">

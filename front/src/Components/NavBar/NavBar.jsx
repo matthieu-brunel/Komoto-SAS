@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GET_NUM_LANG } from './../actionTypes';
+
 import {
   Collapse,
   Navbar,
