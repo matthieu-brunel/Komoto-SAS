@@ -10,56 +10,36 @@ import { Switch, Route } from 'react-router-dom';
 import Mention from "./Components/Mention/Mention";
 import Partenaire from './Components/partenaires/Partenaire';
 import NavBar from './Components/NavBar/NavBar.jsx';
+import { connect } from "react-redux";
+import { GET_ARRAY_NAME_SOLUTION, GET_ID_LANG } from "./../src/Components/actionTypes";
+
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class App extends Component{
-  _isMounted = false;
+  
   constructor(props){
     super(props);
     this.state = {
       idLang:'fr',
-      num_lang:[],
-      navbar: [],
-      link_solution:"",
-      name_solution:""
+      array_name_solution:[]
     }
   }
 
 
   handleChangeLang = async (event) => {
-  
 
-    let lang_selected = event.target.options[event.target.selectedIndex].id;
-    localStorage.setItem('data_lang', JSON.stringify(lang_selected));
-
+    let idLang = event.target.options[event.target.selectedIndex].id;
+    this.props.dispatch({ type: GET_ID_LANG.type, idLang })
 
      this.setState({
-      idLang:lang_selected
+      idLang:idLang
     });
   }
 
-  handleClickSolution = (event) => {
-    //const { data_store, locale } = this.props;
-    let name_solution = event.target.id.toLowerCase();
-    let link_solution = `/solution-${name_solution.toLowerCase()}`;
-    let data = {
-      "name_solution":name_solution,
-      "link_solution":link_solution
-    }
-    //this.props.dispatch({type: GET_NAME_SOLUTION_SELECTED.type, name_solution,link_solution});
-    localStorage.setItem('data_store', JSON.stringify(data));
-    this.setState({
-      link_solution:link_solution,
-      name_solution:name_solution
-    });
-  }
 
-  componentDidMount = async() => {
-    //console.log("componentDidMount App.js");
-    this._isMounted = true;
-    //Chargement de la langue : locale => fr ou en
-    let get_data_lang = await JSON.parse((await localStorage.getItem('data_lang')));
+  getStarted = async () => {
+    const { idLang } = this.state;
 
     const options = {
       headers: new Headers({
@@ -70,49 +50,62 @@ class App extends Component{
     //Chargement des données de la table language 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
     let data_lang = await(await(fetch(url, options))).json();
-    //console.log(data_lang);
 
-
+    //Chargement de toutes les solutions
+    url = "http://localhost:5000/api/solution/all";
+    let solutionsAll = await(await(fetch(url, options))).json();
     
-    let num_lang = data_lang.map(lang => lang.locale);
+    //récupération des section uniques ex :[ketra, kroco, kheops]
+    let sectionSolution = solutionsAll.map(element => element.section);
+    let section_filtered = sectionSolution.filter((section, index) => sectionSolution.lastIndexOf(section) === index);
 
-
-
-    if(get_data_lang !== null){
-      this.setState({
-        idLang:get_data_lang,
-        num_lang:num_lang
-      });
-    }else{
-      this.setState({
-        num_lang:num_lang
-      });
-    }
-  }
+    //array qui va recueillir toutes les solutions
+    let array_solution = [];
   
-  componentWillUnmount() {
-    this._isMounted = false;
+
+    for(let i in section_filtered){
+      let url = `http://localhost:5000/api/solution?section=${section_filtered[i]}&locale=${data_lang[0].locale}`;
+      
+      array_solution.push(await(await(fetch(url, options))).json()) 
+    }
+  
+    this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered});
+    this.props.dispatch({ type: GET_ID_LANG.type, idLang });
+
+    this.setState({array_name_solution:section_filtered});
+        
   }
+
+
+  componentDidMount = () => {
+    //localStorage.setItem('lang', this.state.idLang);
+    this.getStarted();
+  } 
 
 
   render(){
-    
-    const { idLang, num_lang, navbar, link_solution, name_solution} = this.state;
+   // console.log(this.state.idLang, "render");
+    let route_solution = [];
+
+    //console.log("FROM REDUCER : ",this.props.data_store.num_lang);
+    const { idLang, num_lang, navbar, link_solution, name_solution } = this.state;
 
     return (
       <div className="App">
         <div className="">
-          <NavBar  navbar_data={navbar} num_lang={num_lang} locale={idLang} handleChangeLang={this.handleChangeLang}/>
+          <NavBar  navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang}/>
         </div>
+
         <Switch>
           <Route exact path="/" component={ () => <Accueil  locale={idLang} handleClickSolution={this.handleClickSolution}/>}/>
-          <Route exact path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
-          <Route exact path="/Contact" component={ () => <Contact locale={idLang}/>} />
-          <Route exact path="/Demonstration" component={ () => <Demonstration locale={idLang}/>} />
-          <Route exact path="/Admin" component={Admin} />
-          <Route exact path="/Mention" component={Mention} />
-          <Route exact path="/Partenaire" component={Partenaire} />
-          <Route exact path={`/solution-${name_solution}`} component={ () => <Solution name_solution={name_solution} num_lang={num_lang} locale={idLang} />}/>
+          <Route path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
+          <Route path="/Contact" component={ () => <Contact locale={idLang}/>} />
+          <Route path="/Demonstration" component={ () => <Demonstration locale={idLang}/>} />
+          <Route path="/Admin" component={Admin} />
+          <Route path="/Mention" component={Mention} />
+          <Route path="/Partenaire" component={Partenaire} />
+          <Route path={`/solution/:id`} component={ (props) => <Solution {...props} {...this.state}/>} />
+   
         </Switch>
       </div>
     );
@@ -121,4 +114,10 @@ class App extends Component{
 }
 
 
-export default App;
+
+const mapStateToProps = state => ({
+  data_store: state
+});
+
+export default connect(mapStateToProps)(App);
+

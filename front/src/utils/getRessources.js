@@ -9,7 +9,7 @@ export default async function getRessources(table, section, locale) {
     }
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table +'?section=' + section + '&locale=' + locale;
-    //console.log(url);
+
     const data = await (await (fetch(url, options))).json();
     return data;
 

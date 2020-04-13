@@ -5,7 +5,6 @@ import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle 
 import { Button } from 'reactstrap';
 
 class DemoModel extends Component {
-  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -19,7 +18,7 @@ class DemoModel extends Component {
 
   }
   componentDidMount = async () => {
-    this._isMounted = true;
+  
     const { locale } = this.props;
     let data = await getRessources("demonstration","demonstration_model", locale);
 
@@ -28,9 +27,6 @@ class DemoModel extends Component {
     });
   };
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
 
   handlerChangeModel = (event) => {
 

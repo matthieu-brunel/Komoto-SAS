@@ -30,6 +30,7 @@ class ContactPage extends Component {
 
 
   componentDidMount = async () => {
+    console.log("CONTACTEUUHHH");
     const { locale } = this.props;
     
     const result = await getRessources("formulaire", null, locale);
@@ -180,9 +181,8 @@ class ContactPage extends Component {
   };
 
   render() {
-    const {
-      formulaire_data
-    } = this.state;
+    const {formulaire_data} = this.state;
+    
 
     return (
       <div>

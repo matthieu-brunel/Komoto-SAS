@@ -7,7 +7,7 @@ import SolutionAccueil from './SolutionsAccueil/SolutionAccueil';
 import DemonstrationAccueil from './DemonstrationAccueil/Demonstration';
 import ReferenceAccueil from './ReferencesAccueil/Reference'
 import Footer from "./../Footer/Footer"
-import "animate.css/animate.min.css";
+//import "animate.css/animate.min.css";
 import getRessources from "./../../utils/getRessources";
 //import ScrollAnimation from 'react-animate-on-scroll';
 
@@ -22,26 +22,26 @@ class Accueil extends Component {
 
   componentDidMount = async () => {
     const { locale } = this.props;
+    const { solution } = this.state;
     let data = await getRessources("homepage", "solution", locale);
-    //console.log(data);
-    this.setState({
-      solution: data
-    });
-  };
+  
+    this.setState({solution: data});
+  
+  }; 
 
   render(){
-    //console.log("je suis dans accueil");
+   
     const { locale, num_lang, handleClickSolution } = this.props;
     const { solution } = this.state;
-
+    //console.log(solution);
     return (
       <div className="sticky-wrap">
 
-        
+  
         <div className="vignets">
           <HeaderAccueil locale={locale} />
         </div> 
-        
+             
     
         <div className="special">
           <SpecialisationAccueil locale={locale}/>
@@ -61,7 +61,7 @@ class Accueil extends Component {
 
         <div className="sticky-footer">
           <Footer locale={locale}/>
-        </div>
+        </div> 
       </div>
     );
   }
