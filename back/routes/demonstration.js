@@ -45,6 +45,19 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/text", (req, res) => {
+  console.log(req.query)
+  const sql = `SELECT d.title, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
+  connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {
+    console.log(req.query)
+    if (error) {
+      res.status(501).send("couldn't get demonstration");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 
 
 router.get("/", (req, res) => {
