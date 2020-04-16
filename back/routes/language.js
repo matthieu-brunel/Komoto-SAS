@@ -9,7 +9,7 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
-  console.log(req.body)
+ 
   const sql =
     "INSERT INTO language (name, locale) VALUES (? , ?)";
   connection.query(
@@ -34,7 +34,7 @@ router.post("/",Auth, (req, res) => {
 router.get("/", (req, res) => {
   const sql = `SELECT name, locale FROM language`;
   connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
-    //console.log(req.query)
+    
     if (error) {
       res.status(501).send("couldn't get language");
     } else {
