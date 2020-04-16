@@ -33,9 +33,19 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, d.model_alt, i.name, i.url, i.alt, i.section FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id WHERE d.section='demonstration_model' AND i.section='demonstration_model'`;
-  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
-    //console.log(req.query)
+  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, d.model_alt, i.name, i.url, i.alt, i.section,l.locale FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id JOIN language AS l ON l.id=d.language WHERE d.section=? AND i.section=? AND l.locale=?`;
+  connection.query(sql,[req.query.section,req.query.section, req.query.locale], (error, results, fields) => {
+    if (error) {
+      res.status(501).send("couldn't get demonstration");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+router.get("/text", (req, res) => {
+  const sql = `SELECT d.title, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
+  connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");
     } else {
@@ -72,7 +82,6 @@ router.put("/:id",Auth, (req, res) => {
   const demonstration = req.body;
 
 
-  //console.log("text", req.body);
   const sql = `UPDATE demonstration SET subtitle=?, title=?, section=?, description=?, model_url=? , model_alt=? WHERE id=${idDemonstration}`;
 
   connection.query(

@@ -1,4 +1,4 @@
-import React, { Fragment} from 'react';
+import React from 'react';
 import './ReferenceComponents.css';
 
 
@@ -27,7 +27,7 @@ function ReferenceComponents({reference}) {
                   
                 element.description.map((liste, index) => liste.includes('/') ? (
                   
-                  <ul className="text-lg-left">
+                  <ul key={index} className="text-lg-left">
                     {liste.split('/').map((el, index) => (
                       <li className="liste-reference p-2" key={index}>{el}</li>
                     ))}
@@ -40,27 +40,27 @@ function ReferenceComponents({reference}) {
 
             {/*CAROUSSEL IMAGE*/}
               <div className="div-image-main-reference w-50 col-12 col-lg-6">
-                <div id={element.name} class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img class="d-block w-100" src={element.url.length > 0  ? '/images/reference/' + element.url[2] : ""} alt="First slide"/>
+                <div id={element.name} className="carousel slide" data-ride="carousel">
+                  <div className="carousel-inner">
+                    <div className="carousel-item active">
+                      <img className="d-block w-100" src={element.url.length > 0  ? '/images/reference/' + element.url[2] : ""} alt="First slide"/>
                     </div>
                     {element.url.map((image, index) => index >= 3 ? 
-                                      <div class="carousel-item">
-                                        <img class="d-block w-100 image-reference-caroussel" src={'/images/reference/' + image} alt="First slide"/>
+                                      <div key={index} className="carousel-item">
+                                        <img className="d-block w-100 image-reference-caroussel" src={'/images/reference/' + image} alt="First slide"/>
                                       </div>
                                       :
                                       "")
                     }
 
                   </div>
-                  <a class="carousel-control-prev" href={'#' + element.name} role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+                  <a className="carousel-control-prev" href={'#' + element.name} role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Previous</span>
                   </a>
-                  <a class="carousel-control-next" href={'#' + element.name} role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                  <a className="carousel-control-next" href={'#' + element.name} role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Next</span>
                   </a>
                 </div>
               </div>

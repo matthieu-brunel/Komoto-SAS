@@ -6,7 +6,7 @@ import './HeaderSolution.css';
 class HeaderSolution extends Component {
   render(){
     const { header } = this.props;
-    console.log(header);
+
     return (
       <div className="container container-header-solution mb-5">
         <div className="div-logo-solution">

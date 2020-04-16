@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import './Reference.css';
 import ReferenceComponents from './ReferenceComponents/ReferenceComponents';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import getRessources from "./../../utils/getRessources";
 
@@ -16,7 +15,8 @@ class Reference extends Component {
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("reference", "reference");
+    const { locale } = this.props;
+    let data = await getRessources("reference", "reference", locale);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     } 
@@ -56,11 +56,9 @@ class Reference extends Component {
   
 
   render(){
-    const { reference } = this.state; 
-    console.log(reference);
+
     return (
       <div className="">
-        <NavBar />
        { <ReferenceComponents reference={this.state.reference}/>}
         <Footer />
       </div>

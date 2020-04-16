@@ -30,10 +30,11 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.title, r.subtitle, r.description, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.homepage_id WHERE r.section=? && i.section=?`;
-  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
+  const sql = `SELECT r.description, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.homepage_id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
+
+  connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
     if (error) {
-      //console.log
+     
       res.status(501).send("couldn't get solution");
     } else {
       res.json(results);
@@ -67,7 +68,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idReference = req.params.id;
   const reference = req.body;
-  //console.log("text", req.body);
+  
   const sql = `UPDATE reference SET subtitle=?, title=?, section=?, description=?, image_id=? WHERE id=${idReference}`;
   connection.query(
     sql,

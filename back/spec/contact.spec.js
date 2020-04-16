@@ -49,7 +49,7 @@ describe("test formulaire (POST)", () => {
         } else {
           let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toBe("Votre demande de contact a bien été envoyée.");
+          expect(response.body.message).toBe("");
           expect(data.societe).toBe(formulaire.societe);
           expect(data.nom).toBe(formulaire.nom);
           expect(data.prenom).toBe(formulaire.prenom);
@@ -79,7 +79,7 @@ describe("test formulaire (POST)", () => {
         } else {
         let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toBe("Votre demande de contact a bien été envoyée.");
+          expect(response.body.message).toBe("");
           expect(data.societe).toBe(formulaire.societe);
           expect(data.nom).toBe(formulaire.nom);
           expect(data.prenom).toBe(formulaire.prenom);

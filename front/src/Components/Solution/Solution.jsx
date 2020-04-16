@@ -4,7 +4,6 @@ import HeaderSolution from './Header/HeaderSolution';
 import SolutionText from './SolutionText/SolutionText';
 import SolutionImage from './SolutionImage/SolutionImage';
 import getRessources from './../../utils/getRessources';
-import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import { connect } from "react-redux";
 
@@ -13,8 +12,10 @@ class Solution extends Component{
   constructor(props){
     super(props);
     this.state = {
-      solution:[]
+      solution:[],
+      idLang:""
     }
+   
   }
 
   getTextToList(data) {
@@ -27,24 +28,33 @@ class Solution extends Component{
     objet.description = array_description;
     objet.url = array_image;
     //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
+
     this.setState({ solution: [...this.state.solution, objet] });
+    
   }
 
-  componentDidMount = async () => {
+
+  getSolution = async() => {
+   
+    const { idLang } = this.props;
+    
+    let section = this.props.match.params.id;
+    let data = await getRessources("solution", section, idLang);
   
-    let get_data_store = await JSON.parse((await localStorage.getItem('data_store')));
-    console.log(get_data_store);
-    let data = await getRessources("solution", get_data_store.solutionSelected);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }
-  };
+  }
+
+  componentDidMount = () => {
+    this.getSolution(); 
+  }; 
+
 
   render(){
-
+    
       return (
           <div className="mt-5 sticky-wrap">
-            <NavBar />
             <HeaderSolution header={this.state.solution}/>
             <SolutionText texte={this.state.solution}/>
             { this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url}/>}
@@ -57,5 +67,8 @@ class Solution extends Component{
 
 }
 
+const mapStateToProps = state => ({
+  data_store: state
+});
 
-export default connect()(Solution);
+export default connect(mapStateToProps)(Solution);

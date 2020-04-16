@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Reference.css";
 import { HashLink as NavLink } from "react-router-hash-link";
-
 import getRessources from "../../../utils/getRessources";
 
 class ReferenceAccueil extends Component {
@@ -13,7 +12,8 @@ class ReferenceAccueil extends Component {
   }
 
   componentDidMount = async () => {
-    let data = await getRessources("homepage", "reference");
+    const { locale } = this.props;
+    let data = await getRessources("homepage", "reference", locale);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }

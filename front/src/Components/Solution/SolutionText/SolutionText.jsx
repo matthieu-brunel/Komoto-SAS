@@ -20,12 +20,11 @@ class SolutionText extends Component {
     let array_texte = [];
 
     for(let i = 0; i < texte.length; i++){
-      if(texte.subtitle != 'header'){
+      if(texte.subtitle !== 'header'){
         array_texte.push(texte[i])
       }
     }
     
-    console.log(texte);
 
   }
   render(){
@@ -36,12 +35,12 @@ class SolutionText extends Component {
           <div className="div-solution mb-5" key={index}>
             <div className="div-title-solution"><h3 className="title-solution">{element.subtitle !== 'header' ? element.title : ""}</h3></div>
             <div className="div-texte-solution">
-            <ul>
+            
               {element.subtitle !== 'header' ? element.description.map((description, index) => (
-                <li className="mb-3" key={index}>{description}</li>
+                <p className="mb-3" key={index}>{description}</p>
               )) 
               : ""}
-              </ul></div>
+              </div>
           </div>
         ))}
         </div>
