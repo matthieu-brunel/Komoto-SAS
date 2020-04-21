@@ -3,7 +3,7 @@ const parser = require("body-parser");
 const app = express();
 const multer = require("multer");
 const cors = require("cors");
-
+const path = require('path');
 const api = require("./routes");
 const Auth = require("./middleware/auth");
 
@@ -16,6 +16,12 @@ app.use(
     extended: true
   })
 );
+
+const staticPath = path.join(__dirname,'/')
+app.use(express.static(staticPath));
+app.use("/model", express.static(__dirname + "/public/model")); 
+
+
 app.use(cors());
 
 app.use("/api", api);
