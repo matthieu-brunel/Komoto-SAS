@@ -5,7 +5,7 @@ import Solution from './Components/Solution/Solution';
 import Reference from './Components/Reference/Reference';
 import Contact from './Components/Contact/Contact';
 import Demonstration from './Components/Demonstration/Demonstration';
-import Admin from './Components/Admin/Admin';
+import Admin from "./admin"
 import { Switch, Route } from 'react-router-dom';
 import Mention from "./Components/Mention/Mention";
 import Partenaire from './Components/partenaires/Partenaire';
@@ -91,21 +91,24 @@ class App extends Component{
 
     return (
       <div className="App">
-        <div className="">
+        {/* <div className="">
           <NavBar  navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang}/>
-        </div>
+        </div> */}
 
         <Switch>
           <Route exact path="/" component={ () => <Accueil  locale={idLang} handleClickSolution={this.handleClickSolution}/>}/>
           <Route path="/Reference" component={ () => <Reference num_lang={num_lang} locale={idLang}/>} />
           <Route path="/Contact" component={ () => <Contact locale={idLang}/>} />
           <Route path="/Demonstration" component={ () => <Demonstration locale={idLang}/>} />
-          <Route path="/Admin" component={Admin} />
           <Route path="/Mention" component={Mention} />
           <Route path="/Partenaire" component={Partenaire} />
           <Route path={`/solution/:id`} component={ (props) => <Solution {...props} {...this.state}/>} />
    
         </Switch>
+
+        <div>
+          <Admin/>
+        </div>
       </div>
     );
   }

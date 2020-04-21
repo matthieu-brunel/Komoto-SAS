@@ -7,7 +7,7 @@ import './ReferenceAdmin.css'
 function ReferenceAdmin() {
   return (
     <div className="">
-      
+      <p className="bg-admin">Réference</p>
     </div>
   );
 }
