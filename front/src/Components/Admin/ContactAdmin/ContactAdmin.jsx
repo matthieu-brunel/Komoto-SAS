@@ -7,7 +7,7 @@ import './ContactAdmin.css'
 function ContactAdmin() {
   return (
     <div className="">
-      
+      <p className="bg-admin">Contact</p>
     </div>
   );
 }
