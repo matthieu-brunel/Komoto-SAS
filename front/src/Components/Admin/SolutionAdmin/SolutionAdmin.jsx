@@ -1,5 +1,6 @@
 import React from 'react';
 import './SolutionAdmin.css'
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -7,6 +8,9 @@ import './SolutionAdmin.css'
 function SolutionAdmin() {
   return (
     <div className="">
+      <div>
+        <NavBarAdmin/>
+      </div>
       <p className="bg-admin">Solution</p>
     </div>
   );

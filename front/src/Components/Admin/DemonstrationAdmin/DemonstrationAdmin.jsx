@@ -1,5 +1,6 @@
 import React from 'react';
 import './DemonstrationAdmin.css'
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -7,6 +8,9 @@ import './DemonstrationAdmin.css'
 function DemonstrationAdmin() {
   return (
     <div className="">
+      <div>
+        <NavBarAdmin/>
+      </div>
       <p className="bg-admin">Showroom</p>
     </div>
   );

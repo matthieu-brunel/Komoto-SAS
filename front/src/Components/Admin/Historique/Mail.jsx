@@ -1,5 +1,6 @@
 import React from 'react';
 import './Mail.css'
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -7,6 +8,9 @@ import './Mail.css'
 function Mail() {
   return (
     <div className="">
+      <div>
+        <NavBarAdmin/>
+      </div>
      <p className="bg-admin">Mail</p>
     </div>
   );
