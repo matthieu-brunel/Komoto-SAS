@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Clients from './clients';
 import User from './Components/Admin/users/User';
+import Login from './Components/Admin/Login/Login';
 import { Switch, Route } from 'react-router-dom';
 import SolutionAdmin from './Components/Admin/SolutionAdmin/SolutionAdmin';
 import ReferenceAdmin from './Components/Admin/ReferenceAdmin/ReferenceAdmin';
@@ -30,6 +31,7 @@ class App extends Component {
           <Clients />
         </div>
         <Switch>
+          <Route path="/Login" component={Login} />
           <Route path="/user" component={User} />
           <Route path="/SolutionAdmin" component={SolutionAdmin} />
           <Route path="/ContactAdmin" component={ContactAdmin} />
