@@ -17,8 +17,7 @@ class User extends Component {
       admin:[],
       user:"",
       password:"",
-      isCreateUser:false,
-      idEditAdmin:0
+      idEditAdmin:0,
     }
   }
 
@@ -83,9 +82,26 @@ class User extends Component {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(res => this.setState({isCreateUser:true,user:"", password:"", getIdEditUser:""}))
+      .then(res => this.setState({user:"", password:"", getIdEditUser:""}))
       this.getTokenAdmin();
   }
+
+  deleteAdminUser = () => {
+
+    let url = REACT_APP_SERVER_ADDRESS_FULL +'/api/admin/'+ this.state.admin[this.state.idEditAdmin].id;
+    console.log(this.state.admin[this.state.idEditAdmin].id);
+    fetch(url,{
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + this.state.token
+    }),
+      method:'DELETE'
+    })
+      .then(res => res.json())
+      .then(res => this.setState({getIdEditUser:""}))
+      this.getTokenAdmin();
+  }
+
 
   resetInput(){
     this.setState({user:"",password:""});
@@ -123,7 +139,7 @@ class User extends Component {
       .then(res => 
         {
           console.log("ma réponse : ",res)
-        this.setState({isCreateUser:true,user:"", password:""})
+        this.setState({user:"", password:""})
         this.getTokenAdmin();
         
         })
@@ -166,7 +182,7 @@ class User extends Component {
                     <th scope="row">{index+1}</th>
                     <td>{element.user}</td>
                     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Modifier</button></td>
-                    <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+                    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Supprimer</button></td>
                   </tr>
                 ))
               }
@@ -242,6 +258,30 @@ class User extends Component {
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editAdminUser}>Valider</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*fin modal nouvel utilisateur*/}
+
+        {/*début modal suppression utilisateur*/}
+        {/* <!-- Modal --> */}
+        <div class="modal fade" id="deleteUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="titleDeleteUserAmdin">Suppression de l'utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Souhaitez-vous supprimer cet utilisateur ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminUser}>Valider</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Annuler</button>
 
               </div>
             </div>
