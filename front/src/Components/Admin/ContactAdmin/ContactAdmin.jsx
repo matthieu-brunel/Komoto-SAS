@@ -1,5 +1,6 @@
 import React from 'react';
 import './ContactAdmin.css'
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -7,8 +8,13 @@ import './ContactAdmin.css'
 function ContactAdmin() {
   return (
     <div className="">
-      <p className="bg-admin">Contact</p>
-    </div>
+      <div>
+        <NavBarAdmin/>
+      </div>
+      <div>
+          <p className="bg-admin">Contact</p>
+        </div>
+      </div>
   );
 }
 

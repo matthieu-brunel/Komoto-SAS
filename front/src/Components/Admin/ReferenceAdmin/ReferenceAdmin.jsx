@@ -1,5 +1,6 @@
 import React from 'react';
 import './ReferenceAdmin.css'
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -7,6 +8,9 @@ import './ReferenceAdmin.css'
 function ReferenceAdmin() {
   return (
     <div className="">
+      <div>
+        <NavBarAdmin/>
+      </div>
       <p className="bg-admin">Réference</p>
     </div>
   );

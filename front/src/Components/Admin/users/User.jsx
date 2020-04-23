@@ -1,5 +1,6 @@
 import React from 'react';
 import "./user.css";
+import NavBarAdmin from '../NavBarAdmin/NavBar';
 
 
 
@@ -8,6 +9,9 @@ import "./user.css";
 function User() {
   return (
     <div className="">
+      <div>
+        <NavBarAdmin/>
+      </div>
       <p className="bg-admin">Utilisateur</p>
     </div>
   );
