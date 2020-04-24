@@ -9,6 +9,7 @@ import ReferenceAdmin from './Components/Admin/ReferenceAdmin/ReferenceAdmin';
 import DemonstrationAdmin from './Components/Admin/DemonstrationAdmin/DemonstrationAdmin';
 import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
 import Mail from './Components/Admin/Historique/Mail';
+import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
@@ -33,6 +34,7 @@ class App extends Component {
         <Switch>
           <Route path="/Login" component={Login} />
           <Route path="/user" component={User} />
+          <Route path="/HomepageAdmin" component={HomepageAdmin} />
           <Route path="/SolutionAdmin" component={SolutionAdmin} />
           <Route path="/ContactAdmin" component={ContactAdmin} />
           <Route path="/ReferenceAdmin" component={ReferenceAdmin} />

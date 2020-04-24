@@ -23,7 +23,8 @@ prefix+"/ReferenceAdmin",
 prefix+"/DemonstrationAdmin",
 prefix+"/Mail",
 prefix+"/Login",
-prefix+"/user"];
+prefix+"/user",
+prefix+"/HomepageAdmin"];
 
 
 let monUrl = window.location.href;
@@ -105,7 +106,7 @@ class Client extends Component {
 
         return (
             <div className="">
-                { ! urlAdmin.includes(monUrl) ?
+                {!urlAdmin.includes(monUrl) ?
                     <div className="">
                         <NavBar navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang} />
                     </div>
@@ -126,6 +127,7 @@ class Client extends Component {
     }
 
 }
+
 
 
 
