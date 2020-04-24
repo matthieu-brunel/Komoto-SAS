@@ -181,8 +181,8 @@ class User extends Component {
                     <tr key={index}>
                     <th scope="row">{index+1}</th>
                     <td>{element.user}</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Modifier</button></td>
-                    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Supprimer</button></td>
+                    <td> {index === 0 ? "" : <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Modifier</button>}</td>
+                <td>{index === 0 ? "" :<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Supprimer</button>}</td>
                   </tr>
                 ))
               }

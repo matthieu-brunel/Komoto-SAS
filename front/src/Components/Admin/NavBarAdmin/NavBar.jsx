@@ -9,6 +9,7 @@ function NavBarAdmin() {
     <div className="">
       <div className="nav">
       <Link to="/user" className=""> Utilisateur </Link>
+      <Link to="/HomepageAdmin"> Homepage </Link>
       <Link to="/SolutionAdmin"> Solution </Link>
       <Link to="/ContactAdmin"> Contact </Link>
       <Link to="/ReferenceAdmin">Réference </Link>

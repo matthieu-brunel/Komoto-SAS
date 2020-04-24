@@ -23,7 +23,8 @@ prefix+"/ReferenceAdmin",
 prefix+"/DemonstrationAdmin",
 prefix+"/Mail",
 prefix+"/Login",
-prefix+"/user"];
+prefix+"/user",
+prefix+"/HomepageAdmin"];
 
 
 let monUrl = window.location.href;
