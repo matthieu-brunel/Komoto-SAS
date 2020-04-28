@@ -32,7 +32,7 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT name, locale FROM language`;
+  const sql = `SELECT name, locale, id FROM language`;
   connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
     
     if (error) {

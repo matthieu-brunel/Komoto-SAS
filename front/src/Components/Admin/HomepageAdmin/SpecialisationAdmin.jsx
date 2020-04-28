@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import getRessources from './../../../utils/getRessources';
+import "./SpecialisationAdmin.css";
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
+
 
 class SpecialisationAdmin extends Component{
     constructor(props) {
@@ -8,29 +11,21 @@ class SpecialisationAdmin extends Component{
         this.state = {
             specialisation: [],
             titreSection:"",
+            specSelected:[],
 
+            /*scpecialisation*/
+            titreSpec:"",
+            description:"",
+            arrayDescription:[],
+            urlImage:"",
+            altImage:"",
+            nameImage:"",
+            refIdImage:null,
 
+            addDescription:""
 
-            /*scpecialisation 1*/
-            titre1Spec1:"",
-            description1:"",
-            arrayDescription1:[],
-
-            /*scpecialisation 2*/
-            titre1Spec2:"",
-            description2:"",
-            arrayDescription2:[],
-
-            /*scpecialisation 3*/
-            titre1Spec3:"",
-            description3:"",
-            arrayDescription3:[],
-
-            /*scpecialisation 4*/
-            titre1Spec4:"",
-            description4:"",
-            arrayDescription4:[]
         }
+        
     }
 
     handleChangeInput = (event) => {
@@ -40,23 +35,28 @@ class SpecialisationAdmin extends Component{
                 this.setState({titreSection:event.target.value});
                 break;
 
-            case "titre-spec1":
-                this.setState({titre1Spec1:event.target.value});
+            case "titre-spec-admin":
+                this.setState({titreSpec:event.target.value});
                 break;
 
-            case "description-1":
-                this.setState({description1:event.target.value +"/"});
+            case "addDescription-spec-admin":
+                this.setState({addDescription:event.target.value});
+                break; 
+                
+            case "url-image-spec-admin":
+                this.setState({urlImage:event.target.value});
                 break;
 
-            case "description-2":
-                this.setState({description2:event.target.value +"/"});
-
-            case "description-3":
-                this.setState({description3:event.target.value +"/"});
+            case "alt-image-spec-admin":
+                this.setState({altImage:event.target.value});
                 break;
 
-            case "description-4":
-                this.setState({description4:event.target.value +"/"});
+            case "name-image-spec-admin":
+                this.setState({nameImage:event.target.value});
+                break;
+
+            case "refId-image-spec-admin":
+                this.setState({refIdImage:event.target.value});
                 break;
         
             default:
@@ -64,14 +64,58 @@ class SpecialisationAdmin extends Component{
         }
     }
 
-/* editAdminUser = (event) => {
+    getSpecialisation = (event) => {
+        let index = event.target.options[event.target.options.selectedIndex].id;
+        console.log(" getSpecialisation = (event)");
+        if(index !== "default"){
+            let specSelected = [];
+            specSelected.push(this.state.specialisation[index]);
+            this.setState({
+                specSelected:specSelected,
+                titreSpec:this.state.specialisation[index].subtitle,
+                arrayDescription:this.state.specialisation[index].description,
+                altImage:this.state.specialisation[index].alt,
+                urlImage:this.state.specialisation[index].url,
+                nameImage:this.state.specialisation[index].name,
+                refIdImage:this.state.specialisation[index].homepage_id,
+                titreSection:this.state.specialisation[index].title
+            })
+        }else{
+            this.setState({
+                specSelected:[],
+                titreSpec:"",
+                arrayDescription:"",
+                altImage:"",
+                urlImage:"",
+                refIdImage:"",
+                nameImage:"",
+                titreSection:""
+            })
+        }
+
+
+    }
+
+editAdminUser = (event) => {
         event.preventDefault();
+        const {arrayLang, locale } = this.props;
+
+        let idLang;
+        let description = this.state.specSelected[0].description.join("/");
+
+        for(let i in arrayLang){
+            if(Object.values(arrayLang[i]).includes(locale)){
+                idLang = Object.values(arrayLang[i])[2];
+            }
+        }
+
+        
         let data = {
-            'subtitle':"",
-            'title':"",
-            'section':"",
-            'description':"",
-            'language':"",
+            'subtitle':this.state.titreSpec,
+            'title':this.state.titreSection,
+            'section':"specialisation",
+            'description':description,
+            'language':idLang,
             'image_id':""
         }
         
@@ -88,7 +132,7 @@ class SpecialisationAdmin extends Component{
           .then(res => res.json())
           .then(res => this.setState({user:"", password:"", getIdEditUser:""}))
           this.getTokenAdmin();
-      } */
+      }
 
     getTextToList(data) {
         //variable objet qui servira à accueillir les données
@@ -101,134 +145,276 @@ class SpecialisationAdmin extends Component{
         this.setState({ specialisation: [...this.state.specialisation, objet] });
       } 
     
-       componentDidMount = async () => {
-        //const { locale } = this.props;
-        let locale = "fr"; 
+    componentDidMount = () => {
+        this.getStartedSpecialisation();
+    }
+
+    getStartedSpecialisation = async() => {
+        const { locale } = this.props;
+
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
         let data = await getRessources('homepage', 'specialisation',locale);
         
         //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-         for (let i = 0; i < data.length; i++) {
-          this.getTextToList(data[i]);
-         
+        for (let i = 0; i < data.length; i++) {
+            this.getTextToList(data[i]);
         }
-      }
+    }
 
-    addDescription = (index, event) => {
+    componentDidUpdate(prevProps){
+        if(prevProps.locale !== this.props.locale){
+            this.setState({specialisation:"", specSelected:"",titreSection:""});
+            this.getStartedSpecialisation();
+        }
+    }
+
+    closeModal = (event) => {
+
         switch (event.target.id) {
-            case `btn-add-description-1`:
-                this.setState({arrayDescription1:[...this.state.arrayDescription1, this.state.description1]})
+            case "titre-spec-admin-annuler":
+                this.setState({titreSpec:this.state.specSelected[0].subtitle});
                 break;
 
-            case `btn-add-description-2`:
-                this.setState({arrayDescription2:[...this.state.arrayDescription2, this.state.description2]})
+           case "description-spec-admin-annuler":
+                this.setState({arrayDescription:this.state.specSelected[0].description});
                 break;
-
-            case `btn-add-description-3`:
-                this.setState({arrayDescription3:[...this.state.arrayDescription3, this.state.description3]})
-                break
-
-            case `btn-add-description-4`:
-                this.setState({arrayDescription4:[...this.state.arrayDescription4, this.state.description4]})
-                break
         
             default:
                 break;
         }
     }
 
-    render(){
-/*         let rowDescription = [];
+    addDescription = () => {
+        let specialisation = this.state.specSelected;
+        let description = this.state.specSelected[0].description;
+        description.push(this.state.addDescription);
+        specialisation[0].description = description;
+        this.setState({arrayDescription:specialisation[0].description, addDescription:""});
+    }
 
-        if(this.state.arrayDescription1.length > 0){
-            this.state.arrayDescription1.map((description, index) => {
-            rowDescription.push(<p key={index}>{description}</p>)
-            })
-        } */
+    deleteDescription = (index, event) => {
+       
+        let specialisation = this.state.specSelected;
+        let description = this.state.specSelected[0].description;
+
+        description.splice(index, 1);
+
+        this.setState({arrayDescription:specialisation[0].description});
+    }
+
+    editDescription = (index, event) => {
+       
+        let specialisation = this.state.specSelected;
+        let description = this.state.specSelected[0].description;
+
+        description.splice(index, 1);
+
+        this.setState({arrayDescription:specialisation[0].description});
+    }
+
+
+    render(){
+        const { locale, arrayLang } = this.props;
+        console.log(this.state.specSelected);
+
         return(
             <div>
                 <div>
                     <h1>Specialisation</h1>
                 </div>
+
+{ this.state.titreSection.length > 0 &&
                 <div>
-                <form>
-                    <div class="form-group row">
-                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Titre de la section specialisation</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="titre-spec1" placeholder="saisir votre titre" onChange={this.handleChangeInput}/>
+                    <form>
+                        <div class="form-group row">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Titre de la section specialisation</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control form-control-sm" id="titre-spec1" value={this.state.titreSection} placeholder="saisir votre titre" onChange={this.handleChangeInput}/>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-titre-section-admin">Modifier</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>}
+
+                <div class="form-group container select-specialisation" style={{width:"none"}}>
+                    <label for="exampleFormControlSelect1">Choisir la spécialisation</label>
+                    <select class="form-control" id="select-specialisation" onChange={this.getSpecialisation}>
+                        <option id="default">Choisir la spécialisation</option>
+                        {this.state.specialisation.length && this.state.specialisation.map((element, index) => (
+                            <option key={index} id={index}>{`Specialisation ${index + 1}`}</option>
+                        ))}
+                    </select>
+                </div>
+                
+               
+                {this.state.specSelected.length > 0 &&
+                    <div className="div-input-specialisationAdmin">
+                        <div className="sous-titre-spec-admin">
+                            <h3>Titre</h3>
+                            <p>{this.state.titreSpec}</p>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-titreAdmin">Modifier</button>
+                        </div>
+
+                        <div className="description-spec-admin">
+                            <h3>Description(s)</h3>
+                            {this.state.arrayDescription.map((element, index) => (
+                                <p key={index}>{element}</p>
+                            ))}
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-descriptionAdmin">Modifier</button>
+                        </div>
+
+                        <div className="image-spec-admin">
+                            <h3>Url de l'image</h3>
+                            <p>Url : {this.state.urlImage}</p>
+                            <p>Alt : {this.state.altImage}</p>
+                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modifier-urlAdmin">Modifier</button>
+                        </div>
+
+                        <div className="custom-file pb-5">
+                            <input type="file" className="custom-file-input"  /* onChange={this.handlerUploadFile} *//>
+                            <label className="custom-file-label" htmlFor="inputGroupFile01">Choisir une image</label>
+                        </div>
+
+                        <div className="btn-appliquer-spec-Admin">
+                            <button type="button" class="btn btn-outline-primary">Appliquer</button>
+                        </div>
+                    </div>   }  
+
+                    {/* <!-- Modifier titre --> */}
+                    <div class="modal fade" id="modifier-titreAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier le titre</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea type="text" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal">Appliquer</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    {/* <!-- Modifier description --> */}
+                    <div class="modal fade" id="modifier-descriptionAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier les descriptions</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <label>Saisir une description</label>
+                                <input type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
+                                <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
+                                <div className="description-spec-admin-modal">
+                                    <ul>
+                                        {this.state.specSelected.length > 0 && this.state.specSelected[0].description.map((description, index) => (
+                                            <div>
+                                                <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
+                                                
+                                            </div>
+
+
+                                        ) )}
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="description-spec-admin-annuler" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" class="btn btn-primary" >Save changes</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                </form>
 
-                </div>
-                    {this.state.specialisation.length > 0 ?
-                        this.state.specialisation.map((specialisation, index) => (
-                            <div key={index}>
-                                <h2>{`specialisation ${index + 1}`}</h2>
+                    {/* <!-- Modifier url Image --> */}
+                    <div class="modal fade" id="modifier-urlAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier l'image / alt / id</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
                                 <form>
                                     <div class="form-group row">
-                                        <label for="titre-spec1" class="col-sm-2 col-form-label col-form-label-sm">titre</label>
-                                        <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="titre-spec1" placeholder="saisir le titre de la specialisation" value={this.state.titre1Spec1} onChange={this.handleChangeInput}/>
+                                        <label  htmlFor="name-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">nom de l'image</label>
+                                        <div className="col-sm-8">
+                                            <input type="text" value={this.state.nameImage} className="form-control form-control-sm" id="name-image-spec-admin" onChange={this.handleChangeInput}/>
                                         </div>
                                     </div>
-                                    <div style={{width:"50%"}}>
-                                        <input type="text" class="form-control form-control-sm" id={`description-${index}`} value={this.state.description} placeholder="saisir une description" onChange={this.handleChangeInput}/>
-                                        <button type="button" class="btn btn-primary" id={`btn-add-description-${index}`} onClick={this.addDescription.bind(this, index)}>ajouter une description</button>
-                                    </div>
-                                    <div>
-                                        {/* Ajouter une description concernant la scpecialisation numero 1*/}
-                                        {   
-                                            index === 0 && this.state.arrayDescription1.length > 0 ? this.state.arrayDescription1.map((element, index) => (
-                                                <p key={index}>{element}</p>
-                                            ))
-                                            :
-                                            null
-                                        }
 
-                                        {/* Ajouter une description concernant la scpecialisation numero 2*/}
-                                        {   
-                                            index === 1 && this.state.arrayDescription2.length > 0 ? this.state.arrayDescription2.map((element, index) => (
-                                                <p key={index}>{element}</p>
-                                            ))
-                                            :
-                                            null
-                                        }
-
-                                       {/* Ajouter une description concernant la scpecialisation numero 3*/}
-                                       {   
-                                            index === 2 && this.state.arrayDescription3.length > 0 ? this.state.arrayDescription3.map((element, index) => (
-                                                <p key={index}>{element}</p>
-                                            ))
-                                            :
-                                            null
-                                        }
-                        
-                                       {/* Ajouter une description concernant la scpecialisation numero 4*/}
-                                       {   
-                                            index === 3 && this.state.arrayDescription4.length > 0 ? this.state.arrayDescription4.map((element, index) => (
-                                                <p key={index}>{element}</p>
-                                            ))
-                                            :
-                                            null
-                                        }
-
+                                    <div class="form-group row">
+                                        <label htmlFor="url-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">l'url</label>
+                                        <div className="col-sm-8">
+                                             <input type="text" value={this.state.urlImage} className="form-control form-control-sm" id="url-image-spec-admin" onChange={this.handleChangeInput}/>
+                                        </div>
                                     </div>
 
-                                    <div class="custom-file" style={{width:'50%'}}>
-                                        <input type="file" class="custom-file-input" id="customFile"/>
-                                        <label class="custom-file-label" for="customFile">Choisir votre image</label>
+                                    <div class="form-group row">
+                                        <label htmlFor="alt-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">description de l'image</label>
+                                        <div className="col-sm-8"> 
+                                            <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
+                                        </div>
+                                    </div>
+                                       
+                                    <div class="form-group row">
+                                        <label htmlFor="refId-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">id de l'image</label>
+                                        <div className="col-sm-8">
+                                            <input type="text" value={this.state.refIdImage} className="form-control form-control-sm" id="refId-image-spec-admin" onChange={this.handleChangeInput}/>
+                                        </div>
                                     </div>
                                 </form>
-                                <div>
-                                        <button type="button" class="btn btn-primary" id={`btn-specialisation-${index}`}>valider</button>
-                                </div>
-                        </div>
-                        ))
-                        : null
-                    }
+                            </div>
 
-                    
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal"> Appliquer</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* <!-- Modifier Titre de la section --> */}
+                    <div class="modal fade" id="modifier-titre-section-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier le titre de la section</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <label  htmlFor="titre-section" className="col-sm-4 col-form-label col-form-label-sm">titre de la section</label>
+                                        <div className="col-sm-8">
+                                            <input type="text" value={this.state.titreSection} className="form-control form-control-sm" id="titre-section" onChange={this.handleChangeInput}/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal"> Appliquer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
             </div>
         )
     }

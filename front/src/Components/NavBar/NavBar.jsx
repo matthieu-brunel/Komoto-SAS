@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import $ from "jquery";
 
 import {
   Collapse,
@@ -16,6 +17,7 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 
+
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({navbar:[]});
@@ -24,7 +26,6 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen); // navbar
   const { handleChangeLang, locale } = props;
 
-  
  
  //chargement des données de concernant navbar
  //useEffet est l'équivalent du componentDidMount
@@ -49,6 +50,18 @@ const NavBar = (props) => {
     
     fetchData();
   }, [locale]);
+
+  $(document).ready(function () {
+    $(document).click(function (event) {
+      
+        var clickover = $(event.target);
+        console.log(clickover)
+        var _opened = $(".navbar-collapse").hasClass("navbar-collapse show");
+        if (_opened === true && !clickover.hasClass("navbar-toggle")) {
+            $("button.navbar-toggle").click();
+        }
+    });
+  });
 
   const padding_nav_item = 1;
   const margin_right = 4;
