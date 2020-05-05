@@ -9,7 +9,7 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
- 
+
   const sql =
     "INSERT INTO language (name, locale) VALUES (? , ?)";
   connection.query(

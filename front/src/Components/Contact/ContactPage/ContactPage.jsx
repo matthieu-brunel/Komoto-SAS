@@ -98,7 +98,7 @@ class ContactPage extends Component {
 
     if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
      
-      this.setState({ document: file });
+      this.setState({ document:file });
     } else {
       this.setState({ isTooHeavy: true });
       event.target.value = "";

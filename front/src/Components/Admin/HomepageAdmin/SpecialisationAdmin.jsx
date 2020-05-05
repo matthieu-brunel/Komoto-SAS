@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import getRessources from './../../../utils/getRessources';
 import "./SpecialisationAdmin.css";
+import AjoutSpecialisation from './AjoutSpecialisation';
+import DeleteSpecialisation from './DeleteSpecialisation';
+
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
@@ -21,12 +24,55 @@ class SpecialisationAdmin extends Component{
             altImage:"",
             nameImage:"",
             refIdImage:null,
+            document: null,
 
-            addDescription:""
+            addDescription:"",
+            specToDelete:null,
+            isTooHeavy: false,
+            message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
+            isActive:true,
+            
+            idToEdit:null,
+            specToEdit:[]
 
         }
         
     }
+
+    handlerUploadFile = event => {
+        const format_type = [
+          "application/pdf",
+          "application/doc",
+          "application/docx",
+          "application/xls",
+          "application/csv",
+          "application/txt",
+          "application/rtf",
+          "application/html",
+          "application/zip",
+          "audio/mp3",
+          "video/wma",
+          "video/mpg",
+          "video/flv",
+          "video/avi", 
+          "image/jpg",
+          "image/jpeg",
+          "image/png",
+          "image/gif"
+        ];
+    
+        let file = event.target.files[0] ? event.target.files[0] : "";
+    
+        if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
+    
+          this.setState({ document: file,urlImage: REACT_APP_SERVER_ADDRESS_FULL + "/images/" + file.name, nameImage:file.name});
+        } else {
+          this.setState({ isTooHeavy: true });
+          event.target.value = "";
+          this.setState({isActive:true});
+        }
+      };
+
 
     handleChangeInput = (event) => {
         console.log(event.target.id);
@@ -64,75 +110,25 @@ class SpecialisationAdmin extends Component{
         }
     }
 
-    getSpecialisation = (event) => {
-        let index = event.target.options[event.target.options.selectedIndex].id;
-        console.log(" getSpecialisation = (event)");
-        if(index !== "default"){
-            let specSelected = [];
-            specSelected.push(this.state.specialisation[index]);
-            this.setState({
-                specSelected:specSelected,
-                titreSpec:this.state.specialisation[index].subtitle,
-                arrayDescription:this.state.specialisation[index].description,
-                altImage:this.state.specialisation[index].alt,
-                urlImage:this.state.specialisation[index].url,
-                nameImage:this.state.specialisation[index].name,
-                refIdImage:this.state.specialisation[index].homepage_id,
-                titreSection:this.state.specialisation[index].title
-            })
-        }else{
-            this.setState({
-                specSelected:[],
-                titreSpec:"",
-                arrayDescription:"",
-                altImage:"",
-                urlImage:"",
-                refIdImage:"",
-                nameImage:"",
-                titreSection:""
-            })
-        }
-
-
+    getSpecialisation = (id) => {
+        let index = id;
+      
+        let specSelected = [];
+        specSelected.push(this.state.specialisation[index]);
+        this.setState({
+            specSelected:specSelected,
+            titreSpec:this.state.specialisation[index].subtitle,
+            arrayDescription:this.state.specialisation[index].description,
+            altImage:this.state.specialisation[index].alt,
+            urlImage:this.state.specialisation[index].url,
+            nameImage:this.state.specialisation[index].name,
+            refIdImage:this.state.specialisation[index].homepage_id,
+            titreSection:this.state.specialisation[index].title,
+            titreSection:this.state.specialisation[index].title
+        })
     }
 
-editAdminUser = (event) => {
-        event.preventDefault();
-        const {arrayLang, locale } = this.props;
 
-        let idLang;
-        let description = this.state.specSelected[0].description.join("/");
-
-        for(let i in arrayLang){
-            if(Object.values(arrayLang[i]).includes(locale)){
-                idLang = Object.values(arrayLang[i])[2];
-            }
-        }
-
-        
-        let data = {
-            'subtitle':this.state.titreSpec,
-            'title':this.state.titreSection,
-            'section':"specialisation",
-            'description':description,
-            'language':idLang,
-            'image_id':""
-        }
-        
-        let url = REACT_APP_SERVER_ADDRESS_FULL +'/api/admin/'+ this.state.admin[this.state.idEditAdmin].id;
-        console.log(this.state.admin[this.state.idEditAdmin].id);
-        fetch(url,{
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            'authorization': 'Bearer ' + this.state.token
-        }),
-          method:'PUT',
-          body: JSON.stringify(data)
-        })
-          .then(res => res.json())
-          .then(res => this.setState({user:"", password:"", getIdEditUser:""}))
-          this.getTokenAdmin();
-      }
 
     getTextToList(data) {
         //variable objet qui servira à accueillir les données
@@ -154,6 +150,7 @@ editAdminUser = (event) => {
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
         let data = await getRessources('homepage', 'specialisation',locale);
+        this.setState({specialisation:[]});
         
         //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
         for (let i = 0; i < data.length; i++) {
@@ -168,23 +165,18 @@ editAdminUser = (event) => {
         }
     }
 
-    closeModal = (event) => {
 
-        switch (event.target.id) {
-            case "titre-spec-admin-annuler":
-                this.setState({titreSpec:this.state.specSelected[0].subtitle});
-                break;
-
-           case "description-spec-admin-annuler":
-                this.setState({arrayDescription:this.state.specSelected[0].description});
-                break;
-        
-            default:
-                break;
-        }
+    closeModal = () => {
+        this.setState({addDescription:""})
+        this.getStartedSpecialisation();
     }
 
+    handleCloseModal = () => {
+        this.setState({ isActive: false, isTooHeavy: false });
+    };
+
     addDescription = () => {
+
         let specialisation = this.state.specSelected;
         let description = this.state.specSelected[0].description;
         description.push(this.state.addDescription);
@@ -202,6 +194,22 @@ editAdminUser = (event) => {
         this.setState({arrayDescription:specialisation[0].description});
     }
 
+    getIdSpecToDelete = (index, event) => {
+       let arrayIdSpec = [];
+       arrayIdSpec.push(this.state.specialisation[index].id);
+       arrayIdSpec.push(this.state.specialisation[index].id_image);
+
+       this.setState({specToDelete:arrayIdSpec});
+    }
+
+    getIdSpecToEdit = (index, event) => {
+        let arrayIdSpec = [];
+        arrayIdSpec.push(this.state.specialisation[index].id);
+        arrayIdSpec.push(this.state.specialisation[index].id_image);
+        this.getSpecialisation(index);
+        this.setState({specToEdit:arrayIdSpec, idToEdit:index});
+     }
+
     editDescription = (index, event) => {
        
         let specialisation = this.state.specSelected;
@@ -212,10 +220,88 @@ editAdminUser = (event) => {
         this.setState({arrayDescription:specialisation[0].description});
     }
 
+    editSpecialisation = () => {
+
+        function init(data){
+            const options = {
+                method:'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + localStorage.getItem('token')
+                }),
+                body:JSON.stringify(data)
+            }
+            return options;
+        }
+
+        const { arrayLang, locale } = this.props;
+        let language = null;
+
+        for(let i = 0; i < arrayLang.length; i++){
+            for (let [key, value] of Object.entries(arrayLang[i])) {
+                if(locale === value){
+                    language = arrayLang[i].id;
+                }
+            }
+        }
+
+        let data = {
+            "title":"",
+            "subtitle":this.state.titreSpec,
+            "description":this.state.arrayDescription.join("/"),
+            "section":"specialisation",
+            "language":language,
+            "image_id":this.state.specToEdit[1]
+        };
+
+        let dataImage = {
+            "name":this.state.document.name,
+            "url":this.state.urlImage,
+            "alt":this.state.altImage,
+            "section":"specialisation",
+            "homepage_id":0
+        };
+
+
+        const documentImage = new FormData();
+        documentImage.append("file", this.state.document);
+
+
+        const options = {
+            method: "POST",
+            mode: "cors",
+            credentials: "same-origin",
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: documentImage
+        }
+
+
+
+        if(this.state.specSelected.length > 0){
+
+            // fetch pour envoi d el'image dans le dossier back/public/images
+            let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
+            fetch(url,  options).then(res => res.json()).then(res => console.log(res));
+
+            // fetch pour modification des champs de la table image
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.specToEdit[1]}`;
+            fetch(url,  init(dataImage)).then(res => res.json()).then(res => console.log(res));
+    
+            // fetch pour modification des champs de la table homepage
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.specToEdit[0]}`;
+            fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
+    
+
+            //on réactualise les spécialisations
+           this.getStartedSpecialisation();
+        }
+
+    }
+
 
     render(){
-        const { locale, arrayLang } = this.props;
-        console.log(this.state.specSelected);
+
 
         return(
             <div>
@@ -223,99 +309,87 @@ editAdminUser = (event) => {
                     <h1>Specialisation</h1>
                 </div>
 
-{ this.state.titreSection.length > 0 &&
                 <div>
-                    <form>
-                        <div class="form-group row">
-                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Titre de la section specialisation</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm" id="titre-spec1" value={this.state.titreSection} placeholder="saisir votre titre" onChange={this.handleChangeInput}/>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-titre-section-admin">Modifier</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>}
+                    <div>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
+                    </div>
+                    <table className="table table-striped" style={{width:"75%"}}>
+                        <thead>
+                        <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">nom de la spécialisation</th>
+                                <th scope="col">modification</th>
+                                <th scope="col">Supprimer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.state.specialisation.length > 0 &&
+                            this.state.specialisation.map((element, index) => (
+                                <tr key={index}>
+                                <th scope="row">{index+1}</th>
+                                <td>{element.subtitle}</td>
+                                <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSpecToEdit.bind(this, index)}>Modifier</button>}</td>
+                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-specialisation-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
+                            </tr>
+                            ))
+                        }
 
-                <div class="form-group container select-specialisation" style={{width:"none"}}>
-                    <label for="exampleFormControlSelect1">Choisir la spécialisation</label>
-                    <select class="form-control" id="select-specialisation" onChange={this.getSpecialisation}>
-                        <option id="default">Choisir la spécialisation</option>
-                        {this.state.specialisation.length && this.state.specialisation.map((element, index) => (
-                            <option key={index} id={index}>{`Specialisation ${index + 1}`}</option>
-                        ))}
-                    </select>
+                        </tbody>
+                    </table>
                 </div>
-                
-               
-                {this.state.specSelected.length > 0 &&
-                    <div className="div-input-specialisationAdmin">
-                        <div className="sous-titre-spec-admin">
-                            <h3>Titre</h3>
-                            <p>{this.state.titreSpec}</p>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-titreAdmin">Modifier</button>
-                        </div>
 
-                        <div className="description-spec-admin">
-                            <h3>Description(s)</h3>
-                            {this.state.arrayDescription.map((element, index) => (
-                                <p key={index}>{element}</p>
-                            ))}
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifier-descriptionAdmin">Modifier</button>
-                        </div>
 
-                        <div className="image-spec-admin">
-                            <h3>Url de l'image</h3>
-                            <p>Url : {this.state.urlImage}</p>
-                            <p>Alt : {this.state.altImage}</p>
-                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#modifier-urlAdmin">Modifier</button>
-                        </div>
 
-                        <div className="custom-file pb-5">
-                            <input type="file" className="custom-file-input"  /* onChange={this.handlerUploadFile} *//>
-                            <label className="custom-file-label" htmlFor="inputGroupFile01">Choisir une image</label>
-                        </div>
-
-                        <div className="btn-appliquer-spec-Admin">
-                            <button type="button" class="btn btn-outline-primary">Appliquer</button>
-                        </div>
-                    </div>   }  
-
-                    {/* <!-- Modifier titre --> */}
-                    <div class="modal fade" id="modifier-titreAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                {/* <!-- Nouvelle spécialisation --> */}
+              
+                <div class="modal fade" id="new-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier le titre</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle spécialisation</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <textarea type="text" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal">Appliquer</button>
-                            </div>
+                                <AjoutSpecialisation {...this.props} specialisation={this.state.specialisation} getStartedSpecialisation={this.getStartedSpecialisation}/>
                             </div>
                         </div>
-                    </div> 
-
-                    {/* <!-- Modifier description --> */}
-                    <div class="modal fade" id="modifier-descriptionAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                    </div>
+                </div>
+                                
+                {/* <!-- suppression d'une spécialisation --> */}
+                <div class="modal fade" id="delete-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier les descriptions</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
                             <div class="modal-body">
+                                <DeleteSpecialisation specialisation={this.state.specialisation} specToDelete={this.state.specToDelete} getStartedSpecialisation={this.getStartedSpecialisation}/>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                {/* <!-- Modification d'une spécialité --> */}
+                <div class="modal fade" id="editSpecAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modifier une spécialité</h5>
+                        </div>
+                        <div class="modal-body">
+                        {this.state.specSelected.length > 0 && <div className="form-group">
+                                <div class="form-group">
+                                    <label for="titre-section">Titre section</label>
+                                    <input class="form-control form-control-sm" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                                </div>
+                                <label>Saisir le titre de la spécialité</label>
+                                <input type="text" className="form-control form-control-sm" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
+
                                 <label>Saisir une description</label>
-                                <input type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
+                                <textarea type="text" value={this.state.addDescription} className="form-control form-control-sm" id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
                                 <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
                                 <div className="description-spec-admin-modal">
                                     <ul>
@@ -330,91 +404,33 @@ editAdminUser = (event) => {
                                     </ul>
 
                                 </div>
-                            </div>
+
+                                <label htmlFor="alt-image-spec-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <div className=""> 
+                                    <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
+                                </div>
+
+                                <div class="custom-file">
+                                    <input type="file" className="custom-file-input" onChange={this.handlerUploadFile}/>
+                                    <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
+                                </div>
+                            </div>}
+                        </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="description-spec-admin-annuler" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary" >Save changes</button>
+                                <button type="button" class="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Appliquer</button>
                             </div>
-                            </div>
+                            {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
+                            {this.state.isTooHeavy && (
+                                <div className={`${this.state.isActive ? "div-active-error" : "div-desactive-error"}`}>
+                                    <span className="text-alert-error">
+                                        {this.state.message_too_heavy}
+                                    </span> {" "}<button type="button" className="btn btn-danger btn-sm" onClick={this.handleCloseModal}>ok</button>
+                                </div>
+                            )}
                         </div>
                     </div>
-
-                    {/* <!-- Modifier url Image --> */}
-                    <div class="modal fade" id="modifier-urlAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier l'image / alt / id</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group row">
-                                        <label  htmlFor="name-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">nom de l'image</label>
-                                        <div className="col-sm-8">
-                                            <input type="text" value={this.state.nameImage} className="form-control form-control-sm" id="name-image-spec-admin" onChange={this.handleChangeInput}/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label htmlFor="url-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">l'url</label>
-                                        <div className="col-sm-8">
-                                             <input type="text" value={this.state.urlImage} className="form-control form-control-sm" id="url-image-spec-admin" onChange={this.handleChangeInput}/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label htmlFor="alt-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">description de l'image</label>
-                                        <div className="col-sm-8"> 
-                                            <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
-                                        </div>
-                                    </div>
-                                       
-                                    <div class="form-group row">
-                                        <label htmlFor="refId-image-spec-admin" className="col-sm-4 col-form-label col-form-label-sm">id de l'image</label>
-                                        <div className="col-sm-8">
-                                            <input type="text" value={this.state.refIdImage} className="form-control form-control-sm" id="refId-image-spec-admin" onChange={this.handleChangeInput}/>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal"> Appliquer</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* <!-- Modifier Titre de la section --> */}
-                    <div class="modal fade" id="modifier-titre-section-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier le titre de la section</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group row">
-                                        <label  htmlFor="titre-section" className="col-sm-4 col-form-label col-form-label-sm">titre de la section</label>
-                                        <div className="col-sm-8">
-                                            <input type="text" value={this.state.titreSection} className="form-control form-control-sm" id="titre-section" onChange={this.handleChangeInput}/>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal"> Appliquer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>        
+                </div> 
             </div>
         )
     }

@@ -54,6 +54,7 @@ class HomepageAdmin extends Component{
 
         let options = [];
         for(let i in this.state.arrayLang){
+                                        
             options.push(<option key={i} id={this.state.arrayLang[i].locale}>{this.state.arrayLang[i].locale}</option>)
         }
 

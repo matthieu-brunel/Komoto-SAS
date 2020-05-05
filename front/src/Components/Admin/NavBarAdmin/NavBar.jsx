@@ -12,6 +12,7 @@ class NavBarAdmin extends Component {
           <Link to="/user" className=""> Utilisateur </Link>
           <Link to="/HomepageAdmin"> Homepage </Link>
           <Link to="/SolutionAdmin"> Solution </Link>
+          <Link to="/Langues"> Langues</Link>
           <Link to="/ContactAdmin"> Contact </Link>
           <Link to="/ReferenceAdmin">Réference </Link>
           <Link to="/DemonstrationAdmin"> Showroom</Link>

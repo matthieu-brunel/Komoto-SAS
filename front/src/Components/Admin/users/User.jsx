@@ -193,7 +193,7 @@ class User extends Component {
       
         {/*début modal nouvel utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="addUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -230,7 +230,7 @@ class User extends Component {
 
         {/*début modal modification utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="editUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -267,7 +267,7 @@ class User extends Component {
 
         {/*début modal suppression utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="deleteUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
