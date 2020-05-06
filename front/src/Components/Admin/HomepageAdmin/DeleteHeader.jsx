@@ -5,12 +5,11 @@ import deleteRessources from '../../../utils/deleteRessources';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class DeleteSpecialisation extends Component{
+class DeleteHeader extends Component{
     constructor(props){
         super(props);
         this.state = {
-            specialisation: [],
-            titreSection:"",
+            header: [],
             checkBox:false
         }
     }
@@ -20,9 +19,9 @@ class DeleteSpecialisation extends Component{
         this.setState({checkBox:event.target.checked});
     }
 
-    deleteSpecialisation = () => {
+    deleteHeader = () => {
 
-        if(this.props.specToDelete.length > 0){
+        if(this.props.headerToDelete.length > 0){
             const options = {
                 method:'DELETE',
                 headers: new Headers({
@@ -32,21 +31,21 @@ class DeleteSpecialisation extends Component{
             }
         
     
-            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.specToDelete[1]}`;
+            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.headerToDelete[1]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.props.specToDelete[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.props.headerToDelete[0]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            this.props.getStartedSpecialisation();
+            this.props.getStartedHeader();
             this.setState({checkBox:false});
         }
 
     }
 
-    cancelDeleteSpec = () => {
+    cancelDeleteHeader = () => {
         this.setState({checkBox:false});
 
     }
@@ -55,13 +54,12 @@ class DeleteSpecialisation extends Component{
 
 
     render(){
-        const {getSpecialisationToDelete, specToDelete} = this.props;
+        const { headerToDelete } = this.props;
 
-        console.log(specToDelete);
         return(
             <div>
                 <div className="form-group" >
-                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette specialisation ?</label>
+                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cet entête ?</label>
                 </div>
                 <form class="was-validated">
                     <div class="custom-control custom-checkbox mb-3">
@@ -71,13 +69,13 @@ class DeleteSpecialisation extends Component{
                     </div>
                 </form>
                 <div className="modal-footer">
-                    {this.state.checkBox && this.props.specToDelete.length > 0
+                    {this.state.checkBox && this.props.headerToDelete.length > 0
                         ?
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteSpecialisation}>Oui</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteHeader}>Oui</button>
                         :
                         <button type="button" class="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSpec}>Annuler</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteHeader}>Annuler</button>
                 </div>
 
             </div>
@@ -86,4 +84,4 @@ class DeleteSpecialisation extends Component{
 }
 
 
-export default DeleteSpecialisation;
+export default DeleteHeader;

@@ -1,63 +1,51 @@
 import React, { Component } from 'react';
-import './AjoutSpecialisation.css';
+
 import postRessources from './../../../utils/postRessources';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class AjoutSpecialisation extends Component{
+class AjoutHeader extends Component{
     constructor(props){
         super(props);
         this.state = {
-            specialisation: [],
+            header: [],
             titreSection:"",
-            specSelected:[],
+            titre:"",
+            /*header*/
+            descriptionHeader:"",
 
-            /*scpecialisation*/
-            titreSpec:"",
-            description:"",
-            arrayDescription:[],
+            // state image
             urlImage:"",
             altImage:"",
             nameImage:"",
-            refIdImage:null,
+            document: null,
+            headerToDelete:null,
 
-            addDescription:"",
             isTooHeavy: false,
             message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
             isActive:true,
-            document: null,
+            idToEdit:null
         }
     }
 
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
-            case "titre-section":
-                this.setState({titreSection:event.target.value});
-                break;
 
-            case "titre-spec-admin":
-                this.setState({titreSpec:event.target.value});
-                break;
-
-            case "addDescription-spec-admin":
-                this.setState({addDescription:event.target.value});
+            case "description-header-admin":
+                this.setState({descriptionHeader:event.target.value});
                 break; 
                 
-            case "url-image-spec-admin":
+            case "url-image-header-admin":
                 this.setState({urlImage:event.target.value});
                 break;
 
-            case "alt-image-spec-admin":
+            case "alt-image-header-admin":
                 this.setState({altImage:event.target.value});
                 break;
 
-            case "name-image-spec-admin":
+            case "name-image-header-admin":
                 this.setState({nameImage:event.target.value});
-                break;
-
-            case "refId-image-spec-admin":
-                this.setState({refIdImage:event.target.value});
                 break;
         
             default:
@@ -99,17 +87,18 @@ class AjoutSpecialisation extends Component{
 
     }
 
-    addNewSpecialisation = async() => {
+    addNewHeader= async() => {
         const {arrayLang, locale } = this.props;
 
         let idLang;
-        let description = this.state.arrayDescription.join("/");
+        let description = this.state.descriptionHeader;
 
         for(let i in arrayLang){
             if(Object.values(arrayLang[i]).includes(locale)){
                 idLang = Object.values(arrayLang[i])[2];
             }
         }
+
         const options = {
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -122,21 +111,21 @@ class AjoutSpecialisation extends Component{
             'url':this.state.urlImage,
             'alt':this.state.altImage,
             'homepage_id':0,
-            'section':'specialisation'
+            'section':'header'
         }
 
         let dataHomepage = {
-            'subtitle':this.state.titreSpec,
-            'title':this.state.titreSection,
-            'section':"specialisation",
+            'subtitle':"",
+            'title':"",
+            'section':"header",
             'description':description,
             'language':idLang,
             'image_id':0
         }
         
         await postRessources("homepage", dataImage, dataHomepage, this.state.document);
-        this.setState({titreSpec:"", altImage:"", arrayDescription:[], nameImage:"",titreSection:"",urlImage:""});
-        this.props.getStartedSpecialisation();
+        this.setState({altImage:"", descriptionHeader:"", nameImage:"",urlImage:""});
+        this.props.getStartedHeader();
     }
 
     handleCloseModal = () => {
@@ -182,59 +171,29 @@ class AjoutSpecialisation extends Component{
         return(
             <div>
                 <form>
-                    {  this.props.specialisation.length > 0
-                    ?
-                    ""
-                    :
-                    <div class="form-group">
-                        <label for="titre-section">Titre section</label>
-                        <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
-                    </div>
-                    }
+                    <div>
 
-                    <div class="form-group">
-                        <label for="titre-spec-admin">Titre section</label>
-                        <input class="form-control " value={this.state.titreSpec} id="titre-spec-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
-                    </div>
+                    <div className="form-group">
 
-                    <div class="modal-body">
                         <label>Saisir une description</label>
-                        
-                        <div class="form-group">
-                            <textarea class="form-control" type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
+                        <textarea type="text" value={this.state.descriptionHeader} className="form-control" id="description-header-admin" onChange={this.handleChangeInput}/>
+
+                        <label htmlFor="alt-image-header-admin" className="col-form-label">description de l'image</label>
+                        <div className=""> 
+                            <input type="text" value={this.state.altImage} className="form-control" id="alt-image-header-admin" onChange={this.handleChangeInput}/>
                         </div>
-                        
-                        <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
-                            
-                      
-                       
-                        <div className="description-spec-admin-modal">
-                            <ul>
-                                {this.state.arrayDescription.length > 0 && this.state.arrayDescription.map((description, index) => (
-                                    <div className="p-1">
-                                        <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
-                                    </div>
-                                ) )}
-                            </ul>
 
+                        <div class="custom-file">
+                            <input type="file" className="custom-file-input" onChange={this.handlerUploadFile}/>
+                            <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                         </div>
-                    </div>
-                    
-
-                    <div class="custom-file">
-                       <input type="file" className="custom-file-input"  onChange={this.handlerUploadFile}/>
-                       <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
-                   </div>
-
-                    <div class="form-group">
-                        <label for="alt-image-spec-admin">Description de l'image</label>
-                        <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-spec-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
+                        </div>
                     </div>
 
                 </form>
                 <div class="modal-footer pt-1">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewSpecialisation}>Enregistrer</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewHeader}>Enregistrer</button>
                 </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
@@ -251,4 +210,4 @@ class AjoutSpecialisation extends Component{
 }
 
 
-export default AjoutSpecialisation;
+export default AjoutHeader;

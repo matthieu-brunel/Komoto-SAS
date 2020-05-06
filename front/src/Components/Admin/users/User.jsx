@@ -91,14 +91,15 @@ class User extends Component {
     let url = REACT_APP_SERVER_ADDRESS_FULL +'/api/admin/'+ this.state.admin[this.state.idEditAdmin].id;
     console.log(this.state.admin[this.state.idEditAdmin].id);
     fetch(url,{
+      method:'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + this.state.token
-    }),
-      method:'DELETE'
+      })
+     
     })
       .then(res => res.json())
-      .then(res => this.setState({getIdEditUser:""}))
+      .then(res => this.setState({getIdEditUser:""}));
       this.getTokenAdmin();
   }
 
@@ -111,9 +112,10 @@ class User extends Component {
     this.getTokenAdmin();
   }
 
-
-/*   componentDidUpdate(prevProps, prevState){
+/* 
+   componentDidUpdate(prevProps, prevState){
    if(prevState.isCreateUser !== this.state.isCreateUser){
+     console.log(prevState);
     this.getTokenAdmin();
    }
   } */
