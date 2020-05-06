@@ -3,6 +3,7 @@ import NavBarAdmin from './../NavBarAdmin/NavBar';
 import HeaderAdmin from './HeaderAdmin';
 import SpecialisationAdmin from './SpecialisationAdmin';
 import SavoirFaireAdmin from './SavoirFaireAdmin';
+import ShowroomAdmin from "./ShowroomAdmin";
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class HomepageAdmin extends Component{
@@ -12,6 +13,7 @@ class HomepageAdmin extends Component{
             displayHeader:false,
             displaySpec:false,
             displaySavoirFaire:false,
+            displayShowroom:false,
             arrayLang:[],
             langSelected:"fr"
         }
@@ -24,15 +26,19 @@ class HomepageAdmin extends Component{
          switch (event.target.id) {
 
             case "header":
-                this.setState({displayHeader:true, displaySpec:false, displaySavoirFaire:false});
+                this.setState({displayHeader:true, displaySpec:false, displaySavoirFaire:false, displayShowroom:false});
                 break;
 
             case "specialisation":
-                this.setState({displaySpec:true, displayHeader:false, displaySavoirFaire:false});
+                this.setState({displaySpec:true, displayHeader:false, displaySavoirFaire:false, displayShowroom:false});
                 break;
 
             case "savoirFaire":
-                this.setState({displaySpec:false, displayHeader:false, displaySavoirFaire:true});
+                this.setState({displaySpec:false, displayHeader:false, displaySavoirFaire:true, displayShowroom:false});
+                break;
+
+            case "showroom":
+                this.setState({displaySpec:false, displayShowroom:true, displayHeader:false, displaySavoirFaire:false});
                 break;
         
             default:
@@ -76,7 +82,7 @@ class HomepageAdmin extends Component{
                     <button type="button" class="btn btn-primary" id="header" onClick={this.handleClickPart}>Header</button>
                     <button type="button" class="btn btn-primary" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
                     <button type="button" class="btn btn-primary" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
-                    <button type="button" class="btn btn-primary">showroom</button>
+                    <button type="button" class="btn btn-primary" id="showroom" onClick={this.handleClickPart}>showroom</button>
                     <select class="form-control" id="exampleFormControlSelect1" style={{width:"6%", display:'inline-block'}} onChange={this.handleChangeLang}>
                         {options}
                     </select>
@@ -86,6 +92,7 @@ class HomepageAdmin extends Component{
                    {this.state.displayHeader && <HeaderAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang}/>}
                    {this.state.displaySpec && <SpecialisationAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang}/>}
                    {this.state.displaySavoirFaire && <SavoirFaireAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang}/>}
+                   {this.state.displayShowroom && <ShowroomAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang}/>}
                 </div>
 
             </div>
