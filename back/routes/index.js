@@ -12,6 +12,7 @@ const solution = require("./solution");
 const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
+const uploadImage = require("./uploadImage");
 const navbar = require("./navbar");
 const formulaire = require("./formulaire");
 
@@ -27,7 +28,9 @@ router.use("/reference", reference);
 router.use("/solution", solution);
 router.use("/contact", contact);
 router.use("/uploadcontact", uploadcontact);
+router.use("/uploadImage", uploadImage);
 router.use("/documents", express.static("public/documents"));
+
 router.use("/navbar", navbar);
 router.use("/formulaire", formulaire);
 

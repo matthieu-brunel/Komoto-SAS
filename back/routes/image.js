@@ -71,12 +71,13 @@ router.put("/:id",Auth, (req, res) => {
 
 router.delete("/:id",Auth, (req, res) => {
   const idImage = req.params.id;
+  console.log("id image :",idImage);
   const sql = "DELETE FROM image WHERE id=?";
   connection.query(sql, [idImage], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put image" + error);
     } else {
-      res.json(req.body);
+      res.status(200).json({"id":req.params.id});
     }
   });
 });

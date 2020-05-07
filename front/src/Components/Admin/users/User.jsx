@@ -91,14 +91,15 @@ class User extends Component {
     let url = REACT_APP_SERVER_ADDRESS_FULL +'/api/admin/'+ this.state.admin[this.state.idEditAdmin].id;
     console.log(this.state.admin[this.state.idEditAdmin].id);
     fetch(url,{
+      method:'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + this.state.token
-    }),
-      method:'DELETE'
+      })
+     
     })
       .then(res => res.json())
-      .then(res => this.setState({getIdEditUser:""}))
+      .then(res => this.setState({getIdEditUser:""}));
       this.getTokenAdmin();
   }
 
@@ -111,9 +112,10 @@ class User extends Component {
     this.getTokenAdmin();
   }
 
-
-/*   componentDidUpdate(prevProps, prevState){
+/* 
+   componentDidUpdate(prevProps, prevState){
    if(prevState.isCreateUser !== this.state.isCreateUser){
+     console.log(prevState);
     this.getTokenAdmin();
    }
   } */
@@ -193,7 +195,7 @@ class User extends Component {
       
         {/*début modal nouvel utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="addUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -230,7 +232,7 @@ class User extends Component {
 
         {/*début modal modification utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="editUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -267,7 +269,7 @@ class User extends Component {
 
         {/*début modal suppression utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="deleteUserAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

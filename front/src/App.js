@@ -10,6 +10,7 @@ import DemonstrationAdmin from './Components/Admin/DemonstrationAdmin/Demonstrat
 import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
 import Mail from './Components/Admin/Historique/Mail';
 import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
+import Langues from './Components/Admin/Langues/Langues';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
@@ -39,6 +40,7 @@ class App extends Component {
           <Route path="/ContactAdmin" component={ContactAdmin} />
           <Route path="/ReferenceAdmin" component={ReferenceAdmin} />
           <Route path="/DemonstrationAdmin" component={DemonstrationAdmin} />
+          <Route path="/Langues" component={Langues} />
           <Route path="/Mail" component={Mail} />
         </Switch>
 
