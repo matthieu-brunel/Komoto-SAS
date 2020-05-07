@@ -1,39 +1,34 @@
 import React, { Component } from 'react';
 
 import getRessources from './../../../utils/getRessources';
-import "./SpecialisationAdmin.css";
-import AjoutSpecialisation from './AjoutSpecialisation';
-import DeleteSpecialisation from './DeleteSpecialisation';
+//import "./ShowroomAdmin.css";
+import AjoutShowroom from './AjoutShowroom';
+import DeleteShowroom from './DeleteShowroom';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
-class SpecialisationAdmin extends Component{
+class ShowroomAdmin extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            specialisation: [],
+            showroom: [],
             titreSection:"",
-            specSelected:[],
 
-            /*scpecialisation*/
-            titreSpec:"",
-            description:"",
-            arrayDescription:[],
+            /*savoir-faire*/
+            titreShowroom:"",
+            descriptionShowroom:"",
             urlImage:"",
             altImage:"",
             nameImage:"",
-            refIdImage:null,
             document: null,
+            ShowroomToDelete:null,
 
-            addDescription:"",
-            specToDelete:null,
             isTooHeavy: false,
             message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
             isActive:true,
-            
             idToEdit:null,
-            specToEdit:[]
+            ShowroomToEdit:[]
 
         }
         
@@ -81,27 +76,27 @@ class SpecialisationAdmin extends Component{
                 this.setState({titreSection:event.target.value});
                 break;
 
-            case "titre-spec-admin":
-                this.setState({titreSpec:event.target.value});
+            case "titre-showroom-admin":
+                this.setState({titreShowroom:event.target.value});
                 break;
 
-            case "addDescription-spec-admin":
-                this.setState({addDescription:event.target.value});
+            case "description-showroom-admin":
+                this.setState({descriptionShowroom:event.target.value});
                 break; 
                 
-            case "url-image-spec-admin":
+            case "url-image-showroom-admin":
                 this.setState({urlImage:event.target.value});
                 break;
 
-            case "alt-image-spec-admin":
+            case "alt-image-showroom-admin":
                 this.setState({altImage:event.target.value});
                 break;
 
-            case "name-image-spec-admin":
+            case "name-image-showroom-admin":
                 this.setState({nameImage:event.target.value});
                 break;
 
-            case "refId-image-spec-admin":
+            case "refId-image-showroom-admin":
                 this.setState({refIdImage:event.target.value});
                 break;
         
@@ -110,117 +105,103 @@ class SpecialisationAdmin extends Component{
         }
     }
 
-    getSpecialisation = (id) => {
+    getShowroom = (id) => {
         let index = id;
       
-        let specSelected = [];
-        specSelected.push(this.state.specialisation[index]);
+        let ShowroomSelected = [];
+        ShowroomSelected.push(this.state.showroom[index]);
         this.setState({
-            specSelected:specSelected,
-            titreSpec:this.state.specialisation[index].subtitle,
-            arrayDescription:this.state.specialisation[index].description,
-            altImage:this.state.specialisation[index].alt,
-            urlImage:this.state.specialisation[index].url,
-            nameImage:this.state.specialisation[index].name,
-            refIdImage:this.state.specialisation[index].homepage_id,
-            titreSection:this.state.specialisation[index].title,
-            titreSection:this.state.specialisation[index].title
+            ShowroomSelected:ShowroomSelected,
+            titreShowroom:this.state.showroom[index].subtitle,
+            descriptionShowroom:this.state.showroom[index].description,
+            altImage:this.state.showroom[index].alt,
+            urlImage:this.state.showroom[index].url,
+            nameImage:this.state.showroom[index].name,
+            titreSection:this.state.showroom[index].title
         })
     }
 
 
 
-    getTextToList(data) {
-        //variable objet qui servira à accueillir les données
-        let objet = data;
-        //variable array_description qui servira a convertir le contenu description en tableau grace au slash
-        let array_description = data.description.split('/');
-        //on remplace le contenu description de l'objet.description par la nouvelle description
-        objet.description = array_description;
-        //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
-        this.setState({ specialisation: [...this.state.specialisation, objet] });
-      } 
+
     
     componentDidMount = () => {
-        this.getStartedSpecialisation();
+        this.getStartedShowroom();
     }
 
-    getStartedSpecialisation = async() => {
+    getStartedShowroom = async() => {
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('homepage', 'specialisation',locale);
-        this.setState({specialisation:[]});
+        let showroom = await getRessources("homepage", "demonstration", locale);
+     
+        this.setState({ showroom: showroom });
         
-        //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-        for (let i = 0; i < data.length; i++) {
-            this.getTextToList(data[i]);
-        }
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.locale !== this.props.locale){
-            this.setState({specialisation:"", specSelected:"",titreSection:""});
-            this.getStartedSpecialisation();
+            this.setState({showroom:"", ShowroomSelected:"",titreSection:""});
+            this.getStartedShowroom();
         }
     }
 
 
     closeModal = () => {
-        this.setState({addDescription:""})
-        this.getStartedSpecialisation();
+        this.setState({descriptionShowroom:""})
+        this.getStartedShowroom();
     }
 
     handleCloseModal = () => {
         this.setState({ isActive: false, isTooHeavy: false });
     };
 
-    addDescription = () => {
+    descriptionShowroom = () => {
 
-        let specialisation = this.state.specSelected;
-        let description = this.state.specSelected[0].description;
-        description.push(this.state.addDescription);
-        specialisation[0].description = description;
-        this.setState({arrayDescription:specialisation[0].description, addDescription:""});
+        let showroom = this.state.ShowroomSelected;
+        let description = this.state.ShowroomSelected[0].description;
+        description.push(this.state.descriptionShowroom);
+        showroom[0].description = description;
+        this.setState({descriptionShowroom:showroom[0].description, descriptionShowroom:""});
     }
 
     deleteDescription = (index, event) => {
        
-        let specialisation = this.state.specSelected;
-        let description = this.state.specSelected[0].description;
+        let showroom = this.state.ShowroomSelected;
+        let description = this.state.ShowroomSelected[0].description;
 
         description.splice(index, 1);
 
-        this.setState({arrayDescription:specialisation[0].description});
+        this.setState({descriptionShowroom:showroom[0].description});
     }
 
-    getIdSpecToDelete = (index, event) => {
-       let arrayIdSpec = [];
-       arrayIdSpec.push(this.state.specialisation[index].id);
-       arrayIdSpec.push(this.state.specialisation[index].id_image);
+    getIdShowroomToDelete = (index, event) => {
+       let arrayIdShowroom = [];
+       arrayIdShowroom.push(this.state.showroom[index].id);
+       arrayIdShowroom.push(this.state.showroom[index].id_image);
 
-       this.setState({specToDelete:arrayIdSpec});
+       this.setState({ShowroomToDelete:arrayIdShowroom});
     }
 
-    getIdSpecToEdit = (index, event) => {
-        let arrayIdSpec = [];
-        arrayIdSpec.push(this.state.specialisation[index].id);
-        arrayIdSpec.push(this.state.specialisation[index].id_image);
-        this.getSpecialisation(index);
-        this.setState({specToEdit:arrayIdSpec, idToEdit:index});
+    getIdShowroomToEdit = (index, event) => {
+        let arrayIdShowroom = [];
+        arrayIdShowroom.push(this.state.showroom[index].id);
+        arrayIdShowroom.push(this.state.showroom[index].id_image);
+        this.getShowroom(index);
+        this.setState({ShowroomToEdit:arrayIdShowroom, idToEdit:index});
      }
 
     editDescription = (index, event) => {
        
-        let specialisation = this.state.specSelected;
-        let description = this.state.specSelected[0].description;
+        let showroom = this.state.ShowroomSelected;
+        let description = this.state.ShowroomSelected[0].description;
 
         description.splice(index, 1);
 
-        this.setState({arrayDescription:specialisation[0].description});
+        this.setState({descriptionShowroom:showroom[0].description});
     }
 
-    editSpecialisation = () => {
+    editShowroom = () => {
 
         function init(data){
             const options = {
@@ -247,18 +228,18 @@ class SpecialisationAdmin extends Component{
 
         let data = {
             "title":this.state.titreSection,
-            "subtitle":this.state.titreSpec,
-            "description":this.state.arrayDescription.join("/"),
-            "section":"specialisation",
+            "subtitle":this.state.titreShowroom,
+            "description":this.state.descriptionShowroom,
+            "section":"showroom",
             "language":language,
-            "image_id":this.state.specToEdit[1]
+            "image_id":this.state.ShowroomToEdit[1]
         };
 
         let dataImage = {
             "name":this.state.nameImage,
             "url":this.state.urlImage,
             "alt":this.state.altImage,
-            "section":"specialisation",
+            "section":"showroom",
             "homepage_id":0
         };
 
@@ -278,23 +259,23 @@ class SpecialisationAdmin extends Component{
 
 
 
-        if(this.state.specSelected.length > 0){
+        if(this.state.ShowroomSelected.length > 0){
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
             fetch(url,  options).then(res => res.json()).then(res => console.log(res));
 
             // fetch pour modification des champs de la table image
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.specToEdit[1]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.ShowroomToEdit[1]}`;
             fetch(url,  init(dataImage)).then(res => res.json()).then(res => console.log(res));
     
             // fetch pour modification des champs de la table homepage
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.specToEdit[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.ShowroomToEdit[0]}`;
             fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
     
 
             //on réactualise les spécialisations
-           this.getStartedSpecialisation();
+           this.getStartedShowroom();
         }
 
     }
@@ -306,32 +287,32 @@ class SpecialisationAdmin extends Component{
         return(
             <div>
                 <div>
-                    <h1>Specialisation</h1>
+                    <h1>Showroom</h1>
                 </div>
 
                 <div>
-                    <div>
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
-                    </div>
+                    {!this.state.showroom.length > 0 && <div>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-showroom-admin">Ajout un showroom</button>
+                    </div>}
                     <table className="table table-striped" style={{width:"75%"}}>
                         <thead>
                         <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">titre de la section</th>
-                                <th scope="col">nom de la spécialisation</th>
+                                <th scope="col">nom du showroom</th>
                                 <th scope="col">modification</th>
                                 <th scope="col">Supprimer</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.specialisation.length > 0 &&
-                            this.state.specialisation.map((element, index) => (
+                         {this.state.showroom.length > 0 &&
+                            this.state.showroom.map((element, index) => (
                                 <tr key={index}>
                                 <th scope="row">{index+1}</th>
                                 <td>{element.title}</td>
                                 <td>{element.subtitle}</td>
-                                <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSpecToEdit.bind(this, index)}>Modifier</button>}</td>
-                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-specialisation-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
+                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
                             </tr>
                             ))
                         }
@@ -344,72 +325,59 @@ class SpecialisationAdmin extends Component{
 
                 {/* <!-- Nouvelle spécialisation --> */}
               
-                <div class="modal fade" id="new-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal fade" id="new-showroom-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle spécialisation</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouveau showroom</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <AjoutSpecialisation {...this.props} specialisation={this.state.specialisation} getStartedSpecialisation={this.getStartedSpecialisation}/>
+                                <AjoutShowroom {...this.props} showroom={this.state.showroom} getStartedShowroom={this.getStartedShowroom}/>
                             </div>
                         </div>
                     </div>
                 </div>
                                 
                 {/* <!-- suppression d'une spécialisation --> */}
-                <div class="modal fade" id="delete-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal fade" id="delete-showroom-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
                             <div class="modal-body">
-                                <DeleteSpecialisation specialisation={this.state.specialisation} specToDelete={this.state.specToDelete} getStartedSpecialisation={this.getStartedSpecialisation}/>
+                                <DeleteShowroom showroom={this.state.showroom} ShowroomToDelete={this.state.ShowroomToDelete} getStartedShowroom={this.getStartedShowroom}/>
                             </div>
                         </div>
                     </div>
                 </div> 
 
-                {/* <!-- Modification d'une spécialité --> */}
-                <div class="modal fade" id="editSpecAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {/* <!-- Modification d'un savoir faire --> */}
+                <div class="modal fade" id="editShowroomAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modifier une spécialité</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Modifier un savoir-faire</h5>
                         </div>
                         <div class="modal-body">
-                        {this.state.specSelected.length > 0 && <div className="form-group">
+                        {this.state.showroom.length > 0 && <div className="form-group">
                                 <div class="form-group">
                                     <label for="titre-section">Titre section</label>
-                                    <input class="form-control form-control-sm" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                                    <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                                 </div>
                                 <label>Saisir le titre de la spécialité</label>
-                                <input type="text" className="form-control form-control-sm" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
+                                <input type="text" className="form-control" value={this.state.titreShowroom} id="titre-showroom-admin" onChange={this.handleChangeInput}/>
 
                                 <label>Saisir une description</label>
-                                <textarea type="text" value={this.state.addDescription} className="form-control form-control-sm" id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
-                                <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
-                                <div className="description-spec-admin-modal">
-                                    <ul>
-                                        {this.state.specSelected.length > 0 && this.state.specSelected[0].description.map((description, index) => (
-                                            <div>
-                                                <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
-                                                
-                                            </div>
-
-
-                                        ) )}
-                                    </ul>
-
-                                </div>
-
-                                <label htmlFor="alt-image-spec-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <textarea type="text" value={this.state.descriptionShowroom} className="form-control" id="description-showroom-admin" onChange={this.handleChangeInput}/>
+ 
+                            
+                                <label htmlFor="alt-image-showroom-admin" className="col-form-label col-form-label-sm">description de l'image</label>
                                 <div className=""> 
-                                    <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
+                                    <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-showroom-admin" onChange={this.handleChangeInput}/>
                                 </div>
 
                                 <div class="custom-file">
@@ -419,8 +387,8 @@ class SpecialisationAdmin extends Component{
                             </div>}
                         </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Appliquer</button>
+                                <button type="button" class="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (
@@ -438,4 +406,4 @@ class SpecialisationAdmin extends Component{
     }
 }
 
-export default SpecialisationAdmin;
+export default ShowroomAdmin;

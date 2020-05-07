@@ -24,7 +24,8 @@ prefix+"/DemonstrationAdmin",
 prefix+"/Mail",
 prefix+"/Login",
 prefix+"/user",
-prefix+"/HomepageAdmin"];
+prefix+"/HomepageAdmin",
+prefix+"/Langues"];
 
 
 let monUrl = window.location.href;
