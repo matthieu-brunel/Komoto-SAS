@@ -11,6 +11,7 @@ import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
 import Mail from './Components/Admin/Historique/Mail';
 import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
 import Langues from './Components/Admin/Langues/Langues';
+import Seo from './Components/Admin/SEO/Seo';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
@@ -42,6 +43,7 @@ class App extends Component {
           <Route path="/DemonstrationAdmin" component={DemonstrationAdmin} />
           <Route path="/Langues" component={Langues} />
           <Route path="/Mail" component={Mail} />
+          <Route path="/Seo" component={Seo} />
         </Switch>
 
       </div>

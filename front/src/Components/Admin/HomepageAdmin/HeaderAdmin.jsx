@@ -262,10 +262,10 @@ class HeaderAdmin extends Component{
                 <div>
                     <h1>Entête du site</h1>
                 </div>
-                <div>
+                <div className="pt-3 pb-3">
                         <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-header-admin">Nouvel entête</button>
                     </div>
-                <div>
+                <div className="position-tab pt-3 ">
 
                     <table className="table table-striped" style={{width:"75%"}}>
                         <thead>

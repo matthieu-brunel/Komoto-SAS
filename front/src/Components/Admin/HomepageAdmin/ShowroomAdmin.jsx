@@ -290,10 +290,13 @@ class ShowroomAdmin extends Component{
                     <h1>Showroom</h1>
                 </div>
 
-                <div>
-                    {!this.state.showroom.length > 0 && <div>
+                <div >
+                    {!this.state.showroom.length > 0 && 
+                    <div className="pt-3 pb-3">
                         <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-showroom-admin">Ajout un showroom</button>
                     </div>}
+
+                    <div className="position-tab pt-3">
                     <table className="table table-striped" style={{width:"75%"}}>
                         <thead>
                         <tr>
@@ -319,6 +322,7 @@ class ShowroomAdmin extends Component{
 
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
 
