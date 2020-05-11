@@ -173,7 +173,7 @@ class AjoutHeader extends Component{
                 <form>
                     <div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
 
                         <label>Saisir une description</label>
                         <textarea type="text" value={this.state.descriptionHeader} className="form-control" id="description-header-admin" onChange={this.handleChangeInput}/>

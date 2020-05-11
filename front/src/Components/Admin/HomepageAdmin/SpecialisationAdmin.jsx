@@ -309,10 +309,12 @@ class SpecialisationAdmin extends Component{
                     <h1>Specialisation</h1>
                 </div>
 
-                <div>
-                    <div>
+                <div >
+                    <div className="pt-3 pb-3">
                         <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
                     </div>
+
+                    <div className="position-tab pt-3">
                     <table className="table table-striped" style={{width:"75%"}}>
                         <thead>
                         <tr>
@@ -338,6 +340,7 @@ class SpecialisationAdmin extends Component{
 
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
 

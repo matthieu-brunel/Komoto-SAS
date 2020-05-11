@@ -1,27 +1,103 @@
 import React, { Component } from 'react';
 import './NavBar.css'
 import { Link } from "react-router-dom";
+import { Redirect} from 'react-router-dom';
 
 
-
-class NavBarAdmin extends Component {
-  render(){
-    return (
-      <div className="">
-        <div className="nav">
-          <Link to="/user" className=""> Utilisateur </Link>
-          <Link to="/HomepageAdmin"> Homepage </Link>
-          <Link to="/SolutionAdmin"> Solution </Link>
-          <Link to="/Langues"> Langues</Link>
-          <Link to="/ContactAdmin"> Contact </Link>
-          <Link to="/ReferenceAdmin">Réference </Link>
-          <Link to="/DemonstrationAdmin"> Showroom</Link>
-          <Link to="/Mail"> Historique des mails </Link>
-        </div>
-      </div>
-    );
+class NavBarAdmin extends React.Component {
+  constructor() {
+      super();
+      this.state = {}
   }
 
+  logOut = () => {
+      this.setState({ redirectLogOut: true })
+      localStorage.setItem('token', "")
+    }
+
+  render() {
+      return (
+
+
+          <div>
+              <div className="header">
+                  <a className="nav-trigger " onClick={this.openMenu} href="/" target="_blank"><span></span></a>
+              </div>
+              <div className="side-nav">
+                  <div className="logo align-admin">
+                      <span>Komoto SAS</span>
+                  </div>
+                  <nav>
+                      <ul>
+                          <li>
+                              <Link to="/user">
+                       {/*            <span><i className="fa fa-user"></i></span> */}
+                                  <span>Utilisateurs</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/HomepageAdmin">
+                                {/*   <span><i className="fa fa-home"></i></span> */}
+                                  <span>Homepage</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/SolutionAdmin">
+                              {/*     <span><i className="fa fa-archive"></i></span> */}
+                                  <span>Solution</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/Langues">
+                                {/*   <span><i className="fa fa-calendar"></i></span> */}
+                                  <span>Langues</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/ContactAdmin">
+                         {/*          <span><i className="fa fa-calendar"></i></span> */}
+                                  <span>Contact</span>
+                              </Link>
+                          </li>
+
+
+                          <li>
+                              <Link to="/ReferenceAdmin">
+                               {/*    <span><i className="fa fa-chess-bishop"></i></span> */}
+                                  <span>Réference</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/DemonstrationAdmin">
+                              {/*     <span><i className="fas fa-utensils"></i></span> */}
+                                  <span>Showroom</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/Mail">
+                             {/*      <span></span> */}
+                                  <span>Historique des mails</span>
+                              </Link>
+                          </li>
+                          <li>
+                              <Link to="/Seo">
+                               {/*    <span></span> */}
+                                  <span>SEO</span>
+                              </Link>
+                          </li>
+                          <li className="align-admin">
+                              {this.state.redirectLogOut ? <Redirect to="/login" /> : ""}
+                              <button type="button" className="btn btn-danger " onClick={this.logOut}>Déconnexion</button>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+              
+          </div>
+
+      );
+  }
 }
+
 
 export default NavBarAdmin;

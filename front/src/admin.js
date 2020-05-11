@@ -8,6 +8,7 @@ import ReferenceAdmin from './Components/Admin/ReferenceAdmin/ReferenceAdmin';
 import DemonstrationAdmin from './Components/Admin/DemonstrationAdmin/DemonstrationAdmin';
 import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
 import Mail from './Components/Admin/Historique/Mail';
+import Seo from './Components/Admin/SEO/Seo';
 
 class Admin extends Component {
 
@@ -29,6 +30,7 @@ class Admin extends Component {
                     <Route path="/ReferenceAdmin" component={ReferenceAdmin} />
                     <Route path="/DemonstrationAdmin" component={DemonstrationAdmin} />
                     <Route path="/Mail" component={Mail} />
+                    <Route path="/Seo" component={Seo} />
                 </Switch>
 
             </div>

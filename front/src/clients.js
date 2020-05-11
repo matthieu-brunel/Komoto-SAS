@@ -25,6 +25,7 @@ prefix+"/Mail",
 prefix+"/Login",
 prefix+"/user",
 prefix+"/HomepageAdmin",
+prefix+"/Seo",
 prefix+"/Langues"];
 
 
