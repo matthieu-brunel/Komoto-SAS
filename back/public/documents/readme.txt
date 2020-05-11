@@ -1,1 +1,0 @@
-dossier qui recoit les fichiers qui sont issus des pieces jointes lorsqu'un mail est envoyé.

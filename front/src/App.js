@@ -17,12 +17,6 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
 
 
   render() {
