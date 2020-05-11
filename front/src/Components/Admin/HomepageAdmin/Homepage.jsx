@@ -75,15 +75,15 @@ class HomepageAdmin extends Component{
                 <div>
                     <NavBarAdmin />
                 </div>
-                <div>
+                <div className="pb-3 pt-1">
                     <h1>Homepage</h1>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-primary" id="header" onClick={this.handleClickPart}>Header</button>
-                    <button type="button" class="btn btn-primary" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
-                    <button type="button" class="btn btn-primary" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
-                    <button type="button" class="btn btn-primary" id="showroom" onClick={this.handleClickPart}>showroom</button>
-                    <select class="form-control" id="exampleFormControlSelect1" style={{width:"6%", display:'inline-block'}} onChange={this.handleChangeLang}>
+                <div className="pt-3 pb-3">
+                    <button type="button" class="btn btn-primary mr-2" id="header" onClick={this.handleClickPart}>Header</button>
+                    <button type="button" class="btn btn-primary mr-2" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
+                    <button type="button" class="btn btn-primary mr-2" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
+                    <button type="button" class="btn btn-primary mr-2" id="showroom" onClick={this.handleClickPart}>showroom</button>
+                    <select class="form-control " id="exampleFormControlSelect1" style={{width:"4%", display:'inline-block'}} onChange={this.handleChangeLang}>
                         {options}
                     </select>
                 </div>
