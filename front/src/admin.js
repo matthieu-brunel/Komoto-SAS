@@ -11,11 +11,7 @@ import Mail from './Components/Admin/Historique/Mail';
 
 class Admin extends Component {
 
-
-
     render() {
-
-
 
         return (
             <div className="">
