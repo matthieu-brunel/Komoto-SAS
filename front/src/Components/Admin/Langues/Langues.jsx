@@ -151,12 +151,12 @@ class Langues extends Component{
             <h1 className="bg-admin">Langue</h1>
          
     
-            <div className="addLangueAdmin">
+            <div className="addLangueAdmin pt-3 pb-3">
               { /* <!-- Button trigger modal --> */}
               <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addLangueAdmin">ajouter une langue</button>
             </div>
     
-            <div>
+            <div className="position-tab pt-3">
               <table className="table table-striped" style={{width:"75%"}}>
                 <thead>
                   <tr>
