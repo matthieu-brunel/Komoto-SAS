@@ -111,11 +111,11 @@ class HeaderAdmin extends Component{
     }
 
     getStartedHeader = async() => {
-        const { locale } = this.props;
-        console.log("locale : ", locale);
+        
+        console.log("locale : ", this.props.locale);
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('homepage', 'header',locale);
+        let data = await getRessources('homepage', 'header',this.props.locale);
   
         this.setState({header:data});
         

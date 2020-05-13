@@ -123,8 +123,11 @@ class AjoutShowroom extends Component{
             'language':idLang,
             'image_id':0
         }
+
+        const data = new FormData()
+        data.append('file', this.state.document)
         
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
+        await postRessources("homepage", dataImage, dataHomepage, data);
         this.setState({altImage:"", descriptionShowroom:"", nameImage:"",urlImage:"", titreShowroom:"", titreSection:""});
         this.props.getStartedShowroom();
     }

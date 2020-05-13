@@ -19,7 +19,7 @@ class SolutionAdmin extends Component {
             specSelected: [],
 
             /*scpecialisation*/
-            titreSpec: "",
+            titreSolution: "",
             description: "",
             arrayDescription: [],
             urlImage: "",
@@ -36,6 +36,11 @@ class SolutionAdmin extends Component {
 
             idToEdit: null,
             specToEdit: [],
+            arrayLang:[],
+            langSelected:"fr",
+            solutionName:[],
+            getSolutionState:[]
+
             
 
         }
@@ -77,6 +82,20 @@ class SolutionAdmin extends Component {
     };
 
 
+    handleChangeLang = (event) => {
+        let seletedLang = event.target.options[event.target.options.selectedIndex].id;
+        this.setState({ langSelected: seletedLang });
+        this.getStartedsolutionAdmin();
+    }
+
+    getAllLang = async () => {
+        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
+        let data = await (await (fetch(url))).json();
+        this.setState({ arrayLang: data });
+      }
+    
+
+
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
@@ -85,7 +104,7 @@ class SolutionAdmin extends Component {
                 break;
 
             case "titre-spec-admin":
-                this.setState({ titreSpec: event.target.value });
+                this.setState({ titreSolution: event.target.value });
                 break;
 
             case "addDescription-spec-admin":
@@ -120,7 +139,7 @@ class SolutionAdmin extends Component {
         specSelected.push(this.state.solutionAdmin[index]);
         this.setState({
             specSelected: specSelected,
-            titreSpec: this.state.solutionAdmin[index].subtitle,
+            titreSolution: this.state.solutionAdmin[index].subtitle,
             arrayDescription: this.state.solutionAdmin[index].description,
             altImage: this.state.solutionAdmin[index].alt,
             urlImage: this.state.solutionAdmin[index].url,
@@ -145,61 +164,23 @@ class SolutionAdmin extends Component {
     }
 
     componentDidMount = () => {
-        
+        this.getAllLang();
         this.getStartedsolutionAdmin();
     }
     
 
-
-
- 
-
     getStartedsolutionAdmin = async () => {
 
-
-        //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        const options = {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + localStorage.getItem('token')
-            }),
-        }
-
-        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution/all';
-
-        const data = await (await (fetch(url, options))).json();
-        /* this.setState({ solutionAdmin: [] }); */
-        console.log(data)
-        let idLang;
-        let dataSolution = [];
-
-        for (let i in this.props.arrayLang) {
-            if (Object.values(this.props.arrayLang[i]).includes(this.props.locale)) {
-                idLang = Object.values(this.props.arrayLang[i])[2];
-            }
-        }
-        
-
-
-
-
-
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].language === idLang) {
-                dataSolution.push(data[i])
-            }
-        };
-        console.log(dataSolution)
-        //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-        /*  for (let i = 0; i < data.length; i++) {
-             this.getTextToList(data[i]);
-         } */
+         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/test?locale='+ this.state.langSelected;
+         const data = await (await (fetch(url))).json();
+         
+         console.log(data)
+         this.setState({solutionAdmin:data});
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.locale !== this.props.locale) {
-            this.setState({ solutionAdmin: "", specSelected: "", titreSection: "" });
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.langSelected !== this.state.langSelected) {
+            //this.setState({solutionAdmin:[]});
             this.getStartedsolutionAdmin();
         }
     }
@@ -233,20 +214,20 @@ class SolutionAdmin extends Component {
         this.setState({ arrayDescription: solutionAdmin[0].description });
     }
 
-    getIdSpecToDelete = (index, event) => {
-        let arrayIdSpec = [];
-        arrayIdSpec.push(this.state.solutionAdmin[index].id);
-        arrayIdSpec.push(this.state.solutionAdmin[index].id_image);
+    getIdSolutionToDelete = (index, event) => {
+        let arrayIdSolution = [];
+        arrayIdSolution.push(this.state.solutionAdmin[index].id);
+        arrayIdSolution.push(this.state.solutionAdmin[index].id_image);
 
-        this.setState({ specToDelete: arrayIdSpec });
+        this.setState({ specToDelete: arrayIdSolution });
     }
 
-    getIdSpecToEdit = (index, event) => {
-        let arrayIdSpec = [];
-        arrayIdSpec.push(this.state.solutionAdmin[index].id);
-        arrayIdSpec.push(this.state.solutionAdmin[index].id_image);
+    getIdSolutionToEdit = (index, event) => {
+        let arrayIdSolution = [];
+        arrayIdSolution.push(this.state.solutionAdmin[index].id);
+        arrayIdSolution.push(this.state.solutionAdmin[index].id_image);
         this.getsolutionAdmin(index);
-        this.setState({ specToEdit: arrayIdSpec, idToEdit: index });
+        this.setState({ specToEdit: arrayIdSolution, idToEdit: index });
     }
 
     editDescription = (index, event) => {
@@ -286,7 +267,7 @@ class SolutionAdmin extends Component {
 
         let data = {
             "title": this.state.titreSection,
-            "subtitle": this.state.titreSpec,
+            "subtitle": this.state.titreSolution,
             "description": this.state.arrayDescription.join("/"),
             "section": "solutionAdmin",
             "language": language,
@@ -332,7 +313,7 @@ class SolutionAdmin extends Component {
             fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
 
 
-            //on réactualise les spécialisations
+            //on réactualise les solutions
             this.getStartedsolutionAdmin();
         }
 
@@ -340,6 +321,8 @@ class SolutionAdmin extends Component {
     }
 
     render() {
+
+        
         let options = [];
         for (let i in this.state.arrayLang) {
 
@@ -357,20 +340,19 @@ class SolutionAdmin extends Component {
 
                 <div >
                     <div className="pt-3 pb-3">
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-solutionAdmin-admin">Ajout spécialisation</button>
-                    </div>
-                    <div>
-                        <select class="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
+                        <button type="button" className="btn btn-outline-primary mr-1" data-toggle="modal" data-target="#new-solutionAdmin-admin">Ajout solution</button>
+                        <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
                             {options}
                         </select>
                     </div>
+
                     <div className="position-tab pt-3">
                         <table className="table table-striped" style={{ width: "75%" }}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">titre de la section</th>
-                                    <th scope="col">nom de la spécialisation</th>
+                                    <th scope="col">titre de la solution</th>
+                                    <th scope="col">nom de la solution</th>
                                     <th scope="col">modification</th>
                                     <th scope="col">Supprimer</th>
                                 </tr>
@@ -381,9 +363,9 @@ class SolutionAdmin extends Component {
                                         <tr key={index}>
                                             <th scope="row">{index + 1}</th>
                                             <td>{element.title}</td>
-                                            <td>{element.subtitle}</td>
-                                            <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSpecToEdit.bind(this, index)}>Modifier</button>}</td>
-                                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-solutionAdmin-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                            <td>{element.name}</td>
+                                            <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSolutionAmdin" onClick={this.getIdSolutionToEdit.bind(this, index)}>Modifier</button>}</td>
+                                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-solutionAdmin-admin" onClick={this.getIdSolutionToDelete.bind(this, index)}>Supprimer</button>}</td>
                                         </tr>
                                     ))
                                 }
@@ -395,30 +377,27 @@ class SolutionAdmin extends Component {
 
 
 
-                {/* <!-- Nouvelle spécialisation --> */}
+                {/* <!-- Nouvelle solution --> */}
 
                 <div class="modal fade" id="new-solutionAdmin-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle spécialisation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle solution</h5>
                             </div>
                             <div class="modal-body">
-                                <AjoutsolutionAdmin {...this.props} solutionAdmin={this.state.solutionAdmin} getStartedsolutionAdmin={this.getStartedsolutionAdmin} />
+                                <AjoutsolutionAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} solutionAdmin={this.state.solutionAdmin} getStartedsolutionAdmin={this.getStartedsolutionAdmin} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* <!-- suppression d'une spécialisation --> */}
+                {/* <!-- suppression d'une solution --> */}
                 <div class="modal fade" id="delete-solutionAdmin-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une solution</h5>
                             </div>
                             <div class="modal-body">
                                 <DeletesolutionAdmin solutionAdmin={this.state.solutionAdmin} specToDelete={this.state.specToDelete} getStartedsolutionAdmin={this.getStartedsolutionAdmin} />
@@ -428,7 +407,7 @@ class SolutionAdmin extends Component {
                 </div>
 
                 {/* <!-- Modification d'une spécialité --> */}
-                <div class="modal fade" id="editSpecAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editSolutionAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -441,7 +420,7 @@ class SolutionAdmin extends Component {
                                         <input class="form-control form-control-sm" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                                     </div>
                                     <label>Saisir le titre de la spécialité</label>
-                                    <input type="text" className="form-control form-control-sm" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput} />
+                                    <input type="text" className="form-control form-control-sm" value={this.state.titreSolution} id="titre-spec-admin" onChange={this.handleChangeInput} />
 
                                     <label>Saisir une description</label>
                                     <textarea type="text" value={this.state.addDescription} className="form-control form-control-sm" id="addDescription-spec-admin" onChange={this.handleChangeInput} />

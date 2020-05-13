@@ -36,14 +36,17 @@ class Solution extends Component{
 
   getSolution = async() => {
    
-    const { idLang } = this.props;
-    
+   const { idLang } = this.props;
+    /*
     let section = this.props.match.params.id;
     let data = await getRessources("solution", section, idLang);
   
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
-    }
+    } */
+    let section = this.props.match.params.id;
+    let data = await getRessources("test", section, idLang);
+    console.log("TEST TEST :",data);
   }
 
   componentDidMount = () => {

@@ -72,6 +72,12 @@ class Client extends Component {
         url = "http://localhost:5000/api/solution/all";
         let solutionsAll = await (await (fetch(url, options))).json();
 
+        url = "http://localhost:5000/api/test?locale="+idLang;
+        let solutionsTEST = await (await (fetch(url, options))).json();
+        console.log(JSON.parse(solutionsTEST[0].description));
+
+
+
         //récupération des section uniques ex :[ketra, kroco, kheops]
         let sectionSolution = solutionsAll.map(element => element.section);
         let section_filtered = sectionSolution.filter((section, index) => sectionSolution.lastIndexOf(section) === index);
