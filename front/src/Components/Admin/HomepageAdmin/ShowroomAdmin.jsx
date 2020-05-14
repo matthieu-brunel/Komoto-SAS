@@ -57,7 +57,7 @@ class ShowroomAdmin extends Component{
         ];
     
         let file = event.target.files[0] ? event.target.files[0] : "";
-    
+        console.log("urlImage: ",REACT_APP_SERVER_ADDRESS_FULL + "/images/" + file.name)
         if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
     
           this.setState({ document: file,urlImage: REACT_APP_SERVER_ADDRESS_FULL + "/images/" + file.name, nameImage:file.name});
@@ -230,7 +230,7 @@ class ShowroomAdmin extends Component{
             "title":this.state.titreSection,
             "subtitle":this.state.titreShowroom,
             "description":this.state.descriptionShowroom,
-            "section":"showroom",
+            "section":"demonstration",
             "language":language,
             "image_id":this.state.ShowroomToEdit[1]
         };
@@ -239,7 +239,7 @@ class ShowroomAdmin extends Component{
             "name":this.state.nameImage,
             "url":this.state.urlImage,
             "alt":this.state.altImage,
-            "section":"showroom",
+            "section":"demonstration",
             "homepage_id":0
         };
 
@@ -274,7 +274,7 @@ class ShowroomAdmin extends Component{
             fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
     
 
-            //on réactualise les spécialisations
+            //on réactualise showroom
            this.getStartedShowroom();
         }
 
@@ -364,7 +364,7 @@ class ShowroomAdmin extends Component{
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modifier un savoir-faire</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Modifier un showroom</h5>
                         </div>
                         <div class="modal-body">
                         {this.state.showroom.length > 0 && <div className="form-group">
@@ -372,7 +372,7 @@ class ShowroomAdmin extends Component{
                                     <label for="titre-section">Titre section</label>
                                     <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                                 </div>
-                                <label>Saisir le titre de la spécialité</label>
+                                <label>Saisir le titre du showroom</label>
                                 <input type="text" className="form-control" value={this.state.titreShowroom} id="titre-showroom-admin" onChange={this.handleChangeInput}/>
 
                                 <label>Saisir une description</label>

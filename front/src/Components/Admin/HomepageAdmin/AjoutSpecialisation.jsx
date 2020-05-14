@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './AjoutSpecialisation.css';
 import postRessources from './../../../utils/postRessources';
+import $ from "jquery";
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -140,6 +141,7 @@ class AjoutSpecialisation extends Component{
         await postRessources("homepage", dataImage, dataHomepage, data);
         this.setState({titreSpec:"", altImage:"", arrayDescription:[], nameImage:"",titreSection:"",urlImage:""});
         this.props.getStartedSpecialisation();
+        $("#uploadFileSpecialisationAdmin")[0].value = "";
     }
 
     handleCloseModal = () => {
@@ -180,6 +182,18 @@ class AjoutSpecialisation extends Component{
         }
       };
 
+      resetInput = () =>{
+        this.setState({
+            altImage:"",
+            arrayDescription:[],
+            nameImage:"",
+            urlImage:"",
+            titreSpec:"",
+            titreSection:"",
+            document:null
+        });
+    }
+
     render(){
   
         return(
@@ -196,7 +210,7 @@ class AjoutSpecialisation extends Component{
                     }
 
                     <div class="form-group">
-                        <label for="titre-spec-admin">Titre section</label>
+                        <label for="titre-spec-admin">Titre specialisation</label>
                         <input class="form-control " value={this.state.titreSpec} id="titre-spec-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                     </div>
 
@@ -225,7 +239,7 @@ class AjoutSpecialisation extends Component{
                     
 
                     <div class="custom-file">
-                       <input type="file" className="custom-file-input"  onChange={this.handlerUploadFile}/>
+                       <input type="file" className="custom-file-input" id="uploadFileSpecialisationAdmin" onChange={this.handlerUploadFile}/>
                        <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                    </div>
 
@@ -236,7 +250,7 @@ class AjoutSpecialisation extends Component{
 
                 </form>
                 <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewSpecialisation}>Enregistrer</button>
                 </div>
 

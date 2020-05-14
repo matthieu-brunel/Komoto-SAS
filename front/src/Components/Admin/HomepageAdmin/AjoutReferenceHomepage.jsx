@@ -20,6 +20,7 @@ class AjoutReferenceHomepage extends Component {
             nameImage: "",
             document: null,
             ReferenceHomepageToDelete: null,
+            titreSection:"",
 
             isTooHeavy: false,
             message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
@@ -117,7 +118,7 @@ class AjoutReferenceHomepage extends Component {
 
         let dataHomepage = {
             'subtitle':this.state.titreReferenceHomepage,
-            'title':this.state.titreSection, 
+            'title':this.props.ReferenceHomepage.length > 0 ? this.props.ReferenceHomepage[0].title : this.state.titreSection, 
             'section': "reference",
              'description':description, 
             'language': idLang,
@@ -179,19 +180,12 @@ class AjoutReferenceHomepage extends Component {
 
                         <div className="form-group">
 
-                            <div class="form-group">
+                            {!this.props.ReferenceHomepage.length > 0 && <div class="form-group">
                                 <label for="titre-section">Titre section</label>
                                 <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
-                            </div>
+                            </div>}
 
-                            {/*   <div class="form-group">
-                            <label for="titre-savoiFaire-admin">Titre du savoir-faire</label>
-                            <input class="form-control " value={this.state.titreReferenceHomepage} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
-                        </div>
 
-                        <label>Saisir une description</label>
-                        <textarea type="text" value={this.state.descriptionReferenceHomepage} className="form-control" id="description-ReferenceHomepage-admin" onChange={this.handleChangeInput}/>
- */}
                             <label htmlFor="alt-image-ReferenceHomepage-admin" className="col-form-label">description de l'image</label>
                             <div className="">
                                 <input type="text" value={this.state.altImage} className="form-control" id="alt-image-ReferenceHomepage-admin" onChange={this.handleChangeInput} />
@@ -207,7 +201,11 @@ class AjoutReferenceHomepage extends Component {
                 </form>
                 <div class="modal-footer pt-1">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewReferenceHomepage}>Enregistrer</button>
+                    {
+                    this.state.document !== null 
+                    ? <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewReferenceHomepage}>Enregistrer</button>
+                    : <button type="button" class="btn btn-secondary">Enregistrer</button>
+                }          
                 </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
