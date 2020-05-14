@@ -35,7 +35,7 @@ router.post("/",Auth, (req, res) => {
 
 router.get("/", (req, res) => {
   console.log(req.query);
-  const sql = `SELECT t.name, t.title, t.description, t.image_id, i.id, i.name, i.url, i.alt, l.locale FROM test AS t JOIN language AS l ON t.language=l.id JOIN image AS i ON t.image_id=i.id WHERE l.locale=?`;
+  const sql = `SELECT t.name, t.title, t.description, t.image_id, t.id, i.name, i.url, i.alt, l.locale FROM test AS t JOIN language AS l ON t.language=l.id JOIN image AS i ON t.image_id=i.id WHERE l.locale=?`;
   connection.query(sql, [req.query.locale],(error, results, fields) => {
    
     if (error) {

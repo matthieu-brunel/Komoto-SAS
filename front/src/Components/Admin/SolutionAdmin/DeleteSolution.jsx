@@ -36,7 +36,7 @@ class DeletesolutionAdmin extends Component{
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.props.specToDelete[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/test/${this.props.specToDelete[0]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
@@ -59,7 +59,7 @@ class DeletesolutionAdmin extends Component{
         return(
             <div>
                 <div className="form-group" >
-                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette solutionAdmin ?</label>
+                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette solution ?</label>
                 </div>
                 <form class="was-validated">
                     <div class="custom-control custom-checkbox mb-3">

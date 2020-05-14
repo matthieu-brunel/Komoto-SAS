@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import postRessources from './../../../utils/postRessources';
-
+import $ from "jquery";
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class AjoutSolutionHomepage extends Component{
@@ -131,6 +131,7 @@ class AjoutSolutionHomepage extends Component{
         
         this.setState({altImage:"", descriptionSolutionHomepage:"", nameImage:"",urlImage:"", titreSolutionHomepage:"", titreSection:""});
         this.props.getStartedSolutionHomepage();
+        $("#uploadFileSolutionAdmin")[0].value = "";
     }
 
     handleCloseModal = () => {
@@ -199,7 +200,7 @@ class AjoutSolutionHomepage extends Component{
                         </div>
 
                         <div class="custom-file">
-                            <input type="file" className="custom-file-input" onChange={this.handlerUploadFile}/>
+                            <input type="file" className="custom-file-input" id="uploadFileSolutionAdmin" onChange={this.handlerUploadFile}/>
                             <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                         </div>
                         </div>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import postRessources from './../../../utils/postRessources';
 import $ from "jquery";
-import './AjoutSolution.css';
+import DisplaySectionEdit from './DisplaySectionEdit';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 
-class AjoutsolutionAdmin extends Component{
+class EditsolutionAdmin extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -322,64 +322,129 @@ class AjoutsolutionAdmin extends Component{
 
 
 
+
+    editsolutionAdmin = () => {
+
+        function init(data) {
+            const options = {
+                method: 'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + localStorage.getItem('token')
+                }),
+                body: JSON.stringify(data)
+            }
+            return options;
+        }
+
+        const { arrayLang, locale } = this.props;
+        let language = null;
+
+        for (let i = 0; i < arrayLang.length; i++) {
+            for (let [key, value] of Object.entries(arrayLang[i])) {
+                if (locale === value) {
+                    language = arrayLang[i].id;
+                }
+            }
+        }
+
+        let data = {
+            "title": this.state.titrePage,
+            "subtitle": this.state.nameSolution,
+            "description": this.state.arrayDescription.join("/"),
+            "section": "solutionAdmin",
+            "language": language,
+            "image_id": this.state.solutionToEdit[1]
+        };
+
+        let dataImage = {
+            "name": this.state.nameImage,
+            "url": this.state.urlImage,
+            "alt": this.state.altImage,
+            "section": "solutionAdmin",
+            "homepage_id": 0
+        };
+
+
+        const documentImage = new FormData();
+        documentImage.append("file", this.state.document);
+
+
+        const options = {
+            method: "POST",
+            mode: "cors",
+            credentials: "same-origin",
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: documentImage
+        }
+
+
+
+        if (this.state.solutionSelected.length > 0) {
+
+            // fetch pour envoi d el'image dans le dossier back/public/images
+            let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
+            fetch(url, options).then(res => res.json()).then(res => console.log(res));
+
+            // fetch pour modification des champs de la table image
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.solutionToEdit[1]}`;
+            fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
+
+            // fetch pour modification des champs de la table homepage
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.solutionToEdit[0]}`;
+            fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
+
+
+            //on réactualise les solutions
+            this.getStartedsolutionAdmin();
+        }
+
+
+    }
+
+
     render(){
-        //console.log(this.state.document.length > 0 ? this.state.document[0].name : "");
+
+        console.log("solution :",this.props.solutionAdmin.length > 0 ? JSON.parse(this.props.solutionAdmin[0].description) : "");
         return(
             <div>
                 <div id="accordion">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#EditPartie1" aria-expanded="true" aria-controls="EditPartie1">
                         partie 1
                     </button>
 
-                    <form id="partie1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <form id="EditPartie1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="form-group">
-                            <label for="titrePage-solution">Titre de la page <span style={{color:"red"}}>*</span></label>
-                            <input class="form-control " value={this.state.titrePage} id="titrePage-solution" type="text" placeholder="titre de la page" onChange={this.handleChangeInput}/>
+                            <label for="titre-section">Titre de la page <span style={{color:"red"}}>*</span></label>
+                            <textarea class="form-control " value={this.props.titrePage} id="titre-section" type="text" placeholder="titre de la page" onChange={this.props.handleChangeInput}/>
                         </div>
 
 
                         <div class="form-group">
                             <label for="titre-solution-name">Nom de la solution <span style={{color:"red"}}>*</span></label>
-                            <input class="form-control" value={this.state.nameSolution} id="titre-solution-name" type="text" placeholder="nom de la solution" onChange={this.handleChangeInput}/>
+                            <input class="form-control" value={this.props.nameSolution} id="titre-solution-name" type="text" placeholder="nom de la solution" onChange={this.props.handleChangeInput}/>
                         </div>
                     
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="titre-solution-section">Titre de la section</label>
-                                <input class="form-control " value={this.state.titreSection} id="titre-solution-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
-                            </div>
-
-                            <label>Saisir une description</label>
-                            
-                            <div class="form-group">
-                                <textarea class="form-control" type="text" value={this.state.addDescription} id="addDescription-solution-admin" onChange={this.handleChangeInput}/>
-                            </div>
-                            
-                            <button type="button" class="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
-                            <button type="button" class="btn btn-primary" onClick={this.addSection}>Valider la section</button>
-                                
-                
-                            <div className="description-solution-admin-modal">
-                                <ul>
-                                    {this.state.arrayDescription.length > 0 && this.state.arrayDescription.map((description, index) => (
-                                        <div className="p-1">
-                                            <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
-                                        </div>
-                                    ) )}
-                                </ul>
-
+                            <div className="pt-3">
+                                {
+                                    this.props.jsonParseDescriptionSolutionSelected.length > 0 
+                                    &&
+                                    <DisplaySectionEdit description={this.props.jsonParseDescriptionSolutionSelected}/>
+                                }
                             </div>
                         </div>
                 </form>
                 
                 <div className="p-2">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#EditPartie2" aria-expanded="false" aria-controls="EditPartie2">
                             partie 2
                     </button>
                 </div>
 
 
-                <div id="partie2" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="EditPartie2" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="custom-file">
                                 <input type="file" className="custom-file-input"  id="uploadAddImageSolutionAdmin" onChange={this.handlerUploadFile} />
                                 <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >Upload une image <span style={{color:"red"}}>*</span></label>
@@ -401,10 +466,6 @@ class AjoutsolutionAdmin extends Component{
                                     }
                                     </div>
                                 </div>
-
-
-                                
-
                             </div>
 
                             <div className="pt-3">
@@ -437,40 +498,38 @@ class AjoutsolutionAdmin extends Component{
                         </div>
 
         
-                        <div id="partie3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <h3 className="text-center p-3">Modification</h3>
-                                    <div class="custom-file">
-                                        <input type="file" className="custom-file-input"  onChange={this.handlerUploadFile} />
-                                        <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >Upload une image <span style={{color:"red"}}>*</span></label>
+                        <div id="EditPartie3" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                            <h3 className="text-center p-3">Modification</h3>
+                            <div class="custom-file">
+                                <input type="file" className="custom-file-input"  onChange={this.handlerUploadFile} />
+                                <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >Upload une image <span style={{color:"red"}}>*</span></label>
+                            </div>
+
+                            <div class="form-group mt-5">
+                                <h6 className="text-center">Description de l'image</h6>
+                                <div className="row">
+                                    <div className="div-description-image-solution-admin col-10">
+                                        <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                                     </div>
-
-                                    <div class="form-group mt-5">
-                                        <h6 className="text-center">Description de l'image</h6>
-                                        <div className="row">
-                                            <div className="div-description-image-solution-admin col-10">
-                                                <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
-                                            </div>
-                                            
-                                            <div className="btn-ajouter-image-solution-admin col-2">
-                                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2" onClick={this.editImageAdmin}>modifier</button>
-                                            </div>
-                                        </div>
-
-
+                                    
+                                    <div className="btn-ajouter-image-solution-admin col-2">
+                                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2" onClick={this.editImageAdmin}>modifier</button>
                                     </div>
                                 </div>
 
 
+                            </div>
+                        </div>
 
-                <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="modal-footer pt-1">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                    {
-                        this.state.document.length > 0 && this.state.titrePage !== "" && this.state.nameSolution !== "" ? 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewsolutionAdmin}>Enregistrer</button>
-                    :
-                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}
-                </div>
+                            {
+                                this.state.document.length > 0 && this.state.titrePage !== "" && this.state.nameSolution !== "" ? 
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewsolutionAdmin}>Enregistrer</button>
+                            :
+                            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}
+                        </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                 {this.state.isTooHeavy && (
@@ -487,4 +546,4 @@ class AjoutsolutionAdmin extends Component{
 }
 
 
-export default AjoutsolutionAdmin;
+export default EditsolutionAdmin;

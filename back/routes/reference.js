@@ -7,8 +7,9 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const reference = req.body;
+  console.log(reference)
   const sql =
-    "INSERT INTO reference (subtitle, title, section, description, image_id) VALUES (? , ? , ? , ?, ?)";
+    "INSERT INTO reference (subtitle, title, section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -16,7 +17,8 @@ router.post("/",Auth, (req, res) => {
       reference.title,
       reference.section,
       reference.description,
-      reference.image_id
+      reference.image_id,
+      reference.language
     ],
     (error, results, fields) => {
       if (error) {
@@ -30,7 +32,7 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.description, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.homepage_id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
+  const sql = `SELECT r.description, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
 
   connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
     if (error) {
