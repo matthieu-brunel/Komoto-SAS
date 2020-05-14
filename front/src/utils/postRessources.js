@@ -38,11 +38,12 @@ export default async function postRessources(table, dataImage, data, image) {
         countFile++
     }
 
+    console.log("TABLE :", table);
+    console.log("DATA IMAGE:", dataImage);
+    console.log("DATA:", data)
+
     if(countFile > 1){
 
-/*         console.log("TABLE :", table);
-        console.log("DATA IMAGE:", dataImage);
-        console.log("DATA:", data) */
         //upload des images
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadMultipleImage';
         const recordDocument = await ( await ( fetch( url, optionsImage(image) ) ) ).json();
@@ -61,7 +62,7 @@ export default async function postRessources(table, dataImage, data, image) {
         const record = await ( await ( fetch( url, options(data) ) ) ).json();
    
     }else{
-/*         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
+        url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
         const recordDocument = await ( await ( fetch( url, optionsImage(image) ) ) ).json();
        
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/image';
@@ -70,7 +71,7 @@ export default async function postRessources(table, dataImage, data, image) {
         data.image_id = recordImage.id;
     
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table;
-        const record = await ( await ( fetch( url, options(data) ) ) ).json(); */
+        const record = await ( await ( fetch( url, options(data) ) ) ).json();
     }
 }
 
