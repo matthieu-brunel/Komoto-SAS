@@ -22,7 +22,9 @@
     color:white;
     text-decoration: underline;
 }
-
+.div-reference{
+    width: 32%;
+} 
 
 @media screen and (max-width:767px) {
 
