@@ -7,6 +7,7 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const image = req.body;
+  console.log(image)
   const sql = "INSERT INTO image (name, url, alt ,homepage_id, section) VALUES (? , ? , ? , ?, ?)";
   connection.query(
     sql,
@@ -48,6 +49,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id",Auth, (req, res) => {
   const idImage = req.params.id;
   const image = req.body;
+  console.log(image);
   const sql = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${idImage}`;
   connection.query(
     sql,

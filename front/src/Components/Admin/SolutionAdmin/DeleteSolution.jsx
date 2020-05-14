@@ -56,8 +56,6 @@ class DeletesolutionAdmin extends Component{
 
     render(){
         const {getsolutionAdminToDelete, specToDelete} = this.props;
-
-        console.log(specToDelete);
         return(
             <div>
                 <div className="form-group" >

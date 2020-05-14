@@ -112,19 +112,23 @@ class AjoutSolutionHomepage extends Component{
             'url':this.state.urlImage,
             'alt':this.state.altImage,
             'homepage_id':0,
-            'section':'SolutionHomepage'
+            'section':'solution'
         }
 
         let dataHomepage = {
             'subtitle':this.state.titreSolutionHomepage,
             'title':this.state.titreSection,
-            'section':"SolutionHomepage",
+            'section':"solution",
             'description':description,
             'language':idLang,
             'image_id':0
         }
+
+        const data = new FormData()
+        data.append('file', this.state.document)
         
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
+        await postRessources("homepage", dataImage, dataHomepage, data);
+        
         this.setState({altImage:"", descriptionSolutionHomepage:"", nameImage:"",urlImage:"", titreSolutionHomepage:"", titreSection:""});
         this.props.getStartedSolutionHomepage();
     }

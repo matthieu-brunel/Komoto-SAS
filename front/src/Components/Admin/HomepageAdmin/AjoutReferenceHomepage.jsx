@@ -124,7 +124,10 @@ class AjoutReferenceHomepage extends Component {
             'image_id': 0
         }
 
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
+        const data = new FormData()
+        data.append('file', this.state.document)
+
+        await postRessources("homepage", dataImage, dataHomepage, data);
         this.setState({ altImage: "", descriptionReferenceHomepage: "", nameImage: "", urlImage: "", titreReferenceHomepage: "", titreSection: "" });
         this.props.getStartedReferenceHomepage();
     }

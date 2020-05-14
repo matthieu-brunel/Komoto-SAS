@@ -133,8 +133,11 @@ class AjoutSpecialisation extends Component{
             'language':idLang,
             'image_id':0
         }
+
+        const data = new FormData()
+        data.append('file', this.state.document)
         
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
+        await postRessources("homepage", dataImage, dataHomepage, data);
         this.setState({titreSpec:"", altImage:"", arrayDescription:[], nameImage:"",titreSection:"",urlImage:""});
         this.props.getStartedSpecialisation();
     }

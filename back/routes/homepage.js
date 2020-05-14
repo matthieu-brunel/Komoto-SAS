@@ -10,6 +10,7 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
+  console.log(homepage);
   const sql =
     "INSERT INTO homepage (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(

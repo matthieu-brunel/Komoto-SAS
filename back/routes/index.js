@@ -13,8 +13,10 @@ const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
 const uploadImage = require("./uploadImage");
+const uploadMultipleImage = require("./uploadMultipleImage");
 const navbar = require("./navbar");
 const formulaire = require("./formulaire");
+const test = require("./test");
 
 router.use("/admin", admin);
 router.use("/demonstration", demonstration);
@@ -29,9 +31,12 @@ router.use("/solution", solution);
 router.use("/contact", contact);
 router.use("/uploadcontact", uploadcontact);
 router.use("/uploadImage", uploadImage);
+router.use("/uploadMultipleImage", uploadMultipleImage);
 router.use("/documents", express.static("public/documents"));
 
 router.use("/navbar", navbar);
 router.use("/formulaire", formulaire);
+
+router.use("/test", test);
 
 module.exports = router;

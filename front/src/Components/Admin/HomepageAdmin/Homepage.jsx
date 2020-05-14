@@ -60,30 +60,31 @@ class HomepageAdmin extends Component {
         }
     }
 
+
     getAllLang = async () => {
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
         let data = await (await (fetch(url))).json();
         this.setState({ arrayLang: data });
-    }
-
-    componentDidMount = () => {
-        this.getAllLang();
-    }
-
-    handleChangeLang = (event) => {
-        let seletedLang = event.target.options[event.target.options.selectedIndex].id;
-        this.setState({ langSelected: seletedLang });
-    }
-
+      }
+    
+      componentDidMount = () => {
+          this.getAllLang();
+      }
+    
+      handleChangeLang = (event) => {
+    
+          let seletedLang = event.target.options[event.target.options.selectedIndex].id;
+          console.log(event.target.options[event.target.options.selectedIndex]);
+          this.setState({ langSelected: seletedLang });
+      }
 
     render() {
+        const { arrayLang, handleChangeLang } = this.state;
 
         let options = [];
-        for (let i in this.state.arrayLang) {
-
-            options.push(<option key={i} id={this.state.arrayLang[i].locale}>{this.state.arrayLang[i].locale}</option>)
+        for (let i in arrayLang) {
+            options.push(<option key={i} id={arrayLang[i].locale}>{arrayLang[i].locale}</option>)
         }
-
         return (
             <div>
                 <div>
@@ -93,25 +94,27 @@ class HomepageAdmin extends Component {
                     <h1>Homepage</h1>
                 </div>
                 <div className="pt-3 pb-3">
-                    <button type="button" class="btn btn-primary mr-2" id="header" onClick={this.handleClickPart}>Header</button>
-                    <button type="button" class="btn btn-primary mr-2" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
-                    <button type="button" class="btn btn-primary mr-2" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
-                    <button type="button" class="btn btn-primary mr-2" id="showroom" onClick={this.handleClickPart}>showroom</button>
-                    <button type="button" class="btn btn-primary mr-2" id="solution" onClick={this.handleClickPart}>Solution</button>
-                    <button type="button" class="btn btn-primary mr-2" id="reference" onClick={this.handleClickPart}>reference</button>
-                    <select class="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
+                    <button type="button" className="btn btn-primary mr-2" id="header" onClick={this.handleClickPart}>Header</button>
+                    <button type="button" className="btn btn-primary mr-2" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
+                    <button type="button" className="btn btn-primary mr-2" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
+                    <button type="button" className="btn btn-primary mr-2" id="showroom" onClick={this.handleClickPart}>showroom</button>
+                    <button type="button" className="btn btn-primary mr-2" id="solution" onClick={this.handleClickPart}>Solution</button>
+                    <button type="button" className="btn btn-primary mr-2" id="reference" onClick={this.handleClickPart}>reference</button>
+                    <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={handleChangeLang}>
                         {options}
                     </select>
                 </div>
-
+ 
                 <div>
                     {this.state.displayHeader && <HeaderAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySpec && <SpecialisationAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySavoirFaire && <SavoirFaireAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displayShowroom && <ShowroomAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySolution && <SolutionHomepageAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
-                    {this.state.displayReference && <ReferenceHomepageAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
+                    {this.state.displayReference && <ReferenceHomepageAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />} 
+   
                 </div>
+
 
             </div>
         )

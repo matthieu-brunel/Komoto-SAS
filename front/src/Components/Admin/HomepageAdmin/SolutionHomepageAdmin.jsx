@@ -135,8 +135,7 @@ class SolutionHomepageAdmin extends Component {
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let SolutionHomepage = await getRessources("homepage", "SolutionHomepage", locale);
-
+        let SolutionHomepage = await getRessources("homepage", "solution", locale);
         this.setState({ SolutionHomepage: SolutionHomepage });
 
     }
@@ -232,7 +231,7 @@ class SolutionHomepageAdmin extends Component {
             "title": this.state.titreSection,
             "subtitle": this.state.titreSolutionHomepage,
             "description": this.state.descriptionSolutionHomepage,
-            "section": "SolutionHomepage",
+            "section": "solution",
             "language": language,
             "image_id": this.state.SolutionHomepageToEdit[1]
         };
@@ -241,7 +240,7 @@ class SolutionHomepageAdmin extends Component {
             "name": this.state.nameImage,
             "url": this.state.urlImage,
             "alt": this.state.altImage,
-            "section": "SolutionHomepage",
+            "section": "solution",
             "homepage_id": 0
         };
 
