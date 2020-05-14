@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import getRessources from './../../../utils/getRessources';
 import "./SpecialisationAdmin.css";
 import AjoutSpecialisation from './AjoutSpecialisation';
