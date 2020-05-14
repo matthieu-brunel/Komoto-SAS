@@ -4,6 +4,8 @@ import getRessources from './../../../utils/getRessources';
 //import "./SavoirFaireAdmin.css";
 import AjoutSavoirFaire from './AjoutSavoirFaire';
 import DeleteSavoirFaire from './DeleteSavoirFaire';
+import $ from "jquery";
+
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -278,6 +280,7 @@ class SavoirFaireAdmin extends Component {
 
             //on réactualise les spécialisations
             this.getStartedSavoirFaire();
+            $("#uploadFileEditSavoirFaireAdmin")[0].value = "";
         }
 
     }
@@ -385,7 +388,7 @@ class SavoirFaireAdmin extends Component {
                                     </div>
 
                                     <div class="custom-file">
-                                        <input type="file" className="custom-file-input" onChange={this.handlerUploadFile} />
+                                        <input type="file" className="custom-file-input" id="uploadFileEditSavoirFaireAdmin" onChange={this.handlerUploadFile} />
                                         <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                                     </div>
                                 </div>}

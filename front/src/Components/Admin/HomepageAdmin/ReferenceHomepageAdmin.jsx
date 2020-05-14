@@ -15,7 +15,7 @@ class ReferenceHomepageAdmin extends Component {
             ReferenceHomepage: [],
             titreSection: "",
 
-            /*savoir-faire*/
+            /*reference*/
             titreReferenceHomepage: "",
             descriptionReferenceHomepage: "",
             urlImage: "",
@@ -366,16 +366,11 @@ class ReferenceHomepageAdmin extends Component {
                             </div>
                             <div class="modal-body">
                                 {this.state.ReferenceHomepage.length > 0 && <div className="form-group">
-                                    <div class="form-group">
+                                    {!this.state.ReferenceHomepage.length > 0 &&                                   <div class="form-group">
                                         <label for="titre-section">Titre de la reference</label>
-                                        <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
-                                    </div>
-                                    <label>Saisir le titre de la reference</label>
-                                    <input type="text" className="form-control" value={this.state.titreReferenceHomepage} id="titre-ReferenceHomepage-admin" onChange={this.handleChangeInput} />
-
-                                    <label>Saisir une description</label>
-                                    <textarea type="text" value={this.state.descriptionReferenceHomepage} className="form-control" id="description-ReferenceHomepage-admin" onChange={this.handleChangeInput} />
-
+                                        <input class="form-control" value={this.state.titreReferenceHomepage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+                                    </div>}
+       
 
                                     <label htmlFor="alt-image-ReferenceHomepage-admin" className="col-form-label col-form-label-sm">description de l'image</label>
                                     <div className="">
@@ -390,8 +385,10 @@ class ReferenceHomepageAdmin extends Component {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" id="titre-ReferenceHomepage-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editReferenceHomepage}>Appliquer</button>
-                            </div>
+                                { this.state.titreSection !== "" && this.state.altImage !== "" && this.state.document !== null 
+                                ? <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editReferenceHomepage}>Appliquer</button>
+                                : <button type="button" class="btn btn-secondary">Appliquer</button>
+}                            </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (
                                 <div className={`${this.state.isActive ? "div-active-error" : "div-desactive-error"}`}>

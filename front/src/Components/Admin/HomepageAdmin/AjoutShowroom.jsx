@@ -185,7 +185,7 @@ class AjoutShowroom extends Component{
                         </div>
                         
                         <div class="form-group">
-                            <label for="titre-savoiFaire-admin">Titre du savoir-faire</label>
+                            <label for="titre-savoiFaire-admin">Titre du showroom</label>
                             <input class="form-control " value={this.state.titreShowroom} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                         </div>
 
