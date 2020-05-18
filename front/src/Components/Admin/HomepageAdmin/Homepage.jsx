@@ -4,7 +4,6 @@ import HeaderAdmin from './HeaderAdmin';
 import SpecialisationAdmin from './SpecialisationAdmin';
 import SavoirFaireAdmin from './SavoirFaireAdmin';
 import ShowroomAdmin from "./ShowroomAdmin";
-import SolutionHomepageAdmin from "./SolutionHomepageAdmin";
 import ReferenceHomepageAdmin from "./ReferenceHomepageAdmin";
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -16,7 +15,6 @@ class HomepageAdmin extends Component {
             displaySpec: false,
             displaySavoirFaire: false,
             displayShowroom: false,
-            displaySolution: false,
             displayReference: false,
             arrayLang: [],
             langSelected: "fr"
@@ -45,10 +43,6 @@ class HomepageAdmin extends Component {
 
             case "showroom":
                 this.setState({ displaySpec: false, displayShowroom: true,displayReference: false, displaySolution: false, displayHeader: false, displaySavoirFaire: false });
-                break;
-
-            case "solution":
-                this.setState({ displaySpec: false, displayShowroom: false,displayReference: false, displaySolution: true, displayHeader: false, displaySavoirFaire: false });
                 break;
 
             case "reference":
@@ -98,7 +92,6 @@ class HomepageAdmin extends Component {
                     <button type="button" className="btn btn-primary mr-2" id="savoirFaire" onClick={this.handleClickPart}>savoir-faire</button>
                     <button type="button" className="btn btn-primary mr-2" id="specialisation" onClick={this.handleClickPart}>specialisation</button>
                     <button type="button" className="btn btn-primary mr-2" id="showroom" onClick={this.handleClickPart}>showroom</button>
-                    <button type="button" className="btn btn-primary mr-2" id="solution" onClick={this.handleClickPart}>Solution</button>
                     <button type="button" className="btn btn-primary mr-2" id="reference" onClick={this.handleClickPart}>reference</button>
                     <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
                         {options}
@@ -110,7 +103,6 @@ class HomepageAdmin extends Component {
                     {this.state.displaySpec && <SpecialisationAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySavoirFaire && <SavoirFaireAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displayShowroom && <ShowroomAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
-                    {this.state.displaySolution && <SolutionHomepageAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displayReference && <ReferenceHomepageAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />} 
    
                 </div>
