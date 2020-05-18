@@ -32,8 +32,7 @@ router.post("/",Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.description, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
-
+  const sql = `SELECT r.description ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
   connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
     if (error) {
      
@@ -41,8 +40,11 @@ router.get("/", (req, res) => {
     } else {
       res.json(results);
     }
+  
   });
 });
+
+
 
 router.get("/all", (req, res) => {
   const sql = "SELECT * FROM reference";
@@ -103,4 +105,5 @@ router.delete("/:id",Auth, (req, res) => {
     }
   });
 });
+
 module.exports = router;

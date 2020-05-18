@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./Reference.css";
 import { HashLink as NavLink } from "react-router-hash-link";
 import getRessources from "../../../utils/getRessources";
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
+
 
 class ReferenceAccueil extends Component {
   constructor() {
@@ -13,10 +15,16 @@ class ReferenceAccueil extends Component {
 
   componentDidMount = async () => {
     const { locale } = this.props;
-    let data = await getRessources("homepage", "reference", locale);
+    console.log(locale);
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + locale;
+    const data = await (await (fetch(url))).json();
+    console.log(data);
+    this.setState({reference:data});
+
+/*     let data = await getRessources("reference", "reference", locale);
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
-    }
+    } */
   };
 
   getTextToList(data) {
@@ -47,11 +55,11 @@ class ReferenceAccueil extends Component {
         <div className="container-div-img">
           {this.state.reference.map((element, index) => (
             <div id="ReferenceAccueil" className="div-reference" key={index}>
-              <NavLink to={`/Reference/#${element.url[index]}`}>
+              <NavLink to={`/Reference/#${element.name}`}>
                 <img
                   className="img-reference"
-                  src={element.url[0]}
-                  alt={element.alt[0]}
+                  src={element.url}
+                  alt={element.alt}
                 />
               </NavLink>
             </div>
