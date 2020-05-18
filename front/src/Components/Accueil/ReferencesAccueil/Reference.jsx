@@ -31,6 +31,7 @@ class ReferenceAccueil extends Component {
 
     //on met a jour le state avec la nouvelle valeur [reference=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
     this.setState({ reference: [...this.state.reference, objet] });
+    console.log("test" , this.state.reference)
   }
 
 
@@ -47,7 +48,7 @@ class ReferenceAccueil extends Component {
         <div className="container-div-img">
           {this.state.reference.map((element, index) => (
             <div id="ReferenceAccueil" className="div-reference" key={index}>
-              <NavLink to={`/Reference/#${element.url[index]}`}>
+              <NavLink to={`/Reference/#${element.name}`}>
                 <img
                   className="img-reference"
                   src={element.url[0]}

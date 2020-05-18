@@ -36,7 +36,7 @@ class AjoutReferenceHomepage extends Component {
                 this.setState({ titreSection: event.target.value });
                 break;
 
-            case "titre-savoiFaire-admin":
+            case "titre-reference-admin":
                 this.setState({ titreReferenceHomepage: event.target.value });
                 break;
 
@@ -184,7 +184,12 @@ class AjoutReferenceHomepage extends Component {
                                 <label for="titre-section">Titre section</label>
                                 <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                             </div>}
-
+                           
+                           
+                            <div class="form-group">
+                                <label for="titre-section">Titre de la reference</label>
+                                <input class="form-control" value={this.state.titreReferenceHomepage} id="titre-reference-admin" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+                            </div>
 
                             <label htmlFor="alt-image-ReferenceHomepage-admin" className="col-form-label">description de l'image</label>
                             <div className="">
