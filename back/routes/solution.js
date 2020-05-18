@@ -34,7 +34,7 @@ router.post("/", Auth,(req, res) => {
 
 router.get("/", (req, res) => {
  
-  const sql = `SELECT s.title, s.subtitle, s.description, i.name, i.url, i.alt, s.language FROM solution AS s JOIN image AS i ON s.image_id = i.homepage_id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=?`;
+  const sql = `SELECT s.title, s.title_section, s.subtitle, s.description, i.name, i.url, i.alt, s.language FROM solution AS s JOIN image AS i ON s.image_id = i.homepage_id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=?`;
   connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
     if (error) {
       
@@ -72,12 +72,13 @@ router.put("/:id", Auth,(req, res) => {
   const idsolution = req.params.id;
   const solution = req.body;
 
-  const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
+  const sql = `UPDATE solution SET subtitle=?, title=?, title_section=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,
     [
       solution.subtitle,
       solution.title,
+      solution.title_section,
       solution.section,
       solution.description,
       solution.language,
