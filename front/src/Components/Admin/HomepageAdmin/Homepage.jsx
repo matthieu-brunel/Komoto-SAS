@@ -100,7 +100,7 @@ class HomepageAdmin extends Component {
                     <button type="button" className="btn btn-primary mr-2" id="showroom" onClick={this.handleClickPart}>showroom</button>
                     <button type="button" className="btn btn-primary mr-2" id="solution" onClick={this.handleClickPart}>Solution</button>
                     <button type="button" className="btn btn-primary mr-2" id="reference" onClick={this.handleClickPart}>reference</button>
-                    <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={handleChangeLang}>
+                    <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
                         {options}
                     </select>
                 </div>
