@@ -123,8 +123,11 @@ class AjoutShowroom extends Component{
             'language':idLang,
             'image_id':0
         }
+
+        const data = new FormData()
+        data.append('file', this.state.document)
         
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
+        await postRessources("homepage", dataImage, dataHomepage, data);
         this.setState({altImage:"", descriptionShowroom:"", nameImage:"",urlImage:"", titreShowroom:"", titreSection:""});
         this.props.getStartedShowroom();
     }
@@ -182,7 +185,7 @@ class AjoutShowroom extends Component{
                         </div>
                         
                         <div class="form-group">
-                            <label for="titre-savoiFaire-admin">Titre du savoir-faire</label>
+                            <label for="titre-savoiFaire-admin">Titre du showroom</label>
                             <input class="form-control " value={this.state.titreShowroom} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                         </div>
 

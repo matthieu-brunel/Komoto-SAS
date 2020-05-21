@@ -1,0 +1,59 @@
+class Stack{
+  constructor(){
+    this.maPile = []
+    }
+  
+  ajoutPile(data){
+    this.maPile.push(data);
+    }
+    
+  retirerPile(){
+    return this.maPile.pop();
+    }
+    
+  content(){
+    return this.data.entries();
+    }
+}
+  
+class Queue{
+  constructor(){
+    this.maFile = []
+    }
+  
+  ajoutFile(data){
+    this.maFile.unshift(data);
+    }
+    
+  retirerFile(){
+    this.maFile.shift();
+    }
+}
+
+
+  
+let pile1 = new Stack();
+
+for( let i=0; i < 10; i++) {
+  pile1.ajoutPile("banane");
+  }
+
+for( let x of pile1.content()) {
+  console.log(x);
+  }
+  
+  
+/*
+pile1.ajoutPile("banane");
+pile1.ajoutPile("abricot");
+pile1.ajoutPile("fraise");
+pile1.ajoutPile("melon");
+pile1.retirerPile();
+pile1.ajoutPile("peche");*/
+
+let file1 = new Queue();
+file1.ajoutFile("1929");
+file1.ajoutFile("2000");
+file1.ajoutFile("2008");
+file1.ajoutFile("2020");
+file1.retirerFile();

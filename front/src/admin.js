@@ -12,11 +12,7 @@ import Seo from './Components/Admin/SEO/Seo';
 
 class Admin extends Component {
 
-
-
     render() {
-
-
 
         return (
             <div className="">

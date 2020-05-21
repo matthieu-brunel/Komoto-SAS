@@ -26,7 +26,7 @@ class Accueil extends Component {
     let data = await getRessources("homepage", "solution", locale);
   
     this.setState({solution: data});
-  
+    console.log(data)
   }; 
 
   render(){

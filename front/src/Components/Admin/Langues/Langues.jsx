@@ -96,7 +96,7 @@ class Langues extends Component{
           method:'DELETE'
         })
           .then(res => res.json())
-          .then(res => this.setState({getIdEditLangue:"",idEditLangue:"",langues:[]}))
+          .then(res => this.setState({getIdEditLangue:"",idEditLangue:""}))
           this.getLanguages();
       }
     

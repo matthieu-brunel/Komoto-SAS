@@ -1,36 +1,34 @@
 import React, { Component } from 'react';
 
 import getRessources from './../../../utils/getRessources';
-//import "./SavoirFaireAdmin.css";
-import AjoutSavoirFaire from './AjoutSavoirFaire';
-import DeleteSavoirFaire from './DeleteSavoirFaire';
-import $ from "jquery";
-
+//import "./ReferenceHomepageAdmin.css";
+import AjoutReferenceHomepage from './AjoutReferenceHomepage';
+import DeleteReferenceHomepage from './DeleteReferenceHomepage';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
-class SavoirFaireAdmin extends Component {
+class ReferenceHomepageAdmin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            savoirFaire: [],
+            ReferenceHomepage: [],
             titreSection: "",
 
-            /*savoir-faire*/
-            titreSavoirFaire: "",
-            descriptionSavoirFaire: "",
+            /*reference*/
+            titreReferenceHomepage: "",
+            descriptionReferenceHomepage: "",
             urlImage: "",
             altImage: "",
             nameImage: "",
             document: null,
-            SavoirFaireToDelete: null,
+            ReferenceHomepageToDelete: null,
 
             isTooHeavy: false,
             message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
             isActive: true,
             idToEdit: null,
-            SavoirFaireToEdit: []
+            ReferenceHomepageToEdit: []
 
         }
 
@@ -78,27 +76,27 @@ class SavoirFaireAdmin extends Component {
                 this.setState({ titreSection: event.target.value });
                 break;
 
-            case "titre-savoirFaire-admin":
-                this.setState({ titreSavoirFaire: event.target.value });
+            case "titre-ReferenceHomepage-admin":
+                this.setState({ titreReferenceHomepage: event.target.value });
                 break;
 
-            case "description-savoirFaire-admin":
-                this.setState({ descriptionSavoirFaire: event.target.value });
+            case "description-ReferenceHomepage-admin":
+                this.setState({ descriptionReferenceHomepage: event.target.value });
                 break;
 
-            case "url-image-savoirFaire-admin":
+            case "url-image-ReferenceHomepage-admin":
                 this.setState({ urlImage: event.target.value });
                 break;
 
-            case "alt-image-savoirFaire-admin":
+            case "alt-image-ReferenceHomepage-admin":
                 this.setState({ altImage: event.target.value });
                 break;
 
-            case "name-image-savoirFaire-admin":
+            case "name-image-ReferenceHomepage-admin":
                 this.setState({ nameImage: event.target.value });
                 break;
 
-            case "refId-image-savoirFaire-admin":
+            case "refId-image-ReferenceHomepage-admin":
                 this.setState({ refIdImage: event.target.value });
                 break;
 
@@ -107,21 +105,21 @@ class SavoirFaireAdmin extends Component {
         }
     }
 
-    getSavoirFaire = (id) => {
+    getReferenceHomepage = (id) => {
         let index = id;
 
-        let SavoirFaireSelected = [];
-        SavoirFaireSelected.push(this.state.savoirFaire[index]);
+        let ReferenceHomepageSelected = [];
+        ReferenceHomepageSelected.push(this.state.ReferenceHomepage[index]);
         this.setState({
-            SavoirFaireSelected: SavoirFaireSelected,
-            titreSavoirFaire: this.state.savoirFaire[index].subtitle,
-            descriptionSavoirFaire: this.state.savoirFaire[index].description,
-            altImage: this.state.savoirFaire[index].alt,
-            urlImage: this.state.savoirFaire[index].url,
-            nameImage: this.state.savoirFaire[index].name,
-            refIdImage: this.state.savoirFaire[index].homepage_id,
-            titreSection: this.state.savoirFaire[index].title,
-            titreSection: this.state.savoirFaire[index].title
+            ReferenceHomepageSelected: ReferenceHomepageSelected,
+            titreReferenceHomepage: this.state.ReferenceHomepage[index].subtitle,
+            descriptionReferenceHomepage: this.state.ReferenceHomepage[index].description,
+            altImage: this.state.ReferenceHomepage[index].alt,
+            urlImage: this.state.ReferenceHomepage[index].url,
+            nameImage: this.state.ReferenceHomepage[index].name,
+            refIdImage: this.state.ReferenceHomepage[index].homepage_id,
+            titreSection: this.state.ReferenceHomepage[index].title,
+            titreSection: this.state.ReferenceHomepage[index].title
         })
     }
 
@@ -130,82 +128,82 @@ class SavoirFaireAdmin extends Component {
 
 
     componentDidMount = () => {
-        this.getStartedSavoirFaire();
+        this.getStartedReferenceHomepage();
     }
 
-    getStartedSavoirFaire = async () => {
+    getStartedReferenceHomepage = async () => {
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
+        let ReferenceHomepage = await getRessources("homepage", "reference", locale);
 
-        this.setState({ savoirFaire: savoirFaire });
+        this.setState({ ReferenceHomepage: ReferenceHomepage });
 
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.locale !== this.props.locale) {
-            this.setState({ savoirFaire: "", SavoirFaireSelected: "", titreSection: "" });
-            this.getStartedSavoirFaire();
+            this.setState({ ReferenceHomepage: "", ReferenceHomepageSelected: "", titreSection: "" });
+            this.getStartedReferenceHomepage();
         }
     }
 
 
     closeModal = () => {
-        this.setState({ descriptionSavoirFaire: "" })
-        this.getStartedSavoirFaire();
+        this.setState({ descriptionReferenceHomepage: "" })
+        this.getStartedReferenceHomepage();
     }
 
     handleCloseModal = () => {
         this.setState({ isActive: false, isTooHeavy: false });
     };
 
-    descriptionSavoirFaire = () => {
+    descriptionReferenceHomepage = () => {
 
-        let savoirFaire = this.state.SavoirFaireSelected;
-        let description = this.state.SavoirFaireSelected[0].description;
-        description.push(this.state.descriptionSavoirFaire);
-        savoirFaire[0].description = description;
-        this.setState({ descriptionSavoirFaire: savoirFaire[0].description, descriptionSavoirFaire: "" });
+        let ReferenceHomepage = this.state.ReferenceHomepageSelected;
+        let description = this.state.ReferenceHomepageSelected[0].description;
+        description.push(this.state.descriptionReferenceHomepage);
+        ReferenceHomepage[0].description = description;
+        this.setState({ descriptionReferenceHomepage: ReferenceHomepage[0].description, descriptionReferenceHomepage: "" });
     }
 
     deleteDescription = (index, event) => {
 
-        let savoirFaire = this.state.SavoirFaireSelected;
-        let description = this.state.SavoirFaireSelected[0].description;
+        let ReferenceHomepage = this.state.ReferenceHomepageSelected;
+        let description = this.state.ReferenceHomepageSelected[0].description;
 
         description.splice(index, 1);
 
-        this.setState({ descriptionSavoirFaire: savoirFaire[0].description });
+        this.setState({ descriptionReferenceHomepage: ReferenceHomepage[0].description });
     }
 
-    getIdSavoirFaireToDelete = (index, event) => {
-        let arrayIdSavoirFaire = [];
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id);
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id_image);
+    getIdReferenceHomepageToDelete = (index, event) => {
+        let arrayIdReferenceHomepage = [];
+        arrayIdReferenceHomepage.push(this.state.ReferenceHomepage[index].id);
+        arrayIdReferenceHomepage.push(this.state.ReferenceHomepage[index].id_image);
 
-        this.setState({ SavoirFaireToDelete: arrayIdSavoirFaire });
+        this.setState({ ReferenceHomepageToDelete: arrayIdReferenceHomepage });
     }
 
-    getIdSavoirFaireToEdit = (index, event) => {
-        let arrayIdSavoirFaire = [];
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id);
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id_image);
-        this.getSavoirFaire(index);
-        this.setState({ SavoirFaireToEdit: arrayIdSavoirFaire, idToEdit: index });
+    getIdReferenceHomepageToEdit = (index, event) => {
+        let arrayIdReferenceHomepage = [];
+        arrayIdReferenceHomepage.push(this.state.ReferenceHomepage[index].id);
+        arrayIdReferenceHomepage.push(this.state.ReferenceHomepage[index].id_image);
+        this.getReferenceHomepage(index);
+        this.setState({ ReferenceHomepageToEdit: arrayIdReferenceHomepage, idToEdit: index });
     }
 
     editDescription = (index, event) => {
 
-        let savoirFaire = this.state.SavoirFaireSelected;
-        let description = this.state.SavoirFaireSelected[0].description;
+        let ReferenceHomepage = this.state.ReferenceHomepageSelected;
+        let description = this.state.ReferenceHomepageSelected[0].description;
 
         description.splice(index, 1);
 
-        this.setState({ descriptionSavoirFaire: savoirFaire[0].description });
+        this.setState({ descriptionReferenceHomepage: ReferenceHomepage[0].description });
     }
 
-    editSavoirFaire = () => {
+    editReferenceHomepage = () => {
 
         function init(data) {
             const options = {
@@ -232,18 +230,18 @@ class SavoirFaireAdmin extends Component {
 
         let data = {
             "title": this.state.titreSection,
-            "subtitle": this.state.titreSavoirFaire,
-            "description": this.state.descriptionSavoirFaire,
-            "section": "savoirFaire",
+            "subtitle": this.state.titreReferenceHomepage,
+            "description": this.state.descriptionReferenceHomepage,
+            "section": "reference",
             "language": language,
-            "image_id": this.state.SavoirFaireToEdit[1]
+            "image_id": this.state.ReferenceHomepageToEdit[1]
         };
 
         let dataImage = {
             "name": this.state.nameImage,
             "url": this.state.urlImage,
             "alt": this.state.altImage,
-            "section": "savoirFaire",
+            "section": "reference",
             "homepage_id": 0
         };
 
@@ -263,24 +261,23 @@ class SavoirFaireAdmin extends Component {
 
 
 
-        if (this.state.SavoirFaireSelected.length > 0) {
+        if (this.state.ReferenceHomepageSelected.length > 0) {
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
 
             // fetch pour modification des champs de la table image
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.SavoirFaireToEdit[1]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.ReferenceHomepageToEdit[1]}`;
             fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
 
             // fetch pour modification des champs de la table homepage
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.SavoirFaireToEdit[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.ReferenceHomepageToEdit[0]}`;
             fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
 
 
             //on réactualise les spécialisations
-            this.getStartedSavoirFaire();
-            $("#uploadFileEditSavoirFaireAdmin")[0].value = "";
+            this.getStartedReferenceHomepage();
         }
 
     }
@@ -292,12 +289,12 @@ class SavoirFaireAdmin extends Component {
         return (
             <div>
                 <div>
-                    <h1>Savoir-Faire</h1>
+                    <h1>Reference</h1>
                 </div>
 
                 <div>
                     <div className="pb-3 pt-3 ">
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-savoirFaire-admin">Ajout un savoir-faire</button>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-ReferenceHomepage-admin">Ajout une reference</button>
                     </div>
                     <div className="position-tab pt-3">
                         <table className="table table-striped" style={{ width: "75%" }}>
@@ -305,20 +302,18 @@ class SavoirFaireAdmin extends Component {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">titre de la section</th>
-                                    <th scope="col">nom du savoir-faire</th>
                                     <th scope="col">modification</th>
                                     <th scope="col">Supprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.savoirFaire.length > 0 &&
-                                    this.state.savoirFaire.map((element, index) => (
+                                {this.state.ReferenceHomepage.length > 0 &&
+                                    this.state.ReferenceHomepage.map((element, index) => (
                                         <tr key={index}>
                                             <th scope="row">{index + 1}</th>
                                             <td>{element.title}</td>
-                                            <td>{element.subtitle}</td>
-                                            <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSavoirFaireAmdin" onClick={this.getIdSavoirFaireToEdit.bind(this, index)}>Modifier</button>}</td>
-                                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-savoirFaire-admin" onClick={this.getIdSavoirFaireToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                            <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReferenceHomepageAmdin" onClick={this.getIdReferenceHomepageToEdit.bind(this, index)}>Modifier</button>}</td>
+                                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-ReferenceHomepage-admin" onClick={this.getIdReferenceHomepageToDelete.bind(this, index)}>Supprimer</button>}</td>
                                         </tr>
                                     ))
                                 }
@@ -332,71 +327,68 @@ class SavoirFaireAdmin extends Component {
 
                 {/* <!-- Nouvelle spécialisation --> */}
 
-                <div class="modal fade" id="new-savoirFaire-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal fade" id="new-ReferenceHomepage-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouveau savoir-faire</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle reference</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <AjoutSavoirFaire {...this.props} savoirFaire={this.state.savoirFaire} getStartedSavoirFaire={this.getStartedSavoirFaire} />
+                                <AjoutReferenceHomepage {...this.props} ReferenceHomepage={this.state.ReferenceHomepage} getStartedReferenceHomepage={this.getStartedReferenceHomepage} />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* <!-- suppression d'une spécialisation --> */}
-                <div class="modal fade" id="delete-savoirFaire-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal fade" id="delete-ReferenceHomepage-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une reference</h5>
                             </div>
                             <div class="modal-body">
-                                <DeleteSavoirFaire savoirFaire={this.state.savoirFaire} SavoirFaireToDelete={this.state.SavoirFaireToDelete} getStartedSavoirFaire={this.getStartedSavoirFaire} />
+                                <DeleteReferenceHomepage ReferenceHomepage={this.state.ReferenceHomepage} ReferenceHomepageToDelete={this.state.ReferenceHomepageToDelete} getStartedReferenceHomepage={this.getStartedReferenceHomepage} />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* <!-- Modification d'un savoir faire --> */}
-                <div class="modal fade" id="editSavoirFaireAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editReferenceHomepageAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier un savoir-faire</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier une reference</h5>
                             </div>
                             <div class="modal-body">
-                                {this.state.savoirFaire.length > 0 && <div className="form-group">
-                                    <div class="form-group">
-                                        <label for="titre-section">Titre section</label>
-                                        <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
-                                    </div>
-                                    <label>Saisir le titre de la spécialité</label>
-                                    <input type="text" className="form-control" value={this.state.titreSavoirFaire} id="titre-savoirFaire-admin" onChange={this.handleChangeInput} />
+                                {this.state.ReferenceHomepage.length > 0 && <div className="form-group">
+                                    {!this.state.ReferenceHomepage.length > 0 &&                                   <div class="form-group">
+                                        <label for="titre-section">Titre de la reference</label>
+                                        <input class="form-control" value={this.state.titreReferenceHomepage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+                                    </div>}
+       
 
-                                    <label>Saisir une description</label>
-                                    <textarea type="text" value={this.state.descriptionSavoirFaire} className="form-control" id="description-savoirFaire-admin" onChange={this.handleChangeInput} />
-
-
-                                    <label htmlFor="alt-image-savoirFaire-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                    <label htmlFor="alt-image-ReferenceHomepage-admin" className="col-form-label col-form-label-sm">description de l'image</label>
                                     <div className="">
-                                        <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-savoirFaire-admin" onChange={this.handleChangeInput} />
+                                        <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-ReferenceHomepage-admin" onChange={this.handleChangeInput} />
                                     </div>
 
                                     <div class="custom-file">
-                                        <input type="file" className="custom-file-input" id="uploadFileEditSavoirFaireAdmin" onChange={this.handlerUploadFile} />
+                                        <input type="file" className="custom-file-input" onChange={this.handlerUploadFile} />
                                         <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                                     </div>
                                 </div>}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="titre-savoirFaire-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editSavoirFaire}>Appliquer</button>
-                            </div>
+                                <button type="button" class="btn btn-secondary" id="titre-ReferenceHomepage-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                { this.state.titreSection !== "" && this.state.altImage !== "" && this.state.document !== null 
+                                ? <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editReferenceHomepage}>Appliquer</button>
+                                : <button type="button" class="btn btn-secondary">Appliquer</button>
+}                            </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (
                                 <div className={`${this.state.isActive ? "div-active-error" : "div-desactive-error"}`}>
@@ -413,4 +405,4 @@ class SavoirFaireAdmin extends Component {
     }
 }
 
-export default SavoirFaireAdmin;
+export default ReferenceHomepageAdmin;

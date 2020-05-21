@@ -32,7 +32,6 @@ class SpecialisationAccueil extends Component {
     //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
      for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
-     
     }
   }
 

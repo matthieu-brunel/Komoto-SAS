@@ -55,7 +55,7 @@ const NavBar = (props) => {
     $(document).click(function (event) {
       
         var clickover = $(event.target);
-        console.log(clickover)
+      
         var _opened = $(".navbar-collapse").hasClass("navbar-collapse show");
         if (_opened === true && !clickover.hasClass("navbar-toggle")) {
             $("button.navbar-toggle").click();

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import postRessources from './../../../utils/postRessources';
+import $ from "jquery";
+
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -123,10 +125,14 @@ class AjoutSavoirFaire extends Component{
             'language':idLang,
             'image_id':0
         }
+
+        const data = new FormData()
+        data.append('file', this.state.document)
         
-        await postRessources("homepage", dataImage, dataHomepage, this.state.document);
-        this.setState({altImage:"", descriptionSavoirFaire:"", nameImage:"",urlImage:"", titreSavoirFaire:"", titreSection:""});
+        await postRessources("homepage", dataImage, dataHomepage, data);
+        this.setState({altImage:"", descriptionSavoirFaire:"", nameImage:"",urlImage:"", titreSavoirFaire:"", titreSection:"", document:null});
         this.props.getStartedSavoirFaire();
+        $("#uploadFileSavoirFaireAdmin")[0].value = "";
     }
 
     handleCloseModal = () => {
@@ -167,6 +173,18 @@ class AjoutSavoirFaire extends Component{
         }
       };
 
+    resetInput = () =>{
+        this.setState({
+            altImage:"",
+            descriptionSavoirFaire:"",
+            nameImage:"",
+            urlImage:"",
+            titreSavoirFaire:"",
+            titreSection:"",
+            document:null
+        });
+    }
+
     render(){
   
         return(
@@ -195,7 +213,7 @@ class AjoutSavoirFaire extends Component{
                         </div>
 
                         <div class="custom-file">
-                            <input type="file" className="custom-file-input" onChange={this.handlerUploadFile}/>
+                            <input type="file" className="custom-file-input" id="uploadFileSavoirFaireAdmin" onChange={this.handlerUploadFile}/>
                             <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                         </div>
                         </div>
@@ -203,7 +221,7 @@ class AjoutSavoirFaire extends Component{
 
                 </form>
                 <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewSavoirFaire}>Enregistrer</button>
                 </div>
 

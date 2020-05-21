@@ -4,6 +4,12 @@ const connection = require("../config");
 const parser = require("body-parser");
 const Auth = require('./../middleware/auth');
 router.use(parser.json());
+var fs = require('fs-js');
+const path = require('path');
+
+
+
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 router.post("/",(req, res) => {
     const mail = req.body;
@@ -85,14 +91,34 @@ router.post("/",(req, res) => {
 
   router.delete("/:id",Auth, (req, res) => {
     const idmail = req.params.id;
-    const sql = "DELETE FROM mail WHERE id=?";
+
+    const sql = "SELECT * FROM mail where id = ?";
     connection.query(sql, [idmail], (error, results, fields) => {
       if (error) {
-        res.status(501).send("couldn't put mail" + error);
+        res.status(501).send("couldn't get reference");
       } else {
-        res.json(req.body);
+      
+        let getDocumentName = results.length > 0 ? JSON.parse(results[0].description).document : "";
+  
+         if(getDocumentName !== ""){
+          fs.unlink(path.join("public/documents/", getDocumentName), (err) => {
+              if (err) throw err;
+              //console.log('successfully deleted /tmp/hello');
+              });
+        }
+                   
+        const sqlDelete = "DELETE FROM mail WHERE id=?";
+        connection.query(sqlDelete, [idmail], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't put mail" + error);
+          } else {
+    
+            res.json("delete ok");
+          }
+        }); 
       }
     });
+
   });
 
   module.exports = router;

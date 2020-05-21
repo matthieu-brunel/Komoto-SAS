@@ -111,11 +111,11 @@ class HeaderAdmin extends Component{
     }
 
     getStartedHeader = async() => {
-        const { locale } = this.props;
-        console.log("locale : ", locale);
+        
+        console.log("locale : ", this.props.locale);
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('homepage', 'header',locale);
+        let data = await getRessources('homepage', 'header',this.props.locale);
   
         this.setState({header:data});
         
@@ -262,9 +262,11 @@ class HeaderAdmin extends Component{
                 <div>
                     <h1>Entête du site</h1>
                 </div>
-                <div className="pt-3 pb-3">
+                
+                {!this.state.header.length > 0 &&  <div className="pt-3 pb-3">
                         <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-header-admin">Nouvel entête</button>
                     </div>
+                }
                 <div className="position-tab pt-3 ">
 
                     <table className="table table-striped" style={{width:"75%"}}>

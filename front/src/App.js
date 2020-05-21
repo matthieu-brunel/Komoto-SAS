@@ -15,17 +15,25 @@ import Seo from './Components/Admin/SEO/Seo';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
-class App extends Component {
 
+
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        arrayLang: [],
+        langSelected: "fr"
     }
-  }
+}
 
 
-  render() {
+
+  
+
+
+render() {
+
+
 
     return (
       <div className="App">
@@ -33,9 +41,10 @@ class App extends Component {
         <div>
           <Clients />
         </div>
+
         <Switch>
-          <Route path="/Login" component={Login} />
-          <Route path="/user" component={User} />
+           <Route path="/Login" component={Login} />
+          <Route path="/user" component={User} /> 
           <Route path="/HomepageAdmin" component={HomepageAdmin} />
           <Route path="/SolutionAdmin" component={SolutionAdmin} />
           <Route path="/ContactAdmin" component={ContactAdmin} />

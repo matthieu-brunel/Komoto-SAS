@@ -38,13 +38,8 @@ class User extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         this.setState({ admin: res })
       });
-  }
-
-  resetInput() {
-    this.setState({ user: "", password: "" });
   }
 
 
@@ -91,7 +86,6 @@ class User extends Component {
   deleteAdminUser = () => {
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/admin/' + this.state.admin[this.state.idEditAdmin].id;
-    console.log(this.state.admin[this.state.idEditAdmin].id);
     fetch(url, {
       method: 'DELETE',
       headers: new Headers({
@@ -105,22 +99,9 @@ class User extends Component {
     this.getTokenAdmin();
   }
 
-
-  resetInput() {
-    this.setState({ user: "", password: "" });
-  }
-
   componentDidMount() {
     this.getTokenAdmin();
   }
-
-  /* 
-     componentDidUpdate(prevProps, prevState){
-     if(prevState.isCreateUser !== this.state.isCreateUser){
-       console.log(prevState);
-      this.getTokenAdmin();
-     }
-    } */
 
   addAdminUser = () => {
 
@@ -128,7 +109,6 @@ class User extends Component {
       "user": this.state.user,
       "password": this.state.password
     }
-    console.log(data);
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/admin';
 
     fetch(url, {
@@ -165,7 +145,7 @@ class User extends Component {
         </div>
         <div className="addUserAdmin pt-3 pb-3">
           { /* <!-- Button trigger modal --> */}
-          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addUserAmdin">ajout utilisateur</button>
+          <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#addUserAmdin">ajout utilisateur</button>
         </div>
 
         <div className="position-tab pt-3">
@@ -184,8 +164,8 @@ class User extends Component {
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{element.user}</td>
-                    <td> {index === 0 ? "" : <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Modifier</button>}</td>
-                    <td>{index === 0 ? "" : <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Supprimer</button>}</td>
+                    <td> {index === 0 ? "" : <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Modifier</button>}</td>
+                    <td>{index === 0 ? "" : <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#deleteUserAmdin" onClick={this.getIdEditUser.bind(this, index)}>Supprimer</button>}</td>
                   </tr>
                 ))
               }
@@ -196,34 +176,34 @@ class User extends Component {
 
         {/*début modal nouvel utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="addUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="titleAddUserAdmin">nouvel utilisateur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="addUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="titleAddUserAdmin">nouvel utilisateur</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <div className='inputAddAdmin'>
                   <form >
-                    <div class="form-group">
-                      <label for="user">utilisateur</label>
-                      <input type="email" class="form-control" id="user" value={this.state.user} aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handlerChangeInput} />
+                    <div className="form-group">
+                      <label htmlFor="user">utilisateur</label>
+                      <input type="email" className="form-control" id="user" value={this.state.user} aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handlerChangeInput} />
 
                     </div>
-                    <div class="form-group">
-                      <label for="password">mot de passe</label>
-                      <input type="password" class="form-control" id="password" value={this.state.password} placeholder="Password" onChange={this.handlerChangeInput} />
+                    <div className="form-group">
+                      <label htmlFor="password">mot de passe</label>
+                      <input type="password" className="form-control" id="password" value={this.state.password} placeholder="Password" onChange={this.handlerChangeInput} />
                     </div>
                   </form>
 
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addAdminUser}>Valider</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addAdminUser}>Valider</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
               </div>
             </div>
@@ -233,34 +213,34 @@ class User extends Component {
 
         {/*début modal modification utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="editUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="titleEditUserAmdin">Modification utilisateur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="editUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="titleEditUserAmdin">Modification utilisateur</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <div className='inputEditAdmin'>
                   <form >
-                    <div class="form-group">
-                      <label for="user">utilisateur</label>
-                      <input type="email" class="form-control" id="user" value={this.state.user} aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handlerChangeInput} />
+                    <div className="form-group">
+                      <label htmlFor="user">utilisateur</label>
+                      <input type="email" className="form-control" id="user" value={this.state.user} aria-describedby="emailHelp" placeholder="Enter email" onChange={this.handlerChangeInput} />
 
                     </div>
-                    <div class="form-group">
-                      <label for="password">mot de passe</label>
-                      <input type="password" class="form-control" id="password" value={this.state.password} placeholder="Password" onChange={this.handlerChangeInput} />
+                    <div className="form-group">
+                      <label htmlFor="password">mot de passe</label>
+                      <input type="password" className="form-control" id="password" value={this.state.password} placeholder="Password" onChange={this.handlerChangeInput} />
                     </div>
                   </form>
 
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editAdminUser}>Valider</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editAdminUser}>Valider</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
               </div>
             </div>
@@ -270,21 +250,21 @@ class User extends Component {
 
         {/*début modal suppression utilisateur*/}
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="deleteUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="titleDeleteUserAmdin">Suppression de l'utilisateur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="deleteUserAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="titleDeleteUserAmdin">Suppression de l'utilisateur</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 Souhaitez-vous supprimer cet utilisateur ?
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminUser}>Valider</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Annuler</button>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminUser}>Valider</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Annuler</button>
 
               </div>
             </div>

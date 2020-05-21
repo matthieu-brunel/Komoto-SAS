@@ -3,12 +3,35 @@ import './NavBar.css'
 import { Link } from "react-router-dom";
 import { Redirect} from 'react-router-dom';
 
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class NavBarAdmin extends React.Component {
   constructor() {
       super();
-      this.state = {}
+      this.state = {
+        countMail:0
+      }
   }
+
+
+getMail =  async () => {
+
+const options = {
+  method:'GET',
+  headers: new Headers({
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + localStorage.getItem('token')
+  }),
+}
+
+let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/mail';
+const data = await (await (fetch(url, options))).json();
+this.setState({countMail:data.length});
+}
+
+componentDidMount(){
+    this.getMail();
+}
 
   logOut = () => {
       this.setState({ redirectLogOut: true })

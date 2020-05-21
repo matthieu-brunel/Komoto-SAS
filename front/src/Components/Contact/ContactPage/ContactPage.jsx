@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./ContactPage.css";
 import getRessources from './../../../utils/getRessources';
 const SERVER_ADRESS = process.env.REACT_APP_SERVER_ADDRESS_FULL;
-
+const path = require('path');
 
 class ContactPage extends Component {
   constructor(props) {
@@ -79,11 +79,11 @@ class ContactPage extends Component {
       "application/docx",
       "application/xls",
       "application/csv",
-      "application/txt",
+      "text/plain",
       "application/rtf",
       "application/html",
       "application/zip",
-      "audio/mp3",
+      "audio/mpeg3",
       "video/wma",
       "video/mpg",
       "video/flv",
@@ -97,7 +97,7 @@ class ContactPage extends Component {
     let file = event.target.files[0] ? event.target.files[0] : "";
 
     if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
-     
+    
       this.setState({ document:file });
     } else {
       this.setState({ isTooHeavy: true });
@@ -116,8 +116,10 @@ class ContactPage extends Component {
 
   handlerSubmit = event => {
     event.preventDefault();
-
-    let file = this.state.document !== null ? this.state.document.name : "";
+    let societyName = this.state.societe.replace(/\s+/g, '');
+    
+    let nameDocument = this.state.document !== null ? (this.state.document.name + "-" + societyName + "-" + societyName + "-" +  Date.now() + path.extname(this.state.document.name)) : "";
+    let file = this.state.document !== null ? nameDocument  : "";
 
     const content = {
       societe: this.state.societe,
@@ -130,45 +132,49 @@ class ContactPage extends Component {
       document: file
     };
 
+
+    
+
     this.setState({ isLoading: true });
 
-    if (this.state.document !== null) {
-      const data = new FormData();
-      data.append("file", this.state.document);
+      if (this.state.document !== null) {
+        let newFile = new File([this.state.document], nameDocument, {type:this.state.document.type, lastModified:this.state.document.lastModified})
+        const data = new FormData();
+        data.append("file", newFile);
 
-      fetch(SERVER_ADRESS + "/api/uploadcontact", {
-        method: "POST",
-        mode: "cors",
-        credentials: "same-origin",
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: data
-      }).then(res => res.json());
-    }
-
-    fetch(SERVER_ADRESS + "/api/contact", {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json"
-      }),
-      body: JSON.stringify(content)
-    })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          confirmationSent: this.state.formulaire_data[13],
-          messageIsSent: this.state.formulaire_data[13],
-          isLoading: false,
-          document: null,
-          isSent: true,
-          isActive: true
-        });
-
-
+        fetch(SERVER_ADRESS + "/api/uploadcontact", {
+          method: "POST",
+          mode: "cors",
+          credentials: "same-origin",
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: data
+        }).then(res => res.json());
       }
 
-        
-      );
+      fetch(SERVER_ADRESS + "/api/contact", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(content)
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            confirmationSent: this.state.formulaire_data[13],
+            messageIsSent: this.state.formulaire_data[13],
+            isLoading: false,
+            document: null,
+            isSent: true,
+            isActive: true
+          });
+
+
+        }
+
+          
+        );
   };
 
   messageSentMail = () => {
