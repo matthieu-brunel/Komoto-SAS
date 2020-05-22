@@ -15,13 +15,12 @@ class DeleteReference extends Component{
     }
 
     handleChangeCheckBox = (event) => {
-
         this.setState({checkBox:event.target.checked});
     }
 
     deletereference = () => {
 
-        if(this.props.specToDelete.length > 0){
+        if(this.props.refToDelete.length > 0){
             const options = {
                 method:'DELETE',
                 headers: new Headers({
@@ -31,16 +30,16 @@ class DeleteReference extends Component{
             }
         
     
-            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.specToDelete[1]}`;
+            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.refToDelete[1]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.props.specToDelete[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.props.refToDelete[0]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            this.props.getStartedreferenceAdmin();
             this.setState({checkBox:false});
+            this.props.getStartedreferenceAdmin();
         }
 
     }
@@ -54,9 +53,9 @@ class DeleteReference extends Component{
 
 
     render(){
-        const {getreferenceToDelete, specToDelete} = this.props;
+        const {refToDelete} = this.props;
 
-        console.log(specToDelete);
+        console.log(refToDelete);
         return(
             <div>
                 <div className="form-group" >
@@ -70,7 +69,7 @@ class DeleteReference extends Component{
                     </div>
                 </form>
                 <div className="modal-footer">
-                    {this.state.checkBox && this.props.specToDelete.length > 0
+                    {this.state.checkBox && this.props.refToDelete.length > 0
                         ?
                         <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deletereference}>Oui</button>
                         :

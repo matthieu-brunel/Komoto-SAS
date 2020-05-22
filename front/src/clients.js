@@ -84,11 +84,11 @@ class Client extends Component {
         let array_solution = [];
 
 
-        for (let i in section_filtered) {
+   /*      for (let i in section_filtered) {
             let url = `http://localhost:5000/api/solution?section=${section_filtered[i]}&locale=${data_lang[0].locale}`;
 
             array_solution.push(await (await (fetch(url, options))).json())
-        }
+        } */
 
         this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
         this.props.dispatch({ type: GET_ID_LANG.type, idLang });

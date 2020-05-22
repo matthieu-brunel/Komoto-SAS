@@ -72,8 +72,10 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth,(req, res) => {
   const idReference = req.params.id;
   const reference = req.body;
+  console.log(reference);
+  console.log(idReference);
   
-  const sql = `UPDATE reference SET subtitle=?, title=?, section=?, description=?, image_id=? WHERE id=${idReference}`;
+  const sql = `UPDATE reference SET subtitle=?, title=?, section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
   connection.query(
     sql,
     [
@@ -82,6 +84,7 @@ router.put("/:id", Auth,(req, res) => {
       reference.section,
       reference.description,
       reference.image_id,
+      reference.language,
       idReference
     ],
     (error, results, fields) => {
