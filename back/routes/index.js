@@ -17,6 +17,7 @@ const uploadMultipleImage = require("./uploadMultipleImage");
 const navbar = require("./navbar");
 const formulaire = require("./formulaire");
 const test = require("./test");
+const html = require("./html");
 
 router.use("/admin", admin);
 router.use("/demonstration", demonstration);
@@ -38,5 +39,6 @@ router.use("/navbar", navbar);
 router.use("/formulaire", formulaire);
 
 router.use("/test", test);
+router.use("/html", html);
 
 module.exports = router;
