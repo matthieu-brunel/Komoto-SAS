@@ -42,7 +42,8 @@ class ReferenceAdmin extends Component {
       langSelected: "fr",
       idLang:null,
       referenceAdmin: [],
-      openEditReference:false
+      openEditReference:false,
+      openAddReference:false
 
     }
 
@@ -156,6 +157,7 @@ class ReferenceAdmin extends Component {
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + this.state.langSelected;
     const data = await (await (fetch(url))).json();
+    console.log(data);
     this.setState({ referenceAdmin: data });
   }
 
@@ -202,7 +204,7 @@ class ReferenceAdmin extends Component {
     arrayIdRef.push(this.state.referenceAdmin[index].id);
     arrayIdRef.push(this.state.referenceAdmin[index].image_id);
 
-    this.setState({ refToDelete: arrayIdRef });
+    this.setState({ refToDelete: arrayIdRef, openAddReference:false, openEditReference:false});
   }
 
   getIdReferenceToEdit = (index, event) => {
@@ -210,7 +212,12 @@ class ReferenceAdmin extends Component {
     let arrayIdReference = [];
     arrayIdReference.push(this.state.referenceAdmin[index].id);
     arrayIdReference.push(this.state.referenceAdmin[index].image_id);
-    this.setState({ refToEdit: arrayIdReference, idToEdit: index, openEditReference:true });
+    this.setState({ 
+      refToEdit: arrayIdReference,
+      idToEdit: index,
+      openEditReference:true,
+      openAddReference:false 
+    });
   }
 
   editDescription = (index, event) => {
@@ -303,8 +310,13 @@ class ReferenceAdmin extends Component {
 
   }
 
-  closeModalModificationReference = (event) => {
-    this.setState({openEditReference:false});
+  closeModalModificationReference = (bool) => {
+    console.log("bool :",bool)
+    this.setState({openEditReference:bool, openAddReference:bool});
+  }
+
+  handleClickOpenAddReference = () => {
+    this.setState({openAddReference:true, openEditReference:false});
   }
 
 
@@ -326,7 +338,7 @@ class ReferenceAdmin extends Component {
 
         <div >
           <div className="pt-3 pb-3">
-            <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-reference-admin">Ajout reference</button>
+            <button type="button" className="btn btn-outline-primary" onClick={this.handleClickOpenAddReference}>Ajout reference</button>
             <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
               {options}
             </select>
@@ -364,22 +376,15 @@ class ReferenceAdmin extends Component {
 
 
         {/* <!-- Nouvelle reference --> */}
-
-        <div className="modal fade" id="new-reference-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalScrollableTitle">Nouvelle reference</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <AjoutReference locale={this.state.langSelected} arrayLang={this.state.arrayLang} reference={this.state.reference} getStartedreferenceAdmin={this.getStartedreferenceAdmin} />
-              </div>
-            </div>
-          </div>
+       {this.state.openAddReference && <div>
+          <AjoutReference 
+            locale={this.state.langSelected}
+            arrayLang={this.state.arrayLang}
+            reference={this.state.reference}
+            getStartedreferenceAdmin={this.getStartedreferenceAdmin}
+            closeModalModificationReference={this.closeModalModificationReference} />
         </div>
+}
 
         {/* <!-- suppression d'une reference --> */}
         <div className="modal fade" id="delete-reference-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -389,7 +394,11 @@ class ReferenceAdmin extends Component {
                 <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une reference</h5>
               </div>
               <div className="modal-body">
-                <DeleteReference reference={this.state.reference} refToDelete={this.state.refToDelete} getStartedreferenceAdmin={this.getStartedreferenceAdmin} />
+                <DeleteReference 
+                  reference={this.state.reference} 
+                  refToDelete={this.state.refToDelete} 
+                  getStartedreferenceAdmin={this.getStartedreferenceAdmin}
+                  closeModalModificationReference={this.closeModalModificationReference} />
               </div>
             </div>
           </div>

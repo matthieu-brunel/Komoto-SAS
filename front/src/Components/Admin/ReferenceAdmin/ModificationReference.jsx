@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import putRessources from "./../../../utils/putRessources.js";
 import "./ModificationReference.css";
 import $ from "jquery";
+import postImages from "./../../../utils/postImages";
+const path = require('path');
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -15,7 +17,7 @@ class ModificationReference extends Component {
       titrePage: "",
       nameReference: "",
       descriptionReference: [],
-      imagesReference:[],
+      imagesReference: [],
 
       currentModificationTitle: "",
       currentModificationDescription: "",
@@ -26,21 +28,25 @@ class ModificationReference extends Component {
       currentModificationSectionDescriptionList: "",
       referenceAdminSave: [],
 
-      altImageLogoRef:"",
-      altImageLogoSolution:"",
-      altImage:"",
-      nameImage:"",
-      arrayImage:[],
+      altImageLogoRef: "",
+      altImageLogoSolution: "",
+      altImage: "",
+      nameImage: "",
+      arrayImage: [],
 
-      objetImageCaroussel:[],
-      objetImageLogoRef:[],
-      objetImageLogoSolution:[],
+      objetImageCaroussel: [],
+      objetImageLogoRef: [],
+      objetImageLogoSolution: [],
 
-      document:[],
-      documentLogoRef:[],
-      documentLogoSolution:[],
+      fileImageCaroussel: [],
+      fileImageLogoRef: [],
+      fileImageLogoSolution: [],
 
-      toggleCollapse:["hide", "hide", "hide"]
+      document: [],
+      documentLogoRef: [],
+      documentLogoSolution: [],
+
+      toggleCollapse: ["hide", "hide", "hide"]
     }
   }
 
@@ -48,50 +54,50 @@ class ModificationReference extends Component {
     switch (event.target.id) {
       case "section1":
         this.setState({
-          toggleCollapse:["show","hide","hide"]
+          toggleCollapse: ["show", "hide", "hide"]
         })
         break;
 
       case "section2":
         this.setState({
-          toggleCollapse:["hide","show","hide"]
+          toggleCollapse: ["hide", "show", "hide"]
         })
         break;
 
       case "section3":
         this.setState({
-          toggleCollapse:["hide","hide","show"]
+          toggleCollapse: ["hide", "hide", "show"]
         })
         break;
-    
+
       default:
         break;
     }
   }
 
-  getIdImageReferenceToDelete = (index, event)  => {
+  getIdImageReferenceToDelete = (index, event) => {
 
     switch (event.target.id) {
-        case "logoRef":
-            this.setState({objetImageLogoRef:[]});
-            break;
+      case "logoRef":
+        this.setState({ objetImageLogoRef: [], fileImageLogoRef:[] });
+        break;
 
-        case "logoSolution":
-            this.setState({objetImageLogoSolution:[]});
-            break;
+      case "logoSolution":
+        this.setState({ objetImageLogoSolution: [], fileImageLogoSolution:[] });
+        break;
 
-        case "imageCaroussel":
-          
-            let arrayImageCaroussel = this.state.objetImageCaroussel;
+      case "imageCaroussel":
+        let arrayImageCaroussel = this.state.objetImageCaroussel;
+        arrayImageCaroussel.splice(index, 1);
 
-            arrayImageCaroussel.splice(index, 1);
-            console.log(arrayImageCaroussel);
-            
-            this.setState({objetImageCaroussel:arrayImageCaroussel});
-           break;
-    
-        default:
-            break;
+        let arrayFileImageCaroussel = this.state.fileImageCaroussel;
+        arrayFileImageCaroussel.slice(index, 1);
+
+        this.setState({ objetImageCaroussel: arrayImageCaroussel, fileImageCaroussel:arrayFileImageCaroussel });
+        break;
+
+      default:
+        break;
     }
 
 
@@ -122,17 +128,17 @@ class ModificationReference extends Component {
         break;
 
       case "alt-imageLogoRef-reference-admin":
-        this.setState({altImageLogoRef:event.target.value});
+        this.setState({ altImageLogoRef: event.target.value });
         break;
 
 
-    case "alt-imageLogoSolution-reference-admin":
-        this.setState({altImageLogoSolution:event.target.value});
+      case "alt-imageLogoSolution-reference-admin":
+        this.setState({ altImageLogoSolution: event.target.value });
         break;
 
-    case "alt-image-reference-admin":
-      this.setState({altImage:event.target.value});
-      break;
+      case "alt-image-reference-admin":
+        this.setState({ altImage: event.target.value });
+        break;
 
       default:
         break;
@@ -154,7 +160,7 @@ class ModificationReference extends Component {
       "video/wma",
       "video/mpg",
       "video/flv",
-      "video/avi", 
+      "video/avi",
       "image/jpg",
       "image/jpeg",
       "image/png",
@@ -163,71 +169,84 @@ class ModificationReference extends Component {
 
     //let file = event.target.files[0] ? event.target.files[0] : "";
     let file = [];
-    file.push(event.target.files[0]);
-    console.log(event.target.id)
+    let nameWithoutExtension = event.target.files[0].name.replace(path.extname(event.target.files[0].name), '');
+    let nameDocument = nameWithoutExtension + "-" + Date.now() + path.extname(event.target.files[0].name);
+    let newFile = new File([event.target.files[0]], nameDocument, { type: event.target.files[0].type, lastModified: event.target.files[0].lastModified })
+    file.push(newFile);
     switch (event.target.id) {
-        case "uploadAddImageLogoReference":
-            this.setState({documentLogoRef:file});
-            break;
+      case "uploadAddImageLogoReference":
+        this.setState({ documentLogoRef: file });
+        break;
 
-        case "uploadAddImageLogoSolution":
-            this.setState({documentLogoSolution:file});
-            break;
+      case "uploadAddImageLogoSolution":
+        this.setState({ documentLogoSolution: file });
+        break;
 
-        case "uploadAddImageReferenceCaroussel":
-            this.setState({document:file});
-            break;
-    
-        default:
-            break;
+      case "uploadAddImageReferenceCaroussel":
+        this.setState({ document: file });
+        break;
+
+      default:
+        break;
     }
   }
 
   addAltImage = () => {
     //
 
-    if(this.state.document.length > 0){
+    if (this.state.document.length > 0) {
 
-        // constitution de l'objet image caroussel pour affichage
-        let arrayObjetImage = [];
-        let objetImageDisplay = {};
-        objetImageDisplay.name = this.state.document[0].name;
-        objetImageDisplay.alt = this.state.altImage;
-        arrayObjetImage.push(objetImageDisplay);
+      // constitution de l'objet image caroussel pour affichage
+      let arrayObjetImage = [];
+      let objetImageDisplay = {};
+      objetImageDisplay.name = this.state.document[0].name;
+      objetImageDisplay.alt = this.state.altImage;
+      arrayObjetImage.push(objetImageDisplay);
 
-        this.setState({
-            objetImageCaroussel:[...this.state.objetImageCaroussel, objetImageDisplay],
-            altImage:"",
-            document:[]
-        });
-        $("#uploadAddImageReferenceCaroussel")[0].value = "";
+      this.setState({
+        objetImageCaroussel: [...this.state.objetImageCaroussel, objetImageDisplay],
+        fileImageCaroussel: [...this.state.fileImageCaroussel, this.state.document[0]],
+        altImage: "",
+        document: []
+      });
+      $("#uploadAddImageReferenceCaroussel")[0].value = "";
 
-    }else if(this.state.documentLogoRef.length > 0){
-        
-        // constitution de l'objet logo reference pour affichage
-        let arrayObjetImage = [];
-        let objetImageDisplay = {};
-        objetImageDisplay.name = this.state.documentLogoRef[0].name;
-        objetImageDisplay.alt = this.state.altImageLogoRef;
-        arrayObjetImage.push(objetImageDisplay);
-        
-        this.setState({ objetImageLogoRef:arrayObjetImage, altImageLogoRef:"", documentLogoRef:[] });
-        $("#uploadAddImageLogoReference")[0].value = "";
+    } else if (this.state.documentLogoRef.length > 0) {
 
-    }else if(this.state.documentLogoSolution.length > 0){
+      // constitution de l'objet logo reference pour affichage
+      let arrayObjetImage = [];
+      let objetImageDisplay = {};
+      objetImageDisplay.name = this.state.documentLogoRef[0].name;
+      objetImageDisplay.alt = this.state.altImageLogoRef;
+      arrayObjetImage.push(objetImageDisplay);
 
-        // constitution de l'objet logo reference pour affichage
-        let arrayObjetImage = [];
-        let objetImageDisplay = {};
-        objetImageDisplay.name = this.state.documentLogoSolution[0].name;
-        objetImageDisplay.alt = this.state.altImageLogoSolution;
-        arrayObjetImage.push(objetImageDisplay);
-    
-        this.setState({ objetImageLogoSolution:arrayObjetImage , altImageLogoSolution:"", documentLogoSolution:[] });
-        $("#uploadAddImageLogoSolution")[0].value = "";
+      this.setState({
+        objetImageLogoRef: arrayObjetImage,
+        altImageLogoRef: "",
+        documentLogoRef: [],
+        fileImageLogoRef:this.state.documentLogoRef[0]
+      });
+      $("#uploadAddImageLogoReference")[0].value = "";
+
+    } else if (this.state.documentLogoSolution.length > 0) {
+
+      // constitution de l'objet logo reference pour affichage
+      let arrayObjetImage = [];
+      let objetImageDisplay = {};
+      objetImageDisplay.name = this.state.documentLogoSolution[0].name;
+      objetImageDisplay.alt = this.state.altImageLogoSolution;
+      arrayObjetImage.push(objetImageDisplay);
+
+      this.setState({
+        objetImageLogoSolution: arrayObjetImage,
+        altImageLogoSolution: "",
+        documentLogoSolution: [],
+        fileImageLogoSolution: this.state.documentLogoSolution[0]
+      });
+      $("#uploadAddImageLogoSolution")[0].value = "";
     }
 
-}
+  }
 
   handlerClickDescriptionSection = (index, event) => {
     this.setState({
@@ -245,29 +264,30 @@ class ModificationReference extends Component {
     $('.registered-title-ok').hide();
     let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
     let images = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].url);
+    console.log(images);
 
     let arraySolution = [];
     let imageSolution = {};
-    imageSolution.name = images.logoSolution[0].name;
-    imageSolution.alt = images.logoSolution[0].alt;
+    imageSolution.name = images.logoSolution.length > 0 ? images.logoSolution[0].name : [];
+    imageSolution.alt = images.logoSolution.length > 0 ? images.logoSolution[0].alt : [];
     arraySolution.push(imageSolution);
 
     let arrayRef = [];
     let imageRef = {};
-    imageRef.name = images.logoRef[0].name;
-    imageRef.alt = images.logoRef[0].alt;
+    imageRef.name = images.logoRef.length > 0 ? images.logoRef[0].name : [];
+    imageRef.alt = images.logoRef.length > 0 ? images.logoRef[0].alt : [];
     arrayRef.push(imageRef);
 
     this.setState({
       titrePage: this.props.referenceAdmin[this.props.idToEdit].title,
       nameReference: this.props.referenceAdmin[this.props.idToEdit].subtitle,
       descriptionReference: description,
-      objetImageLogoRef:arrayRef,
-      objetImageLogoSolution:arraySolution,
-      objetImageCaroussel:images.imageCaroussel,
+      objetImageLogoRef: arrayRef,
+      objetImageLogoSolution: arraySolution,
+      objetImageCaroussel: images.imageCaroussel,
 
 
-      imagesReference:images
+      imagesReference: images
 
     });
   }
@@ -332,7 +352,7 @@ class ModificationReference extends Component {
   }
 
   handleClickValidation = async () => {
-    const { 
+    const {
       descriptionReference,
       currentModificationIndex,
       currentModificationSectionDescription,
@@ -382,6 +402,8 @@ class ModificationReference extends Component {
       "section": "reference"
     }
 
+
+
     // fetch pour la table reference
     let id = this.props.refToEdit[0];
     await putRessources("reference", id, dataReference);
@@ -395,6 +417,7 @@ class ModificationReference extends Component {
       $('.registered-section-ok').hide();
       $('.registered-title-ok').hide();
     }, 2000);
+
     this.props.getStartedreferenceAdmin();
   }
 
@@ -406,7 +429,7 @@ class ModificationReference extends Component {
     objet.logoSolution = objetImageLogoSolution;
     objet.imageCaroussel = objetImageCaroussel;
 
-   let id = this.props.refToEdit[1];
+    let id = this.props.refToEdit[1];
 
     let dataImage = {
       'name': this.state.nameReference,
@@ -416,14 +439,41 @@ class ModificationReference extends Component {
       "section": "reference"
     }
 
-    console.log(dataImage)
 
     await putRessources("image", id, dataImage);
+
+    
+    let documentSendToBack = [];
+
+    documentSendToBack.push(this.state.fileImageLogoRef);
+    documentSendToBack.push(this.state.fileImageLogoSolution);
+
+    for(let array of this.state.fileImageCaroussel){
+      documentSendToBack.push(array);
+    }
+
+    // new FormData => les nouvelles images a envoyer au back
+    const uploadImage = new FormData()
+    for(var x = 0; x < documentSendToBack.length; x++) {
+      uploadImage.append('file', documentSendToBack[x]);
+    }
+
+    //fetch upload image(s)
+    await postImages(uploadImage);
+    
+    this.setState({ fileImageCaroussel:[], fileImageLogoRef:[], fileImageLogoSolution:[] });
     this.props.getStartedreferenceAdmin();
+
     $('.registered-ok').show();
     setTimeout(() => {
       $('.registered-ok').hide();
-    },2000);
+    }, 2000);
+  }
+
+
+
+  closeWindowAddReference = () => {
+    this.props.closeModalModificationReference(false);
   }
 
 
@@ -451,7 +501,7 @@ class ModificationReference extends Component {
                   <input type="text" className="form-control form-control-sm" value={this.state.nameReference} id="name-reference-admin" onChange={this.handleChangeInput} />
                 </div>
                 <div className="alert alert-success registered-title-ok" role="alert">
-                    <p>Enregistrement des modifications réussi.</p>
+                  <p>Enregistrement des modifications réussi.</p>
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Annuler</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
@@ -477,7 +527,7 @@ class ModificationReference extends Component {
                       <ul>
                         {description.description.map((list, index) => (
                           <div key={index}>
-                            <li key={index-list}>{list}</li>
+                            <li key={index - list}>{list}</li>
                           </div>
                         ))}
                       </ul>
@@ -487,7 +537,7 @@ class ModificationReference extends Component {
 
                 </div>
                 <div className="alert alert-success registered-section-ok" role="alert">
-                    <p>Enregistrement des modifications réussi.</p>
+                  <p>Enregistrement des modifications réussi.</p>
                 </div>
               </div>
             </div>
@@ -495,7 +545,7 @@ class ModificationReference extends Component {
           <div className="card">
             <div className="card-header" id="headingThree">
               <h5 className="mb-0">
-                <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"  id="section3" onClick={this.toggleCollapse}>
+                <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" id="section3" onClick={this.toggleCollapse}>
                   Section 3
                 </button>
               </h5>
@@ -536,14 +586,14 @@ class ModificationReference extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                        {
+                      {
                         this.state.objetImageLogoRef.map((element, index) => {
                           if (index < 1) {
                             return (
                               <tr key={index}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{element.name}</td>
-                                <td>{element.alt}</td>
+                                <td>{this.state.objetImageLogoRef.length > 0 ? element.name : "nom image indisponible"}</td>
+                                <td>{this.state.objetImageLogoRef.length > 0 ? element.alt : "description image indisponible"}</td>
                                 <td> {<button type="button" className="btn btn-danger" id="logoRef" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                               </tr>
                             )
@@ -590,7 +640,7 @@ class ModificationReference extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                        {
+                      {
                         this.state.objetImageLogoSolution.map((element, index) => {
                           if (index < 1) {
                             return (
@@ -645,7 +695,7 @@ class ModificationReference extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                        {
+                      {
                         this.state.objetImageCaroussel.map((element, index) => (
                           <tr key={index}>
                             <th scope="row">{index + 1}</th>
@@ -660,7 +710,7 @@ class ModificationReference extends Component {
                   </table>
                 </div>
                 <div className="alert alert-success registered-ok" role="alert">
-                    <p>Enregistrement des modifications réussi.</p>
+                  <p>Enregistrement des modifications réussi.</p>
                 </div>
                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidationImage}>Appliquer</button>
@@ -698,7 +748,7 @@ class ModificationReference extends Component {
                   <ul>
                     {
                       this.state.currentModificationSectionDescription.map((description, index) => (
-                        <div>
+                        <div key={index}>
                           <li key={index}>{description}</li>
                           <button className="btn btn-danger btn-sm" onClick={this.handleClickDeleteDescription.bind(this, index)}>X</button>
                         </div>
@@ -715,6 +765,7 @@ class ModificationReference extends Component {
             </div>
           </div>
         </div>
+        <button className="btn btn-secondary" onClick={this.closeWindowAddReference}>Fermer le panneau des modifications</button>
       </div>
     )
   }

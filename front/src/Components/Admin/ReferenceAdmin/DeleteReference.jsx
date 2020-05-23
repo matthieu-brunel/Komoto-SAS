@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import getRessources from './../../../utils/postRessources';
 import deleteRessources from '../../../utils/deleteRessources';
 
+
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class DeleteReference extends Component{
@@ -10,7 +11,7 @@ class DeleteReference extends Component{
         this.state = {
             reference: [],
             titreSection:"",
-            checkBox:false
+            checkBox:""
         }
     }
 
@@ -62,7 +63,7 @@ class DeleteReference extends Component{
                 <form className="was-validated">
                     <div className="custom-control custom-checkbox mb-3">
                         { this.state.checkBox ? <input type="checkbox" className="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
-                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required checked={this.state.checkBox} onChange={this.handleChangeCheckBox} /> }
+                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required onChange={this.handleChangeCheckBox} /> }
                         <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>

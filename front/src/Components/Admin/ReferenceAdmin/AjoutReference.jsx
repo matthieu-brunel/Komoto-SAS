@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import postRessources from './../../../utils/postRessources';
 import $ from "jquery";
-
+const path = require('path');
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -166,16 +166,32 @@ class AjoutReferenceAdmin extends Component{
 
         sectionArray.push(sectionObj);
 
-        this.setState({arraySections:[...this.state.arraySections,sectionArray], arrayDescription:"", titreSection:""});
+        this.setState({arraySections:[...this.state.arraySections,sectionObj], arrayDescription:"", titreSection:""});
     }
 
     deleteDescription = (index, event) => {
-       
-        let description = this.state.arrayDescription;
-        description.splice(index, 1);
 
-        this.setState({arrayDescription:description});
+        switch (event.target.id) {
+            case "deleteDescription":
+                let description = this.state.arrayDescription;
+                description.splice(index, 1);
+        
+                this.setState({arrayDescription:description});
+                break;
+
+            case "deleteDescriptionSection":
+                let descriptionSection = this.state.arraySections;
+                descriptionSection.splice(index, 1);
+        
+                this.setState({arraySections:descriptionSection});
+                break;
+            default:
+                break;
+        }
+       
+
     }
+
 
     editDescription = (index, event) => {
        
@@ -211,15 +227,17 @@ class AjoutReferenceAdmin extends Component{
         
         for(let i of this.state.objetImageLogoRef[0]){
                 let array = [];
-                array.push(i.name);
-                array.push(i.alt);
+                let obj = {"name":i.name, "alt":i.alt};
+                array.push(obj);
+
                 objetImageFinal.logoRef = array;
         }
 
         for(let i of this.state.objetImageLogoSolution[0]){
             let array = [];
-            array.push(i.name);
-            array.push(i.alt);
+            let obj = {"name":i.name, "alt":i.alt};
+            array.push(obj);
+            
             objetImageFinal.logoSolution = array;
         }
         
@@ -236,15 +254,9 @@ class AjoutReferenceAdmin extends Component{
 
         let sectionDescription = [];
         for(let i of this.state.arraySections){
-            sectionDescription.push(i[0]);
+            sectionDescription.push(i);
           }
-/*         let count = 1;
-        for(let i of this.state.arraySections){
-            sectionDescription[`section${count}`] = i;
-            count++
-        } */
 
-    
         let dataReference = {
             'title':this.state.titrePage,
             "subtitle":this.state.nameReference,
@@ -296,6 +308,8 @@ class AjoutReferenceAdmin extends Component{
             objetImageLogoRef:[],
             objetImageLogoSolution:[]
             });
+
+        this.props.closeModalModificationReference(false);
         this.props.getStartedreferenceAdmin();
     }
 
@@ -326,11 +340,14 @@ class AjoutReferenceAdmin extends Component{
         ];
     
         //let file = event.target.files[0] ? event.target.files[0] : "";
-        let file = [];
-        file.push(event.target.files[0]);
-        console.log(event.target.id)
+        let file = [];  
+        let nameWithoutExtension = event.target.files[0].name.replace(path.extname(event.target.files[0].name), '');
+        let nameDocument = nameWithoutExtension + "-" +  Date.now() + path.extname(event.target.files[0].name);
+        let newFile = new File([event.target.files[0]], nameDocument, {type:event.target.files[0].type, lastModified:event.target.files[0].lastModified})
+        file.push(newFile);
         switch (event.target.id) {
             case "uploadAddImageLogoReference":
+
                 this.setState({documentLogoRef:file});
                 break;
 
@@ -382,19 +399,26 @@ class AjoutReferenceAdmin extends Component{
             default:
                 break;
         }
+    }
 
-
-      }
+    closeWindowAddReference = () => {
+        this.props.closeModalModificationReference(false);
+    }
 
 
 
     render(){
         return(
             <div>
-                <div id="accordion">
-                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
-                        partie 1
-                    </button>
+                <div id="accordion" className="position-tab pt-3">
+                    <div className="card">
+                        <div className="card-header" id="headingOne">
+                        <h5 className="mb-0">
+                            <button className="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
+                                partie 1
+                            </button>
+                        </h5>
+                    </div>
 
                     <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div className="form-group">
@@ -427,21 +451,53 @@ class AjoutReferenceAdmin extends Component{
                             <div className="description-reference-admin-modal">
                                 <ul>
                                     {this.state.arrayDescription.length > 0 && this.state.arrayDescription.map((description, index) => (
-                                        <div className="p-1">
-                                            <li key={index}>{description} {"  "}<button type="button" className="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
+                                        <div key={index} className="p-1">
+                                            <li key={index}>{description} {"  "}<button type="button" className="btn btn-primary btn-sm" id="deleteDescription" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
                                         </div>
                                     ) )}
                                 </ul>
 
                             </div>
+
+                            <div className="description-section-reference-admin-modal pt-3">
+                                <ul>
+                                    {this.state.arraySections.length > 0 && this.state.arraySections.map((section, index) => (
+                                      
+                                            <div key={index} className="div-section-container p-1">
+                                                <div className="div-title-section">
+                                                    <h6 className="title-section">{section.title}</h6>
+                                                </div>
+
+                                                <div className="div-section-description">
+                                                    <ul>
+                                                        {section.description.map((element, index_list) => (
+                                                            <li key={index_list}>{element}</li>
+                                                        ))}
+                                                    </ul>
+
+                                                </div>
+                                                <button type="button" className="btn btn-primary btn-sm" id="deleteDescriptionSection" onClick={this.deleteDescription.bind(this, index)}>X</button>
+                                            </div>
+
+                                     
+                                    ) )}
+                                </ul>
+                            </div>
+
                         </div>
-                </form>
-                
-                <div className="p-2">
-                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
-                            partie 2
-                    </button>
+                    </form>
                 </div>
+                <div className="card">
+                        <div className="card-header" id="headingOne">
+                            <h5 className="mb-0">
+                                <div className="p-2">
+                                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
+                                            partie 2
+                                    </button>
+                                </div>
+                            </h5>
+                        </div>
+                        
 
 
                 <div id="partie2" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -499,10 +555,6 @@ class AjoutReferenceAdmin extends Component{
                                     </tbody>
                                 </table>
                             </div>
-
-
-
-
 
                             <div className="form-group mt-5">
                                     <div className="row" style={{marginLeft:"0"}}>
@@ -609,11 +661,12 @@ class AjoutReferenceAdmin extends Component{
                                 </table>
                             </div>
                         </div>
+                    </div>
 
 
 
                 <div className="modal-footer pt-1">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeWindowAddReference}>Fermer</button>
 
                     {
                         this.state.objetImageCaroussel.length > 0 && this.state.objetImageLogoRef.length > 0 && this.state.objetImageLogoSolution.length > 0 && this.state.titrePage !== "" && this.state.nameReference !== "" ? 
