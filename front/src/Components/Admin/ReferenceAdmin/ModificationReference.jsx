@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import putRessources from "./../../../utils/putRessources.js";
 import "./ModificationReference.css";
 import $ from "jquery";
+
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
@@ -37,7 +38,34 @@ class ModificationReference extends Component {
 
       document:[],
       documentLogoRef:[],
-      documentLogoSolution:[]
+      documentLogoSolution:[],
+
+      toggleCollapse:["hide", "hide", "hide"]
+    }
+  }
+
+  toggleCollapse = (event) => {
+    switch (event.target.id) {
+      case "section1":
+        this.setState({
+          toggleCollapse:["show","hide","hide"]
+        })
+        break;
+
+      case "section2":
+        this.setState({
+          toggleCollapse:["hide","show","hide"]
+        })
+        break;
+
+      case "section3":
+        this.setState({
+          toggleCollapse:["hide","hide","show"]
+        })
+        break;
+    
+      default:
+        break;
     }
   }
 
@@ -212,6 +240,9 @@ class ModificationReference extends Component {
 
 
   componentDidMount() {
+    $('.registered-ok').hide();
+    $('.registered-section-ok').hide();
+    $('.registered-title-ok').hide();
     let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
     let images = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].url);
 
@@ -301,7 +332,15 @@ class ModificationReference extends Component {
   }
 
   handleClickValidation = async () => {
-    const { descriptionReference, currentModificationIndex, currentModificationSectionDescription, currentModificationSectionTitle } = this.state;
+    const { 
+      descriptionReference,
+      currentModificationIndex,
+      currentModificationSectionDescription,
+      currentModificationSectionTitle,
+      objetImageLogoRef,
+      objetImageLogoSolution,
+      objetImageCaroussel } = this.state;
+
     let array = [];
     let objet = {};
     objet.title = currentModificationSectionTitle;
@@ -330,18 +369,37 @@ class ModificationReference extends Component {
       "section": "reference"
     }
 
-    console.log(dataReference)
+    objet = {};
+    objet.logoRef = objetImageLogoRef;
+    objet.logoSolution = objetImageLogoSolution;
+    objet.imageCaroussel = objetImageCaroussel;
 
+    let dataImage = {
+      'name': this.state.nameReference,
+      "url": JSON.stringify(objet),
+      'alt': "",
+      'homepage_id': 0,
+      "section": "reference"
+    }
+
+    // fetch pour la table reference
     let id = this.props.refToEdit[0];
-    console.log("id reference : ",id);
-
     await putRessources("reference", id, dataReference);
+
+    // fetch pour la table image
+    let id_image = this.props.refToEdit[1];
+    await putRessources("image", id_image, dataImage);
+    $('.registered-section-ok').show();
+    $('.registered-title-ok').show();
+    setTimeout(() => {
+      $('.registered-section-ok').hide();
+      $('.registered-title-ok').hide();
+    }, 2000);
     this.props.getStartedreferenceAdmin();
   }
 
   handleClickValidationImage = async () => {
     const { objetImageLogoRef, objetImageLogoSolution, objetImageCaroussel } = this.state;
-
 
     let objet = {};
     objet.logoRef = objetImageLogoRef;
@@ -362,106 +420,106 @@ class ModificationReference extends Component {
 
     await putRessources("image", id, dataImage);
     this.props.getStartedreferenceAdmin();
+    $('.registered-ok').show();
+    setTimeout(() => {
+      $('.registered-ok').hide();
+    },2000);
   }
 
 
   render() {
-    const { referenceAdmin, descriptionReference } = this.props;
-    const { imagesReference } = this.state;
-/* 
-    if(imagesReference !== null){
-      for(let i of imagesReference){
-        console.log(i);
-      }
-    } */
-
     return (
       <div>
         <div id="accordion" className="position-tab pt-3">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div className="card">
+            <div className="card-header" id="headingOne">
+              <h5 className="mb-0">
+                <button className="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="section1" onClick={this.toggleCollapse}>
                   Section 1
-                        </button>
+                </button>
               </h5>
             </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="titre-section">Titre de la page</label>
-                  <input class="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+            <div id="collapseOne" className={`collapse ${this.state.toggleCollapse[0]}`} aria-labelledby="headingOne" data-parent="#accordion">
+              <div className="card-body">
+                <div className="form-group">
+                  <label htmlFor="titre-section">Titre de la page</label>
+                  <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                 </div>
                 <div className="form-group">
                   <label>Saisir le titre de la reference</label>
                   <input type="text" className="form-control form-control-sm" value={this.state.nameReference} id="name-reference-admin" onChange={this.handleChangeInput} />
                 </div>
-
-                <button type="button" class="btn btn-secondary" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                <div className="alert alert-success registered-title-ok" role="alert">
+                    <p>Enregistrement des modifications réussi.</p>
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Annuler</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
 
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <div className="card">
+            <div className="card-header" id="headingTwo">
+              <h5 className="mb-0">
+                <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" id="section2" onClick={this.toggleCollapse}>
                   Section 2
-                        </button>
+                </button>
               </h5>
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">
+            <div id="collapseTwo" className={`collapse ${this.state.toggleCollapse[1]}`} aria-labelledby="headingTwo" data-parent="#accordion">
+              <div className="card-body">
 
                 <div className="description-reference-admin-modal">
                   {this.state.descriptionReference.length > 0 && this.state.descriptionReference.map((description, index) => (
-                    <div className="-div-title-description-reference-modification">
+                    <div key={index} className="-div-title-description-reference-modification">
                       <p className="title-description-reference-modification">{description.title}</p>
                       <ul>
                         {description.description.map((list, index) => (
-                          <div>
-                            <li key={index}>{list}</li>
+                          <div key={index}>
+                            <li key={index-list}>{list}</li>
                           </div>
                         ))}
                       </ul>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#currentReference" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
+                      <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#currentReference" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
                     </div>
                   ))}
 
                 </div>
+                <div className="alert alert-success registered-section-ok" role="alert">
+                    <p>Enregistrement des modifications réussi.</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <div className="card">
+            <div className="card-header" id="headingThree">
+              <h5 className="mb-0">
+                <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"  id="section3" onClick={this.toggleCollapse}>
                   Section 3
                 </button>
               </h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                <div class="form-group mt-5">
+            <div id="collapseThree" className={`collapse ${this.state.toggleCollapse[2]}`} aria-labelledby="headingThree" data-parent="#accordion">
+              <div className="card-body">
+                <div className="form-group mt-5">
                   <div className="row" style={{ marginLeft: "0" }}>
                     {/*  upload logo de la référence */}
-                    <div class="custom-file col-5">
+                    <div className="custom-file col-5">
                       <input type="file" className="custom-file-input" id="uploadAddImageLogoReference" onChange={this.handlerUploadFile} />
-                      <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la référence<span style={{ color: "red" }}>*</span></label>
+                      <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la référence<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input class="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
                       {
                         this.state.altImageLogoRef !== "" && this.state.documentLogoRef.length > 0
                           ?
-                          <button type="button" class="btn btn-primary" style={{ marginRight: "0" }} onClick={this.addAltImage}>ajouter</button>
+                          <button type="button" className="btn btn-primary" style={{ marginRight: "0" }} onClick={this.addAltImage}>ajouter</button>
                           :
-                          <button type="button" class="btn btn-secondary">ajouter</button>
+                          <button type="button" className="btn btn-secondary">ajouter</button>
                       }
                     </div>
                   </div>
@@ -486,7 +544,7 @@ class ModificationReference extends Component {
                                 <th scope="row">{index + 1}</th>
                                 <td>{element.name}</td>
                                 <td>{element.alt}</td>
-                                <td> {<button type="button" class="btn btn-danger" id="logoRef" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                                <td> {<button type="button" className="btn btn-danger" id="logoRef" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                               </tr>
                             )
                           }
@@ -497,25 +555,25 @@ class ModificationReference extends Component {
                   </table>
                 </div>
 
-                <div class="form-group mt-5">
+                <div className="form-group mt-5">
                   <div className="row" style={{ marginLeft: "0" }}>
 
                     {/*  upload logo de la solution utilisée */}
-                    <div class="custom-file col-5">
+                    <div className="custom-file col-5">
                       <input type="file" className="custom-file-input" id="uploadAddImageLogoSolution" onChange={this.handlerUploadFile} />
-                      <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{ color: "red" }}>*</span></label>
+                      <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input class="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
                       {
                         this.state.altImageLogoSolution !== "" && this.state.documentLogoSolution.length > 0
                           ?
-                          <button type="button" class="btn btn-primary" onClick={this.addAltImage}>ajouter</button>
+                          <button type="button" className="btn btn-primary" onClick={this.addAltImage}>ajouter</button>
                           :
-                          <button type="button" class="btn btn-secondary">ajouter</button>
+                          <button type="button" className="btn btn-secondary">ajouter</button>
                       }
                     </div>
                   </div>
@@ -540,7 +598,7 @@ class ModificationReference extends Component {
                                 <th scope="row">{index + 1}</th>
                                 <td>{element.name}</td>
                                 <td>{element.alt}</td>
-                                <td> {<button type="button" class="btn btn-danger" id="logoSolution" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                                <td> {<button type="button" className="btn btn-danger" id="logoSolution" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                               </tr>
                             )
                           }
@@ -553,24 +611,24 @@ class ModificationReference extends Component {
 
 
 
-                <div class="form-group mt-5">
+                <div className="form-group mt-5">
                   <div className="row" style={{ marginLeft: "0" }}>
                     {/*  upload des images du caroussel */}
-                    <div class="custom-file col-5">
+                    <div className="custom-file col-5">
                       <input type="file" className="custom-file-input" id="uploadAddImageReferenceCaroussel" onChange={this.handlerUploadFile} />
-                      <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{ color: "red" }}>*</span></label>
+                      <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
                       {
                         this.state.altImage !== "" && this.state.document.length
                           ?
-                          <button type="button" class="btn btn-primary" onClick={this.addAltImage}>ajouter</button>
+                          <button type="button" className="btn btn-primary" onClick={this.addAltImage}>ajouter</button>
                           :
-                          <button type="button" class="btn btn-secondary">ajouter</button>
+                          <button type="button" className="btn btn-secondary">ajouter</button>
                       }
                     </div>
                   </div>
@@ -593,7 +651,7 @@ class ModificationReference extends Component {
                             <th scope="row">{index + 1}</th>
                             <td>{element.name ? element.name : element}</td>
                             <td>{element.alt}</td>
-                            <td> {<button type="button" class="btn btn-danger" id="imageCaroussel" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                            <td> {<button type="button" className="btn btn-danger" id="imageCaroussel" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                           </tr>
                         ))
                       }
@@ -601,22 +659,25 @@ class ModificationReference extends Component {
                     </tbody>
                   </table>
                 </div>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidationImage}>Appliquer</button>
+                <div className="alert alert-success registered-ok" role="alert">
+                    <p>Enregistrement des modifications réussi.</p>
+                </div>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidationImage}>Appliquer</button>
               </div>
             </div>
           </div>
         </div>
 
         {/*     Modal modification section 2 */}
-        <div class="modal fade" id="currentReference" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <div className="modal fade" id="currentReference" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
 
               </div>
-              <div class="modal-body row">
+              <div className="modal-body row">
                 <div className="form-group col-12">
                   <input type="text" className="form-control" value={this.state.currentModificationSectionTitle} id="title-description-modification-reference-admin" onChange={this.handleChangeInput} />
                 </div>
@@ -648,8 +709,8 @@ class ModificationReference extends Component {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
               </div>
             </div>
           </div>

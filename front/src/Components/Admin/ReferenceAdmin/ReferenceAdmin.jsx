@@ -326,7 +326,7 @@ class ReferenceAdmin extends Component {
 
         <div >
           <div className="pt-3 pb-3">
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-reference-admin">Ajout reference</button>
+            <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-reference-admin">Ajout reference</button>
             <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
               {options}
             </select>
@@ -350,8 +350,8 @@ class ReferenceAdmin extends Component {
                       <th scope="row">{index + 1}</th>
                       <td>{element.subtitle}</td>
                       <td>{element.title}</td>
-                      <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdReferenceToEdit.bind(this, index)}>Modifier</button>}</td>
-                      <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-reference-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
+                      <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdReferenceToEdit.bind(this, index)}>Modifier</button>}</td>
+                      <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-reference-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
                     </tr>
                   ))
                 }
@@ -365,16 +365,16 @@ class ReferenceAdmin extends Component {
 
         {/* <!-- Nouvelle reference --> */}
 
-        <div class="modal fade" id="new-reference-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle reference</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="new-reference-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalScrollableTitle">Nouvelle reference</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <AjoutReference locale={this.state.langSelected} arrayLang={this.state.arrayLang} reference={this.state.reference} getStartedreferenceAdmin={this.getStartedreferenceAdmin} />
               </div>
             </div>
@@ -382,13 +382,13 @@ class ReferenceAdmin extends Component {
         </div>
 
         {/* <!-- suppression d'une reference --> */}
-        <div class="modal fade" id="delete-reference-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une reference</h5>
+        <div className="modal fade" id="delete-reference-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-scrollable" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une reference</h5>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <DeleteReference reference={this.state.reference} refToDelete={this.state.refToDelete} getStartedreferenceAdmin={this.getStartedreferenceAdmin} />
               </div>
             </div>

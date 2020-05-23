@@ -291,7 +291,10 @@ class AjoutReferenceAdmin extends Component{
             titrePage:"",
             document:[],
             documentLogoRef:[],
-            documentLogoSolution:[]
+            documentLogoSolution:[],
+            objetImageCaroussel:[],
+            objetImageLogoRef:[],
+            objetImageLogoSolution:[]
             });
         this.props.getStartedreferenceAdmin();
     }
@@ -386,47 +389,46 @@ class AjoutReferenceAdmin extends Component{
 
 
     render(){
-        console.log("objet : ",this.objetImage);
         return(
             <div>
                 <div id="accordion">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
+                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
                         partie 1
                     </button>
 
-                    <form id="partie1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="form-group">
-                            <label for="titrePage-reference">Titre de la page <span style={{color:"red"}}>*</span></label>
-                            <input class="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput}/>
+                    <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div className="form-group">
+                            <label htmlFor="titrePage-reference">Titre de la page <span style={{color:"red"}}>*</span></label>
+                            <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput}/>
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="titre-reference-name">Nom de la reference <span style={{color:"red"}}>*</span></label>
-                            <input class="form-control" value={this.state.nameReference} id="titre-reference-name" type="text" placeholder="nom de la reference" onChange={this.handleChangeInput}/>
+                        <div className="form-group">
+                            <label htmlFor="titre-reference-name">Nom de la reference <span style={{color:"red"}}>*</span></label>
+                            <input className="form-control" value={this.state.nameReference} id="titre-reference-name" type="text" placeholder="nom de la reference" onChange={this.handleChangeInput}/>
                         </div>
                     
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="titre-reference-section">Titre de la section</label>
-                                <input class="form-control " value={this.state.titreSection} id="titre-reference-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                        <div className="modal-body">
+                            <div className="form-group">
+                                <label htmlFor="titre-reference-section">Titre de la section</label>
+                                <input className="form-control " value={this.state.titreSection} id="titre-reference-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                             </div>
 
                             <label>Saisir une description</label>
                             
-                            <div class="form-group">
-                                <textarea class="form-control" type="text" value={this.state.addDescription} id="addDescription-reference-admin" onChange={this.handleChangeInput}/>
+                            <div className="form-group">
+                                <textarea className="form-control" type="text" value={this.state.addDescription} id="addDescription-reference-admin" onChange={this.handleChangeInput}/>
                             </div>
                             
-                            <button type="button" class="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
-                            <button type="button" class="btn btn-primary" onClick={this.addSection}>Valider la section</button>
+                            <button type="button" className="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
+                            <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button>
                                 
                 
                             <div className="description-reference-admin-modal">
                                 <ul>
                                     {this.state.arrayDescription.length > 0 && this.state.arrayDescription.map((description, index) => (
                                         <div className="p-1">
-                                            <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
+                                            <li key={index}>{description} {"  "}<button type="button" className="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
                                         </div>
                                     ) )}
                                 </ul>
@@ -436,32 +438,32 @@ class AjoutReferenceAdmin extends Component{
                 </form>
                 
                 <div className="p-2">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
+                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
                             partie 2
                     </button>
                 </div>
 
 
-                <div id="partie2" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="partie2" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 
-                            <div class="form-group mt-5">
+                            <div className="form-group mt-5">
                                     <div className="row" style={{marginLeft:"0"}}>
                                         {/*  upload logo de la référence */}  
-                                        <div class="custom-file col-5">
+                                        <div className="custom-file col-5">
                                             <input type="file" className="custom-file-input"  id="uploadAddImageLogoReference" onChange={this.handlerUploadFile} />
-                                            <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la référence<span style={{color:"red"}}>*</span></label>
+                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la référence<span style={{color:"red"}}>*</span></label>
                                         </div>
                                         <div className="div-description-image-reference-admin col-5">
-                                            <input class="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
+                                            <input className="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                                         </div>
                                         
                                         <div className="btn-ajouter-image-reference-admin col-2">
                                         {  
                                             this.state.altImageLogoRef !== "" && this.state.documentLogoRef.length > 0
                                             ? 
-                                            <button type="button" class="btn btn-primary" style={{marginRight:"0"}} onClick={this.addAltImage}>ajouter</button> 
+                                            <button type="button" className="btn btn-primary" style={{marginRight:"0"}} onClick={this.addAltImage}>ajouter</button> 
                                             :
-                                            <button type="button" class="btn btn-secondary">ajouter</button> 
+                                            <button type="button" className="btn btn-secondary">ajouter</button> 
                                         }
                                         </div>
                                     </div>
@@ -486,7 +488,7 @@ class AjoutReferenceAdmin extends Component{
                                                             <th scope="row">{index + 1}</th>
                                                             <td>{element[0].name ? element[0].name : element[0]}</td>
                                                             <td>{element[0].alt}</td>
-                                                            <td> {<button type="button" class="btn btn-danger" id="logoRef" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                                                            <td> {<button type="button" className="btn btn-danger" id="logoRef" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                                                         </tr>
                                                     )
                 
@@ -502,25 +504,25 @@ class AjoutReferenceAdmin extends Component{
 
 
 
-                            <div class="form-group mt-5">
+                            <div className="form-group mt-5">
                                     <div className="row" style={{marginLeft:"0"}}>
 
                                         {/*  upload logo de la solution utilisée */}  
-                                        <div class="custom-file col-5">
+                                        <div className="custom-file col-5">
                                             <input type="file" className="custom-file-input"  id="uploadAddImageLogoSolution" onChange={this.handlerUploadFile} />
-                                            <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{color:"red"}}>*</span></label>
+                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{color:"red"}}>*</span></label>
                                         </div>
                                         <div className="div-description-image-reference-admin col-5">
-                                            <input class="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
+                                            <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                                         </div>
                                         
                                         <div className="btn-ajouter-image-reference-admin col-2">
                                         {  
                                             this.state.altImageLogoSolution !== "" && this.state.documentLogoSolution.length > 0
                                             ? 
-                                            <button type="button" class="btn btn-primary" onClick={this.addAltImage}>ajouter</button> 
+                                            <button type="button" className="btn btn-primary" onClick={this.addAltImage}>ajouter</button> 
                                             :
-                                            <button type="button" class="btn btn-secondary">ajouter</button> 
+                                            <button type="button" className="btn btn-secondary">ajouter</button> 
                                         }
                                         </div>
                                     </div>
@@ -545,7 +547,7 @@ class AjoutReferenceAdmin extends Component{
                                                             <th scope="row">{index + 1}</th>
                                                             <td>{element[0].name ? element[0].name : element[0]}</td>
                                                             <td>{element[0].alt}</td>
-                                                            <td> {<button type="button" class="btn btn-danger" id="logoSolution" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                                                            <td> {<button type="button" className="btn btn-danger" id="logoSolution" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                                                         </tr>
                                                     )
                                                 }
@@ -558,24 +560,24 @@ class AjoutReferenceAdmin extends Component{
 
                     
 
-                            <div class="form-group mt-5">
+                            <div className="form-group mt-5">
                                 <div className="row" style={{marginLeft:"0"}}>
                                     {/*  upload des images du caroussel */} 
-                                    <div class="custom-file col-5">
+                                    <div className="custom-file col-5">
                                         <input type="file" className="custom-file-input"  id="uploadAddImageReferenceCaroussel" onChange={this.handlerUploadFile} />
-                                        <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{color:"red"}}>*</span></label>
+                                        <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{color:"red"}}>*</span></label>
                                     </div>
                                     <div className="div-description-image-reference-admin col-5">
-                                        <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
+                                        <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                                     </div>
                                     
                                     <div className="btn-ajouter-image-reference-admin col-2">
                                     {  
                                         this.state.altImage !== "" && this.state.document.length 
                                         ? 
-                                        <button type="button" class="btn btn-primary" onClick={this.addAltImage}>ajouter</button> 
+                                        <button type="button" className="btn btn-primary" onClick={this.addAltImage}>ajouter</button> 
                                         :
-                                        <button type="button" class="btn btn-secondary">ajouter</button> 
+                                        <button type="button" className="btn btn-secondary">ajouter</button> 
                                     }
                                     </div>
                                 </div>
@@ -598,7 +600,7 @@ class AjoutReferenceAdmin extends Component{
                                                     <th scope="row">{index + 1}</th>
                                                     <td>{element.name ? element.name : element}</td>
                                                     <td>{element.alt}</td>
-                                                    <td> {<button type="button" class="btn btn-danger" id="imageCaroussel" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
+                                                    <td> {<button type="button" className="btn btn-danger" id="imageCaroussel" onClick={this.getIdImageReferenceToDelete.bind(this, index)}>X</button>}</td>
                                                 </tr>
                                             ))
                                         } 
@@ -610,14 +612,14 @@ class AjoutReferenceAdmin extends Component{
 
 
 
-                <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div className="modal-footer pt-1">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 
                     {
                         this.state.objetImageCaroussel.length > 0 && this.state.objetImageLogoRef.length > 0 && this.state.objetImageLogoSolution.length > 0 && this.state.titrePage !== "" && this.state.nameReference !== "" ? 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewreferenceAdmin}>Enregistrer</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewreferenceAdmin}>Enregistrer</button>
                     :
-                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}
+                    <button type="button" className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}
                 </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
