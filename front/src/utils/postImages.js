@@ -22,7 +22,7 @@ export default async function postRessources(image) {
         countFile++
     }
 
-    console.log(countFile);
+    console.log(" postRessources(image)",image);
 
     if (countFile > 1) {
         //upload des images

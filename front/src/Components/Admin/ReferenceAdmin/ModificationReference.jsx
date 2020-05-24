@@ -79,11 +79,11 @@ class ModificationReference extends Component {
 
     switch (event.target.id) {
       case "logoRef":
-        this.setState({ objetImageLogoRef: [], fileImageLogoRef:[] });
+        this.setState({ objetImageLogoRef: [], fileImageLogoRef: [] });
         break;
 
       case "logoSolution":
-        this.setState({ objetImageLogoSolution: [], fileImageLogoSolution:[] });
+        this.setState({ objetImageLogoSolution: [], fileImageLogoSolution: [] });
         break;
 
       case "imageCaroussel":
@@ -93,7 +93,7 @@ class ModificationReference extends Component {
         let arrayFileImageCaroussel = this.state.fileImageCaroussel;
         arrayFileImageCaroussel.slice(index, 1);
 
-        this.setState({ objetImageCaroussel: arrayImageCaroussel, fileImageCaroussel:arrayFileImageCaroussel });
+        this.setState({ objetImageCaroussel: arrayImageCaroussel, fileImageCaroussel: arrayFileImageCaroussel });
         break;
 
       default:
@@ -224,7 +224,7 @@ class ModificationReference extends Component {
         objetImageLogoRef: arrayObjetImage,
         altImageLogoRef: "",
         documentLogoRef: [],
-        fileImageLogoRef:this.state.documentLogoRef[0]
+        fileImageLogoRef: this.state.documentLogoRef[0]
       });
       $("#uploadAddImageLogoReference")[0].value = "";
 
@@ -259,7 +259,7 @@ class ModificationReference extends Component {
 
 
   componentDidMount() {
-    $('.registered-ok').hide();
+    $('.registered-image-ok').hide();
     $('.registered-section-ok').hide();
     $('.registered-title-ok').hide();
     let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
@@ -389,6 +389,9 @@ class ModificationReference extends Component {
       "section": "reference"
     }
 
+    // pour la modification du nom de la référence dans la table image,
+    // nous sommes obligés de faire un fetch pour mettre a jours l'entiereté
+    // de la ligne d'enregistrement
     objet = {};
     objet.logoRef = objetImageLogoRef;
     objet.logoSolution = objetImageLogoSolution;
@@ -403,14 +406,15 @@ class ModificationReference extends Component {
     }
 
 
-
     // fetch pour la table reference
     let id = this.props.refToEdit[0];
-    await putRessources("reference", id, dataReference);
+    await putRessources("reference", id, [dataReference, dataImage]);
 
     // fetch pour la table image
     let id_image = this.props.refToEdit[1];
     await putRessources("image", id_image, dataImage);
+
+
     $('.registered-section-ok').show();
     $('.registered-title-ok').show();
     setTimeout(() => {
@@ -418,58 +422,38 @@ class ModificationReference extends Component {
       $('.registered-title-ok').hide();
     }, 2000);
 
-    this.props.getStartedreferenceAdmin();
-  }
-
-  handleClickValidationImage = async () => {
-    const { objetImageLogoRef, objetImageLogoSolution, objetImageCaroussel } = this.state;
-
-    let objet = {};
-    objet.logoRef = objetImageLogoRef;
-    objet.logoSolution = objetImageLogoSolution;
-    objet.imageCaroussel = objetImageCaroussel;
-
-    let id = this.props.refToEdit[1];
-
-    let dataImage = {
-      'name': this.state.nameReference,
-      "url": JSON.stringify(objet),
-      'alt': "",
-      'homepage_id': 0,
-      "section": "reference"
-    }
-
-
     await putRessources("image", id, dataImage);
 
-    
+
     let documentSendToBack = [];
 
     documentSendToBack.push(this.state.fileImageLogoRef);
     documentSendToBack.push(this.state.fileImageLogoSolution);
 
-    for(let array of this.state.fileImageCaroussel){
+    for (let array of this.state.fileImageCaroussel) {
       documentSendToBack.push(array);
     }
 
+    console.log(documentSendToBack);
+
     // new FormData => les nouvelles images a envoyer au back
     const uploadImage = new FormData()
-    for(var x = 0; x < documentSendToBack.length; x++) {
+    for (var x = 0; x < documentSendToBack.length; x++) {
       uploadImage.append('file', documentSendToBack[x]);
     }
 
+    $('.registered-image-ok').show();
+    setTimeout(() => {
+      $('.registered-image-ok').hide();
+    }, 2000);
+
     //fetch upload image(s)
     await postImages(uploadImage);
-    
-    this.setState({ fileImageCaroussel:[], fileImageLogoRef:[], fileImageLogoSolution:[] });
+
+
+    this.setState({ fileImageCaroussel: [], fileImageLogoRef: [], fileImageLogoSolution: [] });
     this.props.getStartedreferenceAdmin();
-
-    $('.registered-ok').show();
-    setTimeout(() => {
-      $('.registered-ok').hide();
-    }, 2000);
   }
-
 
 
   closeWindowAddReference = () => {
@@ -709,11 +693,11 @@ class ModificationReference extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="alert alert-success registered-ok" role="alert">
+                <div className="alert alert-success registered-image-ok" role="alert">
                   <p>Enregistrement des modifications réussi.</p>
                 </div>
                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidationImage}>Appliquer</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
               </div>
             </div>
           </div>
