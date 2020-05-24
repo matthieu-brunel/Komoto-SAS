@@ -422,7 +422,7 @@ class AjoutReferenceAdmin extends Component {
 
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="form-group">
-                                <label htmlFor="titrePage-reference">Titre de la page <span style={{ color: "red" }}>*</span></label>
+                                <label htmlFor="titrePage-reference">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
                                 <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
                             </div>
 
@@ -434,7 +434,7 @@ class AjoutReferenceAdmin extends Component {
 
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <label htmlFor="titre-reference-section">Titre de la section</label>
+                                    <label htmlFor="titre-reference-section">Titre du texte</label>
                                     <input className="form-control " value={this.state.titreSection} id="titre-reference-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                                 </div>
 

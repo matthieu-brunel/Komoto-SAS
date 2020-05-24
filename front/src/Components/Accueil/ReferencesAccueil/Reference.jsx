@@ -18,28 +18,21 @@ class ReferenceAccueil extends Component {
     console.log(locale);
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + locale;
     const data = await (await (fetch(url))).json();
-    console.log(data);
-    this.setState({reference:data});
+    
+    let arrayReference = [];
 
-/*     let data = await getRessources("reference", "reference", locale);
-    for (let i = 0; i < data.length; i++) {
-      this.getTextToList(data[i]);
-    } */
+    for(let obj of data){
+      let url = JSON.parse(obj.url);
+      let description = JSON.parse(obj.description);
+      obj.url = url;
+      obj.description = description;
+      arrayReference.push(obj);
+    }
+
+    this.setState({reference:arrayReference});
   };
 
-  getTextToList(data) {
-    //variable objet qui servira à accueillir les données
-    let objet = data;
-    //variable array_description qui servira a convertir le contenu description en tableau grace au slash
-    let array_url = data.url.split('|');
-    let array_alt = data.alt.split('|');
-    //on remplace le contenu description de l'objet.description par la nouvelle description
-    objet.url = array_url;
-    objet.alt = array_alt;
 
-    //on met a jour le state avec la nouvelle valeur [reference=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
-    this.setState({ reference: [...this.state.reference, objet] });
-  }
 
 
   render() {
@@ -58,7 +51,7 @@ class ReferenceAccueil extends Component {
               <NavLink to={`/Reference/#${element.name}`}>
                 <img
                   className="img-reference"
-                  src={element.url}
+                  src={REACT_APP_SERVER_ADDRESS_FULL+"/images/" + element.url.logoRef[0].name}
                   alt={element.alt}
                 />
               </NavLink>

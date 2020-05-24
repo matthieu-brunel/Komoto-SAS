@@ -46,6 +46,8 @@ class ModificationReference extends Component {
       documentLogoRef: [],
       documentLogoSolution: [],
 
+      inputValisationAddSection: false,
+
       toggleCollapse: ["hide", "hide", "hide"]
     }
   }
@@ -257,8 +259,7 @@ class ModificationReference extends Component {
     });
   }
 
-
-  componentDidMount() {
+  getStartedreference = () => {
     $('.registered-image-ok').hide();
     $('.registered-section-ok').hide();
     $('.registered-title-ok').hide();
@@ -293,6 +294,11 @@ class ModificationReference extends Component {
   }
 
 
+  componentDidMount() {
+    this.getStartedreference();
+  }
+
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.referenceAdmin !== this.props.referenceAdmin) {
       this.setState({
@@ -305,7 +311,10 @@ class ModificationReference extends Component {
         titrePage: this.props.referenceAdmin[this.props.idToEdit].title,
         nameReference: this.props.referenceAdmin[this.props.idToEdit].subtitle,
       });
+
+      this.getStartedreference();
     }
+
   }
 
   handleClickAddDescription = () => {
@@ -375,8 +384,11 @@ class ModificationReference extends Component {
     }
 
     this.setState({
-      descriptionReference: array
+      descriptionReference: array,
+      inputValisationAddSection:false
     });
+
+    console.log("descriptionReference :", descriptionReference);
 
     let image_id = this.props.refToEdit[1];
 
@@ -460,6 +472,19 @@ class ModificationReference extends Component {
     this.props.closeModalModificationReference(false);
   }
 
+  handlerAddSection = () => {
+    let objet = {};
+    objet.title = this.state.currentModificationSectionTitle;
+    objet.description = this.state.currentModificationSectionDescription;
+    this.setState({
+      descriptionReference: [...this.state.descriptionReference, objet],
+      currentModificationSectionDescription: [],
+      currentModificationSectionTitle: "",
+      inputValisationAddSection:true
+    });
+
+  }
+
 
   render() {
     return (
@@ -503,8 +528,12 @@ class ModificationReference extends Component {
             </div>
             <div id="collapseTwo" className={`collapse ${this.state.toggleCollapse[1]}`} aria-labelledby="headingTwo" data-parent="#accordion">
               <div className="card-body">
+                <div className="div-ajout-section-modification-reference-admin text-right">
+                  <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSectionCurrentReference">ajouter une section</button>
+                </div>
 
-                <div className="description-reference-admin-modal">
+
+                <div className="description-reference-admin-modal pt-5">
                   {this.state.descriptionReference.length > 0 && this.state.descriptionReference.map((description, index) => (
                     <div key={index} className="-div-title-description-reference-modification">
                       <p className="title-description-reference-modification">{description.title}</p>
@@ -708,7 +737,7 @@ class ModificationReference extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Modifier la section</h5>
 
               </div>
               <div className="modal-body row">
@@ -745,6 +774,61 @@ class ModificationReference extends Component {
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal ajout section 2 */}
+        <div className="modal fade" id="AddSectionCurrentReference" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Ajout Section</h5>
+
+              </div>
+              <div className="modal-body row">
+                <div className="form-group col-12">
+                  <input type="text" className="form-control" value={this.state.currentModificationSectionTitle} id="title-description-modification-reference-admin" onChange={this.handleChangeInput} />
+                </div>
+
+                <div className="form-group col-10">
+                  <input type="text" className="form-control" value={this.state.currentModificationSectionDescriptionList} id="list-description-text-modification-reference-admin" onChange={this.handleChangeInput} />
+                </div>
+                <div className="div-btn-ajout-description-reference-admin col-2">
+                  {
+                    this.state.currentModificationSectionDescriptionList !== ""
+                      ?
+                      <button className="btn btn-primary" onClick={this.handleClickAddDescription}>+</button>
+                      :
+                      <button className="btn btn-secondary">+</button>
+                  }
+                </div>
+                <div className="div-list-description-reference-admin col-12">
+                  <ul>
+                    {
+                      this.state.currentModificationSectionDescription.map((description, index) => (
+                        <div key={index}>
+                          <li key={index}>{description}</li>
+                          <button className="btn btn-danger btn-sm" onClick={this.handleClickDeleteDescription.bind(this, index)}>X</button>
+                        </div>
+
+                      ))
+                    }
+                  </ul>
+                </div>
+                <div className="div-btn-validation-saisie col-12">
+                  <button type="button" className="btn btn-primary" onClick={this.handlerAddSection}>valider votre saisie</button>
+                </div>
+
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+
+                {this.state.inputValisationAddSection ?
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button> :
+                  <button type="button" className="btn btn-secondary">Appliquer</button>
+                }
               </div>
             </div>
           </div>

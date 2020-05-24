@@ -75,40 +75,12 @@ router.put("/:id", Auth, (req, res) => {
 router.delete("/:id", Auth, (req, res) => {
   const idImage = req.params.id;
 
-  const sql = "SELECT * FROM image WHERE id=?";
+  const sql = "DELETE FROM image WHERE id=?";
   connection.query(sql, [idImage], (error, results, fields) => {
     if (error) {
-      res.status(501).send("couldn't get image");
+      res.status(501).send("couldn't put image" + error);
     } else {
-
-      let arrayImageToDelete = [];
-      let currentObj = JSON.parse(results[0].url);
-
-      for (let nameObj in currentObj) {
-        for (let i of currentObj[nameObj]) {
-          arrayImageToDelete.push(i.name);
-        }
-      }
-
-      console.log(arrayImageToDelete);
-
-      if (arrayImageToDelete.length > 0) {
-        for (let i = 0; i < arrayImageToDelete.length; i++) {
-          fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
-            if (err) throw err;
-            console.log('successfully deleted ' + arrayImageToDelete[i]);
-          });
-        }
-      }
-
-      const sql = "DELETE FROM image WHERE id=?";
-      connection.query(sql, [idImage], (error, results, fields) => {
-        if (error) {
-          res.status(501).send("couldn't put image" + error);
-        } else {
-          res.status(200).json({ "id": req.params.id });
-        }
-      });
+      res.status(200).json({ "id": req.params.id });
     }
   });
 });

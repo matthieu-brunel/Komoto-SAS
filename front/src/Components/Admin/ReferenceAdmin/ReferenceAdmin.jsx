@@ -218,6 +218,7 @@ class ReferenceAdmin extends Component {
       openEditReference:true,
       openAddReference:false 
     });
+  
   }
 
   editDescription = (index, event) => {
