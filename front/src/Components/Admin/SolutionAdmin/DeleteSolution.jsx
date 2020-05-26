@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-
 import getRessources from './../../../utils/postRessources';
 import deleteRessources from '../../../utils/deleteRessources';
 
+
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class DeletesolutionAdmin extends Component{
+class DeleteSolution extends Component{
     constructor(props){
         super(props);
         this.state = {
-            solutionAdmin: [],
+            solution: [],
             titreSection:"",
-            checkBox:false
+            checkBox:""
         }
     }
 
     handleChangeCheckBox = (event) => {
-
         this.setState({checkBox:event.target.checked});
     }
 
-    deletesolutionAdmin = () => {
+    deletesolution = () => {
 
-        if(this.props.specToDelete.length > 0){
+        if(this.props.solToDelete.length > 0){
             const options = {
                 method:'DELETE',
                 headers: new Headers({
@@ -31,17 +30,18 @@ class DeletesolutionAdmin extends Component{
                 }),
             }
         
-    
-            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.specToDelete[1]}`;
-    
+        
+            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/solution/${this.props.solToDelete[0]}`;
+            console.log(url);
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/test/${this.props.specToDelete[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.solToDelete[1]}`;
+            console.log(url);
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
-    
-            this.props.getStartedsolutionAdmin();
+
             this.setState({checkBox:false});
+            this.props.getStartedSolutionAdmin();
         }
 
     }
@@ -55,27 +55,27 @@ class DeletesolutionAdmin extends Component{
 
 
     render(){
-        const {getsolutionAdminToDelete, specToDelete} = this.props;
+     
         return(
             <div>
                 <div className="form-group" >
-                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette solution ?</label>
+                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette solution ?</label>
                 </div>
-                <form class="was-validated">
-                    <div class="custom-control custom-checkbox mb-3">
-                        { this.state.checkBox ? <input type="checkbox" class="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
-                        : <input type="checkbox" class="custom-control-input" id="customControlValidation1" required checked={this.state.checkBox} onChange={this.handleChangeCheckBox} /> }
-                        <label class="custom-control-label" for="customControlValidation1">confirmation de la suppression</label>
+                <form className="was-validated">
+                    <div className="custom-control custom-checkbox mb-3">
+                        { this.state.checkBox ? <input type="checkbox" className="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
+                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required onChange={this.handleChangeCheckBox} /> }
+                        <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>
                 <div className="modal-footer">
-                    {this.state.checkBox && this.props.specToDelete.length > 0
+                    {this.state.checkBox && this.props.solToDelete.length > 0
                         ?
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deletesolutionAdmin}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deletesolution}>Oui</button>
                         :
-                        <button type="button" class="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSpec}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSpec}>Annuler</button>
                 </div>
 
             </div>
@@ -84,4 +84,4 @@ class DeletesolutionAdmin extends Component{
 }
 
 
-export default DeletesolutionAdmin;
+export default DeleteSolution;

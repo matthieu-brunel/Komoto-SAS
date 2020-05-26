@@ -265,7 +265,6 @@ class ModificationReference extends Component {
     $('.registered-title-ok').hide();
     let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
     let images = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].url);
-    console.log(images);
 
     let arraySolution = [];
     let imageSolution = {};
@@ -385,7 +384,7 @@ class ModificationReference extends Component {
 
     this.setState({
       descriptionReference: array,
-      inputValisationAddSection:false
+      inputValisationAddSection: false
     });
 
     console.log("descriptionReference :", descriptionReference);
@@ -436,34 +435,43 @@ class ModificationReference extends Component {
 
     await putRessources("image", id, dataImage);
 
-
-    let documentSendToBack = [];
-
-    documentSendToBack.push(this.state.fileImageLogoRef);
-    documentSendToBack.push(this.state.fileImageLogoSolution);
-
-    for (let array of this.state.fileImageCaroussel) {
-      documentSendToBack.push(array);
-    }
-
-    console.log(documentSendToBack);
-
-    // new FormData => les nouvelles images a envoyer au back
-    const uploadImage = new FormData()
-    for (var x = 0; x < documentSendToBack.length; x++) {
-      uploadImage.append('file', documentSendToBack[x]);
-    }
-
     $('.registered-image-ok').show();
     setTimeout(() => {
       $('.registered-image-ok').hide();
     }, 2000);
 
+
     //fetch upload image(s)
-    await postImages(uploadImage);
+    if (this.state.fileImageCaroussel.length > 0 || this.state.fileImageLogoSolution.name) {
+
+      let documentSendToBack = [];
+      for (let array of this.state.fileImageCaroussel) {
+        documentSendToBack.push(array);
+      }
+
+      if (this.state.fileImageLogoSolution.name) {
+        documentSendToBack.push(this.state.fileImageLogoSolution);
+      }
+
+      console.log(documentSendToBack);
+      // new FormData => les nouvelles images a envoyer au back
+      const uploadImage = new FormData()
+      for (var x = 0; x < documentSendToBack.length; x++) {
+        uploadImage.append('file', documentSendToBack[x]);
+      }
+      await postImages(uploadImage);
+    }
 
 
-    this.setState({ fileImageCaroussel: [], fileImageLogoRef: [], fileImageLogoSolution: [] });
+    this.setState({
+      fileImageCaroussel: [],
+      fileImageLogoRef: [],
+      fileImageLogoSolution: [],
+      currentModificationSectionDescription: [],
+      currentModificationSectionTitle: "",
+      currentModificationSectionDescriptionList: ""
+    });
+
     this.props.getStartedreferenceAdmin();
   }
 
@@ -480,7 +488,7 @@ class ModificationReference extends Component {
       descriptionReference: [...this.state.descriptionReference, objet],
       currentModificationSectionDescription: [],
       currentModificationSectionTitle: "",
-      inputValisationAddSection:true
+      inputValisationAddSection: true
     });
 
   }

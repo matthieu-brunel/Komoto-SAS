@@ -1,8 +1,0 @@
-.window-add-image{
-    z-index: 20;
-}
-
-.modal-open .container-fluid, .modal-open  .container {
-    -webkit-filter: blur(5px) grayscale(90%);
-
-}

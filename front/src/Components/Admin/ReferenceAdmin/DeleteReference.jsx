@@ -30,12 +30,11 @@ class DeleteReference extends Component{
                 }),
             }
         
-    
-            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.refToDelete[1]}`;
+            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.props.refToDelete[0]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.props.refToDelete[0]}`;
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.refToDelete[1]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
     
