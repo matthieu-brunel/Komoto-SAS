@@ -34,21 +34,24 @@ class ModificationSolution extends Component {
             arrayImage: [],
 
             objetImageCaroussel: [],
-
             objetImageLogoSolution: [],
 
             fileImageCaroussel: [],
-
             fileImageLogoSolution: [],
 
             document: [],
-
             documentLogoSolution: [],
 
             inputValisationAddSection: false,
 
+            checkBox:false,
+
             toggleCollapse: ["hide", "hide", "hide"]
         }
+    }
+
+    handleChangeCheckBox = (event) => {
+        this.setState({checkBox:event.target.checked});
     }
 
     toggleCollapse = (event) => {
@@ -221,12 +224,24 @@ class ModificationSolution extends Component {
     }
 
     handlerClickDescriptionSection = (index, event) => {
-        this.setState({
-            currentModification: event.target.id,
-            currentModificationIndex: index,
-            currentModificationSectionTitle: this.state.descriptionSolution[index].title,
-            currentModificationSectionDescription: this.state.descriptionSolution[index].description
-        });
+        switch (event.target.id) {
+            case "currentSolution1":
+                this.setState({
+                    currentModificationIndex: index,
+                    currentModificationSectionTitle: this.state.descriptionSolution[index].title,
+                    currentModificationSectionDescription: this.state.descriptionSolution[index].description
+                });
+                break;
+
+            case "DeleteSectionCurrentSolution1":
+                this.setState({
+                    currentModificationIndex: index
+                });
+                break;
+        
+            default:
+                break;
+        }
     }
 
     getStartedsolution = () => {
@@ -263,8 +278,10 @@ class ModificationSolution extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.solutionAdmin !== this.props.solutionAdmin) {
+            let description = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].description);
             this.setState({
-                solutionAdmin: this.props.solutionAdmin
+                solutionAdmin: this.props.solutionAdmin,
+                descriptionSolution:description
             });
 
         } else if (prevProps.idToEdit !== this.props.idToEdit) {
@@ -317,8 +334,12 @@ class ModificationSolution extends Component {
         this.setState({
             descriptionSolution: arrayDescription,
             titrePage: titrePageAdmin,
-            nameSolution: nameSolutionAdmin
-        })
+            nameSolution: nameSolutionAdmin,
+            checkBox:false,
+            currentModificationSectionDescription:[],
+            currentModificationSectionTitle:"",
+            currentModificationIndex:null
+        });
 
     }
 
@@ -336,6 +357,7 @@ class ModificationSolution extends Component {
         objet.title = currentModificationSectionTitle;
         objet.description = currentModificationSectionDescription;
 
+
         for (let i = 0; i < descriptionSolution.length; i++) {
             if (i === currentModificationIndex) {
                 array.push(objet);
@@ -344,10 +366,7 @@ class ModificationSolution extends Component {
             }
         }
 
-        this.setState({
-            descriptionSolution: array,
-            inputValisationAddSection: false
-        });
+
 
         console.log("descriptionSolution :", descriptionSolution);
 
@@ -403,13 +422,13 @@ class ModificationSolution extends Component {
 
         //fetch upload image(s)
         if (this.state.fileImageCaroussel.length > 0 || this.state.fileImageLogoSolution.name) {
-          
+
             let documentSendToBack = [];
             for (let array of this.state.fileImageCaroussel) {
                 documentSendToBack.push(array);
             }
 
-            if(this.state.fileImageLogoSolution.name){
+            if (this.state.fileImageLogoSolution.name) {
                 documentSendToBack.push(this.state.fileImageLogoSolution);
             }
 
@@ -422,14 +441,16 @@ class ModificationSolution extends Component {
             await postImages(uploadImage);
         }
 
-        this.setState({ 
+        this.setState({
             fileImageCaroussel: [],
             fileImageLogoSolution: [],
             currentModificationSectionDescription: [],
             currentModificationSectionTitle: "",
-            currentModificationSectionDescriptionList: "" 
+            currentModificationSectionDescriptionList: "",
+            inputValisationAddSection: false,
+            currentModificationIndex:null
         });
-        
+
         this.props.getStartedSolutionAdmin();
     }
 
@@ -448,6 +469,13 @@ class ModificationSolution extends Component {
             currentModificationSectionTitle: "",
             inputValisationAddSection: true
         });
+    }
+
+    handleClickDeleteDescriptionSection = () => {
+        let arrayDescription = this.state.descriptionSolution;
+        arrayDescription.splice(this.state.currentModificationIndex, 1);
+        this.setState({descriptionSolution:arrayDescription, checkBox:false, currentModificationIndex:null});
+        this.handleClickValidation();
     }
 
 
@@ -488,7 +516,7 @@ class ModificationSolution extends Component {
                             <h5 className="mb-0">
                                 <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" id="section2" onClick={this.toggleCollapse}>
                                     Section 2
-                </button>
+                                </button>
                             </h5>
                         </div>
                         <div id="collapseTwo" className={`collapse ${this.state.toggleCollapse[1]}`} aria-labelledby="headingTwo" data-parent="#accordion">
@@ -509,7 +537,8 @@ class ModificationSolution extends Component {
                                                     </div>
                                                 ))}
                                             </ul>
-                                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#currentSolution" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
+                                            <button type="button" className="btn btn-primary mr-1" data-toggle="modal" data-target="#currentSolution" id="currentSolution1" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
+                                            <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#DeleteSectionCurrentSolution" id="DeleteSectionCurrentSolution1" onClick={this.handlerClickDescriptionSection.bind(this, index)}>x</button>
                                         </div>
                                     ))}
 
@@ -746,8 +775,46 @@ class ModificationSolution extends Component {
                         </div>
                     </div>
                 </div>
+
+                {/* Modal delete section 2 */}
+                <div className="modal fade" id="DeleteSectionCurrentSolution" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">supprimer la section</h5>
+                            </div>
+
+                            <div className="modal-body">
+
+                                <div className="form-group" >
+                                    <label htmlFor="exampleFormControlSelect2">Etes-vous certain de vouloir supprimer cette solution ?</label>
+                                </div>
+
+                                <form className="was-validated">
+                                    <div className="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" className="custom-control-input" id="customControlValidation2" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox} />
+                                        <label className="custom-control-label" htmlFor="customControlValidation2">confirmation de la suppression</label>
+                                    </div>
+                                </form>
+
+                                <div className="modal-footer">
+                                    {this.state.checkBox
+                                        ?
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Oui</button>
+                                        :
+                                        <button type="button" className="btn btn-secondary">Oui</button>
+                                    }
+                                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <button className="btn btn-secondary" onClick={this.closeWindowAddSolution}>Fermer le panneau des modifications</button>
             </div>
+
+
         )
     }
 }

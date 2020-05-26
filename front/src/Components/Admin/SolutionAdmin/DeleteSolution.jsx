@@ -11,7 +11,7 @@ class DeleteSolution extends Component{
         this.state = {
             solution: [],
             titreSection:"",
-            checkBox:""
+            checkBox:false
         }
     }
 
@@ -46,7 +46,7 @@ class DeleteSolution extends Component{
 
     }
 
-    cancelDeleteSpec = () => {
+    cancelDeleteSolution = () => {
         this.setState({checkBox:false});
 
     }
@@ -63,8 +63,7 @@ class DeleteSolution extends Component{
                 </div>
                 <form className="was-validated">
                     <div className="custom-control custom-checkbox mb-3">
-                        { this.state.checkBox ? <input type="checkbox" className="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
-                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required onChange={this.handleChangeCheckBox} /> }
+                        <input type="checkbox" className="custom-control-input" id="customControlValidation1" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox}/> 
                         <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>
@@ -75,7 +74,7 @@ class DeleteSolution extends Component{
                         :
                         <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSpec}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSolution}>Annuler</button>
                 </div>
 
             </div>

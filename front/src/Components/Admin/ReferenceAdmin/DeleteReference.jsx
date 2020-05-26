@@ -11,7 +11,7 @@ class DeleteReference extends Component{
         this.state = {
             reference: [],
             titreSection:"",
-            checkBox:""
+            checkBox:false
         }
     }
 
@@ -44,7 +44,7 @@ class DeleteReference extends Component{
 
     }
 
-    cancelDeleteSpec = () => {
+    cancelDeleteReference = () => {
         this.setState({checkBox:false});
 
     }
@@ -61,8 +61,7 @@ class DeleteReference extends Component{
                 </div>
                 <form className="was-validated">
                     <div className="custom-control custom-checkbox mb-3">
-                        { this.state.checkBox ? <input type="checkbox" className="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
-                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required onChange={this.handleChangeCheckBox} /> }
+                        <input type="checkbox" className="custom-control-input" id="customControlValidation1" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox} />
                         <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>
@@ -73,7 +72,7 @@ class DeleteReference extends Component{
                         :
                         <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSpec}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteReference}>Annuler</button>
                 </div>
 
             </div>

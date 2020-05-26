@@ -48,8 +48,15 @@ class ModificationReference extends Component {
 
       inputValisationAddSection: false,
 
+      checkBox: false,
+
       toggleCollapse: ["hide", "hide", "hide"]
     }
+  }
+
+
+  handleChangeCheckBox = (event) => {
+    this.setState({ checkBox: event.target.checked });
   }
 
   toggleCollapse = (event) => {
@@ -251,12 +258,25 @@ class ModificationReference extends Component {
   }
 
   handlerClickDescriptionSection = (index, event) => {
-    this.setState({
-      currentModification: event.target.id,
-      currentModificationIndex: index,
-      currentModificationSectionTitle: this.state.descriptionReference[index].title,
-      currentModificationSectionDescription: this.state.descriptionReference[index].description
-    });
+    switch (event.target.id) {
+      case "currentReference1":
+        this.setState({
+          currentModificationIndex: index,
+          currentModificationSectionTitle: this.state.descriptionReference[index].title,
+          currentModificationSectionDescription: this.state.descriptionReference[index].description
+        });
+        break;
+
+      case "DeleteSectionCurrentReference1":
+        this.setState({
+          currentModificationIndex: index
+        });
+        break;
+
+      default:
+        break;
+    }
+
   }
 
   getStartedreference = () => {
@@ -300,8 +320,10 @@ class ModificationReference extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.referenceAdmin !== this.props.referenceAdmin) {
+      let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
       this.setState({
-        referenceAdmin: this.props.referenceAdmin
+        referenceAdmin: this.props.referenceAdmin,
+        descriptionReference:description
       });
 
     } else if (prevProps.idToEdit !== this.props.idToEdit) {
@@ -354,7 +376,12 @@ class ModificationReference extends Component {
     this.setState({
       descriptionReference: arrayDescription,
       titrePage: titrePageAdmin,
-      nameReference: nameReferenceAdmin
+      nameReference: nameReferenceAdmin,
+      checkBox: false,
+      currentModificationSectionDescription: [],
+      currentModificationSectionTitle: "",
+      currentModificationIndex: null
+
     })
 
   }
@@ -381,13 +408,6 @@ class ModificationReference extends Component {
         array.push(descriptionReference[i])
       }
     }
-
-    this.setState({
-      descriptionReference: array,
-      inputValisationAddSection: false
-    });
-
-    console.log("descriptionReference :", descriptionReference);
 
     let image_id = this.props.refToEdit[1];
 
@@ -469,7 +489,9 @@ class ModificationReference extends Component {
       fileImageLogoSolution: [],
       currentModificationSectionDescription: [],
       currentModificationSectionTitle: "",
-      currentModificationSectionDescriptionList: ""
+      currentModificationSectionDescriptionList: "",
+      inputValisationAddSection: false,
+      currentModificationIndex:null
     });
 
     this.props.getStartedreferenceAdmin();
@@ -491,6 +513,13 @@ class ModificationReference extends Component {
       inputValisationAddSection: true
     });
 
+  }
+
+  handleClickDeleteDescriptionSection = () => {
+    let arrayDescription = this.state.descriptionReference;
+    arrayDescription.splice(this.state.currentModificationIndex, 1);
+    this.setState({ descriptionReference: arrayDescription, checkBox: false, currentModificationIndex: null });
+    this.handleClickValidation();
   }
 
 
@@ -552,7 +581,9 @@ class ModificationReference extends Component {
                           </div>
                         ))}
                       </ul>
-                      <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#currentReference" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
+                      <button type="button" className="btn btn-primary mr-1" data-toggle="modal" data-target="#currentReference" id="currentReference1" onClick={this.handlerClickDescriptionSection.bind(this, index)}>modifier</button>
+                      <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#DeleteSectionCurrentReference" id="DeleteSectionCurrentReference1" onClick={this.handlerClickDescriptionSection.bind(this, index)}>x</button>
+
                     </div>
                   ))}
 
@@ -841,6 +872,42 @@ class ModificationReference extends Component {
             </div>
           </div>
         </div>
+
+        {/* Modal delete section 2 */}
+        <div className="modal fade" id="DeleteSectionCurrentReference" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">supprimer la section</h5>
+              </div>
+
+              <div className="modal-body">
+
+                <div className="form-group" >
+                  <label htmlFor="exampleFormControlSelect2">Etes-vous certain de vouloir supprimer cette référence ?</label>
+                </div>
+
+                <form className="was-validated">
+                  <div className="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" className="custom-control-input" id="customControlValidation2" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox} />
+                    <label className="custom-control-label" htmlFor="customControlValidation2">confirmation de la suppression</label>
+                  </div>
+                </form>
+
+                <div className="modal-footer">
+                  {this.state.checkBox
+                    ?
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Oui</button>
+                    :
+                    <button type="button" className="btn btn-secondary">Oui</button>
+                  }
+                  <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button className="btn btn-secondary" onClick={this.closeWindowAddReference}>Fermer le panneau des modifications</button>
       </div>
     )
