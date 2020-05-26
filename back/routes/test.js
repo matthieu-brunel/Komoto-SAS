@@ -10,12 +10,13 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const test = req.body;
-  const sql ="INSERT INTO test (name, title, description, language, image_id) VALUES (?, ?, ?, ?, ?)";
+  const sql ="INSERT INTO test (name, title, title_section, description, language, image_id) VALUES (?, ?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
       test.name,
       test.title,
+      test.title_section,
       test.description,
       test.language,
       test.image_id
@@ -35,7 +36,7 @@ router.post("/",Auth, (req, res) => {
 
 router.get("/", (req, res) => {
   console.log(req.query);
-  const sql = `SELECT t.name, t.title, t.description, t.image_id, i.id, i.name, i.url, i.alt, l.locale FROM test AS t JOIN language AS l ON t.language=l.id JOIN image AS i ON t.image_id=i.id WHERE l.locale=?`;
+  const sql = `SELECT t.name, t.title, t.title_section, t.description, t.image_id, t.id, i.name, i.url, i.alt, l.locale FROM test AS t JOIN language AS l ON t.language=l.id JOIN image AS i ON t.image_id=i.id WHERE l.locale=?`;
   connection.query(sql, [req.query.locale],(error, results, fields) => {
    
     if (error) {

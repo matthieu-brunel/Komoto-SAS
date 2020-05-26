@@ -4,14 +4,16 @@ const connection = require("../config");
 const parser = require("body-parser");
 const Auth = require('./../middleware/auth');
 router.use(parser.json());
+var fs = require('fs-js');
+const path = require('path');
 
-router.post("/",Auth, (req, res) => {
+router.post("/", Auth, (req, res) => {
   const image = req.body;
   console.log(image)
   const sql = "INSERT INTO image (name, url, alt ,homepage_id, section) VALUES (? , ? , ? , ?, ?)";
   connection.query(
     sql,
-    [image.name, image.url, image.alt , image.homepage_id, image.section],
+    [image.name, image.url, image.alt, image.homepage_id, image.section],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't post image" + error);
@@ -46,19 +48,18 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.put("/:id",Auth, (req, res) => {
+router.put("/:id", Auth, (req, res) => {
   const idImage = req.params.id;
   const image = req.body;
-  console.log(image);
-  const sql = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${idImage}`;
+  const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${idImage}`;
   connection.query(
-    sql,
+    sqlUpdate,
     [
-      image.name, 
+      image.name,
       image.url,
-      image.alt, 
-      image.homepage_id, 
-      image.section, 
+      image.alt,
+      image.homepage_id,
+      image.section,
       idImage
     ],
     (error, results, fields) => {
@@ -68,18 +69,18 @@ router.put("/:id",Auth, (req, res) => {
         res.json(req.body);
       }
     }
-  );
+  )
 });
 
-router.delete("/:id",Auth, (req, res) => {
+router.delete("/:id", Auth, (req, res) => {
   const idImage = req.params.id;
-  console.log("id image :",idImage);
+
   const sql = "DELETE FROM image WHERE id=?";
   connection.query(sql, [idImage], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put image" + error);
     } else {
-      res.status(200).json({"id":req.params.id});
+      res.status(200).json({ "id": req.params.id });
     }
   });
 });

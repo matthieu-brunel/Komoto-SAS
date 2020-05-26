@@ -5,11 +5,11 @@ import deleteRessources from '../../../utils/deleteRessources';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class DeleteSolution extends Component{
+class DeleteReference extends Component{
     constructor(props){
         super(props);
         this.state = {
-            solution: [],
+            reference: [],
             titreSection:"",
             checkBox:false
         }
@@ -19,9 +19,9 @@ class DeleteSolution extends Component{
         this.setState({checkBox:event.target.checked});
     }
 
-    deletesolution = () => {
+    deletereference = () => {
 
-        if(this.props.solToDelete.length > 0){
+        if(this.props.refToDelete.length > 0){
             const options = {
                 method:'DELETE',
                 headers: new Headers({
@@ -30,23 +30,21 @@ class DeleteSolution extends Component{
                 }),
             }
         
-        
-            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/solution/${this.props.solToDelete[0]}`;
-            console.log(url);
-            fetch(url, options).then(res => res.json()).then(res => console.log(res));
-    
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.solToDelete[1]}`;
-            console.log(url);
+            let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.props.refToDelete[0]}`;
     
             fetch(url, options).then(res => res.json()).then(res => console.log(res));
-
+    
+            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.props.refToDelete[1]}`;
+    
+            fetch(url, options).then(res => res.json()).then(res => console.log(res));
+    
             this.setState({checkBox:false});
-            this.props.getStartedSolutionAdmin();
+            this.props.getStartedreferenceAdmin();
         }
 
     }
 
-    cancelDeleteSolution = () => {
+    cancelDeleteReference = () => {
         this.setState({checkBox:false});
 
     }
@@ -59,22 +57,22 @@ class DeleteSolution extends Component{
         return(
             <div>
                 <div className="form-group" >
-                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette solution ?</label>
+                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette reference ?</label>
                 </div>
                 <form className="was-validated">
                     <div className="custom-control custom-checkbox mb-3">
-                        <input type="checkbox" className="custom-control-input" id="customControlValidation1" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox}/> 
+                        <input type="checkbox" className="custom-control-input" id="customControlValidation1" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox} />
                         <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>
                 <div className="modal-footer">
-                    {this.state.checkBox && this.props.solToDelete.length > 0
+                    {this.state.checkBox && this.props.refToDelete.length > 0
                         ?
-                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deletesolution}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deletereference}>Oui</button>
                         :
                         <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSolution}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteReference}>Annuler</button>
                 </div>
 
             </div>
@@ -83,4 +81,4 @@ class DeleteSolution extends Component{
 }
 
 
-export default DeleteSolution;
+export default DeleteReference;

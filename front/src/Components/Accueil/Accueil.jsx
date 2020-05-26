@@ -10,6 +10,7 @@ import Footer from "./../Footer/Footer"
 //import "animate.css/animate.min.css";
 import getRessources from "./../../utils/getRessources";
 //import ScrollAnimation from 'react-animate-on-scroll';
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class Accueil extends Component {
     constructor(props) {
@@ -23,10 +24,12 @@ class Accueil extends Component {
   componentDidMount = async () => {
     const { locale } = this.props;
    
-    let data = await getRessources("homepage", "solution", locale);
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/test?locale=' +  locale;
+    let data = await (await (fetch(url))).json();
+    console.log("locale:",locale)
+    console.log("solution:",data)
+    this.setState({solution:data});
   
-    this.setState({solution: data});
-    console.log(data)
   }; 
 
   render(){
