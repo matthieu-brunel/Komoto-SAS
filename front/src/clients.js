@@ -17,16 +17,16 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 let prefix = "http://localhost:3000";
-let urlAdmin = [prefix+"/SolutionAdmin" ,
-prefix+"/ContactAdmin",
-prefix+"/ReferenceAdmin",
-prefix+"/DemonstrationAdmin",
-prefix+"/Mail",
-prefix+"/Login",
-prefix+"/user",
-prefix+"/HomepageAdmin",
-prefix+"/Seo",
-prefix+"/Langues"];
+let urlAdmin = [prefix + "/SolutionAdmin",
+prefix + "/ContactAdmin",
+prefix + "/ReferenceAdmin",
+prefix + "/DemonstrationAdmin",
+prefix + "/Mail",
+prefix + "/Login",
+prefix + "/user",
+prefix + "/HomepageAdmin",
+prefix + "/Seo",
+prefix + "/Langues"];
 
 
 let monUrl = window.location.href;
@@ -56,6 +56,7 @@ class Client extends Component {
 
 
     getStarted = async () => {
+        
         const { idLang } = this.state;
 
         const options = {
@@ -69,10 +70,21 @@ class Client extends Component {
         let data_lang = await (await (fetch(url, options))).json();
 
         //Chargement de toutes les solutions
-        url = "http://localhost:5000/api/solution/all";
+        url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + idLang;
         let solutionsAll = await (await (fetch(url, options))).json();
+         console.log("test", solutionsAll); 
+        let arraySolution = [];
 
-  
+         for (let obj of solutionsAll) {
+            let url = JSON.parse(obj.url);
+            let description = JSON.parse(obj.description);
+            obj.url = url;
+            obj.description = description;
+            arraySolution.push(obj);
+        } 
+       
+
+
 
 
 
@@ -84,16 +96,16 @@ class Client extends Component {
         let array_solution = [];
 
 
-   /*      for (let i in section_filtered) {
-            let url = `http://localhost:5000/api/solution?section=${section_filtered[i]}&locale=${data_lang[0].locale}`;
-
-            array_solution.push(await (await (fetch(url, options))).json())
-        } */
+        /*      for (let i in section_filtered) {
+                 let url = `http://localhost:5000/api/solution?section=${section_filtered[i]}&locale=${data_lang[0].locale}`;
+     
+                 array_solution.push(await (await (fetch(url, options))).json())
+             } */
 
         this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
         this.props.dispatch({ type: GET_ID_LANG.type, idLang });
 
-        this.setState({ array_name_solution: section_filtered });
+        this.setState({ array_name_solution: section_filtered, solution: arraySolution });
 
     }
 

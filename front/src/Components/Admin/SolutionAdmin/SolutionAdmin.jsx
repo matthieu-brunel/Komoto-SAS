@@ -18,6 +18,7 @@ class SolutionAdmin extends Component {
       solution: [],
       titreSection: "",
       specSelected: [],
+      titreAccueil: "",
 
       /*solution*/
       titreSpec: "",
@@ -39,10 +40,10 @@ class SolutionAdmin extends Component {
       solToEdit: [],
       arrayLang: [],
       langSelected: "fr",
-      idLang:null,
+      idLang: null,
       solutionAdmin: [],
-      openEditSolution:false,
-      openAddSolution:false
+      openEditSolution: false,
+      openAddSolution: false
 
     }
 
@@ -88,6 +89,10 @@ class SolutionAdmin extends Component {
     switch (event.target.id) {
       case "titre-section":
         this.setState({ titreSection: event.target.value });
+        break;
+
+      case "titre-Accueil":
+        this.setState({ titreAccueil: event.target.value });
         break;
 
       case "titre-spec-admin":
@@ -140,10 +145,10 @@ class SolutionAdmin extends Component {
       }
     }
 
-    this.setState({ 
+    this.setState({
       arrayLang: data,
-      idLang:language
-     });
+      idLang: language
+    });
   }
 
 
@@ -157,7 +162,7 @@ class SolutionAdmin extends Component {
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&locale=' + this.state.langSelected;
     const data = await (await (fetch(url))).json();
-    console.log("DATA : ",data);
+    console.log("DATA : ", data);
     this.setState({ solutionAdmin: data });
   }
 
@@ -204,7 +209,7 @@ class SolutionAdmin extends Component {
     arrayIdRef.push(this.state.solutionAdmin[index].id);
     arrayIdRef.push(this.state.solutionAdmin[index].image_id);
 
-    this.setState({ solToDelete: arrayIdRef, openAddSolution:false, openEditSolution:false});
+    this.setState({ solToDelete: arrayIdRef, openAddSolution: false, openEditSolution: false });
   }
 
   getIdSolutionToEdit = (index, event) => {
@@ -212,112 +217,22 @@ class SolutionAdmin extends Component {
     let arrayIdSolution = [];
     arrayIdSolution.push(this.state.solutionAdmin[index].id);
     arrayIdSolution.push(this.state.solutionAdmin[index].image_id);
-    this.setState({ 
+    this.setState({
       solToEdit: arrayIdSolution,
       idToEdit: index,
-      openEditSolution:true,
-      openAddSolution:false 
+      openEditSolution: true,
+      openAddSolution: false
     });
-  
   }
 
-  editDescription = (index, event) => {
-
-    let solution = this.state.solutionAdmin;
-    let description = this.state.solutionAdmin[0].description;
-
-    description.splice(index, 1);
-
-    this.setState({ arrayDescription: solution[0].description });
-  }
-
-  editsolution = () => {
-
-    function init(data) {
-      const options = {
-        method: 'PUT',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          'authorization': 'Bearer ' + localStorage.getItem('token')
-        }),
-        body: JSON.stringify(data)
-      }
-      return options;
-    }
-
-    const { arrayLang, locale } = this.props;
-    let language = null;
-
-    for (let i = 0; i < arrayLang.length; i++) {
-      for (let [key, value] of Object.entries(arrayLang[i])) {
-        if (locale === value) {
-          language = arrayLang[i].id;
-        }
-      }
-    }
-
-    let data = {
-      "title": this.state.titreSection,
-      "subtitle": this.state.titreSpec,
-      "description": this.state.arrayDescription.join("/"),
-      "section": "solution",
-      "language": language,
-      "image_id": this.state.solToEdit[1]
-    };
-
-    let dataImage = {
-      "name": this.state.nameImage,
-      "url": this.state.urlImage,
-      "alt": this.state.altImage,
-      "section": "solution",
-      "homepage_id": 0
-    };
-
-
-    const documentImage = new FormData();
-    documentImage.append("file", this.state.document);
-
-
-    const options = {
-      method: "POST",
-      mode: "cors",
-      credentials: "same-origin",
-      redirect: "follow",
-      solerrer: "no-solerrer",
-      body: documentImage
-    }
-
-
-
-    if (this.state.specSelected.length > 0) {
-
-      // fetch pour envoi d el'image dans le dossier back/public/images
-      let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-      fetch(url, options).then(res => res.json()).then(res => console.log(res));
-
-      // fetch pour modification des champs de la table image
-      url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.solToEdit[1]}`;
-      fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
-
-      // fetch pour modification des champs de la table solution
-      url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/solution/${this.state.solToEdit[0]}`;
-      fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
-
-
-      //on réactualise les solutions
-      this.getStartedSolutionAdmin();
-      $("#uploadFileEditsolutionAdmin")[0].value = "";
-    }
-
-  }
 
   closeModalModificationSolution = (bool) => {
-    console.log("bool :",bool)
-    this.setState({openEditSolution:bool, openAddSolution:bool});
+    console.log("bool :", bool)
+    this.setState({ openEditSolution: bool, openAddSolution: bool });
   }
 
   handleClickOpenAddSolution = () => {
-    this.setState({openAddSolution:true, openEditSolution:false});
+    this.setState({ openAddSolution: true, openEditSolution: false });
   }
 
 
@@ -357,7 +272,7 @@ class SolutionAdmin extends Component {
                 </tr>
               </thead>
               <tbody>
-                 {this.state.solutionAdmin.length > 0 &&
+                {this.state.solutionAdmin.length > 0 &&
                   this.state.solutionAdmin.map((element, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
@@ -377,15 +292,15 @@ class SolutionAdmin extends Component {
 
 
         {/* <!-- Nouvelle solution --> */}
-       {this.state.openAddSolution && <div>
-           <AjoutSolution 
+        {this.state.openAddSolution && <div>
+          <AjoutSolution
             locale={this.state.langSelected}
             arrayLang={this.state.arrayLang}
             solution={this.state.solution}
             getStartedSolutionAdmin={this.getStartedSolutionAdmin}
             closeModalModificationSolution={this.closeModalModificationSolution} />
         </div>
-}
+        }
 
         {/* <!-- suppression d'une solution --> */}
         <div className="modal fade" id="delete-solution-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -395,9 +310,9 @@ class SolutionAdmin extends Component {
                 <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une solution</h5>
               </div>
               <div className="modal-body">
-                <DeleteSolution 
-                  solution={this.state.solution} 
-                  solToDelete={this.state.solToDelete} 
+                <DeleteSolution
+                  solution={this.state.solution}
+                  solToDelete={this.state.solToDelete}
                   getStartedSolutionAdmin={this.getStartedSolutionAdmin}
                   closeModalModificationSolution={this.closeModalModificationSolution} />
               </div>
@@ -407,15 +322,15 @@ class SolutionAdmin extends Component {
 
         {/* <!-- Modification d'une solution --> */}
 
-        { this.state.openEditSolution && <div>
-           <ModificationSolution 
+        {this.state.openEditSolution && <div>
+          <ModificationSolution
             solutionAdmin={this.state.solutionAdmin}
-            idToEdit={this.state.idToEdit} 
+            idToEdit={this.state.idToEdit}
             solToEdit={this.state.solToEdit}
             closeModalModificationSolution={this.closeModalModificationSolution}
             idLang={this.state.idLang}
             getStartedSolutionAdmin={this.getStartedSolutionAdmin}
-            />
+          />
         </div>}
 
         {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}

@@ -14,6 +14,8 @@ class AjoutSolutionAdmin extends Component {
             titrePage: "",
             titreSection: "",
             arraySections: [],
+            titreAccueil: "",
+
 
             /*solution*/
             nameSolution: "",
@@ -60,6 +62,10 @@ class AjoutSolutionAdmin extends Component {
 
             case "titre-solution-section":
                 this.setState({ titreSection: event.target.value });
+                break;
+
+            case "titrePage-Accueil":
+                this.setState({ titreAccueil: event.target.value });
                 break;
 
             case "addDescription-solution-admin":
@@ -229,6 +235,7 @@ class AjoutSolutionAdmin extends Component {
 
         let dataSolution = {
             'title': this.state.titrePage,
+            'title_section': this.state.titreAccueil,
             "subtitle": this.state.nameSolution,
             'description': JSON.stringify(sectionDescription),
             'language': idLang,
@@ -253,10 +260,10 @@ class AjoutSolutionAdmin extends Component {
             data.append('file', documentTosendBack[x][0])
         }
 
-        console.log(data);
+        console.log("DATA SOLUTION : ", dataSolution);
 
 
-        await postRessources("solution", dataImage, dataSolution, data);
+       await postRessources("solution", dataImage, dataSolution, data);
 
         this.setState({
             nameSolution: "",
@@ -269,7 +276,7 @@ class AjoutSolutionAdmin extends Component {
             arrayImage: [],
             arraySections: [],
             nameSolution: "",
-            titrePage: "",
+            titreAccueil: "",
             document: [],
             documentLogoSolution: [],
             objetImageCaroussel: [],
@@ -381,7 +388,13 @@ class AjoutSolutionAdmin extends Component {
 
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="form-group">
-                                <label htmlFor="titrePage-solution">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                <label htmlFor="titrePage-Accueil">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre accueil" onChange={this.handleChangeInput} />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label htmlFor="titrePage-solution">Titre de la Solution <span style={{ color: "red" }}>*</span></label>
                                 <input className="form-control " value={this.state.titrePage} id="titrePage-solution" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
                             </div>
 
@@ -577,7 +590,7 @@ class AjoutSolutionAdmin extends Component {
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeWindowAddSolution}>Fermer</button>
 
                                 {
-                                    this.state.objetImageCaroussel.length > 0 && this.state.objetImageLogoSolution.length > 0 && this.state.titrePage !== "" && this.state.nameSolution !== "" ?
+                                    this.state.objetImageCaroussel.length > 0 && this.state.objetImageLogoSolution.length > 0 && this.state.titrePage !== "" && this.state.nameSolution !== "" && this.state.titreAccueil !== "" ?
                                         <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewsolutionAdmin}>Enregistrer</button>
                                         :
                                         <button type="button" className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}

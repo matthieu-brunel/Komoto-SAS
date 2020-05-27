@@ -10,29 +10,52 @@ class SolutionAccueil extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      locale:""
+      solution : [],
     }
   }
+    componentDidMount = async () => {
+      
+     
+      const { locale } = this.props;
 
-
-  
-  render() {
+      let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + locale ;
+      console.log("Accueil", url)
+      let data = await (await (fetch(url))).json();
+      console.log("solution:", data)
     
+      let arraySolution = [];
+  
+      for (let obj of data) {
+        
+        let url = JSON.parse(obj.url);
+        let description = JSON.parse(obj.description);
+        obj.url = url;
+        obj.description = description;
+        arraySolution.push(obj);
+      }
+      this.setState({solution: arraySolution });
+    };
+  
+
+
+
+  render() {
+
     const { solution, handleClickSolution } = this.props;
-   
+    
     return (
       <div className=" ">
-        {solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5"><h2 className="sol-title-text">{solution[0].title_section}</h2></div>}
-        {solution.map((solution, index) => {
+        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5"><h2 className="sol-title-text">{this.state.solution[0].title_section}</h2></div>}
+        {this.state.solution.map((solution, index) => {
           return (
-            <div key={index} className="sol-card-all">
+             <div key={index} className="sol-card-all">
               <div className="d-flex container p-5 solution  ">
-              <ScrollAnimation animateIn='fadeIn'>
-                <div className="sol-img pt-5 ">
-                  <img  className="img-solution" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.split("/")[0]} alt={solution.alt.split("")[0]} />
-                </div>
+                <ScrollAnimation animateIn='fadeIn'>
+                  <div className="sol-img pt-5 ">
+                    <img className="img-solution" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.logoSolution[0].name} alt={solution.url.logoSolution[0].alt} />
+                  </div>
                 </ScrollAnimation>
-               
+
                 <div className="sol-text pt-5  sol-body">
                  
                 <ScrollAnimation animateIn='fadeIn'>
@@ -45,9 +68,9 @@ class SolutionAccueil extends Component {
                   </div>
                   </ScrollAnimation>
 ​
-                </div>
+                </div> 
               </div>
-            </div>
+            </div> 
           );
         })}
       </div>

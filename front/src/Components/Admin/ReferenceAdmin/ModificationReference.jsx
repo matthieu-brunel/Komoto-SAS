@@ -18,6 +18,7 @@ class ModificationReference extends Component {
       nameReference: "",
       descriptionReference: [],
       imagesReference: [],
+      titreAccueil: "",
 
       currentModificationTitle: "",
       currentModificationDescription: "",
@@ -122,6 +123,10 @@ class ModificationReference extends Component {
 
       case "name-reference-admin":
         this.setState({ nameReference: event.target.value });
+        break;
+
+      case "name-Accueil":
+        this.setState({ titreAccueil: event.target.value });
         break;
 
       case "title-description-modification-reference-admin":
@@ -301,6 +306,7 @@ class ModificationReference extends Component {
     this.setState({
       titrePage: this.props.referenceAdmin[this.props.idToEdit].title,
       nameReference: this.props.referenceAdmin[this.props.idToEdit].subtitle,
+      titreAccueil: this.props.referenceAdmin[this.props.idToEdit].title_section,
       descriptionReference: description,
       objetImageLogoRef: arrayRef,
       objetImageLogoSolution: arraySolution,
@@ -323,7 +329,7 @@ class ModificationReference extends Component {
       let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
       this.setState({
         referenceAdmin: this.props.referenceAdmin,
-        descriptionReference:description
+        descriptionReference: description
       });
 
     } else if (prevProps.idToEdit !== this.props.idToEdit) {
@@ -414,6 +420,7 @@ class ModificationReference extends Component {
     let dataReference = {
       'title': this.state.titrePage,
       "subtitle": this.state.nameReference,
+      "title_section": this.state.titreAccueil,
       'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionReference),
       'language': this.props.idLang,
       'image_id': image_id,
@@ -491,7 +498,7 @@ class ModificationReference extends Component {
       currentModificationSectionTitle: "",
       currentModificationSectionDescriptionList: "",
       inputValisationAddSection: false,
-      currentModificationIndex:null
+      currentModificationIndex: null
     });
 
     this.props.getStartedreferenceAdmin();
@@ -539,11 +546,15 @@ class ModificationReference extends Component {
             <div id="collapseOne" className={`collapse ${this.state.toggleCollapse[0]}`} aria-labelledby="headingOne" data-parent="#accordion">
               <div className="card-body">
                 <div className="form-group">
-                  <label htmlFor="titre-section">Titre de la page</label>
-                  <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+                  <label htmlFor="name-Accueil">Titre de la page (page d'accueil)</label>
+                  <input className="form-control form-control-sm" value={this.state.titreAccueil} id="name-Accueil" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                 </div>
                 <div className="form-group">
-                  <label>Saisir le titre de la reference</label>
+                  <label htmlFor="titre-section">Titre de la page</label>
+                  <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
+                </div>
+                <div className="form-group">
+                  <label>Saisir le nom de la reference</label>
                   <input type="text" className="form-control form-control-sm" value={this.state.nameReference} id="name-reference-admin" onChange={this.handleChangeInput} />
                 </div>
                 <div className="alert alert-success registered-title-ok" role="alert">

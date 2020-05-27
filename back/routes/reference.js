@@ -11,13 +11,14 @@ router.post("/", Auth, (req, res) => {
   const reference = req.body;
   console.log(reference)
   const sql =
-    "INSERT INTO reference (subtitle, title, section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?)";
+    "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?, ?)";
   connection.query(
     sql,
     [
-      reference.subtitle,
       reference.title,
+      reference.subtitle,
       reference.section,
+      reference.title_section,
       reference.description,
       reference.image_id,
       reference.language
@@ -34,7 +35,7 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.description ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
+  const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
   connection.query(sql, [req.query.section, req.query.section, req.query.locale], (error, results, fields) => {
     if (error) {
 
@@ -77,13 +78,14 @@ router.put("/:id", Auth, (req, res) => {
   const referenceDataImage = req.body[1];
 
 
-  const sql = `UPDATE reference SET subtitle=?, title=?, section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
+  const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
   connection.query(
     sql,
     [
-      reference.subtitle,
       reference.title,
+      reference.subtitle,
       reference.section,
+      reference.title_section,
       reference.description,
       reference.image_id,
       reference.language,
@@ -106,11 +108,11 @@ router.put("/:id", Auth, (req, res) => {
             let currentObj = JSON.parse(results[0].url);
             let newObj = JSON.parse(referenceDataImage.url);
 
-            if(newObj.logoRef[0].name !== currentObj.logoRef[0].name){
+            if (newObj.logoRef[0].name !== currentObj.logoRef[0].name) {
               arrayImageToDelete.push(currentObj.logoRef[0].name);
             }
 
-            if(newObj.logoSolution[0].name !== currentObj.logoSolution[0].name){
+            if (newObj.logoSolution[0].name !== currentObj.logoSolution[0].name) {
               arrayImageToDelete.push(currentObj.logoSolution[0].name);
             }
 
@@ -228,9 +230,9 @@ router.delete("/:id", Auth, (req, res) => {
     if (error) {
       res.status(501).send("couldn't get solution for delete images solution");
     } else {
-      
+
       console.log(JSON.parse(results[0].url));
-  
+
       let arrayImageToDelete = [];
 
       let currentObj = JSON.parse(results[0].url);
@@ -243,7 +245,7 @@ router.delete("/:id", Auth, (req, res) => {
       }
 
       console.log(arrayImageToDelete);
- 
+
       if (arrayImageToDelete.length > 0) {
         for (let i = 0; i < arrayImageToDelete.length; i++) {
           fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
@@ -253,14 +255,14 @@ router.delete("/:id", Auth, (req, res) => {
         }
       }
 
-     const sqlReference = "DELETE FROM reference WHERE id=?";
+      const sqlReference = "DELETE FROM reference WHERE id=?";
       connection.query(sqlReference, [idReference], (error, results, fields) => {
         if (error) {
           res.status(501).send("couldn't put image" + error);
         } else {
           res.status(200).json({ "id": req.params.id });
         }
-      }); 
+      });
     }
   });
 });

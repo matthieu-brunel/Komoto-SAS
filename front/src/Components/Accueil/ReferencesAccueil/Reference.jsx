@@ -41,7 +41,7 @@ class ReferenceAccueil extends Component {
         <div className="div-title-reference mb-5">
           <h2 className="title-reference text-left">
             {this.state.reference.length > 0
-              ? this.state.reference[0].title
+              ? this.state.reference[0].title_section
               : "Titre 1"}
           </h2>
         </div>
@@ -52,7 +52,7 @@ class ReferenceAccueil extends Component {
                 <img
                   className="img-reference"
                   src={REACT_APP_SERVER_ADDRESS_FULL+"/images/" + element.url.logoRef[0].name}
-                  alt={element.alt}
+                  alt={element.url.logoRef[0].alt}
                 />
               </NavLink>
             </div>

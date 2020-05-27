@@ -17,6 +17,7 @@ class ModificationSolution extends Component {
             nameSolution: "",
             descriptionSolution: [],
             imagesSolution: [],
+            titreAccueil: "",
 
             currentModificationTitle: "",
             currentModificationDescription: "",
@@ -44,14 +45,14 @@ class ModificationSolution extends Component {
 
             inputValisationAddSection: false,
 
-            checkBox:false,
+            checkBox: false,
 
             toggleCollapse: ["hide", "hide", "hide"]
         }
     }
 
     handleChangeCheckBox = (event) => {
-        this.setState({checkBox:event.target.checked});
+        this.setState({ checkBox: event.target.checked });
     }
 
     toggleCollapse = (event) => {
@@ -113,6 +114,10 @@ class ModificationSolution extends Component {
 
             case "name-solution-admin":
                 this.setState({ nameSolution: event.target.value });
+                break;
+
+            case "name-Accueil":
+                this.setState({ titreAccueil: event.target.value });
                 break;
 
             case "title-description-modification-solution-admin":
@@ -238,7 +243,7 @@ class ModificationSolution extends Component {
                     currentModificationIndex: index
                 });
                 break;
-        
+
             default:
                 break;
         }
@@ -260,6 +265,7 @@ class ModificationSolution extends Component {
         this.setState({
             titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
             nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
+            titreAccueil:this.props.solutionAdmin[this.props.idToEdit].title_section,
             descriptionSolution: description,
             objetImageLogoSolution: arraySolution,
             objetImageCaroussel: images.imageCaroussel,
@@ -281,7 +287,7 @@ class ModificationSolution extends Component {
             let description = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].description);
             this.setState({
                 solutionAdmin: this.props.solutionAdmin,
-                descriptionSolution:description
+                descriptionSolution: description
             });
 
         } else if (prevProps.idToEdit !== this.props.idToEdit) {
@@ -335,10 +341,10 @@ class ModificationSolution extends Component {
             descriptionSolution: arrayDescription,
             titrePage: titrePageAdmin,
             nameSolution: nameSolutionAdmin,
-            checkBox:false,
-            currentModificationSectionDescription:[],
-            currentModificationSectionTitle:"",
-            currentModificationIndex:null
+            checkBox: false,
+            currentModificationSectionDescription: [],
+            currentModificationSectionTitle: "",
+            currentModificationIndex: null
         });
 
     }
@@ -349,6 +355,7 @@ class ModificationSolution extends Component {
             currentModificationIndex,
             currentModificationSectionDescription,
             currentModificationSectionTitle,
+
             objetImageLogoSolution,
             objetImageCaroussel } = this.state;
 
@@ -375,11 +382,14 @@ class ModificationSolution extends Component {
         let dataSolution = {
             'title': this.state.titrePage,
             "subtitle": this.state.nameSolution,
+            "title_section": this.state.titreAccueil,
             'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionSolution),
             'language': this.props.idLang,
             'image_id': image_id,
             "section": "solution"
         }
+
+        console.log("DATASOLUTION MODIFICATION :",dataSolution);
 
         // pour la modification du nom de la référence dans la table image,
         // nous sommes obligés de faire un fetch pour mettre a jours l'entiereté
@@ -448,7 +458,7 @@ class ModificationSolution extends Component {
             currentModificationSectionTitle: "",
             currentModificationSectionDescriptionList: "",
             inputValisationAddSection: false,
-            currentModificationIndex:null
+            currentModificationIndex: null
         });
 
         this.props.getStartedSolutionAdmin();
@@ -474,7 +484,7 @@ class ModificationSolution extends Component {
     handleClickDeleteDescriptionSection = () => {
         let arrayDescription = this.state.descriptionSolution;
         arrayDescription.splice(this.state.currentModificationIndex, 1);
-        this.setState({descriptionSolution:arrayDescription, checkBox:false, currentModificationIndex:null});
+        this.setState({ descriptionSolution: arrayDescription, checkBox: false, currentModificationIndex: null });
         this.handleClickValidation();
     }
 
@@ -495,11 +505,15 @@ class ModificationSolution extends Component {
                         <div id="collapseOne" className={`collapse ${this.state.toggleCollapse[0]}`} aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="card-body">
                                 <div className="form-group">
-                                    <label htmlFor="titre-section">Titre de la page</label>
-                                    <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
+                                    <label htmlFor="name-Accueil">Titre de la page (page d'accueil)</label>
+                                    <input className="form-control form-control-sm" value={this.state.titreAccueil} id="name-Accueil" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Saisir le titre de la solution</label>
+                                    <label htmlFor="titre-section">Titre de la Solution</label>
+                                    <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Saisir le nom de la solution</label>
                                     <input type="text" className="form-control form-control-sm" value={this.state.nameSolution} id="name-solution-admin" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="alert alert-success registered-title-ok" role="alert">
