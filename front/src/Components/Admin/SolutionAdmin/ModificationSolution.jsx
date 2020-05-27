@@ -265,6 +265,7 @@ class ModificationSolution extends Component {
         this.setState({
             titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
             nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
+            titreAccueil:this.props.solutionAdmin[this.props.idToEdit].title_section,
             descriptionSolution: description,
             objetImageLogoSolution: arraySolution,
             objetImageCaroussel: images.imageCaroussel,
@@ -354,6 +355,7 @@ class ModificationSolution extends Component {
             currentModificationIndex,
             currentModificationSectionDescription,
             currentModificationSectionTitle,
+
             objetImageLogoSolution,
             objetImageCaroussel } = this.state;
 
@@ -386,6 +388,8 @@ class ModificationSolution extends Component {
             'image_id': image_id,
             "section": "solution"
         }
+
+        console.log("DATASOLUTION MODIFICATION :",dataSolution);
 
         // pour la modification du nom de la référence dans la table image,
         // nous sommes obligés de faire un fetch pour mettre a jours l'entiereté

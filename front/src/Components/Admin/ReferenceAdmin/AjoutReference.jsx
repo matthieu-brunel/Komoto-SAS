@@ -14,6 +14,7 @@ class AjoutReferenceAdmin extends Component {
             titrePage: "",
             titreSection: "",
             arraySections: [],
+            titreAccueil: "",
 
             /*reference*/
             nameReference: "",
@@ -62,6 +63,10 @@ class AjoutReferenceAdmin extends Component {
 
             case "titre-reference-name":
                 this.setState({ nameReference: event.target.value });
+                break;
+
+            case "titrePage-Accueil-reference":
+                this.setState({ titreAccueil: event.target.value });
                 break;
 
             case "titre-reference-section":
@@ -259,6 +264,7 @@ class AjoutReferenceAdmin extends Component {
 
         let dataReference = {
             'title': this.state.titrePage,
+            'title_section': this.state.titreAccueil,
             "subtitle": this.state.nameReference,
             'description': JSON.stringify(sectionDescription),
             'language': idLang,
@@ -300,7 +306,7 @@ class AjoutReferenceAdmin extends Component {
             arrayImage: [],
             arraySections: [],
             nameReference: "",
-            titrePage: "",
+            titreAccueil: "",
             document: [],
             documentLogoRef: [],
             documentLogoSolution: [],
@@ -422,8 +428,13 @@ class AjoutReferenceAdmin extends Component {
 
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="form-group">
-                                <label htmlFor="titrePage-reference">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
+                                <label htmlFor="titrePage-Accueil-reference">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="titrePage-reference">Titre de la référence <span style={{ color: "red" }}>*</span></label>
+                                <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
                             </div>
 
 
@@ -669,7 +680,12 @@ class AjoutReferenceAdmin extends Component {
                         <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeWindowAddReference}>Fermer</button>
 
                         {
-                            this.state.objetImageCaroussel.length > 0 && this.state.objetImageLogoRef.length > 0 && this.state.objetImageLogoSolution.length > 0 && this.state.titrePage !== "" && this.state.nameReference !== "" ?
+                            this.state.objetImageCaroussel.length > 0 &&
+                                this.state.objetImageLogoRef.length > 0 &&
+                                this.state.objetImageLogoSolution.length > 0 &&
+                                this.state.titrePage !== "" &&
+                                this.state.nameReference !== "" &&
+                                this.state.titreAccueil !== "" ?
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewreferenceAdmin}>Enregistrer</button>
                                 :
                                 <button type="button" className="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="merci de saisir les champs obligatoires">Enregistrer</button>}

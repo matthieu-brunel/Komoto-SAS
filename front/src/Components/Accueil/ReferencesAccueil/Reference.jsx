@@ -41,7 +41,7 @@ class ReferenceAccueil extends Component {
         <div className="div-title-reference mb-5">
           <h2 className="title-reference text-left">
             {this.state.reference.length > 0
-              ? this.state.reference[0].title
+              ? this.state.reference[0].title_section
               : "Titre 1"}
           </h2>
         </div>

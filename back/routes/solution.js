@@ -11,17 +11,18 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const solution = req.body;
+  console.log(solution);
   const sql =
-    "INSERT INTO solution (subtitle, title, section, description,language, image_id , title_section) VALUES (? , ? , ? , ?, ? , ?, ?)";
+    "INSERT INTO solution (title, subtitle, section, title_section, description, language, image_id) VALUES (? , ? , ? , ?, ? , ?, ?)";
   connection.query(
     sql,
     [
-      solution.subtitle,
       solution.title,
+      solution.subtitle,
       solution.section,
+      solution.title_section,
       solution.description,
       solution.language,
-      solution.title_section,
       solution.image_id
     ],
     (error, results, fields) => {
@@ -98,18 +99,17 @@ router.put("/:id", Auth, (req, res) => {
   const solution = req.body[0];
   const solutionDataImage = req.body[1];
 
-  const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, title_section=?, image_id=? WHERE id=${idsolution}`;
+  const sql = `UPDATE solution SET title=?, subtitle=?, section=?, title_section=?, description=?, language=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,
     [
-      solution.subtitle,
       solution.title,
+      solution.subtitle,
       solution.section,
+      solution.title_section,
       solution.description,
       solution.language,
-      solution.image_id,
-      solution.title_section,
-      idsolution
+      solution.image_id
     ],
     (error, results, fields) => {
       if (error) {
@@ -213,7 +213,7 @@ router.put("/:id", Auth, (req, res) => {
             }
 
 
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? ,title_section=? WHERE id=${id_image}`;
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
             connection.query(
               sqlUpdate,
               [
@@ -222,7 +222,6 @@ router.put("/:id", Auth, (req, res) => {
                 solutionDataImage.alt,
                 solutionDataImage.homepage_id,
                 solutionDataImage.section,
-                solutionDataImage.title_section,
                 id_image
               ],
               (error, results, fields) => {

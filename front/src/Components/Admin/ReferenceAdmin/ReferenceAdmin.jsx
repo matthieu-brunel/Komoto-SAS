@@ -19,6 +19,7 @@ class ReferenceAdmin extends Component {
       reference: [],
       titreSection: "",
       specSelected: [],
+      titreAccueil: "",
 
       /*scpecialisation*/
       titreSpec: "",
@@ -40,10 +41,10 @@ class ReferenceAdmin extends Component {
       refToEdit: [],
       arrayLang: [],
       langSelected: "fr",
-      idLang:null,
+      idLang: null,
       referenceAdmin: [],
-      openEditReference:false,
-      openAddReference:false
+      openEditReference: false,
+      openAddReference: false
 
     }
 
@@ -95,6 +96,10 @@ class ReferenceAdmin extends Component {
         this.setState({ titreSpec: event.target.value });
         break;
 
+      case "titre-Accueil":
+        this.setState({ titreAccueil: event.target.value });
+        break;
+
       case "addDescription-spec-admin":
         this.setState({ addDescription: event.target.value });
         break;
@@ -141,10 +146,10 @@ class ReferenceAdmin extends Component {
       }
     }
 
-    this.setState({ 
+    this.setState({
       arrayLang: data,
-      idLang:language
-     });
+      idLang: language
+    });
   }
 
 
@@ -204,7 +209,7 @@ class ReferenceAdmin extends Component {
     arrayIdRef.push(this.state.referenceAdmin[index].id);
     arrayIdRef.push(this.state.referenceAdmin[index].image_id);
 
-    this.setState({ refToDelete: arrayIdRef, openAddReference:false, openEditReference:false});
+    this.setState({ refToDelete: arrayIdRef, openAddReference: false, openEditReference: false });
   }
 
   getIdReferenceToEdit = (index, event) => {
@@ -212,13 +217,13 @@ class ReferenceAdmin extends Component {
     let arrayIdReference = [];
     arrayIdReference.push(this.state.referenceAdmin[index].id);
     arrayIdReference.push(this.state.referenceAdmin[index].image_id);
-    this.setState({ 
+    this.setState({
       refToEdit: arrayIdReference,
       idToEdit: index,
-      openEditReference:true,
-      openAddReference:false 
+      openEditReference: true,
+      openAddReference: false
     });
-  
+
   }
 
   editDescription = (index, event) => {
@@ -231,93 +236,14 @@ class ReferenceAdmin extends Component {
     this.setState({ arrayDescription: reference[0].description });
   }
 
-  editreference = () => {
-
-    function init(data) {
-      const options = {
-        method: 'PUT',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          'authorization': 'Bearer ' + localStorage.getItem('token')
-        }),
-        body: JSON.stringify(data)
-      }
-      return options;
-    }
-
-    const { arrayLang, locale } = this.props;
-    let language = null;
-
-    for (let i = 0; i < arrayLang.length; i++) {
-      for (let [key, value] of Object.entries(arrayLang[i])) {
-        if (locale === value) {
-          language = arrayLang[i].id;
-        }
-      }
-    }
-
-    let data = {
-      "title": this.state.titreSection,
-      "subtitle": this.state.titreSpec,
-      "description": this.state.arrayDescription.join("/"),
-      "section": "reference",
-      "language": language,
-      "image_id": this.state.refToEdit[1]
-    };
-
-    let dataImage = {
-      "name": this.state.nameImage,
-      "url": this.state.urlImage,
-      "alt": this.state.altImage,
-      "section": "reference",
-      "homepage_id": 0
-    };
-
-
-    const documentImage = new FormData();
-    documentImage.append("file", this.state.document);
-
-
-    const options = {
-      method: "POST",
-      mode: "cors",
-      credentials: "same-origin",
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: documentImage
-    }
-
-
-
-    if (this.state.specSelected.length > 0) {
-
-      // fetch pour envoi d el'image dans le dossier back/public/images
-      let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-      fetch(url, options).then(res => res.json()).then(res => console.log(res));
-
-      // fetch pour modification des champs de la table image
-      url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.refToEdit[1]}`;
-      fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
-
-      // fetch pour modification des champs de la table reference
-      url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/reference/${this.state.refToEdit[0]}`;
-      fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
-
-
-      //on réactualise les references
-      this.getStartedreferenceAdmin();
-      $("#uploadFileEditreferenceAdmin")[0].value = "";
-    }
-
-  }
 
   closeModalModificationReference = (bool) => {
-    console.log("bool :",bool)
-    this.setState({openEditReference:bool, openAddReference:bool});
+    console.log("bool :", bool)
+    this.setState({ openEditReference: bool, openAddReference: bool });
   }
 
   handleClickOpenAddReference = () => {
-    this.setState({openAddReference:true, openEditReference:false});
+    this.setState({ openAddReference: true, openEditReference: false });
   }
 
 
@@ -357,7 +283,7 @@ class ReferenceAdmin extends Component {
                 </tr>
               </thead>
               <tbody>
-                 {this.state.referenceAdmin.length > 0 &&
+                {this.state.referenceAdmin.length > 0 &&
                   this.state.referenceAdmin.map((element, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
@@ -377,15 +303,15 @@ class ReferenceAdmin extends Component {
 
 
         {/* <!-- Nouvelle reference --> */}
-       {this.state.openAddReference && <div>
-          <AjoutReference 
+        {this.state.openAddReference && <div>
+          <AjoutReference
             locale={this.state.langSelected}
             arrayLang={this.state.arrayLang}
             reference={this.state.reference}
             getStartedreferenceAdmin={this.getStartedreferenceAdmin}
             closeModalModificationReference={this.closeModalModificationReference} />
         </div>
-}
+        }
 
         {/* <!-- suppression d'une reference --> */}
         <div className="modal fade" id="delete-reference-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -395,9 +321,9 @@ class ReferenceAdmin extends Component {
                 <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une reference</h5>
               </div>
               <div className="modal-body">
-                <DeleteReference 
-                  reference={this.state.reference} 
-                  refToDelete={this.state.refToDelete} 
+                <DeleteReference
+                  reference={this.state.reference}
+                  refToDelete={this.state.refToDelete}
                   getStartedreferenceAdmin={this.getStartedreferenceAdmin}
                   closeModalModificationReference={this.closeModalModificationReference} />
               </div>
@@ -407,15 +333,15 @@ class ReferenceAdmin extends Component {
 
         {/* <!-- Modification d'une reference --> */}
 
-        { this.state.openEditReference && <div>
-          <ModificationReference 
+        {this.state.openEditReference && <div>
+          <ModificationReference
             referenceAdmin={this.state.referenceAdmin}
-            idToEdit={this.state.idToEdit} 
+            idToEdit={this.state.idToEdit}
             refToEdit={this.state.refToEdit}
             closeModalModificationReference={this.closeModalModificationReference}
             idLang={this.state.idLang}
             getStartedreferenceAdmin={this.getStartedreferenceAdmin}
-            />
+          />
         </div>}
 
         {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}

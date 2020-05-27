@@ -260,10 +260,10 @@ class AjoutSolutionAdmin extends Component {
             data.append('file', documentTosendBack[x][0])
         }
 
-        console.log(data);
+        console.log("DATA SOLUTION : ", dataSolution);
 
 
-        await postRessources("solution", dataImage, dataSolution, data);
+       await postRessources("solution", dataImage, dataSolution, data);
 
         this.setState({
             nameSolution: "",
@@ -389,7 +389,7 @@ class AjoutSolutionAdmin extends Component {
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="form-group">
                                 <label htmlFor="titrePage-Accueil">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
+                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre accueil" onChange={this.handleChangeInput} />
                             </div>
 
 
