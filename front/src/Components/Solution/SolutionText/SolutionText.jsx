@@ -4,46 +4,33 @@ import './SolutionText.css';
 
 
 class SolutionText extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      texte:[]
+      texte: []
     }
   }
 
-  componentDidMount(){
-    this.filtrageText();
-  }
 
-  filtrageText = () => {
+  render() {
     const { texte } = this.props;
-    let array_texte = [];
-
-    for(let i = 0; i < texte.length; i++){
-      if(texte.subtitle !== 'header'){
-        array_texte.push(texte[i])
-      }
-    }
-    
-
-  }
-  render(){
-    const { texte } = this.props;
+    console.log("descriptiontexte", texte.length > 0 ? texte[0].description : "")
     return (
-        <div className="container container-solution text-left">
-        {texte.map((element, index) => (
+      <div className="container container-solution text-left">
+        {texte.length > 0 ? texte[0].description.map((element, index) => (
           <div className="div-solution mb-5" key={index}>
-            <div className="div-title-solution"><h3 className="title-solution">{element.subtitle !== 'header' ? element.title : ""}</h3></div>
+            <div className="div-title-solution">
+              <h3 className="title-solution">{element.title}</h3>
+            </div>
             <div className="div-texte-solution">
-            
-              {element.subtitle !== 'header' ? element.description.map((description, index) => (
+              {element.description.map((description, index) => (
                 <p className="mb-3" key={index}>{description}</p>
-              )) 
-              : ""}
-              </div>
+              ))
+              }
+            </div>
           </div>
-        ))}
-        </div>
+        )) : ""}
+      </div>
 
     );
   }

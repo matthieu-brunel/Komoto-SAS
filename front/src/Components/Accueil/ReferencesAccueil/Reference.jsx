@@ -52,7 +52,7 @@ class ReferenceAccueil extends Component {
                 <img
                   className="img-reference"
                   src={REACT_APP_SERVER_ADDRESS_FULL+"/images/" + element.url.logoRef[0].name}
-                  alt={element.alt}
+                  alt={element.url.logoRef[0].alt}
                 />
               </NavLink>
             </div>

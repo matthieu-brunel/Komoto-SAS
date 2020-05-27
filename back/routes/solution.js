@@ -12,7 +12,7 @@ router.use(parser.json());
 router.post("/", Auth, (req, res) => {
   const solution = req.body;
   const sql =
-    "INSERT INTO solution (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
+    "INSERT INTO solution (subtitle, title, section, description,language, image_id , title_section) VALUES (? , ? , ? , ?, ? , ?, ?)";
   connection.query(
     sql,
     [
@@ -21,6 +21,7 @@ router.post("/", Auth, (req, res) => {
       solution.section,
       solution.description,
       solution.language,
+      solution.title_section,
       solution.image_id
     ],
     (error, results, fields) => {
@@ -36,7 +37,7 @@ router.post("/", Auth, (req, res) => {
 
 router.get("/", (req, res) => {
 
-  const sql = `SELECT s.title, s.id, s.section, s.language, s.image_id,  s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=?`;
+  const sql = `SELECT s.title, s.id, s.section, s.language, s.image_id, s.title_section ,  s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=?`;
   connection.query(sql, [req.query.section, req.query.section, req.query.locale], (error, results, fields) => {
     if (error) {
 
@@ -47,8 +48,27 @@ router.get("/", (req, res) => {
   });
 });
 
+
+
+router.get("/name", (req, res) => {
+
+  const sql = `SELECT s.title, s.id, s.section, s.language, s.image_id, s.title_section, s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.id JOIN language AS l ON s.language = l.id WHERE s.section=? && i.section=? && l.locale=? && i.name = ?`;
+  connection.query(sql, [req.query.section, req.query.section, req.query.locale, req.query.name], (error, results, fields) => {
+    if (error) {
+
+      res.status(501).send("couldn't get solution");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+
+
+
 router.get("/all", (req, res) => {
-  const sql = "SELECT * FROM solution";
+  const sql = "SELECT * FROM solution AS solution JOIN image AS image ON solution.image_id = image.id";
   connection.query(sql, (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get solution");
@@ -57,6 +77,8 @@ router.get("/all", (req, res) => {
     }
   });
 });
+
+
 
 
 router.get("/:id", (req, res) => {
@@ -76,7 +98,7 @@ router.put("/:id", Auth, (req, res) => {
   const solution = req.body[0];
   const solutionDataImage = req.body[1];
 
-  const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idsolution}`;
+  const sql = `UPDATE solution SET subtitle=?, title=?, section=?, description=?,language=?, title_section=?, image_id=? WHERE id=${idsolution}`;
   connection.query(
     sql,
     [
@@ -86,6 +108,7 @@ router.put("/:id", Auth, (req, res) => {
       solution.description,
       solution.language,
       solution.image_id,
+      solution.title_section,
       idsolution
     ],
     (error, results, fields) => {
@@ -190,7 +213,7 @@ router.put("/:id", Auth, (req, res) => {
             }
 
 
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? ,title_section=? WHERE id=${id_image}`;
             connection.query(
               sqlUpdate,
               [
@@ -199,6 +222,7 @@ router.put("/:id", Auth, (req, res) => {
                 solutionDataImage.alt,
                 solutionDataImage.homepage_id,
                 solutionDataImage.section,
+                solutionDataImage.title_section,
                 id_image
               ],
               (error, results, fields) => {
@@ -225,9 +249,9 @@ router.delete("/:id", Auth, (req, res) => {
     if (error) {
       res.status(501).send("couldn't get image");
     } else {
-      
+
       console.log(JSON.parse(results[0].url));
-  
+
       let arrayImageToDelete = [];
 
       let currentObj = JSON.parse(results[0].url);
@@ -240,7 +264,7 @@ router.delete("/:id", Auth, (req, res) => {
       }
 
       console.log(arrayImageToDelete);
- 
+
       if (arrayImageToDelete.length > 0) {
         for (let i = 0; i < arrayImageToDelete.length; i++) {
           fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
@@ -250,14 +274,14 @@ router.delete("/:id", Auth, (req, res) => {
         }
       }
 
-     const sqlSolution = "DELETE FROM solution WHERE id=?";
+      const sqlSolution = "DELETE FROM solution WHERE id=?";
       connection.query(sqlSolution, [idsolution], (error, results, fields) => {
         if (error) {
           res.status(501).send("couldn't put image" + error);
         } else {
           res.status(200).json({ "id": req.params.id });
         }
-      }); 
+      });
     }
   });
 });

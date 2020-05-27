@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import './Accueil.css';
 
 import SpecialisationAccueil from './Specialisation/Specialisation';
@@ -13,58 +13,49 @@ import getRessources from "./../../utils/getRessources";
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class Accueil extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        solution:[],
-        locale:""
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      solution: [],
+      locale: ""
     }
+  }
 
-  componentDidMount = async () => {
-    const { locale } = this.props;
-   
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/test?locale=' +  locale;
-    let data = await (await (fetch(url))).json();
-    console.log("locale:",locale)
-    console.log("solution:",data)
-    this.setState({solution:data});
-  
-  }; 
+ 
 
-  render(){
-   
+  render() {
+
     const { locale, num_lang, handleClickSolution } = this.props;
     const { solution } = this.state;
     //console.log(solution);
     return (
       <div className="sticky-wrap">
 
-  
+
         <div className="vignets">
           <HeaderAccueil locale={locale} />
-        </div> 
-             
-    
+        </div>
+
+
         <div className="special">
-          <SpecialisationAccueil locale={locale}/>
+          <SpecialisationAccueil locale={locale} />
         </div>
 
         <div className="">
-          <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale}/>
+          <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale} />
         </div>
 
         <div className="special">
-        <DemonstrationAccueil locale={locale}/>
+          <DemonstrationAccueil locale={locale} />
         </div>
 
         <div className="">
-          <ReferenceAccueil locale={locale}/>
+          <ReferenceAccueil locale={locale} />
         </div>
 
         <div className="sticky-footer">
-          <Footer locale={locale}/>
-        </div> 
+          <Footer locale={locale} />
+        </div>
       </div>
     );
   }
