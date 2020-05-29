@@ -7,6 +7,8 @@ const path = require('path');
 const api = require("./routes");
 const Auth = require("./middleware/auth");
 
+
+
 require("dotenv").config();
 const SERVER_ADDRESS = process.env.REACT_APP_SERVER_ADDRESS;
 

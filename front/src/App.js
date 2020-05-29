@@ -12,7 +12,7 @@ import Mail from './Components/Admin/Historique/Mail';
 import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
 import Langues from './Components/Admin/Langues/Langues';
 import Seo from './Components/Admin/SEO/Seo';
-
+import { Helmet } from 'react-helmet';
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 const REACT_APP_SERVER_ADDRESS_FULL_CLIENT = process.env.REACT_APP_SERVER_ADDRESS_FULL_CLIENT;
 
@@ -26,11 +26,6 @@ class App extends Component {
     }
 }
 
-
-
-  
-
-
 render() {
 
 
@@ -38,6 +33,10 @@ render() {
     return (
       <div className="App">
 
+         <Helmet >
+          <meta charset="UTF-8" />
+          <title>React Komoto</title>
+        </Helmet> 
         <div>
           <Clients />
         </div>

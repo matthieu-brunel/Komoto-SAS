@@ -78,3 +78,9 @@ CREATE TABLE `reference` (
   PRIMARY KEY(id)
 );
 
+CREATE TABLE `html` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `text` text NOT NULL,
+  PRIMARY KEY(id)
+);
