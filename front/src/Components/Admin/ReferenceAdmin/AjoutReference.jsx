@@ -427,20 +427,21 @@ class AjoutReferenceAdmin extends Component {
                         </div>
 
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div className="form-group">
-                                <label htmlFor="titrePage-Accueil-reference">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
-                            </div>
+                            <div className="modal-body">
+                                <div className="form-group">
+                                    <label htmlFor="titrePage-Accueil-reference">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil-reference" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
+                                </div>
 
-                            <div className="form-group">
-                                <label htmlFor="titrePage-reference">Titre de la référence <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="titrePage-reference">Titre de la référence <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control " value={this.state.titrePage} id="titrePage-reference" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
+                                </div>
 
-
-                            <div className="form-group">
-                                <label htmlFor="titre-reference-name">Nom de la reference <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control" value={this.state.nameReference} id="titre-reference-name" type="text" placeholder="nom de la reference" onChange={this.handleChangeInput} />
+                                <div className="form-group">
+                                    <label htmlFor="titre-reference-name">Nom de la reference <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control" value={this.state.nameReference} id="titre-reference-name" type="text" placeholder="nom de la reference" onChange={this.handleChangeInput} />
+                                </div>
                             </div>
 
                             <div className="modal-body">
@@ -456,7 +457,10 @@ class AjoutReferenceAdmin extends Component {
                                 </div>
 
                                 <button type="button" className="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
-                                <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button>
+                                {
+                                    this.state.arrayDescription.length > 0 ?
+                                        <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button> :
+                                        <button type="button" className="btn btn-secondary">Valider la section</button>}
 
 
                                 <div className="description-reference-admin-modal">

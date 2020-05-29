@@ -21,8 +21,6 @@ class SolutionAdmin extends Component {
       titreAccueil: "",
 
       /*solution*/
-      titreSpec: "",
-      description: "",
       arrayDescription: [],
       urlImage: "",
       altImage: "",
@@ -32,9 +30,6 @@ class SolutionAdmin extends Component {
 
       addDescription: "",
       solToDelete: null,
-      isTooHeavy: false,
-      message_too_heavy: "Format non pris en charge ou fichier trop lourd.",
-      isActive: true,
 
       idToEdit: null,
       solToEdit: [],
@@ -48,82 +43,6 @@ class SolutionAdmin extends Component {
     }
 
   }
-
-  handlerUploadFile = event => {
-    const format_type = [
-      "application/pdf",
-      "application/doc",
-      "application/docx",
-      "application/xls",
-      "application/csv",
-      "application/txt",
-      "application/rtf",
-      "application/html",
-      "application/zip",
-      "audio/mp3",
-      "video/wma",
-      "video/mpg",
-      "video/flv",
-      "video/avi",
-      "image/jpg",
-      "image/jpeg",
-      "image/png",
-      "image/gif"
-    ];
-
-    let file = event.target.files[0] ? event.target.files[0] : "";
-
-    if (format_type.includes(event.target.files[0].type) && event.target.files[0].size <= 2000000) {
-
-      this.setState({ document: file, urlImage: REACT_APP_SERVER_ADDRESS_FULL + "/images/" + file.name, nameImage: file.name });
-    } else {
-      this.setState({ isTooHeavy: true });
-      event.target.value = "";
-      this.setState({ isActive: true });
-    }
-  };
-
-
-  handleChangeInput = (event) => {
-    console.log(event.target.id);
-    switch (event.target.id) {
-      case "titre-section":
-        this.setState({ titreSection: event.target.value });
-        break;
-
-      case "titre-Accueil":
-        this.setState({ titreAccueil: event.target.value });
-        break;
-
-      case "titre-spec-admin":
-        this.setState({ titreSpec: event.target.value });
-        break;
-
-      case "addDescription-spec-admin":
-        this.setState({ addDescription: event.target.value });
-        break;
-
-      case "url-image-spec-admin":
-        this.setState({ urlImage: event.target.value });
-        break;
-
-      case "alt-image-spec-admin":
-        this.setState({ altImage: event.target.value });
-        break;
-
-      case "name-image-spec-admin":
-        this.setState({ nameImage: event.target.value });
-        break;
-
-      case "solId-image-spec-admin":
-        this.setState({ solIdImage: event.target.value });
-        break;
-
-      default:
-        break;
-    }
-  }
-
 
   handleChangeLang = (event) => {
     let seletedLang = event.target.options[event.target.options.selectedIndex].id;
@@ -157,13 +76,13 @@ class SolutionAdmin extends Component {
     this.getStartedSolutionAdmin();
   }
 
+
+
   getStartedSolutionAdmin = async () => {
-
-
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&locale=' + this.state.langSelected;
     const data = await (await (fetch(url))).json();
     console.log("DATA : ", data);
-    this.setState({ solutionAdmin: data });
+    this.setState({ solutionAdmin: data});
   }
 
 
@@ -172,6 +91,9 @@ class SolutionAdmin extends Component {
       this.setState({ solution: "", specSelected: "", titreSection: "" });
       this.getStartedSolutionAdmin();
       this.closeModalModificationSolution();
+    }else if(prevState.solution !== this.state.solution){
+      console.log("je suis !=");
+      this.getStartedSolutionAdmin();
     }
   }
 
@@ -192,16 +114,6 @@ class SolutionAdmin extends Component {
     description.push(this.state.addDescription);
     solution[0].description = description;
     this.setState({ arrayDescription: solution[0].description, addDescription: "" });
-  }
-
-  deleteDescription = (index, event) => {
-
-    let solution = this.state.solToDelete;
-    let description = this.state.solToDelete[0].description;
-
-    description.splice(index, 1);
-
-    this.setState({ arrayDescription: solution[0].description });
   }
 
   getIdSpecToDelete = (index, event) => {
@@ -234,6 +146,7 @@ class SolutionAdmin extends Component {
   handleClickOpenAddSolution = () => {
     this.setState({ openAddSolution: true, openEditSolution: false });
   }
+
 
 
   render() {
@@ -311,8 +224,9 @@ class SolutionAdmin extends Component {
               </div>
               <div className="modal-body">
                 <DeleteSolution
-                  solution={this.state.solution}
+                  solutionAdmin={this.state.solutionAdmin}
                   solToDelete={this.state.solToDelete}
+                  resetIdToDelete={this.resetIdToDelete}
                   getStartedSolutionAdmin={this.getStartedSolutionAdmin}
                   closeModalModificationSolution={this.closeModalModificationSolution} />
               </div>
@@ -332,15 +246,6 @@ class SolutionAdmin extends Component {
             getStartedSolutionAdmin={this.getStartedSolutionAdmin}
           />
         </div>}
-
-        {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
-        {this.state.isTooHeavy && (
-          <div className={`${this.state.isActive ? "div-active-error" : "div-desactive-error"}`}>
-            <span className="text-alert-error">
-              {this.state.message_too_heavy}
-            </span> {" "}<button type="button" className="btn btn-danger btn-sm" onClick={this.handleCloseModal}>ok</button>
-          </div>
-        )}
       </div>
     )
   }

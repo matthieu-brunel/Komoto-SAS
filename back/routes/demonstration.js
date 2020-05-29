@@ -8,17 +8,18 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
   const sql =
-    "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
-      demonstration.subtitle,
       demonstration.title,
+      demonstration.subtitle,
       demonstration.section,
       demonstration.description,
       demonstration.model_url,
       demonstration.model_alt,
-      demonstration.model_id
+      demonstration.model_id,
+      demonstration.language,
     ],
     (error, results, fields) => {
       if (error) {
@@ -44,7 +45,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/text", (req, res) => {
-  const sql = `SELECT d.title, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
+  const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
   connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");

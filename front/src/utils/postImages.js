@@ -23,18 +23,19 @@ export default async function postRessources(image) {
     }
 
     console.log(" postRessources(image)",image);
+    console.log(" countFile",countFile);
 
     if (countFile > 1) {
         //upload des images
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadMultipleImage';
         
         const recordDocument = await (await (fetch(url, optionsImage(image)))).json();
-        console.log(recordDocument);
+        console.log("plusieurs image:",recordDocument);
     } else {
         //upload une image
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
         const recordDocument = await (await (fetch(url, optionsImage(image)))).json();
-        console.log(recordDocument);
+        console.log("1 image:",recordDocument);
     }
 }
 

@@ -91,7 +91,7 @@ componentDidMount(){
                               </Link>
                           </li>
                           <li>
-                              <Link to="/DemonstrationAdmin">
+                              <Link to="/HomeShowroom">
                               {/*     <span><i className="fas fa-utensils"></i></span> */}
                                   <span>Showroom</span>
                               </Link>

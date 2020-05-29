@@ -20,7 +20,7 @@ let prefix = "http://localhost:3000";
 let urlAdmin = [prefix + "/SolutionAdmin",
 prefix + "/ContactAdmin",
 prefix + "/ReferenceAdmin",
-prefix + "/DemonstrationAdmin",
+prefix + "/HomeShowroom",
 prefix + "/Mail",
 prefix + "/Login",
 prefix + "/user",

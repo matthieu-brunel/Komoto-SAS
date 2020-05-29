@@ -90,7 +90,7 @@ class DemoModel extends Component {
         <div className="form-group">
 
           <select className="form-control container" id="exampleFormControlSelect1" onChange={this.handlerChangeModel}>
-            <option value="default" >{showroom_text.length > 0 && showroom_text[0].description[1]}</option>
+            <option value="default" >---</option>
             {this.state.showroom.length > 0 ?
               this.state.showroom.map((model, index) =>
                 <option key={index} value={index} >{model.model_alt}</option>

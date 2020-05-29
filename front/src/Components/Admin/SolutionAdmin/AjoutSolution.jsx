@@ -263,7 +263,7 @@ class AjoutSolutionAdmin extends Component {
         console.log("DATA SOLUTION : ", dataSolution);
 
 
-       await postRessources("solution", dataImage, dataSolution, data);
+        await postRessources("solution", dataImage, dataSolution, data);
 
         this.setState({
             nameSolution: "",
@@ -387,21 +387,23 @@ class AjoutSolutionAdmin extends Component {
                         </div>
 
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div className="form-group">
-                                <label htmlFor="titrePage-Accueil">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre accueil" onChange={this.handleChangeInput} />
-                            </div>
+                            <div className="modal-body">
+                                <div className="form-group">
+                                    <label htmlFor="titrePage-Accueil">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre accueil" onChange={this.handleChangeInput} />
+                                </div>
 
 
-                            <div className="form-group">
-                                <label htmlFor="titrePage-solution">Titre de la Solution <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control " value={this.state.titrePage} id="titrePage-solution" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="titrePage-solution">Titre de la Solution <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control " value={this.state.titrePage} id="titrePage-solution" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
+                                </div>
 
 
-                            <div className="form-group">
-                                <label htmlFor="titre-solution-name">Nom de la solution <span style={{ color: "red" }}>*</span></label>
-                                <input className="form-control" value={this.state.nameSolution} id="titre-solution-name" type="text" placeholder="nom de la solution" onChange={this.handleChangeInput} />
+                                <div className="form-group">
+                                    <label htmlFor="titre-solution-name">Nom de la solution <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control" value={this.state.nameSolution} id="titre-solution-name" type="text" placeholder="nom de la solution" onChange={this.handleChangeInput} />
+                                </div>
                             </div>
 
                             <div className="modal-body">
@@ -417,7 +419,10 @@ class AjoutSolutionAdmin extends Component {
                                 </div>
 
                                 <button type="button" className="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
-                                <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button>
+                                {
+                                    this.state.arrayDescription.length > 0 ?
+                                        <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button> :
+                                        <button type="button" className="btn btn-secondary">Valider la section</button>}
 
 
                                 <div className="description-solution-admin-modal">
