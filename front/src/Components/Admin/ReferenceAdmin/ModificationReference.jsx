@@ -469,25 +469,32 @@ class ModificationReference extends Component {
 
 
     //fetch upload image(s)
-    if (this.state.fileImageCaroussel.length > 0 || this.state.fileImageLogoSolution.name) {
 
-      let documentSendToBack = [];
-      for (let array of this.state.fileImageCaroussel) {
-        documentSendToBack.push(array);
-      }
 
-      if (this.state.fileImageLogoSolution.name) {
-        documentSendToBack.push(this.state.fileImageLogoSolution);
-      }
+    let documentSendToBack = [];
+    for (let array of this.state.fileImageCaroussel) {
+      documentSendToBack.push(array);
+    }
 
-      console.log(documentSendToBack);
-      // new FormData => les nouvelles images a envoyer au back
-      const uploadImage = new FormData()
-      for (var x = 0; x < documentSendToBack.length; x++) {
-        uploadImage.append('file', documentSendToBack[x]);
-      }
+    if (this.state.fileImageLogoRef.name) {
+      documentSendToBack.push(this.state.fileImageLogoRef);
+    }
+
+    if (this.state.fileImageLogoSolution.name) {
+      documentSendToBack.push(this.state.fileImageLogoSolution);
+    }
+
+    console.log(documentSendToBack);
+    // new FormData => les nouvelles images a envoyer au back
+    const uploadImage = new FormData()
+    for (var x = 0; x < documentSendToBack.length; x++) {
+      uploadImage.append('file', documentSendToBack[x]);
+    }
+
+    if (this.state.fileImageCaroussel.length > 0 || this.state.fileImageLogoSolution.name || this.state.fileImageLogoRef.name) {
       await postImages(uploadImage);
     }
+
 
 
     this.setState({

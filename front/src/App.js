@@ -6,7 +6,7 @@ import Login from './Components/Admin/Login/Login';
 import { Switch, Route } from 'react-router-dom';
 import SolutionAdmin from './Components/Admin/SolutionAdmin/SolutionAdmin';
 import ReferenceAdmin from './Components/Admin/ReferenceAdmin/ReferenceAdmin';
-import DemonstrationAdmin from './Components/Admin/DemonstrationAdmin/DemonstrationAdmin';
+import HomeShowroom from './Components/Admin/DemonstrationAdmin/HomeShowroom';
 import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
 import Mail from './Components/Admin/Historique/Mail';
 import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
@@ -26,15 +26,7 @@ class App extends Component {
     }
 }
 
-
-
-  
-
-
 render() {
-
-
-
     return (
       <div className="App">
 
@@ -49,7 +41,7 @@ render() {
           <Route path="/SolutionAdmin" component={SolutionAdmin} />
           <Route path="/ContactAdmin" component={ContactAdmin} />
           <Route path="/ReferenceAdmin" component={ReferenceAdmin} />
-          <Route path="/DemonstrationAdmin" component={DemonstrationAdmin} />
+          <Route path="/HomeShowroom" component={HomeShowroom} />
           <Route path="/Langues" component={Langues} />
           <Route path="/Mail" component={Mail} />
           <Route path="/Seo" component={Seo} />
