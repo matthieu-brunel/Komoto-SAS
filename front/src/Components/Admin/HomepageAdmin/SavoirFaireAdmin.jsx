@@ -263,11 +263,12 @@ class SavoirFaireAdmin extends Component {
 
 
 
-        if (this.state.SavoirFaireSelected.length > 0) {
+
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-            fetch(url, options).then(res => res.json()).then(res => console.log(res));
+            
+            this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
 
             // fetch pour modification des champs de la table image
             url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.SavoirFaireToEdit[1]}`;
@@ -281,7 +282,7 @@ class SavoirFaireAdmin extends Component {
             //on réactualise les spécialisations
             this.getStartedSavoirFaire();
             $("#uploadFileEditSavoirFaireAdmin")[0].value = "";
-        }
+     
 
     }
 
