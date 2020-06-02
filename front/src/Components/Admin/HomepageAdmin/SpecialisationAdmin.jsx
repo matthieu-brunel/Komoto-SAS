@@ -279,12 +279,12 @@ class SpecialisationAdmin extends Component{
 
 
 
-        if(this.state.specSelected.length > 0){
+
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-            fetch(url,  options).then(res => res.json()).then(res => console.log(res));
-
+            this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
+            
             // fetch pour modification des champs de la table image
             url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.specToEdit[1]}`;
             fetch(url,  init(dataImage)).then(res => res.json()).then(res => console.log(res));
@@ -297,7 +297,7 @@ class SpecialisationAdmin extends Component{
             //on réactualise les spécialisations
            this.getStartedSpecialisation();
            $("#uploadFileEditSpecialisationAdmin")[0].value = "";
-        }
+
 
     }
 
