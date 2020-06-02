@@ -59,10 +59,7 @@ class ShowroomText extends Component {
         let titre = data.length > 0 ? data[0].title : "";
         description = description.description;
 
-
         this.setState({ dataText: data, description: description, labelMenuDrop: labelMenuDrop, title: titre });
-
-
     }
 
     componentDidUpdate(prevProps) {
