@@ -113,16 +113,19 @@ class AjoutHeader extends Component{
             'homepage_id':0,
             'section':'header'
         }
-
-        let dataHomepage = {
+        
+         let dataHomepage = {
             'subtitle':"",
             'title':"",
             'section':"header",
             'description':description,
             'language':idLang,
-            'image_id':0
-        }
+            'image_id':0,
+        } 
         
+
+      
+
         const data = new FormData()
         data.append('file', this.state.document)
 
