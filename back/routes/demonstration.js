@@ -44,6 +44,18 @@ router.get("/", (req, res) => {
   });
 });
 
+
+router.get("/all", (req, res) => {
+  const sql = "SELECT * FROM demonstration";
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      res.status(501).send("couldn't get demonstration");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 router.get("/text", (req, res) => {
   const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
   connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {

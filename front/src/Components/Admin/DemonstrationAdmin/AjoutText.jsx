@@ -76,7 +76,7 @@ class AjoutText extends Component {
             'description': JSON.stringify(obj),
             'model_url':"",
             'model_alt':"",
-            'model_id':"",
+            'model_id': 0,
             'language': idLang
         }
 
@@ -118,7 +118,7 @@ class AjoutText extends Component {
                                 <input type="text" value={this.state.title} className="form-control" id="title-showroom-admin-2" onChange={this.handleChangeInput} />
                             </div>
 
-                            <label>texte</label>
+                            <label htmlFor="description-showroom-admin-2" className="col-form-label">texte</label>
                             <textarea type="text" value={this.state.description} className="form-control" id="description-showroom-admin-2" onChange={this.handleChangeInput} />
 
                             <label htmlFor="label-labelMenuDrop-showroom-admin-2" className="col-form-label">label du menu déroulant (model 3d)</label>
