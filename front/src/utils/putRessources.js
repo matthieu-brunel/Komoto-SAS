@@ -11,7 +11,8 @@ export default async function deleteRessources(table, id, data) {
     }
 
     let url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/${table}/${id}`;
-    console.log("DATA : ", data);
+    console.log("table : ", table, " id : ", id);
+    console.log("url : ", url);
   
     const result = await (await (fetch(url, options))).json();
     return result;

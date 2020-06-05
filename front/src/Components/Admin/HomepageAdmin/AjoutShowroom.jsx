@@ -31,7 +31,7 @@ class AjoutShowroom extends Component{
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
-            case "titre-section":
+            case "titre-section-model":
                 this.setState({titreSection:event.target.value});
                 break;
 
@@ -180,8 +180,8 @@ class AjoutShowroom extends Component{
                     <div className="form-group">
                         
                     <div class="form-group">
-                            <label for="titre-section">Titre section</label>
-                            <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                            <label for="titre-section-model">Titre section</label>
+                            <input class="form-control" value={this.state.titreSection} id="titre-section-model" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                         </div>
                         
                         <div class="form-group">

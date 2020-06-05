@@ -99,6 +99,143 @@ router.put("/:id",Auth, (req, res) => {
   );
 });
 
+router.put("/:id", Auth, (req, res) => {
+  const idhomepage = req.params.id;
+  const homepage = req.body[0];
+  const homepageDataImage = req.body[1];
+  console.log("1",homepage);
+  console.log("2",homepageDataImage);
+
+  const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
+  connection.query(
+    sql,
+    [
+      homepage.subtitle,
+      homepage.title,
+      homepage.section,
+      homepage.description,
+      homepage.language,
+      homepage.image_id,
+      idhomepage
+    ],
+    (error, results, fields) => {
+      if (error) {
+        res.status(501).send("couldn't put solution" + error);
+      } else {
+        res.json(results);
+
+        let id_image = homepage.image_id;
+        const sql = "SELECT * FROM image WHERE id=?";
+        connection.query(sql, [id_image], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't get image");
+          } else {
+
+            let arrayImageToDelete = [];
+            let currentObj = JSON.parse(results[0].url);
+            let newObj = JSON.parse(homePageDataImage.url);
+
+            if (newObj.imageHomePage[0].name !== currentObj.imageHomePage[0].name) {
+              arrayImageToDelete.push(currentObj.imageHomePage[0].name);
+            }
+
+            if (newObj.imageCaroussel.length > 0) {
+
+              let arrayCurrent = [];
+              let arrayNew = [];
+
+              //si la longueur du tableau arrayNew est inférieure à la longueur du tableau arrayCurrent
+              //alors on ajoute l'élément qui ne figure pas dans le tableau arrayNew
+              if (arrayCurrent.length < arrayNew.length) {
+                for (let i = 0; i < arrayNew.length; i++) {
+                  if (!arrayCurrent.includes(arrayNew[i])) {
+                    console.log("ajout du fichier : " + arrayNew[i]);
+                  }
+                  if (!arrayNew.includes(arrayCurrent[i])) {
+                    if (arrayCurrent[i] !== undefined) {
+                      arrayImageToDelete.push(arrayCurrent[i]);
+                    }
+                  }
+                }
+              }
+
+              //si la longueur du tableau arrayNew est supérieure à la longueur du tableau arrayCurrent
+              //alors on supprime l'élément qui ne figure pas dans le tableau arrayCurrent
+
+              if (arrayCurrent.length > arrayNew.length) {
+                for (let i = 0; i < arrayCurrent.length; i++) {
+                  if (!arrayNew.includes(arrayCurrent[i])) {
+                    arrayImageToDelete.push(arrayCurrent[i]);
+                  }
+                }
+              }
+
+
+              if (arrayCurrent.length === arrayNew.length) {
+                for (let i = 0; i < arrayCurrent.length; i++) {
+                  if (!arrayNew.includes(arrayCurrent[i])) {
+                    arrayImageToDelete.push(arrayCurrent[i]);
+                  }
+                }
+              }
+
+              console.log("\n");
+              console.log("\n");
+              console.log("\n");
+              console.log("\n");
+              console.log("\n");
+              console.log("\n");
+              console.log("*********************************************************************");
+              console.log("CurrentObj :", currentObj);
+              console.log("newObj :", newObj);
+              console.log("=====================================================================");
+              console.log("=====================================================================");
+              console.log("delete array image :", arrayImageToDelete);
+              console.log("*********************************************************************");
+
+
+
+            } else {
+              for (let i of currentObj.imageCaroussel) {
+                arrayImageToDelete.push(i.name)
+              }
+            }
+
+
+            if (arrayImageToDelete.length > 0) {
+              for (let i = 0; i < arrayImageToDelete.length; i++) {
+                fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
+                  if (err) throw err;
+                  console.log('successfully deleted ' + arrayImageToDelete[i]);
+                });
+              }
+            }
+
+
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
+            connection.query(
+              sqlUpdate,
+              [
+                homepageDataImage.name,
+                homepageDataImage.url,
+                homepageDataImage.alt,
+                homepageDataImage.homepage_id,
+                homepageDataImage.section,
+                id_image
+              ],
+              (error, results, fields) => {
+                if (error) {
+                  res.status(501).send("couldn't put Image" + error);
+                }
+              }
+            );
+          }
+        });
+      }
+    }
+  );
+});
+
 
 router.delete("/:id",Auth, (req, res) => {
   console.log("id homepage : ",req.params.id);

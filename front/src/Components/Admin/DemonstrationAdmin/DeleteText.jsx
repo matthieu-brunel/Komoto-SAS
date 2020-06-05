@@ -5,7 +5,7 @@ import deleteRessources from '../../../utils/deleteRessources';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class DeleteShowroom extends Component{
+class DeleteText extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -54,9 +54,9 @@ class DeleteShowroom extends Component{
         return(
             <div>
                 <div className="form-group" >
-                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer ?</label>
+                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer ?</label>
                 </div>
-                <form class="was-validated">
+                <form className="was-validated">
                 <div className="custom-control custom-checkbox mb-3">
                         <input type="checkbox" className="custom-control-input" id="customControlValidation1" checked={this.state.checkBox} required onChange={this.handleChangeCheckBox} />
                         <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
@@ -65,11 +65,11 @@ class DeleteShowroom extends Component{
                 <div className="modal-footer">
                     {this.state.checkBox && this.props.ShowroomToDelete
                         ?
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteShowroom}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteShowroom}>Oui</button>
                         :
-                        <button type="button" class="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteShowroom}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteShowroom}>Annuler</button>
                 </div>
 
             </div>
@@ -78,4 +78,4 @@ class DeleteShowroom extends Component{
 }
 
 
-export default DeleteShowroom;
+export default DeleteText;

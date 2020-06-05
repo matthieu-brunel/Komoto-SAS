@@ -7,6 +7,7 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
+  console.log(demonstration);
   const sql =
     "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   connection.query(
@@ -34,8 +35,8 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT d.title, d.subtitle, d.section, d.description, d.model_url, d.model_alt, i.name, i.url, i.alt, i.section,l.locale FROM demonstration AS d JOIN image AS i ON d.model_id = i.homepage_id JOIN language AS l ON l.id=d.language WHERE d.section=? AND i.section=? AND l.locale=?`;
-  connection.query(sql,[req.query.section,req.query.section, req.query.locale], (error, results, fields) => {
+  const sql = `SELECT d.id, d.model_url, d.model_id, d.model_alt, i.name, i.url, i.alt FROM demonstration AS d LEFT JOIN image AS i ON d.model_id = i.id WHERE d.section="demonstration_model"`;
+  connection.query(sql, (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");
     } else {
