@@ -1,5 +1,6 @@
 # Komoto-SAS
 
+
 ## Site web "KOMOTO SAS"
 
 #### Setup: 
@@ -61,10 +62,7 @@ const connection = mysql.createConnection({
   
   password: PASSWORDDB,
   
-  database: DATABASE
-});
 
-module.exports = connection;
 
 #### import "create_db.sql" from the back folder using: source + path to file
 
@@ -136,10 +134,8 @@ const connection = mysql.createConnection({
   
   password: PASSWORDDB,
   
-  database: DATABASE
-});
 
-module.exports = connection;
+
 
 ### Importer le fichier "create_db.sql" pour la configuration de la base de données (dans le repertoire "back") avec: source + "chemin du fichier"
 
@@ -148,3 +144,4 @@ module.exports = connection;
 ### Démarrer le serveur back: nodemon server
 
 ### Puis se rendre à l'adresse http://locahost:XXXX (remplacer les XXXX par vos données)
+

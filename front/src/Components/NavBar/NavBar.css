@@ -7,11 +7,10 @@
   }
 
 
-
-
 .all{
     display: flex;
     justify-content: flex-end;
+
 }
 
 .link-nav{
@@ -25,3 +24,10 @@
     z-index: 1;
     width: 100%;
 }
+
+@media (max-width: 1200px) {
+    .all{
+        display: flex;
+        justify-content: center;
+    }
+  }

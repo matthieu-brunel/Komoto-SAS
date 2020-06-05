@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import './HeaderSolution.css';
-
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 class HeaderSolution extends Component {
-  render(){
+  render() {
     const { header } = this.props;
-    console.log(header);
+
     return (
       <div className="container container-header-solution mb-5">
-        <div className="div-logo-solution">
-        {header.length > 0 && header[0].url.map((element, index) => element === 'logo.png' ? <img key={index} className="img-logo-page-solution" src={'/images/' + element} alt={element} /> : "")}
+       
+        <div className="div-logo-solution p-3">
+          {header.length > 0 && 
+            <img  className="img-logo-page-solution" src={REACT_APP_SERVER_ADDRESS_FULL +'/images/'  + header[0].url.logoSolution[0].name} alt={header[0].url.logoSolution[0].alt} /> }
         </div>
-        <div className="div-titre-page-solution">
-          {header.filter(elementHeader => elementHeader.subtitle === 'header').map((element, index) => (<h2 key={index} className="titre-page-solution">{element.title}</h2>))}
+        <div className="div-titre-page-solution p-3">
+          {header.length > 0 &&
+          <h2  className="titre-page-solution">{header[0].title}</h2>}
         </div>
       </div>
     );

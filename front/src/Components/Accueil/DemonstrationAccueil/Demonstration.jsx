@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Demonstration.css";
 import getRessources from "../../../utils/getRessources";
-import { Link } from "react-router-dom";
 
 
 
@@ -13,7 +12,8 @@ class DemonstrationAccueil extends Component {
     };
   }
   componentDidMount = async () => {
-    let data = await getRessources("homepage", "demonstration");
+    const { locale } = this.props;
+    let data = await getRessources("homepage", "demonstration", locale);
 
     this.setState({
       demonstration: data
