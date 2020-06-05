@@ -438,6 +438,48 @@ class AjoutReferenceAdmin extends Component {
                             </div>
 
                             <div className="modal-body">
+                               
+                                <div className="description-section-reference-admin-modal pt-3">
+                                    <ul>
+                                        {this.state.arraySections.length > 0 && this.state.arraySections.map((section, index) => (
+
+                                            <div key={index} className="div-section-container p-1">
+                                                <div className="div-title-section">
+                                                    <h6 className="title-section">{section.title}</h6>
+                                                </div>
+
+                                                <div className="div-section-description">
+                                                    <ul>
+                                                        {section.description.map((element, index_list) => (
+                                                            <li key={index_list}>{element}</li>
+                                                        ))}
+                                                    </ul>
+
+                                                </div>
+                                                <button type="button" className="btn btn-primary btn-sm" id="deleteDescriptionSection" onClick={this.deleteDescription.bind(this, index)}>X</button>
+                                            </div>
+
+
+                                        ))}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="card">
+                        <div className="card-header" id="headingOne">
+                            <h5 className="mb-0">
+                                <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
+                                    partie 2
+                            </button>
+                            </h5>
+                        </div>
+
+                        <form id="partie2" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            
+                            <div className="modal-body">
                                 <div className="form-group">
                                     <label htmlFor="titre-reference-section">Titre du texte</label>
                                     <input className="form-control " value={this.state.titreSection} id="titre-reference-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
@@ -499,8 +541,8 @@ class AjoutReferenceAdmin extends Component {
                         <div className="card-header" id="headingOne">
                             <h5 className="mb-0">
                                 <div className="p-2">
-                                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
-                                        partie 2
+                                    <button className="btn btn-link" data-toggle="collapse" data-target="#partie3" aria-expanded="true" aria-controls="partie3">
+                                        partie 3
                                     </button>
                                 </div>
                             </h5>
@@ -508,7 +550,7 @@ class AjoutReferenceAdmin extends Component {
 
 
 
-                        <div id="partie2" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="partie3" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 
                             <div className="form-group mt-5">
                                 <div className="row" style={{ marginLeft: "0" }}>

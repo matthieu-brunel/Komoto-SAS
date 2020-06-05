@@ -13,6 +13,7 @@ const language = require("./language");
 const contact = require("./contact");
 const uploadcontact = require("./uploadcontact");
 const uploadImage = require("./uploadImage");
+const uploadModel = require("./uploadModel");
 const uploadMultipleImage = require("./uploadMultipleImage");
 const navbar = require("./navbar");
 const formulaire = require("./formulaire");
@@ -33,6 +34,7 @@ router.use("/uploadcontact", uploadcontact);
 router.use("/uploadImage", uploadImage);
 router.use("/uploadMultipleImage", uploadMultipleImage);
 router.use("/documents", express.static("public/documents"));
+router.use("/uploadModel", uploadModel);
 
 router.use("/navbar", navbar);
 router.use("/formulaire", formulaire);

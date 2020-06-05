@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-class DeleteShowroom extends Component{
+class DeleteText extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -75,4 +75,4 @@ class DeleteShowroom extends Component{
 }
 
 
-export default DeleteShowroom;
+export default DeleteText;

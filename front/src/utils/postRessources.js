@@ -48,6 +48,7 @@ export default async function postRessources(table, dataImage, data, image) {
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadMultipleImage';
         await (await (fetch(url, optionsImage(image)))).json();
 
+        
         //enregistement de la table image en BDD
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/image';
         console.log("url table image : ", url);

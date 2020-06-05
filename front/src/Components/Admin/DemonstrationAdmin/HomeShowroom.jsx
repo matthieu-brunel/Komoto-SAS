@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBarAdmin from './../NavBarAdmin/NavBar';
 import ShowroomText from './ShowroomText';
+import ShowroomModel from './ShowroomModel';
 
 
 
@@ -18,6 +19,7 @@ class HomeShowroom extends Component {
     }
 
     handleClickPart = (event) => {
+        console.log(event.target.id);
         switch (event.target.id) {
 
             case "text":
@@ -25,7 +27,7 @@ class HomeShowroom extends Component {
                 break;
 
             case "model":
-                this.setState({ displayModel: false, displayText: true });
+                this.setState({ displayModel: true, displayText: false });
                 break;
 
             default:
@@ -76,6 +78,7 @@ class HomeShowroom extends Component {
  
                 <div>
                     {this.state.displayText && <ShowroomText locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
+                    {this.state.displayModel && <ShowroomModel locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                </div>
 
 

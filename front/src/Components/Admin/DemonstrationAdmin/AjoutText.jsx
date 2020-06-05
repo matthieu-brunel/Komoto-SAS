@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class AjoutText extends Component {

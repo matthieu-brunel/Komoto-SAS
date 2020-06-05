@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
-import AjoutText from './AjoutText';
-import DeleteText from './DeleteText';
+import AjoutModel from './AjoutModel';
+import EditModel from './EditModel';
+import DeleteModel from './DeleteModel';
 import getRessources from './../../../utils/getRessources';
 
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
-class ShowroomText extends Component {
+class ShowroomModel extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataText: [],
+            dataModel: [],
             title: "",
             description: "",
             labelMenuDrop: "",
             ShowroomToEdit: null,
             ShowroomToDelete: null,
 
-            idToEdit: null
+            idToEdit: null,
+            editShowroomSelected: []
         }
     }
-
 
 
     handleChangeInput = (event) => {
@@ -45,34 +46,29 @@ class ShowroomText extends Component {
     }
 
 
-
     componentDidMount = () => {
-        this.getStartedText();
+        this.getStartedModel();
     }
 
-    getStartedText = async () => {
+    getStartedModel = async () => {
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('demonstration/text', 'demonstration_text', this.props.locale);
-        let description = data.length > 0 ? JSON.parse(data[0].description) : "";
-        let labelMenuDrop = data.length > 0 ? description.labelMenuDrop : "";
+        let data = await getRessources('demonstration', 'demonstration_model', this.props.locale);
+        console.log(data);
 
-        let titre = data.length > 0 ? data[0].title : "";
-        description = description.description;
-
-        this.setState({ dataText: data, description: description, labelMenuDrop: labelMenuDrop, title: titre });
+        this.setState({ dataModel: data});
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.locale !== this.props.locale) {
-            this.setState({ dataText: [], title: "", description: "",labelMenuDrop:"" });
-            this.getStartedText();
+            this.setState({ dataModel: [] });
+            this.getStartedModel();
         }
     }
 
 
     closeModal = () => {
-        this.setState({ dataText: [], title: "", description: "",labelMenuDrop:"" });
-        this.getStartedText();
+        this.setState({ dataModel: [] });
+        this.getStartedModel();
     }
 
     handleCloseModal = () => {
@@ -80,11 +76,19 @@ class ShowroomText extends Component {
     };
 
     getIdShowroomToEdit = (index, event) => {
-        this.setState({ ShowroomToEdit: this.state.dataText[index].id });
+        console.log(index);
+        this.setState({
+            ShowroomToEdit: this.state.dataModel[index].id,
+            editShowroomSelected: this.state.dataModel[index]
+        });
     }
 
     getIdShowroomToDelete = (index, event) => {
-        this.setState({ ShowroomToDelete: this.state.dataText[index].id });
+
+        let arrayId = [];
+        arrayId.push(this.state.dataModel[index].id);
+        arrayId.push(this.state.dataModel[index].model_id);
+        this.setState({ ShowroomToDelete: arrayId });
     }
 
 
@@ -106,7 +110,7 @@ class ShowroomText extends Component {
         let language = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
-            for (let [ ,value] of Object.entries(arrayLang[i])) {
+            for (let [key, value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
                     language = arrayLang[i].id;
                 }
@@ -138,7 +142,7 @@ class ShowroomText extends Component {
 
 
         //on réactualise les spécialisations
-        this.getStartedText();
+        this.getStartedModel();
     }
 
 
@@ -149,34 +153,33 @@ class ShowroomText extends Component {
         return (
             <div>
                 <div>
-                    <h1>Text showroom</h1>
+                    <h1>Model showroom</h1>
                 </div>
 
-                {!this.state.dataText.length > 0 && <div className="pt-3 pb-3">
-                    <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-text-showroom-admin">Nouveau titre / description</button>
+                <div className="pt-3 pb-3">
+                    <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-model-showroom-admin">Ajouter un model 3D</button>
                 </div>
-                }
+
                 <div className="position-tab pt-3 ">
 
                     <table className="table table-striped" style={{ width: "75%" }}>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">titre</th>
-                                <th scope="col">description</th>
-                                <th scope="col">modification</th>
+                                <th scope="col">Nom du model</th>
+                                <th scope="col">Nom de l'image associé</th>
                                 <th scope="col">Supprimer</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.dataText.length > 0 &&
-                                this.state.dataText.map((element, index) => (
+                            {this.state.dataModel.length > 0 &&
+                                this.state.dataModel.map((element, index) => (
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
-                                        <td>{element.title}</td>
-                                        <td>{this.state.description}</td>
-                                        <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
-                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                        <td>{element.model_url}</td>
+                                        <td>{element.name === null ? "pas d'image" : element.name}</td>
+{/*                                         <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit3dShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
+ */}                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
 
                                     </tr>
                                 ))
@@ -187,72 +190,59 @@ class ShowroomText extends Component {
                 </div>
 
 
-                {/* <!-- Nouveau titre / description --> */}
+                {/* <!-- Nouveau model --> */}
 
-                <div className="modal fade" id="new-text-showroom-admin" tabIndex="-1" role="dialog" aria-labelledby="new-text-showroom-admin" aria-hidden="true">
+                <div className="modal fade" id="new-model-showroom-admin" tabIndex="-1" role="dialog" aria-labelledby="new-model-showroom-admin" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="new-text-showroom-admin">Ajout un titre / description</h5>
+                                <h6 className="modal-title" id="new-model-showroom-admin">Ajout d'un model 3d</h6>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <AjoutText {...this.props} dataText={this.state.dataText} getStartedText={this.getStartedText} />
+                                <AjoutModel {...this.props} dataModel={this.state.dataModel} getStartedModel={this.getStartedModel} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* <!-- suppression d'un texte / description  --> */}
+                {/* <!-- suppression d'un model 3d --> */}
                 <div className="modal fade" id="delete-Showroom-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h6 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un model 3d</h6>
                             </div>
                             <div className="modal-body">
-                                <DeleteText showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
+                                <DeleteModel showroom={this.state.dataModel} ShowroomToDelete={this.state.ShowroomToDelete} getStartedModel={this.getStartedModel} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* <!-- Modification d'un titre /description / labelbtnDrop --> */}
-                <div className="modal fade" id="editShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {/* <!-- Modification d'un model 3d / du nom du model 3d / de son image, si présent --> */}
+{/*                 <div className="modal fade" id="edit3dShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Modifier un titre / une description</h5>
+                                <h6 className="modal-title" id="exampleModalLabel">Modifier un model 3d</h6>
                             </div>
                             <div className="modal-body">
-                                {this.state.dataText.length > 0 && <div className="form-group">
-                                    <div className="form-group ">
-                                        <label htmlFor="title-showroom-admin-2" className="col-form-label">titre</label>
-                                        <div className="">
-                                            <input type="text" value={this.state.title} className="form-control" id="title-showroom-admin-2" onChange={this.handleChangeInput} />
-                                        </div>
+                                <EditModel 
+                                editShowroomSelected={this.state.editShowroomSelected}
+                        
+                                />
 
-                                        <label>texte</label>
-                                        <textarea type="text" value={this.state.description} className="form-control" id="description-showroom-admin-2" onChange={this.handleChangeInput} />
-
-                                        <label htmlFor="label-labelMenuDrop-showroom-admin-2" className="col-form-label">label du menu déroulant (model 3d)</label>
-                                        <div className="">
-                                            <input type="text" value={this.state.labelMenuDrop} className="form-control" id="label-labelMenuDrop-showroom-admin-2" onChange={this.handleChangeInput} />
-                                        </div>
-                                    </div>
-
-                                </div>}
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
                             </div>
 
                         </div>
                     </div>
-                </div>
+                </div> */}
 
 
             </div>
@@ -260,4 +250,4 @@ class ShowroomText extends Component {
     }
 }
 
-export default ShowroomText;
+export default ShowroomModel;
