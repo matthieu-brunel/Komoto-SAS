@@ -213,7 +213,7 @@ class ShowroomText extends Component {
                                 <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
                             <div className="modal-body">
-                                <DeleteShowroom showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
+                                <DeleteText showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
                             </div>
                         </div>
                     </div>

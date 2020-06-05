@@ -167,7 +167,7 @@ class ShowroomModel extends Component {
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Nom du model</th>
-                                <th scope="col">modification</th>
+                                <th scope="col">Nom de l'image associé</th>
                                 <th scope="col">Supprimer</th>
                             </tr>
                         </thead>
@@ -177,8 +177,9 @@ class ShowroomModel extends Component {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{element.model_url}</td>
-                                        <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit3dShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
-                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                        <td>{element.name === null ? "pas d'image" : element.name}</td>
+{/*                                         <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit3dShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
+ */}                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
 
                                     </tr>
                                 ))
@@ -222,7 +223,7 @@ class ShowroomModel extends Component {
                 </div>
 
                 {/* <!-- Modification d'un model 3d / du nom du model 3d / de son image, si présent --> */}
-                <div className="modal fade" id="edit3dShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{/*                 <div className="modal fade" id="edit3dShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -241,7 +242,7 @@ class ShowroomModel extends Component {
 
                         </div>
                     </div>
-                </div>
+                </div> */}
 
 
             </div>
