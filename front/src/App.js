@@ -1,44 +1,58 @@
 import React, { Component } from 'react';
 import './App.css';
-import Accueil from './Components/Accueil/Accueil'
-import Solution from './Components/Solution/Solution';
-import Reference from './Components/Reference/Reference';
-import Contact from './Components/Contact/Contact';
-import Demonstration from './Components/Demonstration/Demonstration';
-import Admin from './Components/Admin/Admin';
+import Clients from './clients';
+import User from './Components/Admin/users/User';
+import Login from './Components/Admin/Login/Login';
 import { Switch, Route } from 'react-router-dom';
-import { connect } from "react-redux";
-import Mention from "./Components/Mention/Mention";
-import Partenaire from './Components/partenaires/Partenaire';
+import SolutionAdmin from './Components/Admin/SolutionAdmin/SolutionAdmin';
+import ReferenceAdmin from './Components/Admin/ReferenceAdmin/ReferenceAdmin';
+import HomeShowroom from './Components/Admin/DemonstrationAdmin/HomeShowroom';
+import ContactAdmin from "./Components/Admin/ContactAdmin/ContactAdmin"
+import Mail from './Components/Admin/Historique/Mail';
+import HomepageAdmin from './Components/Admin/HomepageAdmin/Homepage';
+import Langues from './Components/Admin/Langues/Langues';
+import Seo from './Components/Admin/SEO/Seo';
 
-class App extends Component{
 
 
 
-  render(){
-    let { data } = this.props;
-    
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        arrayLang: [],
+        langSelected: "fr"
+    }
+}
+
+render() {
     return (
       <div className="App">
+
+        <div>
+          <Clients />
+        </div>
+
         <Switch>
-          
-          <Route exact path="/" component={Accueil}/>
-          <Route exact path="/Reference" component={Reference} />
-          <Route exact path="/Contact" component={Contact} />
-          <Route exact path="/Demonstration" component={Demonstration} />
-          <Route exact path="/Admin" component={Admin} />
-          <Route exact path="/Mention" component={Mention} />
-          <Route exact path="/Partenaire" component={Partenaire} />
-          <Route exact path={data.linkSolution} component={Solution}/>
+           <Route path="/Login" component={Login} />
+          <Route path="/user" component={User} /> 
+          <Route path="/HomepageAdmin" component={HomepageAdmin} />
+          <Route path="/SolutionAdmin" component={SolutionAdmin} />
+          <Route path="/ContactAdmin" component={ContactAdmin} />
+          <Route path="/ReferenceAdmin" component={ReferenceAdmin} />
+          <Route path="/HomeShowroom" component={HomeShowroom} />
+          <Route path="/Langues" component={Langues} />
+          <Route path="/Mail" component={Mail} />
+          <Route path="/Seo" component={Seo} />
         </Switch>
+
       </div>
     );
   }
 
 }
 
-const mapStateToProps = state => ({
-  data: state
-});
 
-export default connect(mapStateToProps)(App);
+
+export default App;
+

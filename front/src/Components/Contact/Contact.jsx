@@ -1,17 +1,15 @@
 import React from "react";
 import "./Contact.css";
-import NavBar from "./../NavBar/NavBar";
 import ContactPage from "./ContactPage/ContactPage";
 import Footer from "./../Footer/Footer";
 
-function Contact() {
+function Contact(props) {
+  const { locale } = props;
+ 
   return (
     <div className="sticky-wrap">
-      <div className="">
-        <NavBar />
-      </div>
       <div>
-        <ContactPage />
+        <ContactPage locale={locale}/>
       </div>
       <div className="sticky-footer">
         <Footer />

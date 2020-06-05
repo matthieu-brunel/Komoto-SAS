@@ -1,77 +1,61 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import './Accueil.css';
-import NavBar from './../NavBar/NavBar'
+
 import SpecialisationAccueil from './Specialisation/Specialisation';
 import HeaderAccueil from './Header/Header';
-import SavoirFaireAccueil from './Savoir-faire/Savoir-faire';
 import SolutionAccueil from './SolutionsAccueil/SolutionAccueil';
 import DemonstrationAccueil from './DemonstrationAccueil/Demonstration';
 import ReferenceAccueil from './ReferencesAccueil/Reference'
 import Footer from "./../Footer/Footer"
-import "animate.css/animate.min.css";
-import ScrollAnimation from 'react-animate-on-scroll';
+//import "animate.css/animate.min.css";
+
+//import ScrollAnimation from 'react-animate-on-scroll';
+
 
 class Accueil extends Component {
-  render(){
+  constructor(props) {
+    super(props);
+    this.state = {
+      solution: [],
+      locale: ""
+    }
+  }
 
+ 
+
+  render() {
+
+    const { locale, num_lang, handleClickSolution } = this.props;
+    const { solution } = this.state;
+    //console.log(solution);
     return (
       <div className="sticky-wrap">
-       <div className="">
-          <NavBar />
+
+
+        <div className="vignets">
+          <HeaderAccueil locale={locale} />
         </div>
-  {/*       <div className="vignets">
-          <HeaderAccueil />
-        </div> */}
-        
-        
-{/*         <ScrollAnimation animateIn='fadeIn'>
-          <div className="">
-            <SavoirFaireAccueil />
-          </div>
-        </ScrollAnimation> */}
-      
-  
-      <div className="vignets">
-        <HeaderAccueil />
-      </div> 
-      
-      
- 
-    
 
-     
-    <ScrollAnimation animateIn='fadeIn'>
-      <div className="special">
-        <SpecialisationAccueil />
-      </div>
-    </ScrollAnimation>
 
-   
+        <div className="special">
+          <SpecialisationAccueil locale={locale} />
+        </div>
 
-    <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <SolutionAccueil />
-      </div>
-    </ScrollAnimation>
+        <div className="">
+          <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale} />
+        </div>
 
-<ScrollAnimation animateIn='fadeIn'>
-      <div className="special">
-      <DemonstrationAccueil/>
-      </div>
-    </ScrollAnimation>
+        <div className="special">
+          <DemonstrationAccueil locale={locale} />
+        </div>
 
-    <ScrollAnimation animateIn='fadeIn'>
-      <div className="">
-        <ReferenceAccueil />
-      </div>
-    </ScrollAnimation>
+        <div className="">
+          <ReferenceAccueil locale={locale} />
+        </div>
 
-   
-      <div className="sticky-footer">
-        <Footer />
-      </div>
-   
-  
+        <div className="sticky-footer">
+          <Footer locale={locale} />
+        </div>
       </div>
     );
   }

@@ -11,6 +11,7 @@ const Auth = require('./../middleware/auth');
 
 router.post("/",Auth, (req, res) => {
   const admin = req.body;
+  console.log(req.body);
   const password = bcrypt.hashSync(admin.password, salt)
   const sql = "INSERT INTO admin (user, password) VALUES (? , ?)";
   connection.query(
@@ -37,6 +38,8 @@ router.get("/", Auth,(req, res) => {
     }
   });
 });
+
+
 router.get("/:id",Auth, (req, res) => {
   const idAdminOne = parseInt(req.params.id);
   const sql = "SELECT * FROM admin where id = ?";
@@ -48,13 +51,16 @@ router.get("/:id",Auth, (req, res) => {
     }
   });
 });
+
+
 router.put("/:id",Auth, (req, res) => {
   const idAdmin = req.params.id;
   const admin = req.body;
+  const password = bcrypt.hashSync(admin.password, salt)
   const sql = `UPDATE admin SET user=?, password=? WHERE id=${idAdmin}`;
   connection.query(
     sql,
-    [admin.user, admin.password, idAdmin],
+    [admin.user, password, idAdmin],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't put admin" + error);
@@ -64,6 +70,9 @@ router.put("/:id",Auth, (req, res) => {
     }
   );
 });
+
+
+
 router.delete("/:id",Auth, (req, res) => {
   const idAdmin = req.params.id;
   const sql = "DELETE  FROM admin WHERE id=?";

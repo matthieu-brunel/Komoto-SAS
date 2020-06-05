@@ -106,7 +106,7 @@ router.post("/", (req, res) => {
       res.status(501).send(error.message);
     } else {
       res.status(200).json({
-        message: "Votre demande de contact a bien été envoyée."
+        message: ""
       });
     }
   });

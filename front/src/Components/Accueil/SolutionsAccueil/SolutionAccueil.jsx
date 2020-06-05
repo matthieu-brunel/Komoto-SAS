@@ -1,67 +1,76 @@
 import React, { Component } from "react";
 import "./SolutionAccueil.css";
-import getRessources from "../../../utils/getRessources";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { GET_NAME_SOLUTION_SELECTED} from './../../actionTypes';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
-
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class SolutionAccueil extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      solution:[]
+      solution : [],
+    }
+  }
+    componentDidMount = async () => {
+      
+     
+      const { locale } = this.props;
+
+      let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + locale ;
+      console.log("Accueil", url)
+      let data = await (await (fetch(url))).json();
+      console.log("solution:", data)
+    
+      let arraySolution = [];
+  
+      for (let obj of data) {
+        
+        let url = JSON.parse(obj.url);
+        let description = JSON.parse(obj.description);
+        obj.url = url;
+        obj.description = description;
+        arraySolution.push(obj);
+      }
+      this.setState({solution: arraySolution });
     };
-  }
-
-  componentDidMount = async () => {
-    let data = await getRessources("homepage", "solution");
-    //console.log(data);
-    this.setState({
-      solution: data
-    });
-  };
-
-  handleClickSolution = (event) => {
-    const { data_store } = this.props;
-    let name_solution = event.target.id.toLowerCase();
-    let link_solution = `/solution-${name_solution.toLowerCase()}`;
-    this.props.dispatch({type: GET_NAME_SOLUTION_SELECTED.type, name_solution,link_solution});
-    localStorage.setItem('data_store', JSON.stringify(data_store));
-  }
   
+
+
+
   render() {
-  
 
+    const { handleClickSolution } = this.props;
+    
     return (
       <div className=" ">
-        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5"><h2 className="sol-title-text">{this.state.solution[0].title}</h2></div>}
+        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5"><h2 className="sol-title-text">{this.state.solution[0].title_section}</h2></div>}
         {this.state.solution.map((solution, index) => {
           return (
-            <div key={index} className="sol-card-all">
+             <div key={index} className="sol-card-all">
               <div className="d-flex container p-5 solution  ">
-              <ScrollAnimation animateIn='fadeIn'>
-                <div className="sol-img pt-5 ">
-                  <img  className="img-solution" src={solution.url} alt={solution.alt} />
-                </div>
+                <ScrollAnimation animateIn='fadeIn'>
+                  <div className="sol-img pt-5 ">
+                    <img className="img-solution" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.logoSolution[0].name} alt={solution.url.logoSolution[0].alt} />
+                  </div>
                 </ScrollAnimation>
-               
+
                 <div className="sol-text pt-5  sol-body">
                  
                 <ScrollAnimation animateIn='fadeIn'>
                   <div className="">
-                    <h5 className="sol-title-card">{solution.subtitle}</h5>
+                    <h5 className="sol-title-card">{solution.name}</h5>
                   </div>
-                  <div className="pt-5">
-                    <NavLink to={`/solution-${solution.subtitle.toLowerCase()}`} className="text-solution" id={solution.subtitle} onClick={ this.handleClickSolution} >{solution.description}</NavLink>
+                 
+                  <div className="pt-5" onClick={handleClickSolution}>
+                    <NavLink to={`/solution/${solution.name.toLowerCase()}`} className="text-solution" id={solution.name}  >{solution.title}</NavLink>
                   </div>
                   </ScrollAnimation>
-
-                </div>
+​
+                </div> 
               </div>
-            </div>
+            </div> 
           );
         })}
       </div>
