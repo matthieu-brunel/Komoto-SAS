@@ -16,7 +16,7 @@ class SavoirFaireAccueil extends Component {
   componentDidMount = async () => {
     const { locale } = this.props;
     let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
-  
+
     this.setState({ SavoirFaire: savoirFaire });
   };
 
@@ -27,8 +27,8 @@ class SavoirFaireAccueil extends Component {
           {this.state.SavoirFaire.length > 0 && (
 
             <div className="div-title-savoirFaire ">
-             <ScrollAnimation animateIn='fadeIn'>
-              <h2 className="title-savoirFaire">{this.state.SavoirFaire[0].title}</h2>
+              <ScrollAnimation animateIn='fadeIn'>
+                <h2 className="title-savoirFaire">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
               <div className="container-savoirFaire-card test55 justify-content-around">
 
@@ -41,6 +41,7 @@ class SavoirFaireAccueil extends Component {
                           <div>
                             <img className="img-savoirfaire" src={SavoirFaire.url} alt={SavoirFaire.alt} />
                             <div>
+                              <h4>{SavoirFaire.subtitle}</h4>
                               <p>{SavoirFaire.description}</p>
                             </div>
                           </div>
