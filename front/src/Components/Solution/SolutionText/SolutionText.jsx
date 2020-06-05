@@ -16,13 +16,13 @@ class SolutionText extends Component {
     const { texte } = this.props;
     console.log("descriptiontexte", texte.length > 0 ? texte[0].description : "")
     return (
-      <div className="container container-solution text-left">
+      <div className="container container-solution text-left p-3 ">
         {texte.length > 0 ? texte[0].description.map((element, index) => (
           <div className="div-solution mb-5" key={index}>
             <div className="div-title-solution">
               <h3 className="title-solution">{element.title}</h3>
             </div>
-            <div className="div-texte-solution">
+            <div className="div-texte-solution ">
               {element.description.map((description, index) => (
                 <p className="mb-3" key={index}>{description}</p>
               ))

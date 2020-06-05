@@ -46,7 +46,7 @@ export default async function postRessources(table, dataImage, data, image) {
 
         //upload des images
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadMultipleImage';
-        const recordDocument = await (await (fetch(url, optionsImage(image)))).json();
+        await (await (fetch(url, optionsImage(image)))).json();
 
         
         //enregistement de la table image en BDD
@@ -57,15 +57,15 @@ export default async function postRessources(table, dataImage, data, image) {
 
         // on récupere l'id de la ligne d'enregistrement de l'image
         data.image_id = recordImage.id;
- 
+
         //enregistement de la table en parametre en BDD
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table;
         console.log("URL SOLUTION:", url)
-        const record = await (await (fetch(url, options(data)))).json();
+        await (await (fetch(url, options(data)))).json();
 
     } else {
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-        const recordDocument = await (await (fetch(url, optionsImage(image)))).json();
+        await (await (fetch(url, optionsImage(image)))).json();
 
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/image';
         const recordImage = await (await (fetch(url, options(dataImage)))).json();
@@ -73,7 +73,7 @@ export default async function postRessources(table, dataImage, data, image) {
         data.image_id = recordImage.id;
 
         url = REACT_APP_SERVER_ADDRESS_FULL + '/api/' + table;
-        const record = await (await (fetch(url, options(data)))).json();
+        await (await (fetch(url, options(data)))).json();
     }
 }
 

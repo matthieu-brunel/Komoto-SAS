@@ -78,7 +78,7 @@ class SpecialisationAdmin extends Component{
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
-            case "titre-section":
+            case "titre-section-spec":
                 this.setState({titreSection:event.target.value});
                 break;
 
@@ -124,7 +124,6 @@ class SpecialisationAdmin extends Component{
             urlImage:this.state.specialisation[index].url,
             nameImage:this.state.specialisation[index].name,
             refIdImage:this.state.specialisation[index].homepage_id,
-            titreSection:this.state.specialisation[index].title,
             titreSection:this.state.specialisation[index].title
         })
     }
@@ -239,7 +238,7 @@ class SpecialisationAdmin extends Component{
         let language = null;
 
         for(let i = 0; i < arrayLang.length; i++){
-            for (let [key, value] of Object.entries(arrayLang[i])) {
+            for (let  [,value] of Object.entries(arrayLang[i])) {
                 if(locale === value){
                     language = arrayLang[i].id;
                 }
@@ -313,7 +312,7 @@ class SpecialisationAdmin extends Component{
 
                 <div >
                     <div className="pt-3 pb-3">
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
+                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
                     </div>
 
                     <div className="position-tab pt-3">
@@ -334,8 +333,8 @@ class SpecialisationAdmin extends Component{
                                 <th scope="row">{index+1}</th>
                                 <td>{element.title}</td>
                                 <td>{element.subtitle}</td>
-                                <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSpecToEdit.bind(this, index)}>Modifier</button>}</td>
-                            <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-specialisation-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSpecToEdit.bind(this, index)}>Modifier</button>}</td>
+                            <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-specialisation-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>
                             </tr>
                             ))
                         }
@@ -349,16 +348,16 @@ class SpecialisationAdmin extends Component{
 
                 {/* <!-- Nouvelle spécialisation --> */}
               
-                <div class="modal fade" id="new-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Nouvelle spécialisation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div className="modal fade" id="new-specialisation-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Nouvelle spécialisation</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <AjoutSpecialisation {...this.props} specialisation={this.state.specialisation} getStartedSpecialisation={this.getStartedSpecialisation}/>
                             </div>
                         </div>
@@ -366,13 +365,13 @@ class SpecialisationAdmin extends Component{
                 </div>
                                 
                 {/* <!-- suppression d'une spécialisation --> */}
-                <div class="modal fade" id="delete-specialisation-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                <div className="modal fade" id="delete-specialisation-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <DeleteSpecialisation specialisation={this.state.specialisation} specToDelete={this.state.specToDelete} getStartedSpecialisation={this.getStartedSpecialisation}/>
                             </div>
                         </div>
@@ -380,24 +379,24 @@ class SpecialisationAdmin extends Component{
                 </div> 
 
                 {/* <!-- Modification d'une spécialité --> */}
-                <div class="modal fade" id="editSpecAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modifier une spécialité</h5>
+                <div className="modal fade" id="editSpecAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Modifier une spécialité</h5>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                         {this.state.specSelected.length > 0 && <div className="form-group">
-                                <div class="form-group">
-                                    <label for="titre-section">Titre section</label>
-                                    <input class="form-control form-control-sm" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                                <div className="form-group">
+                                    <label htmlFor="titre-section">Titre section</label>
+                                    <input className="form-control form-control-sm" value={this.state.titreSection} id="titre-section-spec" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                                 </div>
                                 <label>Saisir le titre de la spécialité</label>
                                 <input type="text" className="form-control form-control-sm" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
 
                                 <label>Saisir une description</label>
                                 <textarea type="text" value={this.state.addDescription} className="form-control form-control-sm" id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
-                                <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
+                                <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
                                 <div className="description-spec-admin-modal">
                                     <ul>
                                         {this.state.specSelected.length > 0 && this.state.specSelected[0].description.map((description, index) => (
@@ -417,15 +416,15 @@ class SpecialisationAdmin extends Component{
                                     <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
                                 </div>
 
-                                <div class="custom-file">
+                                <div className="custom-file">
                                     <input type="file" className="custom-file-input" id="uploadFileEditSpecialisationAdmin" onChange={this.handlerUploadFile}/>
-                                    <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
+                                    <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                                 </div>
                             </div>}
                         </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Appliquer</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Appliquer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (

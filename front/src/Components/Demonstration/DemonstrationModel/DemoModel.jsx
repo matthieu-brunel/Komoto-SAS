@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './DemoModel.css';
 import Rendu from "./Rendu";
 import getRessources from "../../../utils/getRessources";
-import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
-import { Button } from 'reactstrap';
+
 
 class DemoModel extends Component {
   constructor() {
@@ -15,8 +14,7 @@ class DemoModel extends Component {
       image_alt: "",
       chose_image: "default",
       showroom_text: [],
-      root : window.location.origin + "/model/"
-
+      root: window.location.origin + "/model/"
     };
 
   }

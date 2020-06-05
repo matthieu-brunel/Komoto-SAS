@@ -8,9 +8,9 @@ import DemonstrationAccueil from './DemonstrationAccueil/Demonstration';
 import ReferenceAccueil from './ReferencesAccueil/Reference'
 import Footer from "./../Footer/Footer"
 //import "animate.css/animate.min.css";
-import getRessources from "./../../utils/getRessources";
+
 //import ScrollAnimation from 'react-animate-on-scroll';
-const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
+
 
 class Accueil extends Component {
   constructor(props) {

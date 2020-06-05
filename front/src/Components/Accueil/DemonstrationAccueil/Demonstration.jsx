@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Demonstration.css";
 import getRessources from "../../../utils/getRessources";
-import { Link } from "react-router-dom";
 
 
 

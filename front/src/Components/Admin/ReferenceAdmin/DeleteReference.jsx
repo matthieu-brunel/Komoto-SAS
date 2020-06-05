@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import getRessources from './../../../utils/postRessources';
-import deleteRessources from '../../../utils/deleteRessources';
 
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;

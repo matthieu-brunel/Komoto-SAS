@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Mail.css'
 import NavBarAdmin from '../NavBarAdmin/NavBar';
-import { NavLink } from 'react-router-dom';
 import DeleteMail from './DeleteMailAdmin';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
@@ -142,7 +141,7 @@ class Mail extends Component {
           <h1 >Historique des e-mails</h1>
         </div>
         <div className="legende-historique-mail p-2 position-tab pt-3" style={{}}>
-          <p className="text-left"><span class="badge badge-success">pj</span><span> = mail qui contient une pièce jointe</span></p>
+          <p className="text-left"><span className="badge badge-success">pj</span><span> = mail qui contient une pièce jointe</span></p>
         </div>
         <div className="position-tab pt-3 ">
           <table className="table table-striped" style={{ width: "75%" }}>
@@ -163,13 +162,13 @@ class Mail extends Component {
               {this.state.intervalMail.length > 0 &&
                 this.state.intervalMail.map((element, index) => (
                   <tr key={index}>
-                    <th scope="row">{index + 1 + (this.state.btn * this.state.interval)}{" "}<span class="badge badge-success">{element.description.document !== "" ? "pj" : ""}</span></th>
+                    <th scope="row">{index + 1 + (this.state.btn * this.state.interval)}{" "}<span className="badge badge-success">{element.description.document !== "" ? "pj" : ""}</span></th>
                     <td>{element.description.societe}</td>
                     <td>{element.description.nom}</td>
                     <td>{element.description.email}</td>
                     <td>{element.date}</td>
-                    <td> {<button type="button" class="btn btn-primary" id={index} data-toggle="modal" data-target="#viewMail" onClick={this.viewMail}>visualiser</button>}</td>
-                    <td> {<button type="button" class="btn btn-danger" id={index} data-toggle="modal" data-target="#delete-mail-admin" onClick={this.getIdMailToDelete.bind(this, index)}>X</button>}</td>
+                    <td> {<button type="button" className="btn btn-primary" id={index} data-toggle="modal" data-target="#viewMail" onClick={this.viewMail}>visualiser</button>}</td>
+                    <td> {<button type="button" className="btn btn-danger" id={index} data-toggle="modal" data-target="#delete-mail-admin" onClick={this.getIdMailToDelete.bind(this, index)}>X</button>}</td>
                   </tr>
                 ))
               }
@@ -187,16 +186,16 @@ class Mail extends Component {
         }
 
         {/* <!-- Modal --> */}
-        <div class="modal fade" id="viewMail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Contenu du mail</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="viewMail" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Contenu du mail</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
 
 
 
@@ -204,8 +203,8 @@ class Mail extends Component {
                   {/* <!-- Societe --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Societe</label>
-                      <input className="form-control form-control-sm" value={this.state.societe} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Societe</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.societe} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
 
@@ -213,8 +212,8 @@ class Mail extends Component {
                   {/* <!-- Date --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Date</label>
-                      <input className="form-control form-control-sm" value={this.state.date} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Date</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.date} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -223,16 +222,16 @@ class Mail extends Component {
                   {/* <!-- Nom --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Nom</label>
-                      <input className="form-control form-control-sm" value={this.state.nom} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Nom</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.nom} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
 
                   {/* <!-- Prenom --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Prénom</label>
-                      <input className="form-control form-control-sm" value={this.state.prenom} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Prénom</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.prenom} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -242,16 +241,16 @@ class Mail extends Component {
                   {/* <!-- Adresse --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Adresse</label>
-                      <textarea className="form-control form-control-sm" value={this.state.adresse} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Adresse</label>
+                      <textarea className="form-control form-control-sm" defaultValue={this.state.adresse} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
 
                   {/* <!-- Téléphone --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Téléphone</label>
-                      <input className="form-control form-control-sm" value={this.state.telephone} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Téléphone</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.telephone} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -260,8 +259,8 @@ class Mail extends Component {
                   {/* <!-- Email --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="exampleFormControlTextarea1">Email</label>
-                      <input className="form-control form-control-sm" value={this.state.email} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="exampleFormControlTextarea1">Email</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.email} id="exampleFormControlTextarea1" rows="1" />
                     </div>
                   </div>
 
@@ -273,9 +272,9 @@ class Mail extends Component {
                         this.state.document !== ""
                           ?
                           <div className="btn-piece-jointe-mail">
-                            <label for="exampleFormControlTextarea1">Pièce jointe</label>
+                            <label htmlFor="exampleFormControlTextarea1">Pièce jointe</label>
                             <div className="btn-piece-jointe">
-                              <a href={`${this.state.document}`} target="_blank"><button type="button" class="btn btn-primary">visualiser</button></a>
+                              <a href={`${this.state.document}`} target="_blank" rel="noopener noreferrer"><button type="button" class="btn btn-primary">visualiser</button></a>
                             </div>
                           </div>
                           : <div className="pas-de-piece-jointe">pas de pièce jointe</div>
@@ -288,13 +287,13 @@ class Mail extends Component {
 
 
                 {/* <!-- Message --> */}
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Message</label>
-                  <textarea className="form-control" value={this.state.message} id="exampleFormControlTextarea1" rows="3" />
+                <div className="form-group">
+                  <label htmlFor="exampleFormControlTextarea1">Message</label>
+                  <textarea className="form-control" defaultValue={this.state.message} id="exampleFormControlTextarea1" rows="3" />
                 </div>
 
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button type="button" className="btn btn-primary" data-dismiss="modal">Fermer</button>
               </div>
             </div>
@@ -302,13 +301,13 @@ class Mail extends Component {
         </div>
 
         {/* <!-- suppression d'un mail --> */}
-        <div class="modal fade" id="delete-mail-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'un mail</h5>
+        <div className="modal fade" id="delete-mail-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-scrollable" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un mail</h5>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <DeleteMail mailToDelete={this.state.mailToDelete} getMail={this.getMail} />
               </div>
             </div>

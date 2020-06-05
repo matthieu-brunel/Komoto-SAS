@@ -3,7 +3,6 @@ import './Solution.css';
 import HeaderSolution from './Header/HeaderSolution';
 import SolutionText from './SolutionText/SolutionText';
 import SolutionImage from './SolutionImage/SolutionImage';
-import getRessources from './../../utils/getRessources';
 import Footer from '../Footer/Footer';
 import { connect } from "react-redux";
 

@@ -41,7 +41,7 @@ class SolutionAccueil extends Component {
 
   render() {
 
-    const { solution, handleClickSolution } = this.props;
+    const { handleClickSolution } = this.props;
     
     return (
       <div className=" ">

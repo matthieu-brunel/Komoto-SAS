@@ -193,9 +193,15 @@ class HeaderAdmin extends Component {
         const { arrayLang, locale } = this.props;
         let language = null;
 
+<<<<<<< HEAD
         for (let i = 0; i < arrayLang.length; i++) {
             for (let [key, value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
+=======
+        for(let i = 0; i < arrayLang.length; i++){
+            for (let [,value] of Object.entries(arrayLang[i])) {
+                if(locale === value){
+>>>>>>> dev
                     language = arrayLang[i].id;
                 }
             }
@@ -272,10 +278,17 @@ class HeaderAdmin extends Component {
                 <div>
                     <h1>Entête du site</h1>
                 </div>
+<<<<<<< HEAD
 
                 {!this.state.header.length > 0 && <div className="pt-3 pb-3">
                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-header-admin">Nouvel entête</button>
                 </div>
+=======
+                
+                {!this.state.header.length > 0 &&  <div className="pt-3 pb-3">
+                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-header-admin">Nouvel entête</button>
+                    </div>
+>>>>>>> dev
                 }
                 <div className="position-tab pt-3 ">
 
@@ -289,6 +302,7 @@ class HeaderAdmin extends Component {
                             </tr>
                         </thead>
                         <tbody>
+<<<<<<< HEAD
                             {this.state.header.length > 0 &&
                                 this.state.header.map((element, index) => (
                                     <tr key={index}>
@@ -300,6 +314,19 @@ class HeaderAdmin extends Component {
                                     </tr>
                                 ))
                             }
+=======
+                        {this.state.header.length > 0 &&
+                            this.state.header.map((element, index) => (
+                                <tr key={index}>
+                                <th scope="row">{index+1}</th>
+                                <td>{element.description}</td>
+                                <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editheaderAmdin" onClick={this.getIdheaderToEdit.bind(this, index)}>Modifier</button>}</td>
+                                <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-header-admin" onClick={this.getIdHeaderToDelete.bind(this, index)}>Supprimer</button>}</td>
+
+                            </tr>
+                            ))
+                        }
+>>>>>>> dev
 
                         </tbody>
                     </table>
@@ -307,6 +334,7 @@ class HeaderAdmin extends Component {
 
 
                 {/* <!-- Nouvel entête --> */}
+<<<<<<< HEAD
 
                 <div class="modal fade" id="new-header-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -319,6 +347,20 @@ class HeaderAdmin extends Component {
                             </div>
                             <div class="modal-body">
                                 <AjoutHeader {...this.props} header={this.state.header} getStartedHeader={this.getStartedHeader} />
+=======
+              
+                <div className="modal fade" id="new-header-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Nouvel entête</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <AjoutHeader {...this.props} header={this.state.header} getStartedHeader={this.getStartedHeader}/>
+>>>>>>> dev
                             </div>
                         </div>
                     </div>
@@ -326,14 +368,19 @@ class HeaderAdmin extends Component {
 
 
                 {/* <!-- suppression d'un entête --> */}
-                <div class="modal fade" id="delete-header-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                <div className="modal fade" id="delete-header-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
+<<<<<<< HEAD
                             <div class="modal-body">
                                 <DeleteHeader header={this.state.header} headerToDelete={this.state.headerToDelete} getStartedHeader={this.getStartedHeader} />
+=======
+                            <div className="modal-body">
+                                <DeleteHeader header={this.state.header} headerToDelete={this.state.headerToDelete} getStartedHeader={this.getStartedHeader}/>
+>>>>>>> dev
                             </div>
                         </div>
                     </div>
@@ -341,6 +388,7 @@ class HeaderAdmin extends Component {
 
 
                 {/* <!-- Modification de l'entête--> */}
+<<<<<<< HEAD
                 <div class="modal fade" id="editheaderAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -367,6 +415,34 @@ class HeaderAdmin extends Component {
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" id="titre-header-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editheader}>Appliquer</button>
+=======
+                <div className="modal fade" id="editheaderAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Modifier l'entête du site</h5>
+                        </div>
+                        <div className="modal-body">
+                        {this.state.header.length > 0 && <div className="form-group">
+
+                                <label>Saisir une description</label>
+                                <textarea type="text" value={this.state.descriptionHeader} className="form-control form-control-sm" id="addDescription-header-admin" onChange={this.handleChangeInput}/>
+                               
+                                <label htmlFor="alt-image-header-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <div className=""> 
+                                    <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-header-admin" onChange={this.handleChangeInput}/>
+                                </div>
+
+                                <div className="custom-file">
+                                    <input type="file" className="custom-file-input" onChange={this.handlerUploadFile}/>
+                                    <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
+                                </div>
+                            </div>}
+                        </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" id="titre-header-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editheader}>Appliquer</button>
+>>>>>>> dev
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (

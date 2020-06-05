@@ -35,9 +35,7 @@ class Footer extends Component {
   }
 
   render(){
-    const { locale } = this.state;
-    //console.log(locale);
-
+    
     return (
       <div >
         <div className="footer container pt-5 mt-5">
@@ -59,13 +57,13 @@ class Footer extends Component {
               </div>
               <div className="  all no ">
                 <div>
-                  <a ><img src="" alt="logo rs" /></a>
+                  <a href="test" ><img src="" alt="logo rs" /></a>
                 </div>
                 <div>
-                  <a ><img src="" alt="logo rs" /></a>
+                  <a href="test"><img src="" alt="logo rs" /></a>
                 </div>
                 <div>
-                  <a ><img src="" alt="logo rs" /></a>
+                  <a href="test"><img src="" alt="logo rs" /></a>
                 </div>
               </div>
             </div>

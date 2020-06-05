@@ -106,7 +106,7 @@ class ShowroomText extends Component {
         let language = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
-            for (let [key, value] of Object.entries(arrayLang[i])) {
+            for (let [ ,value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
                     language = arrayLang[i].id;
                 }
@@ -213,7 +213,7 @@ class ShowroomText extends Component {
                                 <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
                             <div className="modal-body">
-                                <DeleteText showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
+                                <DeleteShowroom showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
                             </div>
                         </div>
                     </div>
