@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Reference.css";
 import { HashLink as NavLink } from "react-router-hash-link";
-import getRessources from "../../../utils/getRessources";
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 

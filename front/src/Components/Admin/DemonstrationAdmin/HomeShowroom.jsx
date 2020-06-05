@@ -52,7 +52,7 @@ class HomeShowroom extends Component {
       }
 
     render() {
-        const { arrayLang, handleChangeLang } = this.state;
+        const { arrayLang } = this.state;
 
         let options = [];
         for (let i in arrayLang) {

@@ -106,7 +106,7 @@ class ShowroomText extends Component {
         let language = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
-            for (let [key, value] of Object.entries(arrayLang[i])) {
+            for (let [ ,value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
                     language = arrayLang[i].id;
                 }
@@ -153,7 +153,7 @@ class ShowroomText extends Component {
                 </div>
 
                 {!this.state.dataText.length > 0 && <div className="pt-3 pb-3">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-text-showroom-admin">Nouveau titre / description</button>
+                    <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-text-showroom-admin">Nouveau titre / description</button>
                 </div>
                 }
                 <div className="position-tab pt-3 ">
@@ -175,8 +175,8 @@ class ShowroomText extends Component {
                                         <th scope="row">{index + 1}</th>
                                         <td>{element.title}</td>
                                         <td>{this.state.description}</td>
-                                        <td> {<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
-                                        <td>{<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                        <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
+                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
 
                                     </tr>
                                 ))
@@ -189,16 +189,16 @@ class ShowroomText extends Component {
 
                 {/* <!-- Nouveau titre / description --> */}
 
-                <div class="modal fade" id="new-text-showroom-admin" tabindex="-1" role="dialog" aria-labelledby="new-text-showroom-admin" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="new-text-showroom-admin">Ajout un titre / description</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div className="modal fade" id="new-text-showroom-admin" tabIndex="-1" role="dialog" aria-labelledby="new-text-showroom-admin" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="new-text-showroom-admin">Ajout un titre / description</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <AjoutText {...this.props} dataText={this.state.dataText} getStartedText={this.getStartedText} />
                             </div>
                         </div>
@@ -206,13 +206,13 @@ class ShowroomText extends Component {
                 </div>
 
                 {/* <!-- suppression d'un texte / description  --> */}
-                <div class="modal fade" id="delete-Showroom-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                <div className="modal fade" id="delete-Showroom-admin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-scrollable" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <DeleteShowroom showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
                             </div>
                         </div>
@@ -220,13 +220,13 @@ class ShowroomText extends Component {
                 </div>
 
                 {/* <!-- Modification d'un titre /description / labelbtnDrop --> */}
-                <div class="modal fade" id="editShowroomAmdin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modifier un titre / une description</h5>
+                <div className="modal fade" id="editShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Modifier un titre / une description</h5>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 {this.state.dataText.length > 0 && <div className="form-group">
                                     <div className="form-group ">
                                         <label htmlFor="title-showroom-admin-2" className="col-form-label">titre</label>
@@ -245,9 +245,9 @@ class ShowroomText extends Component {
 
                                 </div>}
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
                             </div>
 
                         </div>

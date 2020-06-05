@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import postRessources from './../../../utils/postRessources';
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -129,9 +128,9 @@ class AjoutText extends Component {
 
                     </div>
                 </form>
-                <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewHeader}>Enregistrer</button>
+                <div className="modal-footer pt-1">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewHeader}>Enregistrer</button>
                 </div>
             </div>
         )

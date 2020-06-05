@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import getRessources from './../../../utils/getRessources';
 import AjoutSolution from './AjoutSolution';
 import DeleteSolution from './DeleteSolution';
-import $ from "jquery";
 import NavBarAdmin from '../NavBarAdmin/NavBar';
 import ModificationSolution from "./ModificationSolution";
 
@@ -57,7 +55,7 @@ class SolutionAdmin extends Component {
     let language = null;
 
     for (let i = 0; i < data.length; i++) {
-      for (let [key, value] of Object.entries(data[i])) {
+      for (let  [,value] of Object.entries(data[i])) {
         if (this.state.langSelected === value) {
           language = data[i].id;
         }

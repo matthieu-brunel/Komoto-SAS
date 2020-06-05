@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import getRessources from './../../../utils/postRessources';
-import deleteRessources from '../../../utils/deleteRessources';
+
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -54,28 +53,28 @@ class DeleteSavoirFaire extends Component{
 
 
     render(){
-        const { SavoirFaireToDelete } = this.props;
+        
 
         return(
             <div>
                 <div className="form-group" >
-                    <label forHtml="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer ce savoir-faire ?</label>
+                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer ce savoir-faire ?</label>
                 </div>
-                <form class="was-validated">
-                    <div class="custom-control custom-checkbox mb-3">
-                        { this.state.checkBox ? <input type="checkbox" class="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
-                        : <input type="checkbox" class="custom-control-input" id="customControlValidation1" required checked={this.state.checkBox} onChange={this.handleChangeCheckBox} /> }
-                        <label class="custom-control-label" for="customControlValidation1">confirmation de la suppression</label>
+                <form className="was-validated">
+                    <div className="custom-control custom-checkbox mb-3">
+                        { this.state.checkBox ? <input type="checkbox" className="custom-control-input" id="customControlValidation1"  onChange={this.handleChangeCheckBox}/> 
+                        : <input type="checkbox" className="custom-control-input" id="customControlValidation1" required checked={this.state.checkBox} onChange={this.handleChangeCheckBox} /> }
+                        <label className="custom-control-label" htmlFor="customControlValidation1">confirmation de la suppression</label>
                     </div>
                 </form>
                 <div className="modal-footer">
                     {this.state.checkBox && this.props.SavoirFaireToDelete.length > 0
                         ?
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteSavoirFaire}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteSavoirFaire}>Oui</button>
                         :
-                        <button type="button" class="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Oui</button>
                         }
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSavoirFaire}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteSavoirFaire}>Annuler</button>
                 </div>
 
             </div>

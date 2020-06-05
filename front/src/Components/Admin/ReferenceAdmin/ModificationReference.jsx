@@ -5,7 +5,6 @@ import $ from "jquery";
 import postImages from "./../../../utils/postImages";
 const path = require('path');
 
-const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 
@@ -117,7 +116,7 @@ class ModificationReference extends Component {
   handleChangeInput = (event) => {
 
     switch (event.target.id) {
-      case "titre-section":
+      case "titre-section-edit-ref":
         this.setState({ titrePage: event.target.value });
         break;
 
@@ -333,7 +332,6 @@ class ModificationReference extends Component {
       });
 
     } else if (prevProps.idToEdit !== this.props.idToEdit) {
-      let description = JSON.parse(this.props.referenceAdmin[this.props.idToEdit].description);
       this.setState({
         titrePage: this.props.referenceAdmin[this.props.idToEdit].title,
         nameReference: this.props.referenceAdmin[this.props.idToEdit].subtitle,
@@ -558,7 +556,7 @@ class ModificationReference extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="titre-section">Titre de la page</label>
-                  <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
+                  <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section-edit-ref" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
                 </div>
                 <div className="form-group">
                   <label>Saisir le nom de la reference</label>

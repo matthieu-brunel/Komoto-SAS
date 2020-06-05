@@ -3,7 +3,6 @@ import postRessources from './../../../utils/postRessources';
 import $ from "jquery";
 const path = require('path');
 
-const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 class AjoutSolutionAdmin extends Component {
@@ -199,12 +198,7 @@ class AjoutSolutionAdmin extends Component {
             }
         }
 
-        const options = {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + window.localStorage.getItem('token')
-            })
-        }
+        
 
 
         let objetImageFinal = {};
@@ -275,7 +269,6 @@ class AjoutSolutionAdmin extends Component {
             documentTosendBack: [],
             arrayImage: [],
             arraySections: [],
-            nameSolution: "",
             titreAccueil: "",
             document: [],
             documentLogoSolution: [],
