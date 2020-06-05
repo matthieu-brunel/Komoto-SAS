@@ -264,7 +264,7 @@ class User extends Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminUser}>Valider</button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
               </div>
             </div>

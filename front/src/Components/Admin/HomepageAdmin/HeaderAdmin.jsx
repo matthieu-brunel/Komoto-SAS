@@ -283,7 +283,7 @@ class HeaderAdmin extends Component {
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">description</th>
+                                <th scope="col">Titre</th>
                                 <th scope="col">modification</th>
                                 <th scope="col">Supprimer</th>
                             </tr>
@@ -330,7 +330,7 @@ class HeaderAdmin extends Component {
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un entête</h5>
                             </div>
                             <div className="modal-body">
                                 <DeleteHeader header={this.state.header} headerToDelete={this.state.headerToDelete} getStartedHeader={this.getStartedHeader}/>
@@ -350,10 +350,10 @@ class HeaderAdmin extends Component {
                         <div className="modal-body">
                         {this.state.header.length > 0 && <div className="form-group">
 
-                                <label>Saisir une description</label>
+                                <label>Saisir un titre (SEO)</label>
                                 <textarea type="text" value={this.state.descriptionHeader} className="form-control form-control-sm" id="addDescription-header-admin" onChange={this.handleChangeInput}/>
                                
-                                <label htmlFor="alt-image-header-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <label htmlFor="alt-image-header-admin" className="col-form-label col-form-label-sm">alt de l'image (SEO)</label>
                                 <div className=""> 
                                     <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-header-admin" onChange={this.handleChangeInput}/>
                                 </div>
@@ -365,8 +365,8 @@ class HeaderAdmin extends Component {
                             </div>}
                         </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-header-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editheader}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" id="titre-header-admin-Fermer" data-dismiss="modal" onClick={this.closeModal}>Fermer</button>
+                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editheader}>Enregistrer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (

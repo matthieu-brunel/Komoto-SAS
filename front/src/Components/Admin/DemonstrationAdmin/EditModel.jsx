@@ -202,7 +202,7 @@ class EditModel extends Component {
                     <div class="card-header" id="headingOne">
                         <h6 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                modification du model 3d
+                                Modification du model 3d
                         </button>
                         </h6>
                     </div>

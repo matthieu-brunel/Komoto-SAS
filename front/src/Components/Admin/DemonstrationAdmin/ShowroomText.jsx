@@ -193,7 +193,7 @@ class ShowroomText extends Component {
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="new-text-showroom-admin">Ajout un titre / description</h5>
+                                <h5 className="modal-title" id="new-text-showroom-admin">Ajouter un titre / description</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -210,7 +210,7 @@ class ShowroomText extends Component {
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un texte / description</h5>
                             </div>
                             <div className="modal-body">
                                 <DeleteText showroom={this.state.dataText} ShowroomToDelete={this.state.ShowroomToDelete} getStartedText={this.getStartedText} />
@@ -246,8 +246,8 @@ class ShowroomText extends Component {
                                 </div>}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-Fermer" data-dismiss="modal" onClick={this.closeModal}>Fermer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editShowroom}>Enregistrer</button>
                             </div>
 
                         </div>

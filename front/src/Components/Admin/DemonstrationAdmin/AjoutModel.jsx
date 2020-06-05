@@ -229,7 +229,7 @@ class AjoutModel extends Component {
                 <form>
                     <div className="form-group">
                         <div className="container-3d mb-4">
-                            <h5>model 3d</h5>
+                            <h5>Model 3d</h5>
                             <div className="custom-file ">
                                 <input type="file" className="custom-file-input" id="uploadFile3dShowroomAdmin" onChange={this.handlerUpload3dFile} />
                                 <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload un model 3D</label>
@@ -245,19 +245,19 @@ class AjoutModel extends Component {
 
                         <div className="custom-control custom-checkbox">
                             <input type="checkbox" className="custom-control-input" id="haveImageWith5dModel" onClick={this.handlerOnlickCheckBox} />
-                            <label className="custom-control-label" htmlFor="haveImageWith5dModel">une image associée au model 3d ?</label>
+                            <label className="custom-control-label" htmlFor="haveImageWith5dModel">ajouter une image associée au model 3d (facultatif) </label>
                         </div>
 
                         {this.state.checkboxImage &&
                             <div className="container-image">
-                                <h5>image</h5>
+                                <h5>Image</h5>
                                 <div className="custom-file">
                                     <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                                     <input type="file" className="custom-file-input" id="uploadFile3dShowroomAdmin" onChange={this.handlerUploadImage} />
                                 </div>
 
                                 <div className="div-alt-model-image">
-                                    <label htmlFor="alt-image-showroom-admin" className="col-form-label">description de l'image</label>
+                                    <label htmlFor="alt-image-showroom-admin" className="col-form-label">alt de l'image (SEO)</label>
                                     <input type="text" value={this.state.altImage} className="form-control" id="alt-image-showroom-admin" onChange={this.handleChangeInput} />
                                 </div>
                             </div>}

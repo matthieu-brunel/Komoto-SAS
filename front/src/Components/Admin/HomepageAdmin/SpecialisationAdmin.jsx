@@ -312,7 +312,7 @@ class SpecialisationAdmin extends Component{
 
                 <div >
                     <div className="pt-3 pb-3">
-                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajout spécialisation</button>
+                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-specialisation-admin">Ajouter une spécialisation</button>
                     </div>
 
                     <div className="position-tab pt-3">
@@ -383,20 +383,20 @@ class SpecialisationAdmin extends Component{
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modifier une spécialité</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Modifier une spécialisation</h5>
                         </div>
                         <div className="modal-body">
                         {this.state.specSelected.length > 0 && <div className="form-group">
                                 <div className="form-group">
-                                    <label htmlFor="titre-section">Titre section</label>
+                                    <label htmlFor="titre-section">Saisir le titre de la section spécialisation </label>
                                     <input className="form-control form-control-sm" value={this.state.titreSection} id="titre-section-spec" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                                 </div>
-                                <label>Saisir le titre de la spécialité</label>
+                                <label>Saisir le titre de la spécialisation</label>
                                 <input type="text" className="form-control form-control-sm" value={this.state.titreSpec} id="titre-spec-admin" onChange={this.handleChangeInput}/>
 
-                                <label>Saisir une description</label>
+                                <label>Saisir un paragraphe</label>
                                 <textarea type="text" value={this.state.addDescription} className="form-control form-control-sm" id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
-                                <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
+                                <button type="button" className="btn btn-primary" onClick={this.addDescription}>valider le paragraphe</button>
                                 <div className="description-spec-admin-modal">
                                     <ul>
                                         {this.state.specSelected.length > 0 && this.state.specSelected[0].description.map((description, index) => (
@@ -411,7 +411,7 @@ class SpecialisationAdmin extends Component{
 
                                 </div>
 
-                                <label htmlFor="alt-image-spec-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <label htmlFor="alt-image-spec-admin" className="col-form-label col-form-label-sm">alt de l'image (SEO)</label>
                                 <div className=""> 
                                     <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-spec-admin" onChange={this.handleChangeInput}/>
                                 </div>
@@ -423,8 +423,8 @@ class SpecialisationAdmin extends Component{
                             </div>}
                         </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-spec-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" id="titre-spec-admin-Fermer" data-dismiss="modal" onClick={this.closeModal}>Fermer</button>
+                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editSpecialisation}>Enregistrer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (

@@ -210,7 +210,7 @@ class Langues extends Component{
                     </div>
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addAdminLangue}>Valider</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addAdminLangue}>Enregistrer</button>
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
     
                   </div>
@@ -247,7 +247,7 @@ class Langues extends Component{
                     </div>
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editAdminLangue}>Valider</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editAdminLangue}>Enregistrer</button>
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
     
                   </div>
@@ -271,8 +271,8 @@ class Langues extends Component{
                     Souhaitez-vous supprimer cette langue ?
                   </div>
                   <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminLangue}>Valider</button>
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Annuler</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminLangue}>Enregistrer</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
     
                   </div>
                 </div>

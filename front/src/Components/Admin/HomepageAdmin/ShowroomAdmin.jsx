@@ -292,7 +292,7 @@ class ShowroomAdmin extends Component{
                 <div >
                     {!this.state.showroom.length > 0 && 
                     <div className="pt-3 pb-3">
-                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-showroom-admin">Ajout un showroom</button>
+                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-showroom-admin">Ajouter un showroom</button>
                     </div>}
 
                     <div className="position-tab pt-3">
@@ -349,7 +349,7 @@ class ShowroomAdmin extends Component{
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un showroom</h5>
                             </div>
                             <div className="modal-body">
                                 <DeleteShowroom showroom={this.state.showroom} ShowroomToDelete={this.state.ShowroomToDelete} getStartedShowroom={this.getStartedShowroom}/>
@@ -368,7 +368,7 @@ class ShowroomAdmin extends Component{
                         <div className="modal-body">
                         {this.state.showroom.length > 0 && <div className="form-group">
                                 <div className="form-group">
-                                    <label htmlFor="titre-section">Titre section</label>
+                                    <label htmlFor="titre-section">Titre de la section showroom</label>
                                     <input className="form-control" value={this.state.titreSection} id="titre-section-showroom" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                                 </div>
                                 <label>Saisir le titre du showroom</label>
@@ -378,7 +378,7 @@ class ShowroomAdmin extends Component{
                                 <textarea type="text" value={this.state.descriptionShowroom} className="form-control" id="description-showroom-admin" onChange={this.handleChangeInput}/>
  
                             
-                                <label htmlFor="alt-image-showroom-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                <label htmlFor="alt-image-showroom-admin" className="col-form-label col-form-label-sm">alt de l'image (SEO)</label>
                                 <div className=""> 
                                     <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-showroom-admin" onChange={this.handleChangeInput}/>
                                 </div>
@@ -390,8 +390,8 @@ class ShowroomAdmin extends Component{
                             </div>}
                         </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editShowroom}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-Fermer" data-dismiss="modal" onClick={this.closeModal}>Fermer</button>
+                                <button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={this.editShowroom}>Enregistrer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (

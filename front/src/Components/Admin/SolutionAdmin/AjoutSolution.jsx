@@ -374,7 +374,7 @@ class AjoutSolutionAdmin extends Component {
                         <div className="card-header" id="headingOne">
                             <h5 className="mb-0">
                                 <button className="btn btn-link" data-toggle="collapse" data-target="#partie1" aria-expanded="true" aria-controls="partie1">
-                                    partie 1
+                                    Titre et nom de la solution
                             </button>
                             </h5>
                         </div>
@@ -382,7 +382,7 @@ class AjoutSolutionAdmin extends Component {
                         <form id="partie1" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <label htmlFor="titrePage-Accueil">Titre de la section (page d'accueil) <span style={{ color: "red" }}>*</span></label>
+                                    <label htmlFor="titrePage-Accueil">Titre de la section solution (page d'accueil) <span style={{ color: "red" }}>*</span></label>
                                     <input className="form-control " value={this.state.titreAccueil} id="titrePage-Accueil" type="text" placeholder="titre accueil" onChange={this.handleChangeInput} />
                                 </div>
 
@@ -399,40 +399,14 @@ class AjoutSolutionAdmin extends Component {
                                 </div>
                             </div>
 
-                            <div className="modal-body">
-                                <div className="description-section-solution-admin-modal pt-3">
-                                    <ul>
-                                        {this.state.arraySections.length > 0 && this.state.arraySections.map((section, index) => (
-
-                                            <div key={index} className="div-section-container p-1">
-                                                <div className="div-title-section">
-                                                    <h6 className="title-section">{section.title}</h6>
-                                                </div>
-
-                                                <div className="div-section-description">
-                                                    <ul>
-                                                        {section.description.map((element, index_list) => (
-                                                            <li key={index_list}>{element}</li>
-                                                        ))}
-                                                    </ul>
-
-                                                </div>
-                                                <button type="button" className="btn btn-primary btn-sm" id="deleteDescriptionSection" onClick={this.deleteDescription.bind(this, index)}>X</button>
-                                            </div>
-
-
-                                        ))}
-                                    </ul>
-                                </div>
-
-                            </div>
+                           
                         </form>
                     </div>
                     <div className="card">
                         <div className="card-header" id="headingOne">
                             <h5 className="mb-0">
                                 <button className="btn btn-link" data-toggle="collapse" data-target="#partie2" aria-expanded="true" aria-controls="partie2">
-                                    partie 2
+                                    Paragraphe
                             </button>
                             </h5>
                         </div>
@@ -440,19 +414,19 @@ class AjoutSolutionAdmin extends Component {
                         <form id="partie2" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <label htmlFor="titre-solution-section">Titre du texte</label>
+                                    <label htmlFor="titre-solution-section">Titre du pararaphe</label>
                                     <input className="form-control " value={this.state.titreSection} id="titre-solution-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                                 </div>
-                                <label>Saisir une description</label>
+                                <label>Saisir un paragraphe</label>
                                 <div className="form-group">
                                     <textarea className="form-control" type="text" value={this.state.addDescription} id="addDescription-solution-admin" onChange={this.handleChangeInput} />
                                 </div>
 
-                                <button type="button" className="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter une description</button>
+                                <button type="button" className="btn btn-primary mr-2" onClick={this.addDescription}>Ajouter un paragraphe</button>
                                 {
                                     this.state.arrayDescription.length > 0 ?
-                                        <button type="button" className="btn btn-primary" onClick={this.addSection}>Valider la section</button> :
-                                        <button type="button" className="btn btn-secondary">Valider la section</button>}
+                                        <button type="button" className="btn btn-primary" onClick={this.addSection}>Enregistrer le paragraphe</button> :
+                                        <button type="button" className="btn btn-secondary">Valider le paragraphe</button>}
 
 
                                 <div className="description-solution-admin-modal">
@@ -499,7 +473,7 @@ class AjoutSolutionAdmin extends Component {
                             <h5 className="mb-0">
                                 <div className="p-2">
                                     <button className="btn btn-link" data-toggle="collapse" data-target="#partie3" aria-expanded="true" aria-controls="partie3">
-                                        partie 3
+                                        Images et logo
                                     </button>
                                 </div>
                             </h5>
@@ -518,10 +492,10 @@ class AjoutSolutionAdmin extends Component {
                                             {/*  upload logo de la solution utilisée */}
                                             <div className="custom-file col-5">
                                                 <input type="file" className="custom-file-input" id="uploadAddImageLogoSolution" onChange={this.handlerUploadFile} />
-                                                <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{ color: "red" }}>*</span></label>
+                                                <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution <span style={{ color: "red" }}>*</span></label>
                                             </div>
                                             <div className="div-description-image-solution-admin col-5">
-                                                <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                                                <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-solution-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                                             </div>
 
                                             <div className="btn-ajouter-image-solution-admin col-2">
@@ -573,10 +547,10 @@ class AjoutSolutionAdmin extends Component {
                                             {/*  upload des images du caroussel */}
                                             <div className="custom-file col-5">
                                                 <input type="file" className="custom-file-input" id="uploadAddImageSolutionCaroussel" onChange={this.handlerUploadFile} />
-                                                <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{ color: "red" }}>*</span></label>
+                                                <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images <span style={{ color: "red" }}>*</span></label>
                                             </div>
                                             <div className="div-description-image-solution-admin col-5">
-                                                <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                                                <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                                             </div>
 
                                             <div className="btn-ajouter-image-solution-admin col-2">

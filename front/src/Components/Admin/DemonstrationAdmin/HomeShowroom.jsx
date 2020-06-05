@@ -69,8 +69,8 @@ class HomeShowroom extends Component {
                     <h1>Showroom</h1>
                 </div>
                 <div className="pt-3 pb-3">
-                    <button type="button" className="btn btn-primary mr-2" id="text" onClick={this.handleClickPart}>Texte</button>
-                    <button type="button" className="btn btn-primary mr-2" id="model" onClick={this.handleClickPart}>Model</button>
+                    <button type="button" className="btn btn-primary mr-2" id="text" onClick={this.handleClickPart}>Partie texte de la page Showroom</button>
+                    <button type="button" className="btn btn-primary mr-2" id="model" onClick={this.handleClickPart}>Partie 3D de la page Showroom</button>
                     <select className="form-control " id="select-lang" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
                         {options}
                     </select>

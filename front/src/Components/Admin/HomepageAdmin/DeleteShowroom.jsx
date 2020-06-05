@@ -68,11 +68,11 @@ class DeleteShowroom extends Component{
                 <div className="modal-footer">
                     {this.state.checkBox && this.props.ShowroomToDelete.length > 0
                         ?
-                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteShowroom}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteShowroom}>Enregistrer</button>
                         :
-                        <button type="button" className="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Enregistrer</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteShowroom}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteShowroom}>Fermer</button>
                 </div>
 
             </div>

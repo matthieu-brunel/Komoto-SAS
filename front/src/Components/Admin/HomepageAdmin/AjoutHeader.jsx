@@ -176,10 +176,10 @@ class AjoutHeader extends Component {
 
                         <div className="form-group ">
 
-                            <label>Saisir une description</label>
+                            <label>Saisir un titre (SEO)</label>
                             <textarea type="text" value={this.state.descriptionHeader} className="form-control" id="description-header-admin" onChange={this.handleChangeInput} />
 
-                            <label htmlFor="alt-image-header-admin" className="col-form-label">description de l'image</label>
+                            <label htmlFor="alt-image-header-admin" className="col-form-label">alt de l'image (SEO)</label>
                             <div className="">
                                 <input type="text" value={this.state.altImage} className="form-control" id="alt-image-header-admin" onChange={this.handleChangeInput} />
                             </div>
@@ -193,7 +193,7 @@ class AjoutHeader extends Component {
 
                 </form>
                 <div className="modal-footer pt-1">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewHeader}>Enregistrer</button>
                 </div>
 

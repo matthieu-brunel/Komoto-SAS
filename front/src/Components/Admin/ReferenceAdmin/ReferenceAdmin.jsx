@@ -264,7 +264,7 @@ class ReferenceAdmin extends Component {
 
         <div >
           <div className="pt-3 pb-3">
-            <button type="button" className="btn btn-outline-primary" onClick={this.handleClickOpenAddReference}>Ajout reference</button>
+            <button type="button" className="btn btn-outline-primary" onClick={this.handleClickOpenAddReference}>Ajouter une reference</button>
             <select className="form-control " id="exampleFormControlSelect1" style={{ width: "4%", display: 'inline-block' }} onChange={this.handleChangeLang}>
               {options}
             </select>
