@@ -4,7 +4,6 @@ import $ from "jquery";
 import postImages from "./../../../utils/postImages";
 const path = require('path');
 
-const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 
@@ -108,7 +107,7 @@ class ModificationSolution extends Component {
     handleChangeInput = (event) => {
 
         switch (event.target.id) {
-            case "titre-section":
+            case "titre-section-edit-sol":
                 this.setState({ titrePage: event.target.value });
                 break;
 
@@ -291,7 +290,6 @@ class ModificationSolution extends Component {
             });
 
         } else if (prevProps.idToEdit !== this.props.idToEdit) {
-            let description = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].description);
             this.setState({
                 titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
                 nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
@@ -510,7 +508,7 @@ class ModificationSolution extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="titre-section">Titre de la Solution</label>
-                                    <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
+                                    <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section-eit-sol" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="form-group">
                                     <label>Saisir le nom de la solution</label>

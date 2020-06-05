@@ -101,9 +101,7 @@ class Langues extends Component{
       }
     
     
-      resetInput(){
-        this.setState({name:"",locale:""});
-      }
+     
     
       componentDidMount(){
         this.getLanguages();
@@ -153,7 +151,7 @@ class Langues extends Component{
     
             <div className="addLangueAdmin pt-3 pb-3">
               { /* <!-- Button trigger modal --> */}
-              <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addLangueAdmin">ajouter une langue</button>
+              <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#addLangueAdmin">ajouter une langue</button>
             </div>
     
             <div className="position-tab pt-3">
@@ -174,8 +172,8 @@ class Langues extends Component{
                         <th scope="row">{index+1}</th>
                         <td>{element.name}</td>
                         <td>{element.locale}</td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editLangueAmdin" onClick={this.getIdEditLangue.bind(this, index)}>Modifier</button></td>
-                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLangueAdmin" onClick={this.getIdEditLangue.bind(this, index)}>Supprimer</button></td>
+                        <td><button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editLangueAmdin" onClick={this.getIdEditLangue.bind(this, index)}>Modifier</button></td>
+                        <td><button type="button" className="btn btn-danger" data-toggle="modal" data-target="#deleteLangueAdmin" onClick={this.getIdEditLangue.bind(this, index)}>Supprimer</button></td>
                       </tr>
                     ))
                   }
@@ -186,34 +184,34 @@ class Langues extends Component{
           
             {/*début modal nouvelle langue*/}
             {/* <!-- Modal --> */}
-            <div class="modal fade" id="addLangueAdmin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="titleAddLangueAdmin">nouvelle langue</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="addLangueAdmin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="titleAddLangueAdmin">nouvelle langue</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     <div className='inputAddLangueAdmin'>
                     <form >
-                      <div class="form-group">
-                        <label for="name">langue</label>
-                        <input type="email" class="form-control" id="name" value={this.state.name} aria-describedby="emailHelp" placeholder="Entrer la langue" onChange={this.handlerChangeInput}/>
+                      <div className="form-group">
+                        <label htmlFor="name">langue</label>
+                        <input type="email" className="form-control" id="name" value={this.state.name} aria-describedby="emailHelp" placeholder="Entrer la langue" onChange={this.handlerChangeInput}/>
                         
                       </div>
-                      <div class="form-group">
-                        <label for="locale">locale</label>
-                        <input type="locale" class="form-control" id="locale" value={this.state.locale} placeholder="Exemple : fr" onChange={this.handlerChangeInput}/>
+                      <div className="form-group">
+                        <label htmlFor="locale">locale</label>
+                        <input type="locale" className="form-control" id="locale" value={this.state.locale} placeholder="Exemple : fr" onChange={this.handlerChangeInput}/>
                       </div>
                     </form>
     
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addAdminLangue}>Valider</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addAdminLangue}>Valider</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
     
                   </div>
                 </div>
@@ -223,34 +221,34 @@ class Langues extends Component{
     
             {/*début modal modification langue*/}
             {/* <!-- Modal --> */}
-            <div class="modal fade" id="editLangueAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="titleEditLangueAmdin">Modification de la Langue</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="editLangueAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="titleEditLangueAmdin">Modification de la Langue</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     <div className='inputEditAdmin'>
                     <form >
-                      <div class="form-group">
-                        <label for="name">langue</label>
-                        <input type="text" class="form-control" id="name" value={this.state.name} aria-describedby="emailHelp" placeholder="entrer la langue" onChange={this.handlerChangeInput}/>
+                      <div className="form-group">
+                        <label htmlFor="name">langue</label>
+                        <input type="text" className="form-control" id="name" value={this.state.name} aria-describedby="emailHelp" placeholder="entrer la langue" onChange={this.handlerChangeInput}/>
                         
                       </div>
-                      <div class="form-group">
-                        <label for="locale">locale</label>
-                        <input type="text" class="form-control" id="locale" value={this.state.locale} placeholder="exemple" onChange={this.handlerChangeInput}/>
+                      <div className="form-group">
+                        <label htmlFor="locale">locale</label>
+                        <input type="text" className="form-control" id="locale" value={this.state.locale} placeholder="exemple" onChange={this.handlerChangeInput}/>
                       </div>
                     </form>
     
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.editAdminLangue}>Valider</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editAdminLangue}>Valider</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Fermer</button>
     
                   </div>
                 </div>
@@ -260,21 +258,21 @@ class Langues extends Component{
     
             {/*début modal suppression langue*/}
             {/* <!-- Modal --> */}
-            <div class="modal fade" id="deleteLangueAdmin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="titleDeleteLangueAmdin">Suppression de la langue</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="deleteLangueAdmin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="titleDeleteLangueAmdin">Suppression de la langue</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     Souhaitez-vous supprimer cette langue ?
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminLangue}>Valider</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Annuler</button>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteAdminLangue}>Valider</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" /* onClick={() => {this.resetInput()}} */>Annuler</button>
     
                   </div>
                 </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-const login_adress = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 

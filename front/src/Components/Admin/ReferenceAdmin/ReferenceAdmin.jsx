@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import getRessources from './../../../utils/getRessources';
 import "./ReferenceAdmin.css";
 import AjoutReference from './AjoutReference';
 import DeleteReference from './DeleteReference';
-import $ from "jquery";
+
 import NavBarAdmin from '../NavBarAdmin/NavBar';
 import ModificationReference from "./ModificationReference";
 
@@ -139,7 +138,7 @@ class ReferenceAdmin extends Component {
     let language = null;
 
     for (let i = 0; i < data.length; i++) {
-      for (let [key, value] of Object.entries(data[i])) {
+      for (let [,value] of Object.entries(data[i])) {
         if (this.state.langSelected === value) {
           language = data[i].id;
         }

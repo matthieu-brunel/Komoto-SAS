@@ -30,7 +30,6 @@ prefix + "/Langues"];
 
 
 let monUrl = window.location.href;
-let resultat = urlAdmin.includes(monUrl);
 
 
 class Client extends Component {
@@ -56,7 +55,7 @@ class Client extends Component {
 
 
     getStarted = async () => {
-        
+
         const { idLang } = this.state;
 
         const options = {
@@ -67,22 +66,22 @@ class Client extends Component {
 
         //Chargement des données de la table language 
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
-        let data_lang = await (await (fetch(url, options))).json();
+        await (await (fetch(url, options))).json();
 
         //Chargement de toutes les solutions
         url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + idLang;
         let solutionsAll = await (await (fetch(url, options))).json();
-         console.log("test", solutionsAll); 
+        console.log("test", solutionsAll);
         let arraySolution = [];
 
-         for (let obj of solutionsAll) {
+        for (let obj of solutionsAll) {
             let url = JSON.parse(obj.url);
             let description = JSON.parse(obj.description);
             obj.url = url;
             obj.description = description;
             arraySolution.push(obj);
-        } 
-       
+        }
+
 
 
 
@@ -92,15 +91,7 @@ class Client extends Component {
         let sectionSolution = solutionsAll.map(element => element.section);
         let section_filtered = sectionSolution.filter((section, index) => sectionSolution.lastIndexOf(section) === index);
 
-        //array qui va recueillir toutes les solutions
-        let array_solution = [];
-
-
-        /*      for (let i in section_filtered) {
-                 let url = `http://localhost:5000/api/solution?section=${section_filtered[i]}&locale=${data_lang[0].locale}`;
-     
-                 array_solution.push(await (await (fetch(url, options))).json())
-             } */
+       
 
         this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
         this.props.dispatch({ type: GET_ID_LANG.type, idLang });

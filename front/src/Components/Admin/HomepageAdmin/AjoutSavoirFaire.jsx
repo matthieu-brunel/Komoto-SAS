@@ -33,7 +33,7 @@ class AjoutSavoirFaire extends Component{
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
-            case "titre-section":
+            case "titre-section-ajout-savoirFaire":
                 this.setState({titreSection:event.target.value});
                 break;
 
@@ -49,7 +49,7 @@ class AjoutSavoirFaire extends Component{
                 this.setState({urlImage:event.target.value});
                 break;
 
-            case "alt-image-savoirFaire-admin":
+            case "alt-image-ajout-savoirFaire-admin":
                 this.setState({altImage:event.target.value});
                 break;
 
@@ -194,35 +194,35 @@ class AjoutSavoirFaire extends Component{
 
                     <div className="form-group">
                         
-                    <div class="form-group">
-                            <label for="titre-section">Titre section</label>
-                            <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                    <div className="form-group">
+                            <label htmlFor="titre-section">Titre section</label>
+                            <input className="form-control" value={this.state.titreSection} id="titre-section-ajout-savoirFaire" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="titre-savoiFaire-admin">Titre du savoir-faire</label>
-                            <input class="form-control " value={this.state.titreSavoirFaire} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
+                        <div className="form-group">
+                            <label htmlFor="titre-savoiFaire-admin">Titre du savoir-faire</label>
+                            <input className="form-control " value={this.state.titreSavoirFaire} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                         </div>
 
                         <label>Saisir une description</label>
                         <textarea type="text" value={this.state.descriptionSavoirFaire} className="form-control" id="description-savoirFaire-admin" onChange={this.handleChangeInput}/>
 
-                        <label htmlFor="alt-image-savoirFaire-admin" className="col-form-label">description de l'image</label>
+                        <label htmlFor="alt-image-ajout-savoirFaire-admin" className="col-form-label">description de l'image</label>
                         <div className=""> 
-                            <input type="text" value={this.state.altImage} className="form-control" id="alt-image-savoirFaire-admin" onChange={this.handleChangeInput}/>
+                            <input type="text" value={this.state.altImage} className="form-control" id="alt-image-ajout-savoirFaire-admin" onChange={this.handleChangeInput}/>
                         </div>
 
-                        <div class="custom-file">
+                        <div className="custom-file">
                             <input type="file" className="custom-file-input" id="uploadFileSavoirFaireAdmin" onChange={this.handlerUploadFile}/>
-                            <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
+                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                         </div>
                         </div>
                     </div>
 
                 </form>
-                <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewSavoirFaire}>Enregistrer</button>
+                <div className="modal-footer pt-1">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewSavoirFaire}>Enregistrer</button>
                 </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}

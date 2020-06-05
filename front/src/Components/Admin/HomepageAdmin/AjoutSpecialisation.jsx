@@ -33,7 +33,7 @@ class AjoutSpecialisation extends Component{
     handleChangeInput = (event) => {
         console.log(event.target.id);
         switch (event.target.id) {
-            case "titre-section":
+            case "titre-section-ajout-spec":
                 this.setState({titreSection:event.target.value});
                 break;
 
@@ -111,12 +111,7 @@ class AjoutSpecialisation extends Component{
                 idLang = Object.values(arrayLang[i])[2];
             }
         }
-        const options = {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + window.localStorage.getItem('token')
-            })
-        }
+       
 
         let dataImage = {
             'name':this.state.nameImage,
@@ -203,26 +198,26 @@ class AjoutSpecialisation extends Component{
                     ?
                     ""
                     :
-                    <div class="form-group">
-                        <label for="titre-section">Titre section</label>
-                        <input class="form-control" value={this.state.titreSection} id="titre-section" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
+                    <div className="form-group">
+                        <label htmlFor="titre-section">Titre section</label>
+                        <input className="form-control" value={this.state.titreSection} id="titre-section-ajout-spec" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                     </div>
                     }
                 
 
-                    <div class="form-group">
-                        <label for="titre-spec-admin">Titre specialisation</label>
-                        <input class="form-control " value={this.state.titreSpec} id="titre-spec-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
+                    <div className="form-group">
+                        <label htmlFor="titre-spec-admin">Titre specialisation</label>
+                        <input className="form-control " value={this.state.titreSpec} id="titre-spec-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                     </div>
 
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <label>Saisir une description</label>
                         
-                        <div class="form-group">
-                            <textarea class="form-control" type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
+                        <div className="form-group">
+                            <textarea className="form-control" type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
                         </div>
                         
-                        <button type="button" class="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
+                        <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
                             
                       
                        
@@ -239,20 +234,20 @@ class AjoutSpecialisation extends Component{
                     </div>
                     
 
-                    <div class="custom-file">
+                    <div className="custom-file">
                        <input type="file" className="custom-file-input" id="uploadFileSpecialisationAdmin" onChange={this.handlerUploadFile}/>
-                       <label class="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
+                       <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01">Upload une image</label>
                    </div>
 
-                    <div class="form-group">
-                        <label for="alt-image-spec-admin">Description de l'image</label>
-                        <input class="form-control form-control-sm" value={this.state.altImage} id="alt-image-spec-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
+                    <div className="form-group">
+                        <label htmlFor="alt-image-spec-admin">Description de l'image</label>
+                        <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-spec-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                     </div>
 
                 </form>
-                <div class="modal-footer pt-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={this.addNewSpecialisation}>Enregistrer</button>
+                <div className="modal-footer pt-1">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.resetInput}>Fermer</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewSpecialisation}>Enregistrer</button>
                 </div>
 
                 {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
