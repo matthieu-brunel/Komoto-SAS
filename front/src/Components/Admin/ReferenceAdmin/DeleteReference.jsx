@@ -55,7 +55,7 @@ class DeleteReference extends Component{
         return(
             <div>
                 <div className="form-group" >
-                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette reference ?</label>
+                    <label htmlFor="exampleFormControlSelect1">Etes-vous certain de vouloir supprimer cette référence ?</label>
                 </div>
                 <form className="was-validated">
                     <div className="custom-control custom-checkbox mb-3">
@@ -66,11 +66,11 @@ class DeleteReference extends Component{
                 <div className="modal-footer">
                     {this.state.checkBox && this.props.refToDelete.length > 0
                         ?
-                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deletereference}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deletereference}>Enregistrer</button>
                         :
-                        <button type="button" className="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Enregistrer</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteReference}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteReference}>Fermer</button>
                 </div>
 
             </div>

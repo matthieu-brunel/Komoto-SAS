@@ -199,25 +199,25 @@ class AjoutSpecialisation extends Component{
                     ""
                     :
                     <div className="form-group">
-                        <label htmlFor="titre-section">Titre section</label>
+                        <label htmlFor="titre-section">Titre de la section spécialisation</label>
                         <input className="form-control" value={this.state.titreSection} id="titre-section-ajout-spec" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                     </div>
                     }
                 
 
                     <div className="form-group">
-                        <label htmlFor="titre-spec-admin">Titre specialisation</label>
+                        <label htmlFor="titre-spec-admin">Titre de la spécialisation</label>
                         <input className="form-control " value={this.state.titreSpec} id="titre-spec-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                     </div>
 
                     <div className="modal-body">
-                        <label>Saisir une description</label>
+                        <label>Saisir un paragraphe de la spécialisation</label>
                         
                         <div className="form-group">
                             <textarea className="form-control" type="text" value={this.state.addDescription} id="addDescription-spec-admin" onChange={this.handleChangeInput}/>
                         </div>
                         
-                        <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter une description</button>
+                        <button type="button" className="btn btn-primary" onClick={this.addDescription}>valider le paragraphe</button>
                             
                       
                        
@@ -225,7 +225,7 @@ class AjoutSpecialisation extends Component{
                             <ul>
                                 {this.state.arrayDescription.length > 0 && this.state.arrayDescription.map((description, index) => (
                                     <div className="p-1">
-                                        <li key={index}>{description} {"  "}<button type="button" class="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
+                                        <li key={index}>{description} {"  "}<button type="button" className="btn btn-primary btn-sm" onClick={this.deleteDescription.bind(this, index)}>X</button></li>
                                     </div>
                                 ) )}
                             </ul>
@@ -240,7 +240,7 @@ class AjoutSpecialisation extends Component{
                    </div>
 
                     <div className="form-group">
-                        <label htmlFor="alt-image-spec-admin">Description de l'image</label>
+                        <label htmlFor="alt-image-spec-admin">alt de l'image (SEO)</label>
                         <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-spec-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput}/>
                     </div>
 

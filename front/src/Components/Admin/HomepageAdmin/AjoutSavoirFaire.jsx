@@ -195,19 +195,19 @@ class AjoutSavoirFaire extends Component{
                     <div className="form-group">
                         
                     <div className="form-group">
-                            <label htmlFor="titre-section">Titre section</label>
+                            <label htmlFor="titre-section">Titre de la section savoir-faire</label>
                             <input className="form-control" defaultValue={this.state.titreSection} id="titre-section-ajout-savoirFaire" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                         </div>
                         
                         <div className="form-group">
-                            <label htmlFor="titre-savoiFaire-admin">Titre du savoir-faire</label>
+                            <label htmlFor="titre-savoiFaire-admin">Titre du nouveau savoir-faire</label>
                             <input className="form-control " defaultValue={this.state.titreSavoirFaire} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                         </div>
 
-                        <label>Saisir une description</label>
+                        <label>Saisir la description du savoir-faire </label>
                         <textarea type="text" defaultValue={this.state.descriptionSavoirFaire} className="form-control" id="description-savoirFaire-admin" onChange={this.handleChangeInput}/>
 
-                        <label htmlFor="alt-image-ajout-savoirFaire-admin" className="col-form-label">description de l'image</label>
+                        <label htmlFor="alt-image-ajout-savoirFaire-admin" className="col-form-label">alt de l'image (SEO)</label>
                         <div className=""> 
                             <input type="text" defaultValue={this.state.altImage} className="form-control" id="alt-image-ajout-savoirFaire-admin" onChange={this.handleChangeInput}/>
                         </div>

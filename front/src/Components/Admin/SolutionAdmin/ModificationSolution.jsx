@@ -264,7 +264,7 @@ class ModificationSolution extends Component {
         this.setState({
             titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
             nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
-            titreAccueil:this.props.solutionAdmin[this.props.idToEdit].title_section,
+            titreAccueil: this.props.solutionAdmin[this.props.idToEdit].title_section,
             descriptionSolution: description,
             objetImageLogoSolution: arraySolution,
             objetImageCaroussel: images.imageCaroussel,
@@ -387,7 +387,7 @@ class ModificationSolution extends Component {
             "section": "solution"
         }
 
-        console.log("DATASOLUTION MODIFICATION :",dataSolution);
+        console.log("DATASOLUTION MODIFICATION :", dataSolution);
 
         // pour la modification du nom de la référence dans la table image,
         // nous sommes obligés de faire un fetch pour mettre a jours l'entiereté
@@ -495,7 +495,7 @@ class ModificationSolution extends Component {
                         <div className="card-header" id="headingOne">
                             <h5 className="mb-0">
                                 <button className="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="section1" onClick={this.toggleCollapse}>
-                                    Section 1
+                                    Titre et nom de la solution
                                 </button>
                             </h5>
                         </div>
@@ -503,7 +503,7 @@ class ModificationSolution extends Component {
                         <div id="collapseOne" className={`collapse ${this.state.toggleCollapse[0]}`} aria-labelledby="headingOne" data-parent="#accordion">
                             <div className="card-body">
                                 <div className="form-group">
-                                    <label htmlFor="name-Accueil">Titre de la page (page d'accueil)</label>
+                                    <label htmlFor="name-Accueil">Titre de la section solution (page d'accueil)</label>
                                     <input className="form-control form-control-sm" value={this.state.titreAccueil} id="name-Accueil" type="text" placeholder="titre de la page" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="form-group">
@@ -511,14 +511,14 @@ class ModificationSolution extends Component {
                                     <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section-eit-sol" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Saisir le nom de la solution</label>
+                                    <label>Nom de la solution</label>
                                     <input type="text" className="form-control form-control-sm" value={this.state.nameSolution} id="name-solution-admin" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="alert alert-success registered-title-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
 
                             </div>
                         </div>
@@ -527,14 +527,14 @@ class ModificationSolution extends Component {
                         <div className="card-header" id="headingTwo">
                             <h5 className="mb-0">
                                 <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" id="section2" onClick={this.toggleCollapse}>
-                                    Section 2
+                                    Paragraphe
                                 </button>
                             </h5>
                         </div>
                         <div id="collapseTwo" className={`collapse ${this.state.toggleCollapse[1]}`} aria-labelledby="headingTwo" data-parent="#accordion">
                             <div className="card-body">
                                 <div className="div-ajout-section-modification-solution-admin text-right">
-                                    <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSectionCurrentSolution">ajouter une section</button>
+                                    <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSectionCurrentSolution">ajouter un paragraphe</button>
                                 </div>
 
 
@@ -565,7 +565,7 @@ class ModificationSolution extends Component {
                         <div className="card-header" id="headingThree">
                             <h5 className="mb-0">
                                 <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" id="section3" onClick={this.toggleCollapse}>
-                                    Section 3
+                                    Images et logo
                 </button>
                             </h5>
                         </div>
@@ -578,10 +578,10 @@ class ModificationSolution extends Component {
                                         {/*  upload logo de la solution utilisée */}
                                         <div className="custom-file col-5">
                                             <input type="file" className="custom-file-input" id="uploadAddImageLogoSolution" onChange={this.handlerUploadFile} />
-                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{ color: "red" }}>*</span></label>
+                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution <span style={{ color: "red" }}>*</span></label>
                                         </div>
                                         <div className="div-description-image-solution-admin col-5">
-                                            <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                                            <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-solution-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                                         </div>
 
                                         <div className="btn-ajouter-image-solution-admin col-2">
@@ -633,10 +633,10 @@ class ModificationSolution extends Component {
                                         {/*  upload des images du caroussel */}
                                         <div className="custom-file col-5">
                                             <input type="file" className="custom-file-input" id="uploadAddImageSolutionCaroussel" onChange={this.handlerUploadFile} />
-                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{ color: "red" }}>*</span></label>
+                                            <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images<span style={{ color: "red" }}>*</span></label>
                                         </div>
                                         <div className="div-description-image-solution-admin col-5">
-                                            <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                                            <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-solution-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                                         </div>
 
                                         <div className="btn-ajouter-image-solution-admin col-2">
@@ -679,8 +679,8 @@ class ModificationSolution extends Component {
                                 <div className="alert alert-success registered-image-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
                             </div>
                         </div>
                     </div>
@@ -726,8 +726,8 @@ class ModificationSolution extends Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
                             </div>
                         </div>
                     </div>
@@ -738,7 +738,7 @@ class ModificationSolution extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Ajout Section</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Ajouter un paragraphe</h5>
 
                             </div>
                             <div className="modal-body row">
@@ -772,16 +772,16 @@ class ModificationSolution extends Component {
                                     </ul>
                                 </div>
                                 <div className="div-btn-validation-saisie col-12">
-                                    <button type="button" className="btn btn-primary" onClick={this.handlerAddSection}>valider votre saisie</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.handlerAddSection}>Enregistrer votre paragraphe</button>
                                 </div>
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
 
                                 {this.state.inputValisationAddSection ?
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button> :
-                                    <button type="button" className="btn btn-secondary">Appliquer</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button> :
+                                    <button type="button" className="btn btn-secondary">Enregistrer</button>
                                 }
                             </div>
                         </div>
@@ -793,7 +793,7 @@ class ModificationSolution extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">supprimer la section</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">supprimer le paragraphe</h5>
                             </div>
 
                             <div className="modal-body">
@@ -812,11 +812,11 @@ class ModificationSolution extends Component {
                                 <div className="modal-footer">
                                     {this.state.checkBox
                                         ?
-                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Oui</button>
+                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Enregistrer</button>
                                         :
-                                        <button type="button" className="btn btn-secondary">Oui</button>
+                                        <button type="button" className="btn btn-secondary">Enregistrer</button>
                                     }
-                                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
                                 </div>
                             </div>
                         </div>

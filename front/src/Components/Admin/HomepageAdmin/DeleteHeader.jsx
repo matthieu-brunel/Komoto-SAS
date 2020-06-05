@@ -70,11 +70,11 @@ class DeleteHeader extends Component{
                 <div className="modal-footer">
                     {this.state.checkBox && this.props.headerToDelete.length > 0
                         ?
-                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteHeader}>Oui</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteHeader}>Enregister</button>
                         :
-                        <button type="button" className="btn btn-secondary">Oui</button>
+                        <button type="button" className="btn btn-secondary">Enregistrer</button>
                         }
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteHeader}>Annuler</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelDeleteHeader}>Fermer</button>
                 </div>
 
             </div>

@@ -180,7 +180,7 @@ class AjoutShowroom extends Component{
                     <div className="form-group">
                         
                     <div className="form-group">
-                            <label htmlFor="titre-section">Titre section</label>
+                            <label htmlFor="titre-section">Titre de la section showroom</label>
                             <input className="form-control" defaultValue={this.state.titreSection} id="titre-section-ajout-showroom" type="text" placeholder="titre de la section" onChange={this.handleChangeInput}/>
                         </div>
                         
@@ -189,10 +189,10 @@ class AjoutShowroom extends Component{
                             <input className="form-control " defaultValue={this.state.titreShowroom} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
                         </div>
 
-                        <label>Saisir une description</label>
+                        <label>Saisir une description </label>
                         <textarea type="text" defaultValue={this.state.descriptionShowroom} className="form-control" id="description-showroom-admin" onChange={this.handleChangeInput}/>
 
-                        <label htmlFor="alt-image-showroom-admin" className="col-form-label">description de l'image</label>
+                        <label htmlFor="alt-image-showroom-admin" className="col-form-label">alt de l'image (SEO)</label>
                         <div className=""> 
                             <input type="text" defaultValue={this.state.altImage} className="form-control" id="alt-image-showroom-ajout-admin" onChange={this.handleChangeInput}/>
                         </div>
@@ -206,7 +206,7 @@ class AjoutShowroom extends Component{
 
                 </form>
                 <div className="modal-footer pt-1">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewShowroom}>Enregistrer</button>
                 </div>
 

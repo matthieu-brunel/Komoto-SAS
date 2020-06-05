@@ -111,12 +111,12 @@ class AjoutText extends Component {
                     <div>
 
                         <div className="form-group ">
-                            <label htmlFor="title-showroom-admin-2" className="col-form-label">titre</label>
+                            <label htmlFor="title-showroom-admin-2" className="col-form-label">Titre la page Showroom (SEO)</label>
                             <div className="">
                                 <input type="text" value={this.state.title} className="form-control" id="title-showroom-admin-2" onChange={this.handleChangeInput} />
                             </div>
 
-                            <label htmlFor="description-showroom-admin-2" className="col-form-label">texte</label>
+                            <label htmlFor="description-showroom-admin-2" className="col-form-label">Description de la page Showroom</label>
                             <textarea type="text" value={this.state.description} className="form-control" id="description-showroom-admin-2" onChange={this.handleChangeInput} />
 
                             <label htmlFor="label-labelMenuDrop-showroom-admin-2" className="col-form-label">label du menu déroulant (model 3d)</label>
@@ -128,7 +128,7 @@ class AjoutText extends Component {
                     </div>
                 </form>
                 <div className="modal-footer pt-1">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addNewHeader}>Enregistrer</button>
                 </div>
             </div>

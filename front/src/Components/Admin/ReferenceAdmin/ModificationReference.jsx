@@ -543,30 +543,29 @@ class ModificationReference extends Component {
             <div className="card-header" id="headingOne">
               <h5 className="mb-0">
                 <button className="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="section1" onClick={this.toggleCollapse}>
-                  Section 1
-                </button>
+                  Ajouter les titres et le nom de la référence                </button>
               </h5>
             </div>
 
             <div id="collapseOne" className={`collapse ${this.state.toggleCollapse[0]}`} aria-labelledby="headingOne" data-parent="#accordion">
               <div className="card-body">
                 <div className="form-group">
-                  <label htmlFor="name-Accueil">Titre de la page (page d'accueil)</label>
+                  <label htmlFor="name-Accueil">Titre de la section référence (page d'accueil)</label>
                   <input className="form-control form-control-sm" value={this.state.titreAccueil} id="name-Accueil" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="titre-section">Titre de la page</label>
+                  <label htmlFor="titre-section">Titre de la référence (SEO)</label>
                   <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section-edit-ref" type="text" placeholder="titre de la référence" onChange={this.handleChangeInput} />
                 </div>
                 <div className="form-group">
-                  <label>Saisir le nom de la reference</label>
+                  <label>Nom de la reference</label>
                   <input type="text" className="form-control form-control-sm" value={this.state.nameReference} id="name-reference-admin" onChange={this.handleChangeInput} />
                 </div>
                 <div className="alert alert-success registered-title-ok" role="alert">
                   <p>Enregistrement des modifications réussi.</p>
                 </div>
-                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
 
               </div>
             </div>
@@ -575,14 +574,14 @@ class ModificationReference extends Component {
             <div className="card-header" id="headingTwo">
               <h5 className="mb-0">
                 <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" id="section2" onClick={this.toggleCollapse}>
-                  Section 2
+                Paragraphe
                 </button>
               </h5>
             </div>
             <div id="collapseTwo" className={`collapse ${this.state.toggleCollapse[1]}`} aria-labelledby="headingTwo" data-parent="#accordion">
               <div className="card-body">
                 <div className="div-ajout-section-modification-reference-admin text-right">
-                  <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSectionCurrentReference">ajouter une section</button>
+                  <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddSectionCurrentReference">ajouter un paragraphe</button>
                 </div>
 
 
@@ -614,7 +613,7 @@ class ModificationReference extends Component {
             <div className="card-header" id="headingThree">
               <h5 className="mb-0">
                 <button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" id="section3" onClick={this.toggleCollapse}>
-                  Section 3
+                Images et logo
                 </button>
               </h5>
             </div>
@@ -628,7 +627,7 @@ class ModificationReference extends Component {
                       <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la référence<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input className="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImageLogoRef} id="alt-imageLogoRef-reference-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
@@ -682,7 +681,7 @@ class ModificationReference extends Component {
                       <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >logo de la solution utilisée<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImageLogoSolution} id="alt-imageLogoSolution-reference-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
@@ -737,7 +736,7 @@ class ModificationReference extends Component {
                       <label className="custom-file-label form-control form-control-sm" htmlFor="inputGroupFile01" >images du caroussel<span style={{ color: "red" }}>*</span></label>
                     </div>
                     <div className="div-description-image-reference-admin col-5">
-                      <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="description de l'image" onChange={this.handleChangeInput} />
+                      <input className="form-control form-control-sm" value={this.state.altImage} id="alt-image-reference-admin" type="text" placeholder="alt de l'image (SEO)" onChange={this.handleChangeInput} />
                     </div>
 
                     <div className="btn-ajouter-image-reference-admin col-2">
@@ -780,8 +779,8 @@ class ModificationReference extends Component {
                 <div className="alert alert-success registered-image-ok" role="alert">
                   <p>Enregistrement des modifications réussi.</p>
                 </div>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
               </div>
             </div>
           </div>
@@ -792,7 +791,7 @@ class ModificationReference extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Modifier la section</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Modifier le paragraphe</h5>
 
               </div>
               <div className="modal-body row">
@@ -827,8 +826,8 @@ class ModificationReference extends Component {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
               </div>
             </div>
           </div>
@@ -839,7 +838,7 @@ class ModificationReference extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Ajout Section</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Ajout d'un paragraphe</h5>
 
               </div>
               <div className="modal-body row">
@@ -873,16 +872,16 @@ class ModificationReference extends Component {
                   </ul>
                 </div>
                 <div className="div-btn-validation-saisie col-12">
-                  <button type="button" className="btn btn-primary" onClick={this.handlerAddSection}>valider votre saisie</button>
+                  <button type="button" className="btn btn-primary" onClick={this.handlerAddSection}>valider votre paragraphe</button>
                 </div>
 
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
 
                 {this.state.inputValisationAddSection ?
-                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Appliquer</button> :
-                  <button type="button" className="btn btn-secondary">Appliquer</button>
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button> :
+                  <button type="button" className="btn btn-secondary">Enregistrer</button>
                 }
               </div>
             </div>
@@ -894,7 +893,7 @@ class ModificationReference extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">supprimer la section</h5>
+                <h5 className="modal-title" id="exampleModalLabel">supprimer le paragraphe</h5>
               </div>
 
               <div className="modal-body">
@@ -913,11 +912,11 @@ class ModificationReference extends Component {
                 <div className="modal-footer">
                   {this.state.checkBox
                     ?
-                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Oui</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickDeleteDescriptionSection}>Enregistrer</button>
                     :
-                    <button type="button" className="btn btn-secondary">Oui</button>
+                    <button type="button" className="btn btn-secondary">Enregistrer</button>
                   }
-                  <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Annuler</button>
+                  <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
                 </div>
               </div>
             </div>

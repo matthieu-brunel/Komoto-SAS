@@ -296,7 +296,7 @@ class SavoirFaireAdmin extends Component {
 
                 <div>
                     <div className="pb-3 pt-3 ">
-                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-savoirFaire-admin">Ajout un savoir-faire</button>
+                        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#new-savoirFaire-admin">Ajouter un savoir-faire</button>
                     </div>
                     <div className="position-tab pt-3">
                         <table className="table table-striped" style={{ width: "75%" }}>
@@ -352,7 +352,7 @@ class SavoirFaireAdmin extends Component {
                     <div className="modal-dialog modal-dialog-scrollable" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'une spécialisation</h5>
+                                <h5 className="modal-title" id="exampleModalScrollableTitle">Suppression d'un savoir-faire</h5>
                             </div>
                             <div className="modal-body">
                                 <DeleteSavoirFaire savoirFaire={this.state.savoirFaire} SavoirFaireToDelete={this.state.SavoirFaireToDelete} getStartedSavoirFaire={this.getStartedSavoirFaire} />
@@ -371,17 +371,17 @@ class SavoirFaireAdmin extends Component {
                             <div className="modal-body">
                                 {this.state.savoirFaire.length > 0 && <div className="form-group">
                                     <div className="form-group">
-                                        <label htmlFor="titre-section">Titre section</label>
+                                        <label htmlFor="titre-section">Titre de la section savoir-faire</label>
                                         <input className="form-control" value={this.state.titreSection} id="titre-section-savoirFaire" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
                                     </div>
-                                    <label>Saisir le titre de la spécialité</label>
+                                    <label>Saisir le titre du savoir-faire</label>
                                     <input type="text" className="form-control" value={this.state.titreSavoirFaire} id="titre-savoirFaire-admin" onChange={this.handleChangeInput} />
 
-                                    <label>Saisir une description</label>
+                                    <label>Saisir la description du savoir-faire</label>
                                     <textarea type="text" value={this.state.descriptionSavoirFaire} className="form-control" id="description-savoirFaire-admin" onChange={this.handleChangeInput} />
 
 
-                                    <label htmlFor="alt-image-savoirFaire-admin" className="col-form-label col-form-label-sm">description de l'image</label>
+                                    <label htmlFor="alt-image-savoirFaire-admin" className="col-form-label col-form-label-sm">alt de l'image (SEO)</label>
                                     <div className="">
                                         <input type="text" value={this.state.altImage} className="form-control form-control-sm" id="alt-image-savoirFaire-admin" onChange={this.handleChangeInput} />
                                     </div>
@@ -393,8 +393,8 @@ class SavoirFaireAdmin extends Component {
                                 </div>}
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-savoirFaire-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editSavoirFaire}>Appliquer</button>
+                                <button type="button" className="btn btn-secondary" id="titre-savoirFaire-admin-Fermer" data-dismiss="modal" onClick={this.closeModal}>Fermer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.editSavoirFaire}>Enregistrer</button>
                             </div>
                             {/* [début:popup error] si le format est pas pris en charge ou si le fichier est trop lourd */}
                             {this.state.isTooHeavy && (
