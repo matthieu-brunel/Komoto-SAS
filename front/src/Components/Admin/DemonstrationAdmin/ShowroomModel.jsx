@@ -55,7 +55,7 @@ class ShowroomModel extends Component {
         let data = await getRessources('demonstration', 'demonstration_model', this.props.locale);
         console.log(data);
 
-        this.setState({ dataModel: data});
+        this.setState({ dataModel: data });
     }
 
     componentDidUpdate(prevProps) {
@@ -178,8 +178,7 @@ class ShowroomModel extends Component {
                                         <th scope="row">{index + 1}</th>
                                         <td>{element.model_url}</td>
                                         <td>{element.name === null ? "pas d'image" : element.name}</td>
-{/*                                         <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edit3dShowroomAmdin" onClick={this.getIdShowroomToEdit.bind(this, index)}>Modifier</button>}</td>
- */}                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
+                                        <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-Showroom-admin" onClick={this.getIdShowroomToDelete.bind(this, index)}>Supprimer</button>}</td>
 
                                     </tr>
                                 ))
@@ -221,30 +220,6 @@ class ShowroomModel extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <!-- Modification d'un model 3d / du nom du model 3d / de son image, si présent --> */}
-{/*                 <div className="modal fade" id="edit3dShowroomAmdin" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h6 className="modal-title" id="exampleModalLabel">Modifier un model 3d</h6>
-                            </div>
-                            <div className="modal-body">
-                                <EditModel 
-                                editShowroomSelected={this.state.editShowroomSelected}
-                        
-                                />
-
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="titre-showroom-admin-annuler" data-dismiss="modal" onClick={this.closeModal}>Annuler</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> */}
-
-
             </div>
         )
     }
