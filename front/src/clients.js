@@ -46,8 +46,8 @@ class Client extends Component {
     handleChangeLang = async (event) => {
 
         let idLang = event.target.options[event.target.selectedIndex].id;
-        this.props.dispatch({ type: GET_ID_LANG.type, idLang })
-
+/*         this.props.dispatch({ type: GET_ID_LANG.type, idLang })
+ */
         this.setState({
             idLang: idLang
         });
@@ -93,8 +93,8 @@ class Client extends Component {
 
        
 
-        this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
-        this.props.dispatch({ type: GET_ID_LANG.type, idLang });
+/*         this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
+        this.props.dispatch({ type: GET_ID_LANG.type, idLang }); */
 
         this.setState({ array_name_solution: section_filtered, solution: arraySolution });
 
@@ -144,5 +144,6 @@ const mapStateToProps = state => ({
     data_store: state
 });
 
-export default connect(mapStateToProps)(Client);
+/* export default connect(mapStateToProps)(Client); */
+export default Client;
 

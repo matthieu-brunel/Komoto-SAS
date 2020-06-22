@@ -17,15 +17,17 @@ app.use(
   })
 );
 
+app.use(cors());
+app.use("/api", api);
+
 const staticPath = path.join(__dirname,'/')
 app.use(express.static(staticPath));
+
 app.use("/model", express.static(__dirname + "/public/model")); 
 app.use("/images", express.static(__dirname + "/public/images")); 
 app.use("/documents", express.static(__dirname + "/public/documents"));
 
-app.use(cors());
 
-app.use("/api", api);
 
 
 const server = app.listen(parseInt(SERVER_ADDRESS), () => {

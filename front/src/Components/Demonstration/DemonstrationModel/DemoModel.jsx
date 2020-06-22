@@ -14,26 +14,40 @@ class DemoModel extends Component {
       image_alt: "",
       chose_image: "default",
       showroom_text: [],
-      root: window.location.origin + "/model/",
-      description:"",
-      labelBtn:""
+      root: /* window.location.origin + "/model/" */"http://localhost:5000/model/",
+      description_text: "",
+      labelBtn: ""
     };
 
   }
   componentDidMount = async () => {
 
     const { locale } = this.props;
-    let data = await getRessources("demonstration", "demonstration_model", locale);
+    let dataModel = await getRessources("demonstration", "demonstration_model", locale);
     let data_text = await getRessources("demonstration/text", "demonstration_text", locale);
-    console.log(JSON.parse(data_text[0].description));
-    let description = JSON.parse(data_text[0].description[0]);
-    let labelBtn = JSON.parse(data_text[0].labelMenuDrop[1]);
 
+    let objDescription = data_text.length > 0 ? JSON.parse(data_text[0].description) : null;
+    let description;
+    let labelBtn;
+    let arrayObj = [];
+    arrayObj.push(objDescription);
+
+    if (arrayObj.length > 0) {
+      description = objDescription.description;
+      labelBtn = objDescription.labelMenuDrop;
+    }
+
+    let arrayDataShowroom = [];
+
+    for (let data of dataModel) {
+      arrayDataShowroom.push(data);
+    }
 
     this.setState({
       showroom_text: data_text,
-      arrayDescription :description,
-      labelBtn:labelBtn
+      description: description,
+      labelBtn: labelBtn,
+      showroom: arrayDataShowroom
     });
 
   };
@@ -59,7 +73,8 @@ class DemoModel extends Component {
 
 
   render() {
-    const { showroom_text, arrayDescription } = this.state;
+    const { showroom_text, description, labelBtn, model_seleted, root } = this.state;
+
     return (
       <div className="">
         {showroom_text.length > 0 &&
@@ -69,7 +84,7 @@ class DemoModel extends Component {
             </div>
             <div className="pt-5">
               <div className="pt-5 pb-5 container descrption-show">
-                <p>{arrayDescription.length > 0 && arrayDescription.description}</p>
+                <p>{description}</p>
               </div>
 
             </div>
@@ -77,7 +92,7 @@ class DemoModel extends Component {
         <div className="form-group">
 
           <select className="form-control container" id="exampleFormControlSelect1" onChange={this.handlerChangeModel}>
-            <option value="default" >{arrayDescription.length > 0 ? arrayDescription[1].labelMenuDrop : ""}</option>
+            <option value="default" >{labelBtn}</option>
             {this.state.showroom.length > 0 ?
               this.state.showroom.map((model, index) =>
                 <option key={index} value={index} >{model.model_alt}</option>
@@ -85,7 +100,8 @@ class DemoModel extends Component {
               : ""}
           </select>
         </div>
-        {this.state.chose_image === "default" ? <div>{showroom_text.length > 0 && showroom_text[0].description[2]}</div> :
+
+        {this.state.chose_image === "default" ? <div></div> :
           <div>
             <Rendu model_name={this.state.model_seleted} root={this.state.root} />
             <div className="pt-5 container">

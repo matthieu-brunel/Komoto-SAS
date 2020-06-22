@@ -22,10 +22,6 @@ describe("test demonstration CRUD", () => {
   };
 
 
-
-
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(

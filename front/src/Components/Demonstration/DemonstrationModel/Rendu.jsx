@@ -14,6 +14,7 @@ class Rendu extends Component {
         this.engine = undefined;
         this.scene = undefined;
     }
+
     componentDidMount() {
         this.canvas = document.getElementById("canvas");
         this.engine = new BABYLON.Engine(this.canvas, true, null, true);
@@ -22,21 +23,24 @@ class Rendu extends Component {
         this.engine.runRenderLoop(() => {
             this.scene.render();
         })
-        
+
         this.displayModel();
     }
 
     displayModel() {
         var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, BABYLON.Vector3.Zero(), this.scene);
-        camera.attachControl(this.canvas, false); 
+        camera.attachControl(this.canvas, false);
         const { model_name, root } = this.props;
+
         if (this.scene) {
             for (let maille of this.scene.meshes) {
                 maille.dispose();
             }
+
             if (model_name) {
                 BABYLON.SceneLoader.ImportMesh(null, root, model_name, this.scene, (newMeshes) => {
-                 camera.target = newMeshes[0]; 
+
+                    camera.target = newMeshes[0];
                 });
             }
         }
@@ -47,14 +51,17 @@ class Rendu extends Component {
             this.engine.dispose();
         }
     }
+
     componentDidUpdate(prevProps) {
         const { model_name } = this.props;
         if (model_name !== prevProps.model_name) {
             this.displayModel();
         }
     }
+
     render() {
-        console.log(this.props.model_name);
+        const { model_name, root } = this.props;
+        console.log(`${root}${model_name}`);
         return (
             <div>
                 <canvas id="canvas"></canvas>

@@ -82,4 +82,6 @@ const mapStateToProps = state => ({
   data_store: state
 });
 
-export default connect(mapStateToProps)(SolutionAccueil);
+/* export default connect(mapStateToProps)(SolutionAccueil);
+ */
+export default SolutionAccueil;

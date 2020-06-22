@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/* import React, { Component } from 'react';
 import './App.css';
 import User from './Components/Admin/users/User';
 import { Switch, Route } from 'react-router-dom';
@@ -36,5 +36,4 @@ class Admin extends Component {
 }
 
 
-export default Admin;
-
+export default Admin; */

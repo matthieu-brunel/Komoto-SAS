@@ -74,4 +74,5 @@ const mapStateToProps = state => ({
   data_store: state
 });
 
-export default connect(mapStateToProps)(Solution);
+/* export default connect(mapStateToProps)(Solution); */
+export default Solution;
