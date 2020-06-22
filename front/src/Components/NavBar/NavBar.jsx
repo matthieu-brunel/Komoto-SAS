@@ -70,7 +70,7 @@ const NavBar = (props) => {
       
       <Navbar color="white" light expand="xl">
         <NavbarBrand className="pl-3" ></NavbarBrand>
-        <NavLink to="/" className="p-3"><img className="" src="" alt="logo" /></NavLink>
+        <NavLink to="/" className="p-3"><img className="" src="/images/logo.png" alt="logo komoto sas" /></NavLink>
         <NavbarToggler onClick={toggle} />
 
         <Collapse isOpen={isOpen} navbar className="all" >

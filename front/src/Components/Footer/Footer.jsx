@@ -37,33 +37,33 @@ class Footer extends Component {
   render(){
     
     return (
-      <div >
+      <div className="bg-dark">
         <div className="footer container pt-5 mt-5">
           <div className="d-flex1 " >
-            <div className="">
-              <img src="" alt="logo" />
+            <div className="mb-4">
+              <img src="/images/logo.png" alt="logo" />
             </div>
             <div className="test203 d-flex1">
-              <div className="all-lien ">
+              <div className="all-lien">
                 <div >
-                  <NavLink to="/Contact" className=""><p className="lien link-nav  ">Contact</p></NavLink>
+                  <NavLink to="/Contact" className=""><p className="lien link-nav text-white">Contact</p></NavLink>
                 </div>
                 <div>
-                  <NavLink to="/partenaire" className=""><p className="lien link-nav  ">partenaire</p></NavLink>
+                  <NavLink to="/partenaire" className=""><p className="lien link-nav text-white">partenaire</p></NavLink>
                 </div>
                 <div>
-                  <NavLink to="/Mention" className=""><p className="lien link-nav  ">mention</p></NavLink>
+                  <NavLink to="/Mention" className=""><p className="lien link-nav text-white">mention</p></NavLink>
                 </div>
               </div>
-              <div className="  all no ">
+              <div className="all no ">
                 <div>
-                  <a href="test" ><img src="" alt="logo rs" /></a>
+                  <a href="test"><span style={{color:"white"}}><i className="fab fa-instagram fa-2x"></i></span></a>
                 </div>
                 <div>
-                  <a href="test"><img src="" alt="logo rs" /></a>
+                  <a href="test"><span style={{color:"white"}}><i className="fab fa-twitter-square pl-4 pr-4 fa-2x"></i></span></a>
                 </div>
                 <div>
-                  <a href="test"><img src="" alt="logo rs" /></a>
+                  <a href="test"><span style={{color:"white"}}><i className="fab fa-facebook fa-2x"></i></span></a>
                 </div>
               </div>
             </div>
