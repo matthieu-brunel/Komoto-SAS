@@ -2,8 +2,13 @@ body {
   padding-top: 20px;
 }
 
-body {
-  padding-top: 20px;
+.rounded-0{
+  margin-top: 5rem;
+}
+
+.card-header {
+  padding:0;
+
 }
 
 .div-active {

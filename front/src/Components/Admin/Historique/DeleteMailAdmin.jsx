@@ -38,10 +38,11 @@ class DeleteMail extends Component {
                 .then(res => {
                     if (res === "delete ok") {
                         this.setState({ checkBox: false });
-                        this.props.getMail();
+                       
                     }
                 })
                 .catch(err => console.log("ERROR : ", err));
+                this.props.getMail();
         }
     }
 
