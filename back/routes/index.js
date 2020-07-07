@@ -5,7 +5,6 @@ const mail = require("./mail");
 const login = require("./login");
 const admin = require("./admin");
 const demonstration = require("./demonstration");
-const file = require("./file");
 const homepage = require("./homepage");
 const reference = require("./reference");
 const solution = require("./solution");
@@ -17,11 +16,10 @@ const uploadModel = require("./uploadModel");
 const uploadMultipleImage = require("./uploadMultipleImage");
 const navbar = require("./navbar");
 const formulaire = require("./formulaire");
-const test = require("./test");
+
 
 router.use("/admin", admin);
 router.use("/demonstration", demonstration);
-router.use("/file", file);
 router.use("/login", login);
 router.use("/image", image);
 router.use("/mail", mail);
@@ -38,7 +36,5 @@ router.use("/uploadModel", uploadModel);
 
 router.use("/navbar", navbar);
 router.use("/formulaire", formulaire);
-
-router.use("/test", test);
 
 module.exports = router;

@@ -7,7 +7,6 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
-  console.log(demonstration);
   const sql =
     "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   connection.query(

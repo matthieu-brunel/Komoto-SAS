@@ -45,7 +45,7 @@ describe("test admin CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin",
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: admin
       },
       (error, response, body) => {
@@ -73,11 +73,12 @@ describe("test admin CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: admin
       },
 
       (error, response, body) => {
+
         expect(body.user).toBe(admin.user);
         expect(body.password).toBe(admin.password);
         done();
@@ -91,7 +92,7 @@ describe("test admin CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

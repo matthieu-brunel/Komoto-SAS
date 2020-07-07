@@ -18,7 +18,8 @@ describe("test demonstration CRUD", () => {
     description: "test_description",
     model_url: "test_model_url",
     model_alt:"test_model_alt",
-    model_id:1
+    model_id:3,
+    language:5
   };
 
 
@@ -67,6 +68,8 @@ describe("test demonstration CRUD", () => {
         expect(data.description).toBe(demonstration.description);
         expect(data.model_alt).toBe(demonstration.model_alt);
         expect(data.model_url).toBe(demonstration.model_url);
+        expect(data.model_id).toBeTruthy();
+        expect(data.language).toBeTruthy();
         done();
       }
     );

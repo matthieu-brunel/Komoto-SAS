@@ -9,7 +9,6 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const reference = req.body;
-  console.log(reference)
   const sql =
     "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?, ?)";
   connection.query(
@@ -76,7 +75,6 @@ router.put("/:id", Auth, (req, res) => {
   const idReference = req.params.id;
   const reference = req.body[0];
   const referenceDataImage = req.body[1];
-
 
   const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
   connection.query(
@@ -225,13 +223,11 @@ router.delete("/:id", Auth, (req, res) => {
   const idReference = req.params.id;
 
   const sql = "SELECT i.url FROM reference AS r JOIN image AS i ON i.id=r.image_id WHERE r.id=?";
-  connection.query(sql, [idReference], (error, results, fields) => {
+  connection.query(sql, [idReference,], (error, results, fields) => {
 
     if (error) {
       res.status(501).send("couldn't get solution for delete images solution");
     } else {
-
-      console.log(JSON.parse(results[0].url));
 
       let arrayImageToDelete = [];
 
@@ -243,8 +239,6 @@ router.delete("/:id", Auth, (req, res) => {
           arrayImageToDelete.push(i.name);
         }
       }
-
-      console.log(arrayImageToDelete);
 
       if (arrayImageToDelete.length > 0) {
         for (let i = 0; i < arrayImageToDelete.length; i++) {

@@ -4,19 +4,31 @@ require("dotenv").config();
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 let obj = {
-  id: null
+  id: null,
+  image_id:0
 };
 
 describe("test reference CRUD", () => {
   let server = null;
   let data = {};
+  
 
   const reference = {
     subtitle: "test_subtitle",
     title: "test_title",
     section: "test_section",
     description: "test_description",
-    image_id: 1
+    title_section: "test_title_section",
+    image_id: obj.image_id,
+    language: 1
+  };
+
+  const image = {
+    name: "test_name_image",
+    url: "test_url_image",
+    alt: "test_alt_image",
+    homepage_id:1,
+    section : "test_section_image"
   };
 
 
@@ -38,6 +50,21 @@ describe("test reference CRUD", () => {
         done();
       }
     );
+
+    request(
+      {
+        method: "post",
+        json: true,
+        url: SERVER_ADDRESS_FULL + "/api/image",
+        headers: {authorization: 'Bearer ' + token},
+        body: image
+      },
+      (error, response, body) => {
+        expect(response.statusCode).toBe(200);
+        obj.image_id = body.id;
+        done();
+      }
+    );
   });
 
   it("post reference", done => {
@@ -46,7 +73,7 @@ describe("test reference CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/reference",
-        headers:  {
+        headers: {
           authorization: 'Bearer ' + token
         },
         body: reference
@@ -61,6 +88,8 @@ describe("test reference CRUD", () => {
         expect(data.section).toBe(reference.section);
         expect(data.description).toBe(reference.description);
         expect(data.image_id).toBe(reference.image_id);
+        expect(data.title_section).toBe(reference.title_section);
+        expect(data.language).toBeGreaterThan(0);
         done();
       }
     );
@@ -85,39 +114,58 @@ describe("test reference CRUD", () => {
     reference.title = "new put";
     reference.section = "new put";
     reference.description = "new put";
-    reference.image_id = 2;
+    reference.image_id = obj.image_id;
+    reference.title_section = "new put";
+    reference.language = 2;
 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token},
-        body: reference
+        headers: { authorization: 'Bearer ' + token },
+        body: [reference, image]
       },
 
       (error, response, body) => {
-        expect(body.subtitle).toBe(reference.subtitle);
-        expect(body.title).toBe(reference.title);
-        expect(body.section).toBe(reference.section);
-        expect(body.description).toBe(reference.description);
-        expect(body.image_id).toBe(reference.image_id);
+        const response_body = JSON.parse(response.request.body);
+        expect(response_body[0].subtitle).toBe(reference.subtitle);
+        expect(response_body[0].title).toBe(reference.title);
+        expect(response_body[0].section).toBe(reference.section);
+        expect(response_body[0].description).toBe(reference.description);
+        expect(response_body[0].image_id).toBeTruthy
+        expect(response_body[0].title_section).toBe(reference.title_section);
+        expect(response_body[0].language).toBeGreaterThan(0);
         done();
       }
     );
   });
 
-  it("delete reference", done => {
-    request(
-      {
-        method: "delete",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  });
+/*     it("delete reference", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
+          headers: {authorization: 'Bearer ' + token},
+          body: obj
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/image/" + obj.image_id,
+          headers: {authorization: 'Bearer ' + token}
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    }); */
 });

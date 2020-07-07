@@ -10,7 +10,6 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
-  console.log(homepage);
   const sql =
     "INSERT INTO homepage (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(
@@ -101,7 +100,6 @@ router.put("/:id",Auth, (req, res) => {
 
 
 router.delete("/:id",Auth, (req, res) => {
-  console.log("id homepage : ",req.params.id);
   const idhomepage = req.params.id;
   const sql = "DELETE FROM homepage WHERE id=?";
   connection.query(sql, [idhomepage], (error, results, fields) => {

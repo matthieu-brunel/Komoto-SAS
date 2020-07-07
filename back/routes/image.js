@@ -9,7 +9,6 @@ const path = require('path');
 
 router.post("/", Auth, (req, res) => {
   const image = req.body;
-  console.log(image)
   const sql = "INSERT INTO image (name, url, alt ,homepage_id, section) VALUES (? , ? , ? , ?, ?)";
   connection.query(
     sql,

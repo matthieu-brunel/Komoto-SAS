@@ -11,7 +11,6 @@ const Auth = require('./../middleware/auth');
 
 router.post("/",Auth, (req, res) => {
   const admin = req.body;
-  console.log(req.body);
   const password = bcrypt.hashSync(admin.password, salt)
   const sql = "INSERT INTO admin (user, password) VALUES (? , ?)";
   connection.query(

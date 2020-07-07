@@ -20,10 +20,6 @@ describe("test image CRUD", () => {
   };
 
 
-
-
-
-
   beforeAll(done => {
     server = require('../server');
     request.post(
