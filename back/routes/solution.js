@@ -97,7 +97,6 @@ router.get("/:id", (req, res) => {
 
 router.put("/:id", Auth, (req, res) => {
   const idsolution = req.params.id;
-  console.log(req.body);
   const solution = req.body[0];
   const solutionDataImage = req.body[1];
 

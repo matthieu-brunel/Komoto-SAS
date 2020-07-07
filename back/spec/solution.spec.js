@@ -21,6 +21,14 @@ describe("test solution CRUD", () => {
     image_id: 1
   };
 
+  const image = {
+    name: "test_name_image",
+    url: "test_url_image",
+    alt: "test_alt_image",
+    homepage_id:1,
+    section : "test_section_image"
+  };
+
 
 
   beforeAll(done => {
@@ -100,19 +108,19 @@ describe("test solution CRUD", () => {
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
         json: true,
         headers: {authorization: 'Bearer ' + token},
-        body: solution
+        body: [solution, image]
       },
 
       (error, response, body) => {
         //console.log("PUT", body);
         const response_body = JSON.parse(response.request.body);
-        expect(response_body.subtitle).toBe(solution.subtitle);
-        expect(response_body.title).toBe(solution.title);
-        expect(response_body.section).toBe(solution.section);
-        expect(response_body.description).toBe(solution.description);
-        expect(response_body.language).toBe(solution.language);
-        expect(response_body.title_section).toBe(solution.title_section);
-        expect(response_body.image_id).toBe(solution.image_id);
+        expect(response_body[0].subtitle).toBe(solution.subtitle);
+        expect(response_body[0].title).toBe(solution.title);
+        expect(response_body[0].section).toBe(solution.section);
+        expect(response_body[0].description).toBe(solution.description);
+        expect(response_body[0].language).toBe(solution.language);
+        expect(response_body[0].title_section).toBe(solution.title_section);
+        expect(response_body[0].image_id).toBe(solution.image_id);
         done();
       }
     );
