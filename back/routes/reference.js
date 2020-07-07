@@ -132,8 +132,8 @@ router.put("/:id", Auth, (req, res) => {
               if (arrayCurrent.length < arrayNew.length) {
                 for (let i = 0; i < arrayNew.length; i++) {
                   if (!arrayCurrent.includes(arrayNew[i])) {
-                    console.log("ajout du fichier : " + arrayNew[i]);
-                  }
+/*                     console.log("ajout du fichier : " + arrayNew[i]);
+ */                  }
                   if (!arrayNew.includes(arrayCurrent[i])) {
                     if (arrayCurrent[i] !== undefined) {
                       arrayImageToDelete.push(arrayCurrent[i]);
@@ -161,7 +161,7 @@ router.put("/:id", Auth, (req, res) => {
                   }
                 }
               }
-
+/* 
               console.log("\n");
               console.log("\n");
               console.log("\n");
@@ -176,7 +176,7 @@ router.put("/:id", Auth, (req, res) => {
               console.log("delete array image :", arrayImageToDelete);
               console.log("*********************************************************************");
 
-
+ */
 
             } else {
               for (let i of currentObj.imageCaroussel) {
@@ -189,8 +189,8 @@ router.put("/:id", Auth, (req, res) => {
               for (let i = 0; i < arrayImageToDelete.length; i++) {
                 fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
                   if (err) throw err;
-                  console.log('successfully deleted ' + arrayImageToDelete[i]);
-                });
+/*                   console.log('successfully deleted ' + arrayImageToDelete[i]);
+ */                });
               }
             }
 
@@ -232,7 +232,7 @@ router.delete("/:id", Auth, (req, res) => {
       let arrayImageToDelete = [];
 
       let currentObj = JSON.parse(results[0].url);
-      console.log("currentObj :", currentObj);
+     /*  console.log("currentObj :", currentObj); */
 
       for (let nameObj in currentObj) {
         for (let i of currentObj[nameObj]) {
@@ -244,8 +244,8 @@ router.delete("/:id", Auth, (req, res) => {
         for (let i = 0; i < arrayImageToDelete.length; i++) {
           fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
             if (err) throw err;
-            console.log('successfully deleted ' + arrayImageToDelete[i]);
-          });
+/*             console.log('successfully deleted ' + arrayImageToDelete[i]);
+ */          });
         }
       }
 

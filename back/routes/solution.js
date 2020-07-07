@@ -11,7 +11,7 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const solution = req.body;
-  console.log(solution);
+ /*  console.log(solution); */
   const sql =
     "INSERT INTO solution (title, subtitle, section, title_section, description, language, image_id) VALUES (? , ? , ? , ?, ? , ?, ?)";
   connection.query(
