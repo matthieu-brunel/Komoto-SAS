@@ -75,13 +75,12 @@ class ContactPage extends Component {
   handlerUploadFile = event => {
     const format_type = [
       "application/pdf",
-      "application/doc",
-      "application/docx",
-      "application/xls",
-      "application/csv",
-      "text/plain",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.ms-excel",
+      "text/csv",
       "application/rtf",
-      "application/html",
+      "text/html",
       "application/zip",
       "audio/mpeg3",
       "video/wma",
@@ -286,7 +285,7 @@ class ContactPage extends Component {
                 <input
                   id="email"
                   name="email"
-                  type="text"
+                  type="email"
                   placeholder="ex:myname@example.fr"
                   className="form-control"
                   value={this.state.email}
