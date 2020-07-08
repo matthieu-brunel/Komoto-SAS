@@ -91,33 +91,47 @@ router.put("/:id", Auth, (req, res) => {
 
 router.delete("/:id", Auth, (req, res) => {
   const idmail = req.params.id;
+  const data_test = req.body.category;
 
-  const sql = "SELECT * FROM mail where id = ?";
-  connection.query(sql, [idmail], (error, results, fields) => {
-    if (error) {
-      res.status(501).send("couldn't get reference");
-    } else {
+  if (data_test !== 'new put') {
+    const sql = "SELECT * FROM mail where id = ?";
+    connection.query(sql, [idmail], (error, results, fields) => {
+      if (error) {
+        res.status(501).send("couldn't get reference");
+      } else {
+        console.log(results);
+        let getDocumentName = results.length > 0 ? JSON.parse(results[0].description).document : "";
 
-      let getDocumentName = results.length > 0 ? JSON.parse(results[0].description).document : "";
+        if (getDocumentName !== "") {
+          fs.unlink(path.join("public/documents/", getDocumentName), (err) => {
+            if (err) throw err;
+            //console.log('successfully deleted /tmp/hello');
+          });
+        }
 
-      if (getDocumentName !== "") {
-        fs.unlink(path.join("public/documents/", getDocumentName), (err) => {
-          if (err) throw err;
-          //console.log('successfully deleted /tmp/hello');
+        const sqlDelete = "DELETE FROM mail WHERE id=?";
+        connection.query(sqlDelete, [idmail], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't put mail" + error);
+          } else {
+
+            res.json("delete ok");
+          }
         });
       }
+    });
+  }else{
+    const sqlDelete = "DELETE FROM mail";
+    connection.query(sqlDelete, [idmail], (error, results, fields) => {
+      if (error) {
+        res.status(501).send("couldn't delete mail" + error);
+      } else {
 
-      const sqlDelete = "DELETE FROM mail WHERE id=?";
-      connection.query(sqlDelete, [idmail], (error, results, fields) => {
-        if (error) {
-          res.status(501).send("couldn't put mail" + error);
-        } else {
+        res.json("delete ok");
+      }
+    }); 
+  }
 
-          res.json("delete ok");
-        }
-      });
-    }
-  });
 
 });
 

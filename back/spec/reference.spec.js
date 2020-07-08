@@ -140,7 +140,7 @@ describe("test reference CRUD", () => {
     );
   });
 
-/*     it("delete reference", done => {
+  it("delete reference", done => {
       request(
         {
           method: "delete",
@@ -154,18 +154,5 @@ describe("test reference CRUD", () => {
           done();
         }
       );
-
-      request(
-        {
-          method: "delete",
-          json: true,
-          url: SERVER_ADDRESS_FULL + "/api/image/" + obj.image_id,
-          headers: {authorization: 'Bearer ' + token}
-        },
-        (error, response, body) => {
-          expect(response.statusCode).toBe(200);
-          done();
-        }
-      );
-    }); */
+    });
 });

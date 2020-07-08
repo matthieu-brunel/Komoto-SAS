@@ -26,7 +26,8 @@ class Mail extends Component {
       prenom: "",
       email: "",
       date: "",
-      document: ""
+      document: "",
+      countMail:0
     }
   }
 
@@ -140,8 +141,9 @@ class Mail extends Component {
         <div className="pb-3 pt-1">
           <h1 >Historique des e-mails</h1>
         </div>
-        <div className="legende-historique-mail p-2 position-tab pt-3" style={{}}>
+        <div className="legende-historique-mail p-2 position-tab pt-3">
           <p className="text-left"><span className="badge badge-success">pj</span><span> = mail qui contient une pièce jointe</span></p>
+          <p className="text-left"> <span className="badge badge-danger ">{this.state.arrayMail.length} mail{this.state.arrayMail.length > 1 ? "s":""} reçu{this.state.arrayMail.length > 1 ? "s":""}</span></p>
         </div>
         <div className="position-tab pt-3 ">
           <table className="table table-striped" style={{ width: "75%" }}>

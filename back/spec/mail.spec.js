@@ -14,7 +14,7 @@ describe("test mail CRUD", () => {
   const mail = {
     category: "test_category",
     description: "test_description",
-    date:'mail destinaire'
+    date:'mail destinataire'
   };
 
 
@@ -103,7 +103,8 @@ describe("test mail CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: {authorization: 'Bearer ' + token},
+        body:mail
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

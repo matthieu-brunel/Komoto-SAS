@@ -161,22 +161,22 @@ router.put("/:id", Auth, (req, res) => {
                   }
                 }
               }
-/* 
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("*********************************************************************");
-              console.log("CurrentObj :", currentObj);
-              console.log("newObj :", newObj);
-              console.log("=====================================================================");
-              console.log("=====================================================================");
-              console.log("delete array image :", arrayImageToDelete);
-              console.log("*********************************************************************");
-
- */
+              /* 
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("*********************************************************************");
+                            console.log("CurrentObj :", currentObj);
+                            console.log("newObj :", newObj);
+                            console.log("=====================================================================");
+                            console.log("=====================================================================");
+                            console.log("delete array image :", arrayImageToDelete);
+                            console.log("*********************************************************************");
+              
+               */
 
             } else {
               for (let i of currentObj.imageCaroussel) {
@@ -228,35 +228,53 @@ router.delete("/:id", Auth, (req, res) => {
     if (error) {
       res.status(501).send("couldn't get solution for delete images solution");
     } else {
+      if (results[0].url !== "test_url_image") {
+        let arrayImageToDelete = [];
 
-      let arrayImageToDelete = [];
+        let currentObj = JSON.parse(results[0].url);
+        /*  console.log("currentObj :", currentObj); */
 
-      let currentObj = JSON.parse(results[0].url);
-     /*  console.log("currentObj :", currentObj); */
-
-      for (let nameObj in currentObj) {
-        for (let i of currentObj[nameObj]) {
-          arrayImageToDelete.push(i.name);
+        for (let nameObj in currentObj) {
+          for (let i of currentObj[nameObj]) {
+            arrayImageToDelete.push(i.name);
+          }
         }
+
+        if (arrayImageToDelete.length > 0) {
+          for (let i = 0; i < arrayImageToDelete.length; i++) {
+            fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
+              if (err) throw err;
+  /*             console.log('successfully deleted ' + arrayImageToDelete[i]);
+   */          });
+          }
+        }
+
+        const sqlReference = "DELETE FROM reference WHERE id=?";
+        connection.query(sqlReference, [idReference], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't put image" + error);
+          } else {
+            res.status(200).json({ "id": req.params.id });
+          }
+        });
+      }else{
+        const sqlImage = "DELETE image FROM image JOIN reference ON image.id=reference.image_id WHERE reference.id=?";
+        connection.query(sqlImage, [idReference], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't delete image" + error);
+          } else {
+            const sqlReference = "DELETE FROM reference WHERE id=?";
+            connection.query(sqlReference, [idReference], (error, results, fields) => {
+              if (error) {
+                res.status(501).send("couldn't delete image" + error);
+              } else {
+                res.status(200).json({ "id": req.params.id });
+              }
+            });
+          }
+        });
       }
 
-      if (arrayImageToDelete.length > 0) {
-        for (let i = 0; i < arrayImageToDelete.length; i++) {
-          fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
-            if (err) throw err;
-/*             console.log('successfully deleted ' + arrayImageToDelete[i]);
- */          });
-        }
-      }
-
-      const sqlReference = "DELETE FROM reference WHERE id=?";
-      connection.query(sqlReference, [idReference], (error, results, fields) => {
-        if (error) {
-          res.status(501).send("couldn't put image" + error);
-        } else {
-          res.status(200).json({ "id": req.params.id });
-        }
-      });
     }
   });
 });

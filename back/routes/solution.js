@@ -11,7 +11,6 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const solution = req.body;
- /*  console.log(solution); */
   const sql =
     "INSERT INTO solution (title, subtitle, section, title_section, description, language, image_id) VALUES (? , ? , ? , ?, ? , ?, ?)";
   connection.query(
@@ -242,46 +241,63 @@ router.put("/:id", Auth, (req, res) => {
 
 router.delete("/:id", Auth, (req, res) => {
   const idsolution = req.params.id;
-
+  const image_id = req.body.image_id;
   const sql = "SELECT i.url FROM solution AS s JOIN image AS i ON i.id=s.image_id WHERE s.id=?";
   connection.query(sql, [idsolution], (error, results, fields) => {
 
     if (error) {
       res.status(501).send("couldn't get image");
     } else {
+      if (results[0].url !== 'test_url_image') {
 
-      console.log(JSON.parse(results[0].url));
+        let arrayImageToDelete = [];
 
-      let arrayImageToDelete = [];
+        let currentObj = JSON.parse(results[0].url);
+        console.log("currentObj :", currentObj);
 
-      let currentObj = JSON.parse(results[0].url);
-      console.log("currentObj :", currentObj);
-
-      for (let nameObj in currentObj) {
-        for (let i of currentObj[nameObj]) {
-          arrayImageToDelete.push(i.name);
+        for (let nameObj in currentObj) {
+          for (let i of currentObj[nameObj]) {
+            arrayImageToDelete.push(i.name);
+          }
         }
+
+        console.log(arrayImageToDelete);
+
+        if (arrayImageToDelete.length > 0) {
+          for (let i = 0; i < arrayImageToDelete.length; i++) {
+            fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
+              if (err) throw err;
+              console.log('successfully deleted ' + arrayImageToDelete[i]);
+            });
+          }
+        }
+
+        const sqlSolution = "DELETE FROM solution WHERE id=?";
+        connection.query(sqlSolution, [idsolution], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't put image" + error);
+          } else {
+            res.status(200).json({ "id": req.params.id });
+          }
+        });
+      } else {
+        const sqlImage = "DELETE image FROM image JOIN solution ON image.id=solution.image_id WHERE solution.id=?";
+        connection.query(sqlImage, [idsolution], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't delete image" + error);
+          } else {
+            const sqlSolution = "DELETE FROM solution WHERE id=?";
+            connection.query(sqlSolution, [idsolution], (error, results, fields) => {
+              if (error) {
+                res.status(501).send("couldn't delete image" + error);
+              } else {
+                res.status(200).json({ "id": req.params.id });
+              }
+            });
+          }
+        });
+
       }
-
-      console.log(arrayImageToDelete);
-
-      if (arrayImageToDelete.length > 0) {
-        for (let i = 0; i < arrayImageToDelete.length; i++) {
-          fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
-            if (err) throw err;
-            console.log('successfully deleted ' + arrayImageToDelete[i]);
-          });
-        }
-      }
-
-      const sqlSolution = "DELETE FROM solution WHERE id=?";
-      connection.query(sqlSolution, [idsolution], (error, results, fields) => {
-        if (error) {
-          res.status(501).send("couldn't put image" + error);
-        } else {
-          res.status(200).json({ "id": req.params.id });
-        }
-      });
     }
   });
 });

@@ -13,27 +13,6 @@ class NavBarAdmin extends React.Component {
         }
     }
 
-
-    getMail = async () => {
-
-        const options = {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + localStorage.getItem('token')
-            }),
-        }
-
-        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/mail';
-        const data = await (await (fetch(url, options))).json();
-        console.log(data.length);
-        this.setState({ countMail: data.length });
-    }
-
-    componentDidMount() {
-        this.getMail();
-    }
-
     logOut = () => {
         this.setState({ redirectLogOut: true })
         localStorage.setItem('token', "")
@@ -100,7 +79,7 @@ class NavBarAdmin extends React.Component {
                             <li>
                                 <Link to="/Mail">
                                     {/*      <span></span> */}
-                                    <span>Historique des mails <span className="badge badge-light">{this.state.countMail}</span></span>
+                                    <span>Historique des mails</span>
                                 </Link>
                             </li>
                             <li>
