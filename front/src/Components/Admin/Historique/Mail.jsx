@@ -205,8 +205,8 @@ class Mail extends Component {
                   {/* <!-- Societe --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Societe</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.societe} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="societe">Societe</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.societe} id="societe" rows="1" />
                     </div>
                   </div>
 
@@ -214,8 +214,8 @@ class Mail extends Component {
                   {/* <!-- Date --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Date</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.date} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="date">Date</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.date} id="date" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -224,16 +224,16 @@ class Mail extends Component {
                   {/* <!-- Nom --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Nom</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.nom} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="nom">Nom</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.nom} id="nom" rows="1" />
                     </div>
                   </div>
 
                   {/* <!-- Prenom --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Prénom</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.prenom} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="prenom">Prénom</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.prenom} id="prenom" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -243,16 +243,16 @@ class Mail extends Component {
                   {/* <!-- Adresse --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Adresse</label>
-                      <textarea className="form-control form-control-sm" defaultValue={this.state.adresse} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="adresse">Adresse</label>
+                      <textarea className="form-control form-control-sm" defaultValue={this.state.adresse} id="adresse" rows="1" />
                     </div>
                   </div>
 
                   {/* <!-- Téléphone --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Téléphone</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.telephone} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="telephone">Téléphone</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.telephone} id="telephone" rows="1" />
                     </div>
                   </div>
                 </div>
@@ -261,8 +261,8 @@ class Mail extends Component {
                   {/* <!-- Email --> */}
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label htmlFor="exampleFormControlTextarea1">Email</label>
-                      <input className="form-control form-control-sm" defaultValue={this.state.email} id="exampleFormControlTextarea1" rows="1" />
+                      <label htmlFor="email">Email</label>
+                      <input className="form-control form-control-sm" defaultValue={this.state.email} id="email" rows="1" />
                     </div>
                   </div>
 
@@ -274,9 +274,9 @@ class Mail extends Component {
                         this.state.document !== ""
                           ?
                           <div className="btn-piece-jointe-mail">
-                            <label htmlFor="exampleFormControlTextarea1">Pièce jointe</label>
+                            <label htmlFor="pieceJ">Pièce jointe</label>
                             <div className="btn-piece-jointe">
-                              <a href={`${this.state.document}`} target="_blank" rel="noopener noreferrer"><button type="button" class="btn btn-primary">visualiser</button></a>
+                              <a href={`${this.state.document}`} target="_blank" rel="noopener noreferrer"><button type="button" className="btn btn-primary">visualiser</button></a>
                             </div>
                           </div>
                           : <div className="pas-de-piece-jointe">pas de pièce jointe</div>

@@ -9,9 +9,6 @@ import { Switch, Route } from 'react-router-dom';
 import Mention from "./Components/Mention/Mention";
 import Partenaire from './Components/partenaires/Partenaire';
 import NavBar from './Components/NavBar/NavBar.jsx';
-import { connect } from "react-redux";
-import { GET_ARRAY_NAME_SOLUTION, GET_ID_LANG } from "./../src/Components/actionTypes";
-
 
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
@@ -46,8 +43,7 @@ class Client extends Component {
     handleChangeLang = async (event) => {
 
         let idLang = event.target.options[event.target.selectedIndex].id;
-/*         this.props.dispatch({ type: GET_ID_LANG.type, idLang })
- */
+
         this.setState({
             idLang: idLang
         });
@@ -83,18 +79,10 @@ class Client extends Component {
         }
 
 
-
-
-
-
         //récupération des section uniques ex :[ketra, kroco, kheops]
         let sectionSolution = solutionsAll.map(element => element.section);
         let section_filtered = sectionSolution.filter((section, index) => sectionSolution.lastIndexOf(section) === index);
 
-       
-
-/*         this.props.dispatch({ type: GET_ARRAY_NAME_SOLUTION.type, section_filtered });
-        this.props.dispatch({ type: GET_ID_LANG.type, idLang }); */
 
         this.setState({ array_name_solution: section_filtered, solution: arraySolution });
 
@@ -102,7 +90,6 @@ class Client extends Component {
 
 
     componentDidMount = () => {
-        //localStorage.setItem('lang', this.state.idLang);
         this.getStarted();
     }
 
@@ -138,12 +125,5 @@ class Client extends Component {
 }
 
 
-
-
-const mapStateToProps = state => ({
-    data_store: state
-});
-
-/* export default connect(mapStateToProps)(Client); */
 export default Client;
 

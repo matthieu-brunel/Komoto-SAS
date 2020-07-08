@@ -9,7 +9,7 @@ class NavBarAdmin extends React.Component {
     constructor() {
         super();
         this.state = {
-            countMail: 0
+            redirectLogOut:false
         }
     }
 
