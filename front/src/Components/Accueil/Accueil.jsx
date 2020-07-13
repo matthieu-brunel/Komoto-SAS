@@ -31,7 +31,7 @@ class Accueil extends Component {
     return (
       <div className="sticky-wrap">
 
-{/*
+
         <div className="vignets">
           <HeaderAccueil locale={locale} />
         </div>
@@ -55,7 +55,7 @@ class Accueil extends Component {
 
         <div className="sticky-footer">
           <Footer locale={locale} />
-        </div> */}
+        </div>
       </div>
     );
   }

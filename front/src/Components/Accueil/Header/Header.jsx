@@ -38,8 +38,8 @@ class HeaderAccueil extends Component {
           </div>
         </div>
         <div className="section-savoirFaire-accueil">
-{/*           <SavoirFaireAccueil locale={locale} />
- */}        </div>
+          <SavoirFaireAccueil locale={locale} />
+        </div>
       </div>
 
 

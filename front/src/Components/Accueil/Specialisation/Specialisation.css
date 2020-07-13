@@ -1,6 +1,11 @@
 
 
-
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right:0px !important;
+    margin-left: 0px !important;
+}
 
 .div-container-spec{
     background-color: #479761;

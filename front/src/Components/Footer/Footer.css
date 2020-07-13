@@ -27,7 +27,7 @@
 
 
 
-@media screen and (max-width:767px) {
+@media screen and (max-width:1000px) {
 
     .d-flex1{
         display: flex;

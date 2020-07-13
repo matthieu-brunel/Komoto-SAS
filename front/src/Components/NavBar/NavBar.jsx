@@ -102,12 +102,4 @@ const NavBar = (props) => {
   );
 }
 
-
-const mapStateToProps = state => ({
-  data_store: state
-});
-
-
-
-/* export default connect(mapStateToProps)(NavBar); */
 export default NavBar;
