@@ -27,17 +27,17 @@ class Accueil extends Component {
 
     const { locale, num_lang, handleClickSolution } = this.props;
     const { solution } = this.state;
-    //console.log(solution);
+
     return (
       <div className="sticky-wrap">
 
-
+{/*
         <div className="vignets">
           <HeaderAccueil locale={locale} />
         </div>
 
 
-        <div className="special">
+         <div className="special">
           <SpecialisationAccueil locale={locale} />
         </div>
 
@@ -45,7 +45,7 @@ class Accueil extends Component {
           <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale} />
         </div>
 
-        <div className="special">
+        <div className="section-demonstration-accueil">
           <DemonstrationAccueil locale={locale} />
         </div>
 
@@ -55,7 +55,7 @@ class Accueil extends Component {
 
         <div className="sticky-footer">
           <Footer locale={locale} />
-        </div>
+        </div> */}
       </div>
     );
   }

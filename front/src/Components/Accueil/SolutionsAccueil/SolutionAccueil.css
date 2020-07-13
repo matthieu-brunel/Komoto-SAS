@@ -1,9 +1,9 @@
 .sol-text{
     width: 50%;
-    margin-right: 5%;
+/*     margin-right: 5%;
     padding-bottom: 1px;
     text-align: left;
-   padding-right: 3rem;
+   padding-right: 3rem; */
 }
 
 .img-solution{
@@ -25,18 +25,19 @@
 
 .sol-title{
     
-    background-color: grey;
+ /*    background-color: grey; */
     margin-left: 5%;
     margin-right: 5%;
     padding-bottom: 1px;
 }
 
 .sol-title-text{
-    text-align: left;
-    padding-left: 10%;
-    color: white;
-    text-decoration: underline;
+/*     text-align: left;
+    padding-left: 10%; */
+    color: #19181A;
+/*     text-decoration: underline; */
 }
+
 
 @media screen and (max-width:767px) {
 
@@ -84,11 +85,12 @@
 
     .sol-text{
         width: 100%;
-        margin-right: 5%;
+/*         margin-right: 5%;
         padding-bottom: 1px;
-        text-align: center;
+        text-align: center; */
     }
+
     .img-solution{
-        width: 100%;
+        width: 40vw;
     }
 }

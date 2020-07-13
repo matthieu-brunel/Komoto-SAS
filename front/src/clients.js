@@ -104,8 +104,8 @@ class Client extends Component {
             <div className="">
                 {!urlAdmin.includes(monUrl) ?
                     <div className="">
-                        <NavBar navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang} />
-                    </div>
+{/*                         <NavBar navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang} />
+ */}                    </div>
                     : null}
                 <Switch>
                     <Route exact path="/" component={() => <Accueil locale={idLang} handleClickSolution={this.handleClickSolution} />} />

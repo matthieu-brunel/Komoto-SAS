@@ -1,4 +1,4 @@
-.container-div-img{
+ .container-div-img{
     display:flex;
     flex-direction: row;
     justify-content: space-around;
@@ -10,17 +10,17 @@
 }
 
 .div-title-reference{
-    background-color:grey;
+ /*    background-color:grey; */
     margin-left: 5%;
     margin-right: 5%;
     padding-bottom: 1px;
 }
 
 .title-reference{
-    text-align: left;
-    padding-left: 10%;
-    color:white;
-    text-decoration: underline;
+/*     text-align: left;
+    padding-left: 10%; */
+    color:#19181A;
+/*     text-decoration: underline; */
 }
 /* .div-reference{
     width: 32%;

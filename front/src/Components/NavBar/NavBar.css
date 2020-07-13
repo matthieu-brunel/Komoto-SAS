@@ -3,7 +3,6 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    
   }
 
 
@@ -18,16 +17,18 @@
     color: gray;
 }
 
-.test3{
+.div-container-navbar{
     position: fixed;
     top: 0px;
     z-index: 1;
     width: 100%;
 }
 
+
 @media (max-width: 1200px) {
     .all{
         display: flex;
         justify-content: center;
     }
+
   }

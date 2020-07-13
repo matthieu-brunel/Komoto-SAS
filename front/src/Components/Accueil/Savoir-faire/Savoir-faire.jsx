@@ -22,26 +22,25 @@ class SavoirFaireAccueil extends Component {
 
   render() {
     return (
-      <div className="container-header-savoirFaire">
+      <div className="container-header-savoirFaire mb-5">
         <div className="container-savoirFaire ">
           {this.state.SavoirFaire.length > 0 && (
 
-            <div className="div-title-savoirFaire ">
+            <div className="div-title-savoirFaire">
               <ScrollAnimation animateIn='fadeIn'>
-                <h2 className="title-savoirFaire">{this.state.SavoirFaire[0].title}</h2>
+                <h2 className="title-savoirFaire pb-5">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
               <div className="container-savoirFaire-card test55 justify-content-around">
 
-
                 {this.state.SavoirFaire.map((SavoirFaire, index) => {
                   return (
-                    <div className="card-savoirfaire col-lg-3 mb-5" key={index}>
+                    <div className="card-savoirfaire col-lg-2 mb-5" key={index}>
                       <div>
                         <ScrollAnimation animateIn='fadeIn'>
                           <div>
                             <img className="img-savoirfaire" src={SavoirFaire.url} alt={SavoirFaire.alt} />
                             <div>
-                              <h4>{SavoirFaire.subtitle}</h4>
+                              <h4 className="pt-3">{SavoirFaire.subtitle}</h4>
                               <p>{SavoirFaire.description}</p>
                             </div>
                           </div>

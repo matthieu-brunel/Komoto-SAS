@@ -1,12 +1,22 @@
-.test1{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding-top: 50px;
+
+
+
+
+.div-container-spec{
+    background-color: #479761;
 }
 
-.div-img-spe{
+/* .div-img-spe{
     width: 100%;
+} */
+.checkList-spec-accueil {
+    list-style-type: none;
+}
+
+ul .checkList-spec-accueil:before  { 
+    content: '\f14a   ';
+    font-family: FontAwesome; 
+    font-size: 25px;
 }
 
 
@@ -14,27 +24,35 @@
     width: 50%;
 }
 
-.size-img{
+/* .size-img{
     width: 100%;
-}
+} */
 
 .div-title-specialisation{
-    background-color:grey;
+ /*    background-color:grey; */
     margin-left: 5%;
     margin-right: 5%;
     padding-bottom: 1px;
 }
 
 .title-specialisation{
-    text-align: left;
-    padding-left: 10%;
+/*     text-align: left;
+    padding-left: 10%; */
     color:white;
-    text-decoration: underline;
+   /*  text-decoration: underline; */
 }
 
+.card-title{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
-@media screen and (max-width:767px) {
+.div-vide-spec{
+    height: 3rem;
+}
 
+/* Small devices (landscape phones, 575.98px MAX) */
+@media screen and (max-width: 575.98px) {
     .test1{
         display: flex;
         flex-direction: column;
@@ -51,21 +69,82 @@
     }
     
     .div-title-specialisation{
-        background-color:grey;
-        margin-left: 5%;
-        margin-right: 5%;
         padding-bottom: 1px;
     }
     
     .title-specialisation{
-        text-align: left;
-        padding-left: 10%;
         color:white;
-        text-decoration: underline;
+    }
+
+    .card-title{
+        font-weight: 700;
+    }
+ }
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+    .tl-card{
+        width: 100%;
     }
     
-    
+    .size-img{
+        width: 100%;
     }
+    
+    .div-title-specialisation{
+        padding-bottom: 1px;
+    }
+    
+    .title-specialisation{
+        color:white;
+    }
+
+    .card-title{
+        font-weight: 700;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .test1{
+        display: flex;
+        flex-wrap:wrap;
+        width: 100%;
+        padding-top: 30px;
+    }
+    
+    .tl-card{
+        width: 100%;
+    }
+    
+    .size-img{
+        width: 100%;
+    }
+    
+    .div-title-specialisation{
+        padding-bottom: 1px;
+    }
+    
+    .title-specialisation{
+        color:white;
+    }
+
+    .card-title{
+        font-weight: 700;
+    } 
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
 
 
 

@@ -66,15 +66,14 @@ const NavBar = (props) => {
   const padding_nav_item = 1;
   const margin_right = 4;
   return (
-    <div className="test3">
-      
+    <div className="div-container-navbar">
       <Navbar color="white" light expand="xl">
         <NavbarBrand className="pl-3" ></NavbarBrand>
         <NavLink to="/" className="p-3"><img className="" src="/images/logo.png" alt="logo komoto sas" /></NavLink>
         <NavbarToggler onClick={toggle} />
 
         <Collapse isOpen={isOpen} navbar className="all" >
-          <Nav className="  " navbar>
+          <Nav className="navbar" navbar>
             <NavItem className={`p-${padding_nav_item} pr-${margin_right}`}>
               <NavLink to="/" >{data[0]}</NavLink>
             </NavItem >
