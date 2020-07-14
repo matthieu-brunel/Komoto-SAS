@@ -26,7 +26,10 @@ class SavoirFaireAccueil extends Component {
         <div className="container-savoirFaire ">
           {this.state.SavoirFaire.length > 0 && (
 
-            <div className="div-title-savoirFaire">
+            <div className="div-title-savoirFaire"
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
               <ScrollAnimation animateIn='fadeIn'>
                 <h2 className="title-savoirFaire pb-5">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
@@ -34,7 +37,10 @@ class SavoirFaireAccueil extends Component {
 
                 {this.state.SavoirFaire.map((SavoirFaire, index) => {
                   return (
-                    <div className="card-savoirfaire col-lg-2 mb-5" key={index}>
+                    <div className="card-savoirfaire col-lg-2 mb-5" key={index}
+                      data-aos="fade-up"
+                      data-aos-duration="500"
+                      data-aos-easing="ease-in-out">
                       <div>
                         <ScrollAnimation animateIn='fadeIn'>
                           <div>

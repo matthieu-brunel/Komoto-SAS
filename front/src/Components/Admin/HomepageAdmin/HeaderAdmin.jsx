@@ -232,9 +232,9 @@ class HeaderAdmin extends Component {
             body: documentImage
         }
 
-        // fetch pour la table reference
+        // fetch pour la table homepage header
         let id = this.state.headerToEdit[0];
-        await putRessources("reference", id, [data, dataImage]);
+        await putRessources("homepage", id, [data, dataImage]);
 
         // fetch pour la table image
         let id_image = this.state.headerToEdit[1];

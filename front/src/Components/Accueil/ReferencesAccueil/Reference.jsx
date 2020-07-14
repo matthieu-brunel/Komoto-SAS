@@ -17,10 +17,10 @@ class ReferenceAccueil extends Component {
     console.log(locale);
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + locale;
     const data = await (await (fetch(url))).json();
-    
+
     let arrayReference = [];
 
-    for(let obj of data){
+    for (let obj of data) {
       let url = JSON.parse(obj.url);
       let description = JSON.parse(obj.description);
       obj.url = url;
@@ -28,7 +28,7 @@ class ReferenceAccueil extends Component {
       arrayReference.push(obj);
     }
 
-    this.setState({reference:arrayReference});
+    this.setState({ reference: arrayReference });
   };
 
 
@@ -36,8 +36,11 @@ class ReferenceAccueil extends Component {
 
   render() {
     return (
-      <div  className="container-reference">
-        <div className="div-title-reference p-5">
+      <div className="container-reference">
+        <div className="div-title-reference p-5"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out">
           <h2 className="title-reference">
             {this.state.reference.length > 0
               ? this.state.reference[0].title_section
@@ -46,11 +49,14 @@ class ReferenceAccueil extends Component {
         </div>
         <div className="container-div-img">
           {this.state.reference.map((element, index) => (
-            <div id="ReferenceAccueil" className="div-reference" key={index}>
+            <div id="ReferenceAccueil" className="div-reference" key={index}
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
               <NavLink to={`/Reference/#${element.name}`}>
                 <img
                   className="img-reference"
-                  src={REACT_APP_SERVER_ADDRESS_FULL+"/images/" + element.url.logoRef[0].name}
+                  src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + element.url.logoRef[0].name}
                   alt={element.url.logoRef[0].alt}
                 />
               </NavLink>

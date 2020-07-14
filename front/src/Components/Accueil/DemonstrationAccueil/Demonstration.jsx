@@ -22,10 +22,16 @@ class DemonstrationAccueil extends Component {
   render() {
     return (
       <div className="center p-5 ">
-        {this.state.demonstration.length > 0 && <div className="demo-title"><h2 className="demo-title-text">{this.state.demonstration[0].title}</h2></div>}
+        {this.state.demonstration.length > 0 && <div className="demo-title"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out"><h2 className="demo-title-text">{this.state.demonstration[0].title}</h2></div>}
         {this.state.demonstration.map((demonstration, index) => {
           return (
-            <div key={index}>
+            <div key={index}
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
 
               <div className="container all-demo">
                 <div className="demo-img pt-5">

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './Header.css';
 import SavoirFaireAccueil from './../Savoir-faire/Savoir-faire';
 import getRessources from '../../../utils/getRessources';
-
-
+import { Link } from "react-scroll";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import ScrollAnimation from 'react-animate-on-scroll';
+AOS.init();
 
 class HeaderAccueil extends Component {
   constructor(props) {
@@ -34,9 +37,26 @@ class HeaderAccueil extends Component {
       <div className="container-div-img-header">
         <div className="div-background-image" style={{ 'backgroundImage': `linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5)), url(${header.length > 0 ? header[0].url : ""})` }}>
           <div className="div-text-h1-accueil">
-            <h1 className="text-accueil text-white">{header.length > 0 ? header[0].description : ""}</h1>
+            <ScrollAnimation animateIn='fadeIn'>
+              <h1 className="text-accueil text-white">{header.length > 0 ? header[0].description : ""}</h1>
+            </ScrollAnimation>
+            <Link
+              activeClass="active"
+              to="container-header-savoirFaire"
+              spy={true}
+              smooth={true}
+              offset={-150}
+              duration={500}
+            >             <div className="arrow-container animated fadeInDown">
+                <div className="arrow-2">
+
+                  <i className="fa fa-angle-down"></i>
+                </div>
+                <div className="arrow-1 animated hinge infinite zoomIn"></div>
+              </div></Link>
           </div>
         </div>
+
         <div className="section-savoirFaire-accueil">
           <SavoirFaireAccueil locale={locale} />
         </div>

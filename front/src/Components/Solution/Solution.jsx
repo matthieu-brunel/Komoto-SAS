@@ -55,14 +55,12 @@ class Solution extends Component {
   render() {
 
     return (
-      <div className="mt-5 sticky-wrap">
-        <div>
-          <HeaderSolution header={this.state.solution} />
-          <SolutionText texte={this.state.solution} />
-          {this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url.imageCaroussel} />}
-          <div className="sticky-footer">
-            <Footer />
-          </div>
+      <div className="sticky-wrap">
+        <HeaderSolution header={this.state.solution} />
+        <SolutionText texte={this.state.solution} />
+        {this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url.imageCaroussel} />}
+        <div className="sticky-footer">
+          <Footer />
         </div>
       </div>
     );

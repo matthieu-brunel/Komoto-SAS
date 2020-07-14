@@ -55,7 +55,7 @@ class Footer extends Component {
                   <NavLink to="/Mention" className=""><p className="lien link-nav text-white">mention</p></NavLink>
                 </div>
               </div>
-              <div className="all no ">
+              <div className="all no p-5">
                 <div>
                   <a href="test"><span style={{color:"white"}}><i className="fab fa-instagram fa-2x"></i></span></a>
                 </div>

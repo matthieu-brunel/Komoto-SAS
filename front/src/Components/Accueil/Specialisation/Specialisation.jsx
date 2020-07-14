@@ -3,6 +3,9 @@ import './Specialisation.css';
 import getRessources from '../../../utils/getRessources';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 
 class SpecialisationAccueil extends Component {
@@ -45,32 +48,17 @@ class SpecialisationAccueil extends Component {
           <h2 className="div-title-specialisation title-specialisation pb-5">{specialisation.length > 0 && specialisation[0].title}</h2>
         </div>
 
-        <div className="row align-items-flex-start">
+        <div className="row align-items-flex-start"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out">
+
           {specialisation.map((specialisation, index) => {
             return (
-
-              /*               <div className="card p-2 mb-3" key={index} >
-                              <ScrollAnimation animateIn='fadeIn'>
-                                <div className="div-img-spe">
-                                  <img src={specialisation.url} className="card-img-top" alt={specialisation.alt} />
-                                </div>
-              
-                              </ScrollAnimation>
-                              <div className="card-body">
-                                <ScrollAnimation animateIn='fadeIn'>
-                                  <div className="">
-                                    <h5 className="card-title p-2">{specialisation.subtitle}</h5>
-                                  </div>
-                                </ScrollAnimation>
-              
-                                <ScrollAnimation animateIn='fadeIn'>
-                                  <div className="text-left card-text">
-                                    {specialisation.description.map((list, index) => (<div key={index}><ul><li className="checkList-spec-accueil">{list}</li></ul></div>))}
-                                  </div>
-                                </ScrollAnimation>
-                              </div>
-                            </div> */
-              <div className="col-sm-6 p-3" key={index}>
+              <div className="col-sm-6 p-3" key={index}
+                data-aos="fade-up"
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out">
                 <div className="card">
                   <img src={specialisation.url} className="card-img-top" alt={specialisation.alt} />
                   <div className="card-body">

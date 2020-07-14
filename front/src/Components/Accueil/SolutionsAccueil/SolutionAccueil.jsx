@@ -44,10 +44,16 @@ class SolutionAccueil extends Component {
     const { handleClickSolution } = this.props;
     return (
       <div className="div-container-solution">
-        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5 mb-5"><h2 className="sol-title-text">{this.state.solution[0].title_section}</h2></div>}
+        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5 mb-5"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out"><h2 className="sol-title-text">{this.state.solution[0].title_section}</h2></div>}
         {this.state.solution.map((solution, index) => {
           return (
-            <div className="container div-card-solution mb-2" key={index}>
+            <div className="container div-card-solution mb-2" key={index}
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
               <div className="solution-card">
                 <div className="div-image-solution-accueil">
                   <img className="img-solution" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.logoSolution[0].name} alt={solution.url.logoSolution[0].alt} />
