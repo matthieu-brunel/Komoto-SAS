@@ -42,6 +42,7 @@ router.get("/all", (req, res) => {
     }
   });
 });
+
 router.get("/:id", (req, res) => {
   const idformulaireOne = parseInt(req.params.id);
   const sql = "SELECT * FROM formulaire where id = ?";
@@ -53,6 +54,7 @@ router.get("/:id", (req, res) => {
     }
   });
 });
+
 router.put("/:id", Auth, (req, res) => {
   const idformulaire = req.params.id;
   const formulaire = req.body;
