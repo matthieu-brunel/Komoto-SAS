@@ -16,8 +16,16 @@ describe("test homepage CRUD", () => {
     title: "test_title",
     section: "test_section",
     description: "test_description",
-    language: "french",
+    language: 1,
     image_id: 1
+  };
+
+  const image = {
+    name: "test_name",
+    url: "test_url",
+    alt: "test_alt",
+    homepage_id: 1,
+    section: "test_section"
   };
 
 
@@ -34,7 +42,6 @@ describe("test homepage CRUD", () => {
       },
       (error, response, body) => {
         token = response.body.token;
-
         done();
       }
     );
@@ -47,7 +54,7 @@ describe("test homepage CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/homepage",
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: homepage
       },
       (error, response, body) => {
@@ -84,46 +91,46 @@ describe("test homepage CRUD", () => {
   });
 
   it("should update homepage", done => {
-    homepage.subtitle = "new put";
-    homepage.title = "new put";
-    homepage.section = "new put";
-    homepage.description = "new put";
-    homepage.language = "new put";
-    homepage.image_id = 2;
+    homepage.subtitle = "subtitle";
+    homepage.title = "new title";
+    homepage.section = "new section";
+    homepage.description = "new description";
+    homepage.language = 3;
+    homepage.image_id = 3;
 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
-        body: homepage
+        headers: { authorization: 'Bearer ' + token },
+        body: [homepage, image]
       },
 
       (error, response, body) => {
-        //console.log("PUT", body);
-        expect(body.subtitle).toBe(homepage.subtitle);
-        expect(body.title).toBe(homepage.title);
-        expect(body.section).toBe(homepage.section);
-        expect(body.description).toBe(homepage.description);
-        expect(body.language).toBe(homepage.language);
-        expect(data.image_id).toBeTruthy();
+      
+        expect(body[0].subtitle).toBe(homepage.subtitle);
+        expect(body[0].title).toBe(homepage.title);
+        expect(body[0].section).toBe(homepage.section);
+        expect(body[0].description).toBe(homepage.description);
+        expect(body[0].language).toBe(homepage.language);
+        expect(body[0].image_id).toBeTruthy();
         done();
       }
     );
   });
 
-it("delete homepage", done => {
+  it("delete homepage", done => {
     request(
       {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
         done();
       }
     );
-  }); 
+  });
 });
