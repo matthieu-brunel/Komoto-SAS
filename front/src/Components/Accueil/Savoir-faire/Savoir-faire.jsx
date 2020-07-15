@@ -31,13 +31,13 @@ class SavoirFaireAccueil extends Component {
               data-aos-duration="500"
               data-aos-easing="ease-in-out">
               <ScrollAnimation animateIn='fadeIn'>
-                <h2 className="title-savoirFaire pb-5">{this.state.SavoirFaire[0].title}</h2>
+                <h2 className="title-savoirFaire text-center pb-5">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
               <div className="container-savoirFaire-card test55 justify-content-around">
 
                 {this.state.SavoirFaire.map((SavoirFaire, index) => {
                   return (
-                    <div className="card-savoirfaire col-lg-2 mb-5" key={index}
+                    <div className="card-savoirfaire text-center col-lg-2 mb-5" key={index}
                       data-aos="fade-up"
                       data-aos-duration="500"
                       data-aos-easing="ease-in-out">

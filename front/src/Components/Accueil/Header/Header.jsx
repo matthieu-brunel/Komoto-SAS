@@ -47,7 +47,7 @@ class HeaderAccueil extends Component {
         <div className="div-background-image" style={{ 'backgroundImage': `linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5)), url(${header.length > 0 ? header[0].url : ""})` }}>
           <div className="div-text-h1-accueil">
             <ScrollAnimation animateIn='fadeIn'>
-              <h1 className="text-accueil text-white">{this.state.titleHeader}</h1>
+              <h1 className="text-accueil text-center text-white">{this.state.titleHeader}</h1>
             </ScrollAnimation>
             <Link
               activeClass="active"
@@ -58,7 +58,7 @@ class HeaderAccueil extends Component {
               duration={500}>
 
               <div className="arrow-container animated fadeInDown">
-                <p className="label-arrow text-white">{this.state.clickDown}</p>
+                <p className="label-arrow text-white text-center">{this.state.clickDown}</p>
                 <div className="arrow-2">
                   <i className="fa fa-angle-down"></i>
                 </div>

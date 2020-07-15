@@ -21,7 +21,7 @@ class DemonstrationAccueil extends Component {
   };
   render() {
     return (
-      <div className="center p-5 ">
+      <div className="text-center p-5">
         {this.state.demonstration.length > 0 && <div className="demo-title"
           data-aos="fade-up"
           data-aos-duration="500"
@@ -39,10 +39,10 @@ class DemonstrationAccueil extends Component {
                 </div>
                 <div className="demo-text pt-4">
                   <div>
-                    <h5 className="text-subtitle-demonstration">{demonstration.subtitle}</h5>
+                    <h3 className="text-subtitle-demonstration">{demonstration.subtitle}</h3>
                   </div>
-                  <div>
-                    <p>{demonstration.description}</p>
+                  <div className="div-description-demonstration-accueil">
+                    <p className="p-description-demonstration-accueil">{demonstration.description}</p>
                   </div>
                 </div>
               </div>

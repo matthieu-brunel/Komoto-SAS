@@ -75,7 +75,7 @@ class HomepageAdmin extends Component {
             options.push(<option key={i} id={arrayLang[i].locale}>{arrayLang[i].locale}</option>)
         }
         return (
-            <div>
+            <div className="text-center">
                 <div>
                     <NavBarAdmin />
                 </div>

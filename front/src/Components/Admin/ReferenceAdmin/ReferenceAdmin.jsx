@@ -254,7 +254,7 @@ class ReferenceAdmin extends Component {
     }
 
     return (
-      <div>
+      <div className="text-center">
         <div>
           <NavBarAdmin />
         </div>

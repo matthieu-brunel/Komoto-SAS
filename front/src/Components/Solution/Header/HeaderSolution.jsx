@@ -8,7 +8,7 @@ class HeaderSolution extends Component {
     const { header } = this.props;
 
     return (
-      <div className="container container-header-solution mb-5">
+      <div className="container container-header-solution text-center mb-5">
        
         <div className="div-logo-solution p-3">
           {header.length > 0 && 

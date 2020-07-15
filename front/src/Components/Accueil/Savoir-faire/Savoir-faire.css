@@ -1,15 +1,6 @@
 
 
 
-/*  on injecte une image e narriere plan depuis la balise style (voir dans le render)
- on peut regler la hauteur de l'image avec height: 100vh; */
-
-
-
-
-/* Div vide qui sera en dessous de .container-savoirFaire
-afin de pousser le reste du contenu vers le bas */
-
 
 .div-vide-savoirFaire{
     height:10rem;
@@ -100,5 +91,9 @@ afin de pousser le reste du contenu vers le bas */
 
     .img-savoirfaire{
         width:40%;
+    }
+
+    .text-solution{
+        font-size: x-large;
     }
 }

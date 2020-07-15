@@ -129,6 +129,7 @@
 
     .sol-text{
         width: 100%;
+        padding: 0% 10% 0% 10%;
     }
 
 }
@@ -152,7 +153,15 @@
 
     .sol-text{
         width: 100%;
-        padding: 0% 10% 0% 10%;
+        padding: 0% 20% 0% 20%;
+    }
+
+    .img-solution{
+        width: 8vw;
+    }
+
+    .text-solution{
+        font-size: large;
     }
 
 }
@@ -180,6 +189,16 @@
     }
 
     .img-solution{
-        width: 40vw;
+        width: 8vw;
     }
+
+    .sol-text{
+        width: 100%;
+        padding: 0% 20% 0% 20%;
+    }
+
+    .text-solution{
+        font-size: x-large;
+    }
+
 }

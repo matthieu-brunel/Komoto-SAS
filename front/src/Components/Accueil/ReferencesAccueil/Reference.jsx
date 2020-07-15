@@ -36,18 +36,18 @@ class ReferenceAccueil extends Component {
 
   render() {
     return (
-      <div className="container-reference">
-        <div className="div-title-reference p-5"
+      <div className="container-reference text-center mt-5">
+        <div className="div-title-reference pt-3 pb-3"
           data-aos="fade-up"
           data-aos-duration="500"
           data-aos-easing="ease-in-out">
-          <h2 className="title-reference">
+          <h2 className="title-reference p-4">
             {this.state.reference.length > 0
               ? this.state.reference[0].title_section
               : "Titre 1"}
           </h2>
         </div>
-        <div className="container-div-img">
+        <div className="container-div-img mb-5">
           {this.state.reference.map((element, index) => (
             <div id="ReferenceAccueil" className="div-reference" key={index}
               data-aos="fade-up"

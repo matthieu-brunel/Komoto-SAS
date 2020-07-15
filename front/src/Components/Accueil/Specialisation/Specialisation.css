@@ -149,6 +149,8 @@ ul .checkList-spec-accueil:before  {
         width: 100%;
         padding-top: 30px;
     }
+
+    
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
@@ -159,6 +161,10 @@ ul .checkList-spec-accueil:before  {
         flex-wrap:wrap;
         width: 100%;
         padding-top: 30px;
+    }
+
+    .checkList-spec-accueil{
+        font-size: x-large;
     }
 
 }

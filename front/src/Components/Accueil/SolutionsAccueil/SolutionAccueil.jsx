@@ -43,7 +43,7 @@ class SolutionAccueil extends Component {
 
     const { handleClickSolution } = this.props;
     return (
-      <div className="div-container-solution">
+      <div className="div-container-solution text-center">
         {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5 mb-5"
           data-aos="fade-up"
           data-aos-duration="500"

@@ -43,7 +43,7 @@ class SpecialisationAccueil extends Component {
     const { specialisation } = this.state;
 
     return (
-      <div className="div-container-spec pt-5">
+      <div className="div-container-spec text-center pt-5">
         <div className="">
           <h2 className="div-title-specialisation title-specialisation pb-5">{specialisation.length > 0 && specialisation[0].title}</h2>
         </div>
@@ -62,7 +62,7 @@ class SpecialisationAccueil extends Component {
                 <div className="card">
                   <img src={specialisation.url} className="card-img-top" alt={specialisation.alt} />
                   <div className="card-body">
-                    <h5 className="card-title">{specialisation.subtitle}</h5>
+                    <h2 className="card-title font-weight-bold mb-4">{specialisation.subtitle}</h2>
                     <div className="card-text text-left">
                       {specialisation.description.map((list, index2) => (<div key={index2}><ul><li className="checkList-spec-accueil">{list}</li></ul></div>))}
                     </div>
