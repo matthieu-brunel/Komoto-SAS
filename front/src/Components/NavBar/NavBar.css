@@ -9,7 +9,7 @@
 .all{
     display: flex;
     justify-content: flex-end;
-
+    font-size: 1.2rem!important;
 }
 
 .link-nav{
@@ -24,11 +24,16 @@
     width: 100%;
 }
 
+ .div-select>select>.form-control{
+    width: auto !important;
+}
 
-@media (max-width: 1200px) {
+
+@media screen and (max-width: 1200px) {
     .all{
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        font-size: 1.2rem!important;
     }
-
   }

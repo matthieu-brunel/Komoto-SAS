@@ -58,7 +58,7 @@ class HeaderAccueil extends Component {
               duration={500}>
 
               <div className="arrow-container animated fadeInDown">
-                <p className="text-white">{this.state.clickDown}</p>
+                <p className="label-arrow text-white">{this.state.clickDown}</p>
                 <div className="arrow-2">
                   <i className="fa fa-angle-down"></i>
                 </div>

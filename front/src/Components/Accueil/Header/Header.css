@@ -157,13 +157,30 @@
     .text-accueil{
         font-family: 'Open Sans Condensed', sans-serif;
         font-size:5rem;
-        margin-top: 11%;
+        margin-top: -25%;
         padding: 7rem;
     }
 
     .div-text-h1-accueil{
         width: 60%;
-    }  
+    }
+
+    .label-arrow{
+        font-size: 1.3rem;
+    }
+
+    /*arrow2 white animation*/
+    .arrow-2{
+        width: 60px;
+        height: 60px;
+        background: #ffffff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50px!important;
+        left: 20px;
+        z-index: 1;
+        display: table;
+      }
 }
 
 /* icon: https://fortawesome.github.io/Font-Awesome/icons/ */

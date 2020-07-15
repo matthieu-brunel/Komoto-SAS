@@ -20,51 +20,51 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState({navbar:[]});
-  const [num_lang, setNum_lang] = useState({navbar:[]});
+  const [data, setData] = useState({ navbar: [] });
+  const [num_lang, setNum_lang] = useState({ navbar: [] });
 
   const toggle = () => setIsOpen(!isOpen); // navbar
   const { handleChangeLang, locale } = props;
 
- 
- //chargement des données de concernant navbar
- //useEffet est l'équivalent du componentDidMount
-   useEffect(() => {  
+
+  //chargement des données de concernant navbar
+  //useEffet est l'équivalent du componentDidMount
+  useEffect(() => {
     const fetchData = async () => {
       const options = {
         headers: new Headers({
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         }),
       }
       const result = await getRessources("navbar", null, locale);
       let data = result[0].name.split(",");
       //Chargement des données de la table language 
       let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
-      let data_lang = await(await(fetch(url, options))).json();
+      let data_lang = await (await (fetch(url, options))).json();
       let num_lang = data_lang.map(lang => lang.locale);
-      
+
       setData(data);
       setNum_lang(num_lang);
 
     }
-    
+
     fetchData();
   }, [locale]);
 
   $(document).ready(function () {
     $(document).click(function (event) {
-      
-        var clickover = $(event.target);
-      
-        var _opened = $(".navbar-collapse").hasClass("navbar-collapse show");
-        if (_opened === true && !clickover.hasClass("navbar-toggle")) {
-            $("button.navbar-toggle").click();
-        }
+
+      var clickover = $(event.target);
+
+      var _opened = $(".navbar-collapse").hasClass("navbar-collapse show");
+      if (_opened === true && !clickover.hasClass("navbar-toggle")) {
+        $("button.navbar-toggle").click();
+      }
     });
   });
 
   const padding_nav_item = 1;
-  const margin_right = 4;
+  const margin_right = 5;
   return (
     <div className="div-container-navbar">
       <Navbar color="white" light expand="xl">
@@ -74,27 +74,29 @@ const NavBar = (props) => {
 
         <Collapse isOpen={isOpen} navbar className="all" >
           <Nav className="navbar" navbar>
-            <NavItem className={`p-${padding_nav_item} pr-${margin_right}`}>
+            <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
               <NavLink to="/" >{data[0]}</NavLink>
             </NavItem >
-            <NavItem className={`p-${padding_nav_item} pr-${margin_right}`}>
+            <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
               <NavLink to="/#SolutionAccueil" >{data[1]}</NavLink>
             </NavItem>
-            <NavItem className={`p-${padding_nav_item} pr-${margin_right}`}>
+            <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
               <NavLink to="/#ReferenceAccueil" >{data[2]}</NavLink>
             </NavItem>
-            <NavItem className={`p-${padding_nav_item} pr-${margin_right}`}>
+            <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
               <NavLink to="/Contact" >{data[3]}</NavLink>
             </NavItem>
-            <NavItem className={`p-${padding_nav_item} pr-${margin_right} pb-3`}>
+            <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
               <NavLink to="/Demonstration" >{data[4]}</NavLink>
             </NavItem>
-
+          </Nav>
+          <div className="div-select pl-5">
             <select className="form-control" id="selectLang" onChange={handleChangeLang}>
-              <option id={locale} style={{display:"none"}}>{locale}</option>
+              <option id={locale} style={{ display: "none" }}>{locale}</option>
               {num_lang.length > 0 && num_lang.map((element, index) => <option key={index} id={element} value={index}>{element}</option>)}
             </select>
-          </Nav>
+          </div>
+
         </Collapse>
       </Navbar>
 

@@ -48,7 +48,7 @@ class SpecialisationAccueil extends Component {
           <h2 className="div-title-specialisation title-specialisation pb-5">{specialisation.length > 0 && specialisation[0].title}</h2>
         </div>
 
-        <div className="row align-items-flex-start"
+        <div className="container cards"
           data-aos="fade-up"
           data-aos-duration="500"
           data-aos-easing="ease-in-out">
