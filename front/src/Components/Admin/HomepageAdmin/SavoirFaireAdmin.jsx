@@ -249,7 +249,6 @@ class SavoirFaireAdmin extends Component {
         const documentImage = new FormData();
         documentImage.append("file", this.state.document);
 
-
         const options = {
             method: "POST",
             mode: "cors",
