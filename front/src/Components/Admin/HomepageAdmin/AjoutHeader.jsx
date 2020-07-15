@@ -11,6 +11,7 @@ class AjoutHeader extends Component {
             header: [],
             titreSection: "",
             titre: "",
+            clickDown: "",
             /*header*/
             descriptionHeader: "",
 
@@ -46,6 +47,10 @@ class AjoutHeader extends Component {
 
             case "name-image-header-admin":
                 this.setState({ nameImage: event.target.value });
+                break;
+
+            case "clickDown-header-admin":
+                this.setState({ clickDown: event.target.value });
                 break;
 
             default:
@@ -91,7 +96,12 @@ class AjoutHeader extends Component {
         const { arrayLang, locale } = this.props;
 
         let idLang;
-        let description = this.state.descriptionHeader;
+        let description = {};
+
+        description.titleHeader =  this.state.descriptionHeader;
+        description.clickDown = this.state.clickDown;
+        console.log(description);
+       
 
         for (let i in arrayLang) {
             if (Object.values(arrayLang[i]).includes(locale)) {
@@ -99,7 +109,7 @@ class AjoutHeader extends Component {
             }
         }
 
-        
+
 
         let dataImage = {
             'name': this.state.nameImage,
@@ -113,13 +123,10 @@ class AjoutHeader extends Component {
             'subtitle': "",
             'title': "",
             'section': "header",
-            'description': description,
+            'description':JSON.stringify(description),
             'language': idLang,
             'image_id': 0,
         }
-
-
-
 
         const data = new FormData()
         data.append('file', this.state.document)
@@ -178,6 +185,11 @@ class AjoutHeader extends Component {
 
                             <label>Saisir un titre (SEO)</label>
                             <textarea type="text" value={this.state.descriptionHeader} className="form-control" id="description-header-admin" onChange={this.handleChangeInput} />
+
+                            <label>Label du bouton</label>
+                            <input type="text" value={this.state.clickDown} className="form-control" id="clickDown-header-admin" onChange={this.handleChangeInput} />
+
+                            
 
                             <label htmlFor="alt-image-header-admin" className="col-form-label">alt de l'image (SEO)</label>
                             <div className="">

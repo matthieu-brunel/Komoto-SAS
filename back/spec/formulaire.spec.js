@@ -79,14 +79,13 @@ describe("test formulaire CRUD", () => {
 
     request.put(
       {
-        url: SERVER_ADDRESS_FULL + "/api/formulaire/" + obj.id,
+        url: SERVER_ADDRESS_FULL + "/api/formulaire/" + formulaire.id,
         json: true,
         headers: { authorization: 'Bearer ' + token },
         body: formulaire
       },
 
-      (error, response, body) => {
-      
+      (error, response, body) => {    
         expect(body.name).toBe(formulaire.name);
         expect(data.id_locale).toBeTruthy(true);
         done();
@@ -99,7 +98,7 @@ describe("test formulaire CRUD", () => {
       {
         method: "delete",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/formulaire/" + obj.id,
+        url: SERVER_ADDRESS_FULL + "/api/formulaire/" + formulaire.id,
         headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {

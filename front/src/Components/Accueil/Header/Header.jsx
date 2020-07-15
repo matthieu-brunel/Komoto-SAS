@@ -12,7 +12,9 @@ class HeaderAccueil extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      header: []
+      header: [],
+      clickDown: "",
+      titleHeader: ""
     }
 
   }
@@ -21,9 +23,16 @@ class HeaderAccueil extends Component {
     const { locale } = this.props;
 
     let data = await getRessources('homepage', 'header', locale);
-
+  
+    const description = JSON.parse(data[0].description);
+    const clickDown = description.clickDown;
+    const titleHeader = description.titleHeader;
+    console.log("titleHeader :", titleHeader);
+    console.log("clickDown :", clickDown);
     this.setState({
-      header: data
+      header: data,
+      clickDown:clickDown,
+      titleHeader:titleHeader
     })
   }
 
@@ -38,7 +47,7 @@ class HeaderAccueil extends Component {
         <div className="div-background-image" style={{ 'backgroundImage': `linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5)), url(${header.length > 0 ? header[0].url : ""})` }}>
           <div className="div-text-h1-accueil">
             <ScrollAnimation animateIn='fadeIn'>
-              <h1 className="text-accueil text-white">{header.length > 0 ? header[0].description : ""}</h1>
+              <h1 className="text-accueil text-white">{this.state.titleHeader}</h1>
             </ScrollAnimation>
             <Link
               activeClass="active"
@@ -46,14 +55,16 @@ class HeaderAccueil extends Component {
               spy={true}
               smooth={true}
               offset={-150}
-              duration={500}
-            >             <div className="arrow-container animated fadeInDown">
-                <div className="arrow-2">
+              duration={500}>
 
+              <div className="arrow-container animated fadeInDown">
+                <p className="text-white">{this.state.clickDown}</p>
+                <div className="arrow-2">
                   <i className="fa fa-angle-down"></i>
                 </div>
                 <div className="arrow-1 animated hinge infinite zoomIn"></div>
-              </div></Link>
+              </div>
+            </Link>
           </div>
         </div>
 

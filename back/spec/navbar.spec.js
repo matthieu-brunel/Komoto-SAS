@@ -79,7 +79,7 @@ describe("test navbar CRUD", () => {
 
     request.put(
       {
-        url: SERVER_ADDRESS_FULL + "/api/navbar/" + obj.id,
+        url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
         json: true,
         headers: { authorization: 'Bearer ' + token },
         body: navbar
@@ -99,7 +99,7 @@ describe("test navbar CRUD", () => {
       {
         method: "delete",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/navbar/" + obj.id,
+        url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
         headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {
