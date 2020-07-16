@@ -183,18 +183,17 @@ class ContactPage extends Component {
 
     return (
       <div>
-        <form className="pt-5" onSubmit={this.handlerSubmit}>
+        <form className="pt-5 pb-5" onSubmit={this.handlerSubmit}>
           <div className="border-secondary rounded-0">
             <div className="card-header">
               <div className="bg-secondary text-white text-center py-2">
                 <h3>
-                  <p className="p-4">{formulaire_data[0]}</p>
+                  <p className="p-4 text-white">{formulaire_data[0]}</p>
                 </h3>
               </div>
             </div>
           </div>
-          <div className="container">
-
+          <div className="container formulaire-contact">
             <label className="col-md-6 control-label pt-5" htmlFor="societe">{formulaire_data[1]}</label>
 
             <div className="">

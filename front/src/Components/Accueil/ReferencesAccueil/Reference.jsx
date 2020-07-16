@@ -36,7 +36,7 @@ class ReferenceAccueil extends Component {
 
   render() {
     return (
-      <div className="container-reference text-center mt-5">
+      <div id="ReferenceAccueil" className="container-reference text-center mt-5">
         <div className="div-title-reference pt-3 pb-3"
           data-aos="fade-up"
           data-aos-duration="500"
@@ -49,7 +49,7 @@ class ReferenceAccueil extends Component {
         </div>
         <div className="container-div-img mb-5">
           {this.state.reference.map((element, index) => (
-            <div id="ReferenceAccueil" className="div-reference" key={index}
+            <div className="div-reference" key={index}
               data-aos="fade-up"
               data-aos-duration="500"
               data-aos-easing="ease-in-out">

@@ -44,7 +44,7 @@ class SolutionAccueil extends Component {
     const { handleClickSolution } = this.props;
     return (
       <div className="div-container-solution text-center">
-        {this.state.solution.length > 0 && <div id="SolutionAccueil" className="sol-title mt-5 mb-5"
+        {this.state.solution.length > 0 && <div className="sol-title mt-5 mb-5"
           data-aos="fade-up"
           data-aos-duration="500"
           data-aos-easing="ease-in-out"><h2 className="sol-title-text">{this.state.solution[0].title_section}</h2></div>}
@@ -72,6 +72,7 @@ class SolutionAccueil extends Component {
             </div>
           );
         })}
+
       </div>
     );
   }

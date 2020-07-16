@@ -23,9 +23,9 @@ function ReferenceComponents({ reference }) {
             <div>
               {/*CAROUSSEL IMAGE*/}
               <div className="pt-5 pb-5 ">
-                <div id={element.url.imageCaroussel[0].name} class="carousel slide" data-ride="carousel">
+                <div id={element.url.imageCaroussel[0].name} className="carousel slide" data-ride="carousel">
 
-                  <div class="carousel-inner carouWidth">
+                  <div className="carousel-inner carouWidth">
                     <div className="carousel-item active">
                       <img className="d-block carouList " src={element.url.imageCaroussel.length > 0 ? REACT_APP_SERVER_ADDRESS_FULL + "/images/" + element.url.imageCaroussel[0].name : ""} alt={element.url.imageCaroussel[0].alt} />
                     </div>
@@ -40,13 +40,13 @@ function ReferenceComponents({ reference }) {
                         }
                       })
                     }
-                    <a class="carousel-control-prev" href={`#${element.url.imageCaroussel[0].name}`} role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
+                    <a className="carousel-control-prev" href={`#${element.url.imageCaroussel[0].name}`} role="button" data-slide="prev">
+                      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span className="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href={`#${element.url.imageCaroussel[0].name}`} role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
+                    <a className="carousel-control-next" href={`#${element.url.imageCaroussel[0].name}`} role="button" data-slide="next">
+                      <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span className="sr-only">Next</span>
                     </a>
                   </div>
                 </div>

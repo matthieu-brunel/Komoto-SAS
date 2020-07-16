@@ -10,7 +10,7 @@ import {
   NavItem,
 } from 'reactstrap';
 import './NavBar.css';
-import { HashLink as NavLink } from "react-router-hash-link";
+import { HashLink as Link } from "react-router-hash-link";
 import { connect } from "react-redux";
 import getRessources from './../../utils/getRessources';
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
@@ -22,9 +22,11 @@ const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({ navbar: [] });
   const [num_lang, setNum_lang] = useState({ navbar: [] });
+  const [check, setCheck] = useState({ isHome:true });
 
   const toggle = () => setIsOpen(!isOpen); // navbar
   const { handleChangeLang, locale } = props;
+
 
 
   //chargement des données de concernant navbar
@@ -53,12 +55,10 @@ const NavBar = (props) => {
 
   $(document).ready(function () {
     $(document).click(function (event) {
-
       var clickover = $(event.target);
-
-      var _opened = $(".navbar-collapse").hasClass("navbar-collapse show");
-      if (_opened === true && !clickover.hasClass("navbar-toggle")) {
-        $("button.navbar-toggle").click();
+      var _opened = $(".navbar-collapse").hasClass("show");
+      if (_opened === true && !clickover.hasClass("navbar-toggler")) {
+        $(".navbar-toggler").click();
       }
     });
   });
@@ -69,25 +69,25 @@ const NavBar = (props) => {
     <div className="div-container-navbar">
       <Navbar color="white" light expand="xl">
         <NavbarBrand className="pl-3" ></NavbarBrand>
-        <NavLink to="/" className="p-3"><img className="" src="/images/logo.png" alt="logo komoto sas" /></NavLink>
+        <Link to="/#container-header" className="p-3"><img className="" src="/images/logo.png" alt="logo komoto sas" /></Link>
         <NavbarToggler onClick={toggle} />
 
         <Collapse isOpen={isOpen} navbar className="all" >
           <Nav className="navbar" navbar>
             <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
-              <NavLink to="/" >{data[0]}</NavLink>
+              <Link to="/#container-header" >{data[0]}</Link>
             </NavItem >
             <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
-              <NavLink to="/#SolutionAccueil" >{data[1]}</NavLink>
+              <Link to="/#SolutionAccueil" >{data[1]}</Link>
             </NavItem>
             <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
-              <NavLink to="/#ReferenceAccueil" >{data[2]}</NavLink>
+              <Link to="/#ReferenceAccueil" >{data[2]}</Link>
             </NavItem>
             <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
-              <NavLink to="/Contact" >{data[3]}</NavLink>
+              <Link to="/Contact" >{data[3]}</Link>
             </NavItem>
             <NavItem className={`p-${padding_nav_item} pl-${margin_right}`}>
-              <NavLink to="/Demonstration" >{data[4]}</NavLink>
+              <Link to="/Demonstration" >{data[4]}</Link>
             </NavItem>
           </Nav>
           <div className="div-select pl-5">

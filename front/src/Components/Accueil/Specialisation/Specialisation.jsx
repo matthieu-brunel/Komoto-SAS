@@ -64,7 +64,7 @@ class SpecialisationAccueil extends Component {
                   <div className="card-body">
                     <h2 className="card-title font-weight-bold mb-4">{specialisation.subtitle}</h2>
                     <div className="card-text text-left">
-                      {specialisation.description.map((list, index2) => (<div key={index2}><ul><li className="checkList-spec-accueil">{list}</li></ul></div>))}
+                      {specialisation.description.map((list, index2) => (<div key={index2}><ul><li className="checkList-spec-accueil ">{list}</li></ul></div>))}
                     </div>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ class SpecialisationAccueil extends Component {
             )
           })}
         </div>
-        <div className="div-vide-spec">
+        <div id="SolutionAccueil" className="div-vide-spec">
 
         </div>
 
