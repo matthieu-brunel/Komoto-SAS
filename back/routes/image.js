@@ -9,10 +9,10 @@ const path = require('path');
 
 router.post("/", Auth, (req, res) => {
   const image = req.body;
-  const sql = "INSERT INTO image (name, url, alt ,homepage_id, section) VALUES (? , ? , ? , ?, ?)";
+  const sql = "INSERT INTO image (name, url, alt, section) VALUES (? , ? , ?, ?)";
   connection.query(
     sql,
-    [image.name, image.url, image.alt, image.homepage_id, image.section],
+    [image.name, image.url, image.alt, image.section],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't post image" + error);
@@ -50,14 +50,13 @@ router.get("/:id", (req, res) => {
 router.put("/:id", Auth, (req, res) => {
   const idImage = req.params.id;
   const image = req.body;
-  const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${idImage}`;
+  const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${idImage}`;
   connection.query(
     sqlUpdate,
     [
       image.name,
       image.url,
       image.alt,
-      image.homepage_id,
       image.section,
       idImage
     ],

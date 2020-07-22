@@ -81,7 +81,7 @@ describe("test homepage CRUD", () => {
       {
         method: "get",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/homepage"
+        url: SERVER_ADDRESS_FULL + "/api/homepage/all"
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

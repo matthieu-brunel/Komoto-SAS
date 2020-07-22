@@ -15,7 +15,6 @@ describe("test image CRUD", () => {
     name: "test_name",
     url: "test_url",
     alt: "test_alt",
-    homepage_id:1,
     section : "test_section"
   };
 
@@ -56,7 +55,6 @@ describe("test image CRUD", () => {
         expect(data.name).toBe(image.name);
         expect(data.url).toBe(image.url);
         expect(data.alt).toBe(image.alt);
-        expect(data.homepage_id).toBe(image.homepage_id);
         expect(data.section).toBe(image.section);
         done();
       }
@@ -85,7 +83,6 @@ describe("test image CRUD", () => {
     image.name = "new put";
     image.url = "new put";
     image.alt = "new put";
-    image.homepage_id= 2;
     image.section = "new put";
     
 
@@ -101,7 +98,6 @@ describe("test image CRUD", () => {
         expect(body.name).toBe(image.name);
         expect(body.url).toBe(image.url);
         expect(body.alt).toBe(image.alt);
-        expect(body.homepage_id).toBe(image.homepage_id);
         expect(body.section).toBe(image.section);
         done();
       }
