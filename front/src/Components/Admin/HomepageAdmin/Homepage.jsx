@@ -16,7 +16,7 @@ class HomepageAdmin extends Component {
             displaySavoirFaire: false,
             displayShowroom: false,
             arrayLang: [],
-            langSelected: "fr"
+            langSelected: "FR"
         }
     }
 

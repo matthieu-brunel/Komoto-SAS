@@ -232,7 +232,7 @@ class AjoutSolutionAdmin extends Component {
             'title_section': this.state.titreAccueil,
             "subtitle": this.state.nameSolution,
             'description': JSON.stringify(sectionDescription),
-            'language': idLang,
+            'language_id': idLang,
             'image_id': 0,
             "section": "solution"
         }

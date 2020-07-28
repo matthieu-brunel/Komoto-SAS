@@ -216,12 +216,12 @@ class ShowroomAdmin extends Component{
         }
 
         const { arrayLang, locale } = this.props;
-        let language = null;
+        let language_id = null;
 
         for(let i = 0; i < arrayLang.length; i++){
             for (let  [,value] of Object.entries(arrayLang[i])) {
                 if(locale === value){
-                    language = arrayLang[i].id;
+                    language_id = arrayLang[i].id;
                 }
             }
         }
@@ -231,7 +231,7 @@ class ShowroomAdmin extends Component{
             "subtitle":this.state.titreShowroom,
             "description":this.state.descriptionShowroom,
             "section":"demonstration",
-            "language":language,
+            "language_id":language_id,
             "image_id":this.state.ShowroomToEdit[1]
         };
 

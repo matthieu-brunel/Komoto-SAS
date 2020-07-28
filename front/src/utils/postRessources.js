@@ -38,10 +38,10 @@ export default async function postRessources(table, dataImage, data, image) {
         countFile++
     }
 
-    /*     console.log("TABLE :", table);
+        console.log("TABLE :", table);
         console.log("DATA IMAGE:", dataImage);
         console.log("DATA:", data)
-     */
+    
     if (countFile > 1) {
 
         //upload des images

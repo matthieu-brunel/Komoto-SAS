@@ -11,7 +11,7 @@ router.use(parser.json());
 router.post("/",Auth, (req, res) => {
   const homepage = req.body;
   const sql =
-    "INSERT INTO homepage (subtitle, title, section, description,language, image_id) VALUES (? , ? , ? , ?, ? , ?)";
+    "INSERT INTO homepage (subtitle, title, section, description,language_id, image_id) VALUES (? , ? , ? , ?, ? , ?)";
   connection.query(
     sql,
     [
@@ -19,7 +19,7 @@ router.post("/",Auth, (req, res) => {
       homepage.title,
       homepage.section,
       homepage.description,
-      homepage.language,
+      homepage.language_id,
       homepage.image_id
     ],
     (error, results, fields) => {
@@ -36,8 +36,8 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT h.id, h.title, h.subtitle, h.description, i.name, i.url, i.alt, i.id AS id_image, l.name AS language, l.locale FROM homepage AS h JOIN image AS i ON h.image_id = i.id JOIN language AS l ON h.language = l.id WHERE h.section=? && i.section=? && l.locale=?`;
-  connection.query(sql,[req.query.section,req.query.section,req.query.locale], (error, results, fields) => {
+  const sql = `SELECT  h.id, h.title, h.subtitle, h.description, i.name, i.url, i.alt, i.id AS image_id, l.id AS language_id, l.name, l.locale FROM homepage AS h JOIN image AS i ON h.image_id = i.id JOIN language AS l ON h.language_id = l.id WHERE h.section=? AND h.language_id=?`;
+  connection.query(sql,[req.query.section,req.query.language_id], (error, results, fields) => {
    
     if (error) {
       res.status(501).send("couldn't get homepage");
@@ -77,7 +77,7 @@ router.put("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
   const homepage = req.body;
 
-  const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language=?, image_id=? WHERE id=${idhomepage}`;
+  const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language_id=?, image_id=? WHERE id=${idhomepage}`;
   connection.query(
     sql,
     [
@@ -85,7 +85,7 @@ router.put("/:id",Auth, (req, res) => {
       homepage.title,
       homepage.section,
       homepage.description,
-      homepage.language,
+      homepage.language_id,
       homepage.image_id,
       idhomepage
     ],

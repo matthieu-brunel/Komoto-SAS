@@ -218,12 +218,12 @@ class SavoirFaireAdmin extends Component {
         }
 
         const { arrayLang, locale } = this.props;
-        let language = null;
+        let language_id = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
             for (let  [,value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
-                    language = arrayLang[i].id;
+                    language_id = arrayLang[i].id;
                 }
             }
         }
@@ -233,7 +233,7 @@ class SavoirFaireAdmin extends Component {
             "subtitle": this.state.titreSavoirFaire,
             "description": this.state.descriptionSavoirFaire,
             "section": "savoirFaire",
-            "language": language,
+            "language_id": language_id,
             "image_id": this.state.SavoirFaireToEdit[1]
         };
 

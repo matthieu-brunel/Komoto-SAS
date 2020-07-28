@@ -109,13 +109,14 @@ class AjoutHeader extends Component {
             }
         }
 
+        console.log("idLang : ", idLang);
+
 
 
         let dataImage = {
             'name': this.state.nameImage,
             'url': this.state.urlImage,
             'alt': this.state.altImage,
-            'homepage_id': 0,
             'section': 'header'
         }
 
@@ -124,7 +125,7 @@ class AjoutHeader extends Component {
             'title': "",
             'section': "header",
             'description':JSON.stringify(description),
-            'language': idLang,
+            'language_id': idLang,
             'image_id': 0,
         }
 

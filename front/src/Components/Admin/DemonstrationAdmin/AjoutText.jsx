@@ -74,8 +74,8 @@ class AjoutText extends Component {
             'description': JSON.stringify(obj),
             'model_url':"",
             'model_alt':"",
-            'model_id': 0,
-            'language': idLang
+            'image_id': 0,
+            'language_id': idLang
         }
 
         const options = {

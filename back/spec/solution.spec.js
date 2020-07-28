@@ -1,4 +1,4 @@
-const request = require("request");
+/* const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
@@ -18,7 +18,7 @@ describe("test solution CRUD", () => {
     section: "test_section",
     description: "test_description",
     title_section: "test_title_section",
-    language: "french",
+    language_id: "french",
     image_id: obj.image_id
   };
 
@@ -88,7 +88,7 @@ describe("test solution CRUD", () => {
         expect(data.title).toBe(solution.title);
         expect(data.section).toBe(solution.section);
         expect(data.description).toBe(solution.description);
-        expect(data.language).toBe(solution.language);
+        expect(data.language_id).toBe(solution.language_id);
         expect(data.title_section).toBe(solution.title_section);
         expect(data.image_id).toBe(solution.image_id);
         done();
@@ -115,7 +115,7 @@ describe("test solution CRUD", () => {
     solution.title = "new put";
     solution.section = "new put";
     solution.description = "new put";
-    solution.language = "new put";
+    solution.language_id = "new put";
     solution.title_section = "new put";
     solution.image_id = obj.image_id;
 
@@ -134,7 +134,7 @@ describe("test solution CRUD", () => {
         expect(response_body[0].title).toBe(solution.title);
         expect(response_body[0].section).toBe(solution.section);
         expect(response_body[0].description).toBe(solution.description);
-        expect(response_body[0].language).toBe(solution.language);
+        expect(response_body[0].language_id).toBe(solution.language_id);
         expect(response_body[0].title_section).toBe(solution.title_section);
         expect(response_body[0].image_id).toBe(solution.image_id);
         done();
@@ -158,3 +158,4 @@ describe("test solution CRUD", () => {
     );
   });
 });
+ */

@@ -117,7 +117,6 @@ class AjoutSpecialisation extends Component{
             'name':this.state.nameImage,
             'url':this.state.urlImage,
             'alt':this.state.altImage,
-            'homepage_id':0,
             'section':'specialisation'
         }
 
@@ -126,7 +125,7 @@ class AjoutSpecialisation extends Component{
             'title':this.state.titreSection,
             'section':"specialisation",
             'description':description,
-            'language':idLang,
+            'language_id':idLang,
             'image_id':0
         }
 

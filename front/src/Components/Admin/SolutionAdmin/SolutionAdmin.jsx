@@ -32,7 +32,7 @@ class SolutionAdmin extends Component {
       idToEdit: null,
       solToEdit: [],
       arrayLang: [],
-      langSelected: "fr",
+      langSelected: "FR",
       idLang: null,
       solutionAdmin: [],
       openEditSolution: false,
@@ -52,19 +52,19 @@ class SolutionAdmin extends Component {
   getAllLang = async () => {
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
     let data = await (await (fetch(url))).json();
-    let language = null;
+    let language_id = null;
 
     for (let i = 0; i < data.length; i++) {
       for (let  [,value] of Object.entries(data[i])) {
         if (this.state.langSelected === value) {
-          language = data[i].id;
+          language_id = data[i].id;
         }
       }
     }
 
     this.setState({
       arrayLang: data,
-      idLang: language
+      idLang: language_id
     });
   }
 
@@ -77,7 +77,10 @@ class SolutionAdmin extends Component {
 
 
   getStartedSolutionAdmin = async () => {
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&locale=' + this.state.langSelected;
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&language_id=' + this.state.idLang;
+    console.log(url);
+    console.log("this.state.idLang : ", this.state.idLang);
+    console.log("this.state.arrayLang : ", this.state.arrayLang);
     const data = await (await (fetch(url))).json();
     console.log("DATA : ", data);
     this.setState({ solutionAdmin: data});
@@ -91,6 +94,8 @@ class SolutionAdmin extends Component {
       this.closeModalModificationSolution();
     }else if(prevState.solution !== this.state.solution){
       console.log("je suis !=");
+      this.getStartedSolutionAdmin();
+    }else if(prevState.idLang !== this.state.idLang){
       this.getStartedSolutionAdmin();
     }
   }

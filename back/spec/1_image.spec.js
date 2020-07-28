@@ -7,15 +7,18 @@ let obj = {
   id: null
 };
 
+
+
 describe("test image CRUD", () => {
   let server = null;
   let data = {};
+
 
   const image = {
     name: "test_name",
     url: "test_url",
     alt: "test_alt",
-    section : "test_section"
+    section: "test_section"
   };
 
 
@@ -38,13 +41,15 @@ describe("test image CRUD", () => {
   });
 
 
+
+
   it("post image", done => {
     request(
       {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/image",
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: image
       },
       (error, response, body) => {
@@ -75,22 +80,18 @@ describe("test image CRUD", () => {
     );
   });
 
-
-
-
-
   it("should update image", done => {
     image.name = "new put";
     image.url = "new put";
     image.alt = "new put";
     image.section = "new put";
-    
+
 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: image
       },
 
@@ -104,18 +105,26 @@ describe("test image CRUD", () => {
     );
   });
 
-  it("delete image", done => {
-    request(
-      {
-        method: "delete",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  });
+  /*   it("delete image", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
+          headers: {authorization: 'Bearer ' + token}
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    }); */
 });
+
+
+
+
+
+
+
+

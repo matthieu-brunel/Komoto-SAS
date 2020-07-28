@@ -103,12 +103,12 @@ class ShowroomText extends Component {
         }
 
         const { arrayLang, locale } = this.props;
-        let language = null;
+        let language_id = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
             for (let [ ,value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
-                    language = arrayLang[i].id;
+                    language_id = arrayLang[i].id;
                 }
             }
         }
@@ -125,8 +125,8 @@ class ShowroomText extends Component {
             'description': JSON.stringify(obj),
             'model_url': "",
             'model_alt': "",
-            'model_id': "",
-            'language': language
+            'image_id': "",
+            'language_id': language_id
         }
 
         console.log("avant trasfert :", dataShowroom);

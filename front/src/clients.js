@@ -34,7 +34,7 @@ class Client extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idLang: 'fr',
+            idLang: 'FR',
             array_name_solution: [],
         }
     }
@@ -65,7 +65,7 @@ class Client extends Component {
         await (await (fetch(url, options))).json();
 
         //Chargement de toutes les solutions
-        url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + idLang;
+        url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&language_id=" + idLang;
         let solutionsAll = await (await (fetch(url, options))).json();
         console.log("test", solutionsAll);
         let arraySolution = [];

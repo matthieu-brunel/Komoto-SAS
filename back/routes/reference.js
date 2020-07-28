@@ -10,7 +10,7 @@ router.use(parser.json());
 router.post("/", Auth, (req, res) => {
   const reference = req.body;
   const sql =
-    "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?, ?)";
+    "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language_id) VALUES (? , ? , ? , ?, ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -20,7 +20,7 @@ router.post("/", Auth, (req, res) => {
       reference.title_section,
       reference.description,
       reference.image_id,
-      reference.language
+      reference.language_id
     ],
     (error, results, fields) => {
       if (error) {
@@ -34,11 +34,11 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
-  connection.query(sql, [req.query.section, req.query.section, req.query.locale], (error, results, fields) => {
+  const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt, l.locale, r.language_id FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language_id WHERE r.section=? AND r.language_id=?`;
+  connection.query(sql, [req.query.section,req.query.language_id], (error, results, fields) => {
     if (error) {
 
-      res.status(501).send("couldn't get solution");
+      res.status(501).send("couldn't get reference");
     } else {
       res.json(results);
     }
@@ -76,7 +76,7 @@ router.put("/:id", Auth, (req, res) => {
   const reference = req.body[0];
   const referenceDataImage = req.body[1];
 
-  const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
+  const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language_id=? WHERE id=${idReference}`;
   connection.query(
     sql,
     [
@@ -86,7 +86,7 @@ router.put("/:id", Auth, (req, res) => {
       reference.title_section,
       reference.description,
       reference.image_id,
-      reference.language,
+      reference.language_id,
       idReference
     ],
     (error, results, fields) => {

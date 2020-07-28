@@ -19,29 +19,38 @@ class HeaderAccueil extends Component {
 
   }
 
-  componentDidMount = async () => {
-    const { locale } = this.props;
+  getData = async () => {
+    const { locale, idLang } = this.props;
 
-    let data = await getRessources('homepage', 'header', locale);
-  
-    const description = JSON.parse(data[0].description);
+    let data = await getRessources('homepage', 'header', idLang);
+
+    const description = data.length > 0 && JSON.parse(data[0].description);
     const clickDown = description.clickDown;
     const titleHeader = description.titleHeader;
-    console.log("titleHeader :", titleHeader);
-    console.log("clickDown :", clickDown);
+
     this.setState({
       header: data,
-      clickDown:clickDown,
-      titleHeader:titleHeader
+      clickDown: clickDown,
+      titleHeader: titleHeader
     })
   }
 
+  componentDidMount = async () => {
+    this.getData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
+    }
+  }
+
   render() {
-    const { locale } = this.props;
+    const { locale, idLang } = this.props;
     const { header } = this.state;
     //console.log("langue selectionnée : ", locale);
     console.log("header : ", header);
-
+    console.log("headerAccueil idLang :", idLang);
     return (
       <div id="container-header" className="container-div-img-header">
         <div className="div-background-image" style={{ 'backgroundImage': `linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5)), url(${header.length > 0 ? header[0].url : ""})` }}>

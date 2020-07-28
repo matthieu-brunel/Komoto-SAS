@@ -120,7 +120,7 @@ class AjoutShowroom extends Component{
             'title':this.state.titreSection,
             'section':"demonstration",
             'description':description,
-            'language':idLang,
+            'language_id':idLang,
             'image_id':0
         }
 

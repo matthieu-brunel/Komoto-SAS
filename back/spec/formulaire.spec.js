@@ -3,9 +3,10 @@ require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null
-};
+
+
+
+let token;
 
 describe("test formulaire CRUD", () => {
   let server = null;
@@ -13,7 +14,7 @@ describe("test formulaire CRUD", () => {
 
   const formulaire = {
     name: "test_name",
-    id_locale: 1
+    language_id: null
   };
 
 
@@ -30,10 +31,23 @@ describe("test formulaire CRUD", () => {
       },
       (error, response, body) => {
         token = response.body.token;
+      }
+    );
+
+    request.get(
+      SERVER_ADDRESS_FULL + "/api/language",
+      {
+        json: true
+      },
+      (error, response, body) => {
+        formulaire.language_id = response.body[0].id;
         done();
       }
     );
   });
+
+
+
 
 
   it("post formulaire", done => {
@@ -46,27 +60,26 @@ describe("test formulaire CRUD", () => {
         body: formulaire
       },
       (error, response, body) => {
+
         expect(response.statusCode).toBe(200);
         data = body;
         formulaire.id = body.id;
         expect(data.name).toBe(formulaire.name);
-        expect(data.id_locale).toBeTruthy(true);
+        expect(data.language_id).toBeTruthy(true);
         done();
       }
     );
   });
 
-   it("get formulaire", done => {
+  it("get formulaire", done => {
     request(
       {
         method: "get",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/formulaire"
+        url: SERVER_ADDRESS_FULL + "/api/formulaire?language_id=" + formulaire.language_id
       },
       (error, response, body) => {
-    
-          expect(body).toEqual([]);
-          expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(200);
         done();
       }
     );
@@ -74,9 +87,7 @@ describe("test formulaire CRUD", () => {
 
   it("should update formulaire", done => {
     formulaire.name = "name_update";
-    formulaire.id_locale = 2;
-
-
+ 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/formulaire/" + formulaire.id,
@@ -85,9 +96,9 @@ describe("test formulaire CRUD", () => {
         body: formulaire
       },
 
-      (error, response, body) => {    
+      (error, response, body) => {
         expect(body.name).toBe(formulaire.name);
-        expect(data.id_locale).toBeTruthy(true);
+        expect(data.language_id).toBeTruthy(true);
         done();
       }
     );
@@ -107,4 +118,35 @@ describe("test formulaire CRUD", () => {
       }
     );
   });
+
+
+  /*   it("delete image", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/image/" + obj_image.id,
+          headers: { authorization: 'Bearer ' + token }
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    });
+  
+    it("delete language_id", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/language/" + obj_language.id,
+          headers: { authorization: 'Bearer ' + token }
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    }); */
 });

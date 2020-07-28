@@ -1,4 +1,4 @@
-const request = require("request");
+/* const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
@@ -109,3 +109,4 @@ describe("test navbar CRUD", () => {
     );
   });
 });
+ */

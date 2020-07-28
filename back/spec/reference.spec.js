@@ -1,4 +1,4 @@
-const request = require("request");
+/* const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
@@ -20,7 +20,7 @@ describe("test reference CRUD", () => {
     description: "test_description",
     title_section: "test_title_section",
     image_id: obj.image_id,
-    language: 1
+    language_id: 1
   };
 
   const image = {
@@ -89,7 +89,7 @@ describe("test reference CRUD", () => {
         expect(data.description).toBe(reference.description);
         expect(data.image_id).toBe(reference.image_id);
         expect(data.title_section).toBe(reference.title_section);
-        expect(data.language).toBeGreaterThan(0);
+        expect(data.language_id).toBeGreaterThan(0);
         done();
       }
     );
@@ -116,7 +116,7 @@ describe("test reference CRUD", () => {
     reference.description = "new put";
     reference.image_id = obj.image_id;
     reference.title_section = "new put";
-    reference.language = 2;
+    reference.language_id = 2;
 
     request.put(
       {
@@ -134,7 +134,7 @@ describe("test reference CRUD", () => {
         expect(response_body[0].description).toBe(reference.description);
         expect(response_body[0].image_id).toBeTruthy
         expect(response_body[0].title_section).toBe(reference.title_section);
-        expect(response_body[0].language).toBeGreaterThan(0);
+        expect(response_body[0].language_id).toBeGreaterThan(0);
         done();
       }
     );
@@ -156,3 +156,4 @@ describe("test reference CRUD", () => {
       );
     });
 });
+ */

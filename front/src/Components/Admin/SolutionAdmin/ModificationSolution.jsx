@@ -382,7 +382,7 @@ class ModificationSolution extends Component {
             "subtitle": this.state.nameSolution,
             "title_section": this.state.titreAccueil,
             'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionSolution),
-            'language': this.props.idLang,
+            'language_id': this.props.idLang,
             'image_id': image_id,
             "section": "solution"
         }
