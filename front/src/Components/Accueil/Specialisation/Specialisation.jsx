@@ -27,14 +27,23 @@ class SpecialisationAccueil extends Component {
     this.setState({ specialisation: [...this.state.specialisation, objet] });
   }
 
-  componentDidMount = async () => {
-    const { locale } = this.props;
+  getData = async () => {
+    const { locale, language_id } = this.props;
     //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-    let data = await getRessources('homepage', 'specialisation', locale);
+    let data = await getRessources('homepage', 'specialisation', language_id);
 
     //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
     for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
+    }
+  }
+  componentDidMount = async () => {
+    this.getData();
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
     }
   }
 

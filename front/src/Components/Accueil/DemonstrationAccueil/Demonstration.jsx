@@ -11,14 +11,27 @@ class DemonstrationAccueil extends Component {
       demonstration: []
     };
   }
-  componentDidMount = async () => {
-    const { locale } = this.props;
-    let data = await getRessources("homepage", "demonstration", locale);
+
+
+  componentDidMount = () => {
+    this.getData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
+    }
+  }
+
+  getData = async() => {
+    
+    const { locale, language_id} = this.props;
+    let data = await getRessources("homepage", "demonstration", language_id);
 
     this.setState({
       demonstration: data
     });
-  };
+  }
   render() {
     return (
       <div className="text-center p-5">

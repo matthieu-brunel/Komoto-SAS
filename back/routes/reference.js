@@ -195,14 +195,13 @@ router.put("/:id", Auth, (req, res) => {
             }
 
 
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${id_image}`;
             connection.query(
               sqlUpdate,
               [
                 referenceDataImage.name,
                 referenceDataImage.url,
                 referenceDataImage.alt,
-                referenceDataImage.homepage_id,
                 referenceDataImage.section,
                 id_image
               ],

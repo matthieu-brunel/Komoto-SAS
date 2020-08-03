@@ -29,19 +29,19 @@ class HomepageAdmin extends Component {
         switch (event.target.id) {
 
             case "header":
-                this.setState({ displayHeader: true, displaySpec: false,displayReference: false, displaySolution: false, displaySavoirFaire: false, displayShowroom: false });
+                this.setState({ displayHeader: true, displaySpec: false, displayReference: false, displaySolution: false, displaySavoirFaire: false, displayShowroom: false });
                 break;
 
             case "specialisation":
-                this.setState({ displaySpec: true, displayHeader: false,displayReference: false, displaySolution: false, displaySavoirFaire: false, displayShowroom: false });
+                this.setState({ displaySpec: true, displayHeader: false, displayReference: false, displaySolution: false, displaySavoirFaire: false, displayShowroom: false });
                 break;
 
             case "savoirFaire":
-                this.setState({ displaySpec: false, displayHeader: false,displayReference: false, displaySolution: false, displaySavoirFaire: true, displayShowroom: false });
+                this.setState({ displaySpec: false, displayHeader: false, displayReference: false, displaySolution: false, displaySavoirFaire: true, displayShowroom: false });
                 break;
 
             case "showroom":
-                this.setState({ displaySpec: false, displayShowroom: true,displayReference: false, displaySolution: false, displayHeader: false, displaySavoirFaire: false });
+                this.setState({ displaySpec: false, displayShowroom: true, displayReference: false, displaySolution: false, displayHeader: false, displaySavoirFaire: false });
                 break;
 
             default:
@@ -54,18 +54,21 @@ class HomepageAdmin extends Component {
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
         let data = await (await (fetch(url))).json();
         this.setState({ arrayLang: data });
-      }
-    
-      componentDidMount = () => {
-          this.getAllLang();
-      }
-    
-      handleChangeLang = (event) => {
-    
-          let seletedLang = event.target.options[event.target.options.selectedIndex].id;
-          console.log(event.target.options[event.target.options.selectedIndex]);
-          this.setState({ langSelected: seletedLang });
-      }
+    }
+
+    componentDidMount = () => {
+        this.getAllLang();
+    }
+
+    handleChangeLang = (event) => {
+
+        let seletedLang = event.target.options[event.target.options.selectedIndex].id;
+      
+        this.setState({ langSelected: seletedLang });
+    }
+
+
+
 
     render() {
         const { arrayLang } = this.state;
@@ -91,12 +94,12 @@ class HomepageAdmin extends Component {
                         {options}
                     </select>
                 </div>
- 
+
                 <div>
                     {this.state.displayHeader && <HeaderAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySpec && <SpecialisationAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                     {this.state.displaySavoirFaire && <SavoirFaireAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
-                    {this.state.displayShowroom && <ShowroomAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}   
+                    {this.state.displayShowroom && <ShowroomAdmin locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
                 </div>
 
 

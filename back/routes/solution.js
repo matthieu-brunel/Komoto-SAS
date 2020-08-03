@@ -117,9 +117,9 @@ router.put("/:id", Auth, (req, res) => {
       } else {
         res.json(results);
 
-        let id_image = solution.image_id;
+        let imageID = solution.image_id;
         const sql = "SELECT * FROM image WHERE id=?";
-        connection.query(sql, [id_image], (error, results, fields) => {
+        connection.query(sql, [imageID], (error, results, fields) => {
           if (error) {
             res.status(501).send("couldn't get image");
           } else {
@@ -213,16 +213,15 @@ router.put("/:id", Auth, (req, res) => {
             }
 
 
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${imageID}`;
             connection.query(
               sqlUpdate,
               [
                 solutionDataImage.name,
                 solutionDataImage.url,
                 solutionDataImage.alt,
-                solutionDataImage.homepage_id,
                 solutionDataImage.section,
-                id_image
+                imageID
               ],
               (error, results, fields) => {
                 if (error) {

@@ -13,12 +13,22 @@ class SavoirFaireAccueil extends Component {
       Header: []
     };
   }
-  componentDidMount = async () => {
-    const { locale } = this.props;
-    let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
+
+  getData = async () => {
+    const { locale, language_id } = this.props;
+    let savoirFaire = await getRessources("homepage", "SavoirFaire", language_id);
 
     this.setState({ SavoirFaire: savoirFaire });
+  }
+  componentDidMount = async () => {
+    this.getData();
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
+    }
+  }
 
   render() {
     return (

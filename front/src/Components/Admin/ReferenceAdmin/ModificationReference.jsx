@@ -413,7 +413,6 @@ class ModificationReference extends Component {
       }
     }
 
-    let image_id = this.props.refToEdit[1];
 
     let dataReference = {
       'title': this.state.titrePage,
@@ -421,7 +420,7 @@ class ModificationReference extends Component {
       "title_section": this.state.titreAccueil,
       'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionReference),
       'language_id': this.props.idLang,
-      'image_id': image_id,
+      'image_id': this.props.refToEdit[1],
       "section": "reference"
     }
 
@@ -437,7 +436,6 @@ class ModificationReference extends Component {
       'name': this.state.nameReference,
       "url": JSON.stringify(objet),
       'alt': "",
-      'homepage_id': 0,
       "section": "reference"
     }
 
@@ -447,8 +445,7 @@ class ModificationReference extends Component {
     await putRessources("reference", id, [dataReference, dataImage]);
 
     // fetch pour la table image
-    let id_image = this.props.refToEdit[1];
-    await putRessources("image", id_image, dataImage);
+    await putRessources("image", this.props.refToEdit[1], dataImage);
 
 
     $('.registered-section-ok').show();

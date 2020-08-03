@@ -13,10 +13,10 @@ class ReferenceAccueil extends Component {
   }
 
   getStartedData = async () => {
-    const { locale, idLang } = this.props;
+    const { locale, language_id } = this.props;
 
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&language_id=' + idLang;
-    console.log("****************** : ", url);
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&language_id=' + language_id;
+  
     const data = await (await (fetch(url))).json();
 
     let arrayReference = [];
@@ -41,11 +41,6 @@ class ReferenceAccueil extends Component {
       this.getStartedData();
     }
   }
-
-
-
-
-
 
   render() {
     return (

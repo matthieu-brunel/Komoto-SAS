@@ -123,9 +123,10 @@ class HeaderAdmin extends Component {
         console.log("locale : ", this.props.locale);
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('homepage', 'header', this.props.locale);
+        let data = await getRessources('homepage', 'header', this.getIdLanguage());
+        console.log(data);
 
-        const description = JSON.parse(data[0].description);
+        const description = data.length > 0 && JSON.parse(data[0].description);
         const clickDown = description.clickDown;
         const titleHeader = description.titleHeader;
 
@@ -134,8 +135,20 @@ class HeaderAdmin extends Component {
             clickDown: clickDown,
             titleHeader: titleHeader
         })
+    }
 
+    getIdLanguage = () => {
+        let id = 0;
+        for (let locale of this.props.arrayLang) {
+            if (this.props.locale === locale.locale) {
+                id = locale.id;
+                break;
+            }
+        }
 
+        console.log("id : ", id);
+        //console.log(event.target.options[event.target.options.selectedIndex]);
+        return id;
     }
 
     componentDidUpdate(prevProps) {
@@ -168,7 +181,7 @@ class HeaderAdmin extends Component {
     getIdheaderToEdit = (index, event) => {
         let arrayIdheader = [];
         arrayIdheader.push(this.state.header[index].id);
-        arrayIdheader.push(this.state.header[index].id_image);
+        arrayIdheader.push(this.state.header[index].image_id);
         this.getHeader(index);
         this.setState({ headerToEdit: arrayIdheader, idToEdit: index });
     }
@@ -186,7 +199,7 @@ class HeaderAdmin extends Component {
     getIdHeaderToDelete = (index, event) => {
         let arrayIdHeader = [];
         arrayIdHeader.push(this.state.header[index].id);
-        arrayIdHeader.push(this.state.header[index].id_image);
+        arrayIdHeader.push(this.state.header[index].image_id);
 
         this.setState({ headerToDelete: arrayIdHeader });
     }
@@ -218,10 +231,10 @@ class HeaderAdmin extends Component {
 
         let description = {};
 
-        description.titleHeader =  this.state.titleHeader;
+        description.titleHeader = this.state.titleHeader;
         description.clickDown = this.state.clickDown;
-        
-        console.log("description update : ",description);
+
+
 
         let data = {
             "title": "",
@@ -236,8 +249,7 @@ class HeaderAdmin extends Component {
             "name": this.state.nameImage,
             "url": this.state.urlImage,
             "alt": this.state.altImage,
-            "section": "header",
-            "homepage_id": 0
+            "section": "header"
         };
 
 
@@ -246,7 +258,7 @@ class HeaderAdmin extends Component {
 
 
         const options = {
-            method: "PUT",
+            method: "POST",
             mode: "cors",
             credentials: "same-origin",
             redirect: "follow",
@@ -254,17 +266,23 @@ class HeaderAdmin extends Component {
             body: documentImage
         }
 
+        console.log(data);
+        console.log(dataImage);
+
         // fetch pour la table homepage header
         let id = this.state.headerToEdit[0];
-        await putRessources("homepage", id, [data, dataImage]);
+        await putRessources("homepage", id, data);
 
         // fetch pour la table image
-        let id_image = this.state.headerToEdit[1];
-        await putRessources("image", id_image, dataImage);
+        let image_id = this.state.headerToEdit[1];
+        await putRessources("image", image_id, dataImage);
 
         // fetch pour envoi d el'image dans le dossier back/public/images
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-        this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
+        if (this.state.document !== null) {
+            fetch(url, options).then(res => res.json()).then(res => console.log(res));
+        }
+
 
         //on réactualise les spécialisations
         this.getStartedHeader();

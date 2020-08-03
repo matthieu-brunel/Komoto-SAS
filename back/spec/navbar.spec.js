@@ -12,8 +12,8 @@ describe("test navbar CRUD", () => {
   let data = {};
 
   const navbar = {
-    name: "test_name",
-    id_locale: 1
+    description: "test_name",
+    language_id: 1
   };
 
 
@@ -49,8 +49,8 @@ describe("test navbar CRUD", () => {
         expect(response.statusCode).toBe(200);
         data = body;
         navbar.id = body.id;
-        expect(data.name).toBe(navbar.name);
-        expect(data.id_locale).toBeTruthy(true);
+        expect(data.description).toBe(navbar.description);
+        expect(data.language_id).toBeTruthy(true);
         done();
       }
     );
@@ -73,8 +73,8 @@ describe("test navbar CRUD", () => {
   });
 
   it("should update navbar", done => {
-    navbar.name = "name_update";
-    navbar.id_locale = 2;
+    navbar.description = "name_update";
+    navbar.language_id = 2;
 
 
     request.put(
@@ -87,8 +87,8 @@ describe("test navbar CRUD", () => {
 
       (error, response, body) => {
       
-        expect(body.name).toBe(navbar.name);
-        expect(data.id_locale).toBeTruthy(true);
+        expect(body.description).toBe(navbar.description);
+        expect(data.language_id).toBeTruthy(true);
         done();
       }
     );

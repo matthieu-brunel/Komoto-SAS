@@ -20,9 +20,9 @@ class HeaderAccueil extends Component {
   }
 
   getData = async () => {
-    const { locale, idLang } = this.props;
+    const { locale, language_id } = this.props;
 
-    let data = await getRessources('homepage', 'header', idLang);
+    let data = await getRessources('homepage', 'header', language_id);
 
     const description = data.length > 0 && JSON.parse(data[0].description);
     const clickDown = description.clickDown;
@@ -40,17 +40,15 @@ class HeaderAccueil extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.idLang !== this.props.idLang) {
+    if (prevProps.language_id !== this.props.language_id) {
       this.getData();
     }
   }
 
   render() {
-    const { locale, idLang } = this.props;
+    const { locale, idLang, language_id } = this.props;
     const { header } = this.state;
-    //console.log("langue selectionnée : ", locale);
-    console.log("header : ", header);
-    console.log("headerAccueil idLang :", idLang);
+
     return (
       <div id="container-header" className="container-div-img-header">
         <div className="div-background-image" style={{ 'backgroundImage': `linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5)), url(${header.length > 0 ? header[0].url : ""})` }}>
@@ -78,7 +76,7 @@ class HeaderAccueil extends Component {
         </div>
 
         <div className="section-savoirFaire-accueil">
-          <SavoirFaireAccueil locale={locale} />
+          <SavoirFaireAccueil locale={locale} language_id={language_id}/>
         </div>
       </div>
 

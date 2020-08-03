@@ -149,7 +149,7 @@ class SpecialisationAdmin extends Component{
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('homepage', 'specialisation',locale);
+        let data = await getRessources('homepage', 'specialisation',this.getIdLanguage());
         this.setState({specialisation:[]});
         
         //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
@@ -158,11 +158,27 @@ class SpecialisationAdmin extends Component{
         }
     }
 
+    
+
     componentDidUpdate(prevProps){
         if(prevProps.locale !== this.props.locale){
             this.setState({specialisation:"", specSelected:"",titreSection:""});
             this.getStartedSpecialisation();
         }
+    }
+
+    getIdLanguage = () => {
+        let id = 0;
+        for (let locale of this.props.arrayLang) {
+            if (this.props.locale === locale.locale) {
+                id = locale.id;
+                break;
+            }
+        }
+
+        console.log("id : ",id);
+        //console.log(event.target.options[event.target.options.selectedIndex]);
+        return id;
     }
 
 
@@ -197,7 +213,7 @@ class SpecialisationAdmin extends Component{
     getIdSpecToDelete = (index, event) => {
        let arrayIdSpec = [];
        arrayIdSpec.push(this.state.specialisation[index].id);
-       arrayIdSpec.push(this.state.specialisation[index].id_image);
+       arrayIdSpec.push(this.state.specialisation[index].image_id);
 
        this.setState({specToDelete:arrayIdSpec});
     }
@@ -205,7 +221,7 @@ class SpecialisationAdmin extends Component{
     getIdSpecToEdit = (index, event) => {
         let arrayIdSpec = [];
         arrayIdSpec.push(this.state.specialisation[index].id);
-        arrayIdSpec.push(this.state.specialisation[index].id_image);
+        arrayIdSpec.push(this.state.specialisation[index].image_id);
         this.getSpecialisation(index);
         this.setState({specToEdit:arrayIdSpec, idToEdit:index});
      }
@@ -282,7 +298,7 @@ class SpecialisationAdmin extends Component{
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-            this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
+            if(this.state.document !== null) {fetch(url, options).then(res => res.json()).then(res => console.log(res)); }
             
             // fetch pour modification des champs de la table image
             url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.specToEdit[1]}`;

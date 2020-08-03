@@ -24,70 +24,85 @@ class Accueil extends Component {
     }
   }
 
-  getAllLang = async () => {
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
-    let data = await (await (fetch(url))).json();
-    let language_id = null;
-
-    for (let i = 0; i < data.length; i++) {
-      for (let [, value] of Object.entries(data[i])) {
-        if (this.state.locale === value) {
-          language_id = data[i].id;
+  /*   getAllLang = async () => {
+      let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
+      let data = await (await (fetch(url))).json();
+      let language_id = null;
+  
+      for (let i = 0; i < data.length; i++) {
+        for (let [, value] of Object.entries(data[i])) {
+          if (this.state.locale === value) {
+            language_id = data[i].id;
+          }
         }
-      }
-    }
+      } */
 
-    this.setState({
-      arrayLang: data,
-      idLang: language_id
-    });
+ /*  getAllLang() {
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        let language_id = null;
+        for (let i = 0; i < response.length; i++) {
+          for (let [, value] of Object.entries(response[i])) {
+            if (this.state.locale === value) {
+              language_id = response[i].id;
+            }
+          }
+        }
+
+        this.setState({
+          arrayLang: response,
+          idLang: language_id
+        });
+      })
   }
 
 
   componentDidMount = () => {
     this.getAllLang();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.idLang !== this.state.idLang) {
+  } */
+ 
+/*   componentDidUpdate(prevProps, prevState) {
+    if (prevState.language_id !== this.state.language_id) {
       this.getAllLang();
     }
-  }
-
+  }  */
 
 
   render() {
 
-    const { locale, num_lang, handleClickSolution } = this.props;
-    const { solution, idLang } = this.state;
+    const { locale, num_lang, handleClickSolution, language_id } = this.props;
+    const { solution } = this.state;
+    console.log("LOCALE : ", locale, "     ", "LANGUAGE_ID : ", language_id);
 
     return (
       <div className="sticky-wrap">
 
 
         <div className="vignets">
-          <HeaderAccueil locale={locale} idLang={idLang} />
+          <HeaderAccueil locale={locale}  language_id={language_id}/>
         </div>
 
 
         <div className="special">
-          <SpecialisationAccueil locale={locale} idLang={idLang} />
+          <SpecialisationAccueil locale={locale} language_id={language_id} />
         </div>
 
         <div className="">
-          <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale} idLang={idLang} />
+          <SolutionAccueil handleClickSolution={handleClickSolution} solution={solution} num_lang={num_lang} locale={locale} language_id={language_id} />
         </div>
 
         <div className="section-demonstration-accueil">
-          <DemonstrationAccueil locale={locale} idLang={idLang} />
+          <DemonstrationAccueil locale={locale} language_id={language_id} />
         </div>
 
         <div className="">
-          <ReferenceAccueil locale={locale} idLang={idLang} />
+          <ReferenceAccueil locale={locale} language_id={language_id} />
         </div>
 
         <div className="sticky-footer">
-          <Footer locale={locale} idLang={idLang} />
+          <Footer locale={locale} language_id={language_id} />
         </div>
       </div>
     );

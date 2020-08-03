@@ -13,16 +13,25 @@ class SolutionAccueil extends Component {
       solution: [],
     }
   }
-  componentDidMount = async () => {
 
 
-    const { locale } = this.props;
+  componentDidMount = () => {
+    this.getData();
+  }
 
-    let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&locale=" + locale;
-    console.log("Accueil", url)
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
+    }
+  }
+
+  getData = async() => {
+    
+    const { locale, language_id } = this.props;
+
+    let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&language_id=" + language_id;
+  
     let data = await (await (fetch(url))).json();
-    console.log("solution:", data)
-
     let arraySolution = [];
 
     for (let obj of data) {
@@ -34,7 +43,7 @@ class SolutionAccueil extends Component {
       arraySolution.push(obj);
     }
     this.setState({ solution: arraySolution });
-  };
+  }
 
 
 

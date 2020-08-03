@@ -133,10 +133,24 @@ class ShowroomAdmin extends Component{
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let showroom = await getRessources("homepage", "demonstration", locale);
+        let showroom = await getRessources("homepage", "demonstration", this.getIdLanguage());
      
         this.setState({ showroom: showroom });
         
+    }
+
+    getIdLanguage = () => {
+        let id = 0;
+        for (let locale of this.props.arrayLang) {
+            if (this.props.locale === locale.locale) {
+                id = locale.id;
+                break;
+            }
+        }
+
+        console.log("id : ",id);
+        //console.log(event.target.options[event.target.options.selectedIndex]);
+        return id;
     }
 
     componentDidUpdate(prevProps){
@@ -178,7 +192,7 @@ class ShowroomAdmin extends Component{
     getIdShowroomToDelete = (index, event) => {
        let arrayIdShowroom = [];
        arrayIdShowroom.push(this.state.showroom[index].id);
-       arrayIdShowroom.push(this.state.showroom[index].id_image);
+       arrayIdShowroom.push(this.state.showroom[index].image_id);
 
        this.setState({ShowroomToDelete:arrayIdShowroom});
     }
@@ -186,7 +200,7 @@ class ShowroomAdmin extends Component{
     getIdShowroomToEdit = (index, event) => {
         let arrayIdShowroom = [];
         arrayIdShowroom.push(this.state.showroom[index].id);
-        arrayIdShowroom.push(this.state.showroom[index].id_image);
+        arrayIdShowroom.push(this.state.showroom[index].image_id);
         this.getShowroom(index);
         this.setState({ShowroomToEdit:arrayIdShowroom, idToEdit:index});
      }
@@ -263,7 +277,8 @@ class ShowroomAdmin extends Component{
 
             // fetch pour envoi d el'image dans le dossier back/public/images
             let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-            this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
+            if(this.state.document !== null) {fetch(url, options).then(res => res.json()).then(res => console.log(res)); }
+            
             // fetch pour modification des champs de la table image
             url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.ShowroomToEdit[1]}`;
             fetch(url,  init(dataImage)).then(res => res.json()).then(res => console.log(res));
