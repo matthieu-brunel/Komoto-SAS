@@ -22,21 +22,18 @@ class Solution extends Component {
 
   getSolution = async () => {
 
-    const { idLang } = this.props;
-
+    const { idLang, language_id } = this.props;
 
     let section = this.props.match.params.id;
-
-
-    let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution/name?section=solution&locale=" + idLang + "&name=" + section;
-    console.log("Accueil", url)
+    let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution/name?language_id=" + language_id + "&name=" + section;
     let data = await (await (fetch(url))).json();
-    console.log("solution.JSX", data)
-    console.log("SECTION", section)
+
 
     let arraySolution = [];
 
-    for (let obj of data) {
+    console.log(data);
+
+     for (let obj of data) {
 
       let url = JSON.parse(obj.url);
       let description = JSON.parse(obj.description);
@@ -68,9 +65,4 @@ class Solution extends Component {
 
 }
 
-const mapStateToProps = state => ({
-  data_store: state
-});
-
-/* export default connect(mapStateToProps)(Solution); */
 export default Solution;

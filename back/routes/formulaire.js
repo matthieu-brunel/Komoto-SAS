@@ -23,7 +23,7 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT f.name, l.locale FROM formulaire AS f JOIN language AS l ON f.language_id = l.id WHERE f.language_id=?`;
+  const sql = `SELECT f.name, l.locale, f.id FROM formulaire AS f JOIN language AS l ON f.language_id = l.id WHERE f.language_id=?`;
   connection.query(sql, [req.query.language_id], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get formulaire");
@@ -75,7 +75,7 @@ router.put("/:id", Auth, (req, res) => {
 });
 router.delete("/:id", Auth, (req, res) => {
   const idformulaire = req.params.id;
-  const sql = "DELETE  FROM formulaire WHERE id=?";
+  const sql = "DELETE FROM formulaire WHERE id=?";
   connection.query(sql, [idformulaire], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put formulaire" + error);

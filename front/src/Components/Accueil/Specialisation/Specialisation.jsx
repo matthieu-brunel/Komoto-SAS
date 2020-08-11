@@ -9,6 +9,7 @@ AOS.init();
 
 
 class SpecialisationAccueil extends Component {
+  _isMounted = false;
   constructor() {
     super()
     this.state = {
@@ -28,6 +29,7 @@ class SpecialisationAccueil extends Component {
   }
 
   getData = async () => {
+    this._isMounted = true;
     const { locale, language_id } = this.props;
     //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
     let data = await getRessources('homepage', 'specialisation', language_id);
@@ -46,6 +48,14 @@ class SpecialisationAccueil extends Component {
       this.getData();
     }
   }
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
+
 
 
   render() {

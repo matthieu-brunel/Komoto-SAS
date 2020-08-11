@@ -6,6 +6,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 
 
 class SavoirFaireAccueil extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -15,6 +16,7 @@ class SavoirFaireAccueil extends Component {
   }
 
   getData = async () => {
+    this._isMounted = true;
     const { locale, language_id } = this.props;
     let savoirFaire = await getRessources("homepage", "SavoirFaire", language_id);
 
@@ -25,9 +27,17 @@ class SavoirFaireAccueil extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.idLang !== this.props.idLang) {
+    if (prevProps.language_id !== this.props.language_id) {
       this.getData();
+     
     }
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+    this.setState = (state,callback)=>{
+      return;
+  };
   }
 
   render() {

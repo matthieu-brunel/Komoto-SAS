@@ -25,26 +25,36 @@ class SolutionAccueil extends Component {
     }
   }
 
-  getData = async() => {
-    
+  getData() {
+
     const { locale, language_id } = this.props;
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&language_id=" + language_id;
-  
-    let data = await (await (fetch(url))).json();
-    let arraySolution = [];
+    fetch(url).then(response => response.json()).then(response => {
 
-    for (let obj of data) {
 
-      let url = JSON.parse(obj.url);
-      let description = JSON.parse(obj.description);
-      obj.url = url;
-      obj.description = description;
-      arraySolution.push(obj);
-    }
-    this.setState({ solution: arraySolution });
+
+      let arraySolution = [];
+      for (let obj of response) {
+
+        let description = JSON.parse(obj.description);
+        let url = response.length > 0 && JSON.parse(obj.url);
+
+        obj.description = description;
+        obj.url = url;
+        arraySolution.push(obj);
+      }
+
+      this.setState({ solution: arraySolution });
+
+    })
   }
 
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
 
 
 
@@ -52,7 +62,7 @@ class SolutionAccueil extends Component {
 
     const { handleClickSolution } = this.props;
     return (
-      <div className="div-container-solution text-center">
+      <div id="SolutionAccueil" className="div-container-solution text-center">
         {this.state.solution.length > 0 && <div className="sol-title mt-5 mb-5"
           data-aos="fade-up"
           data-aos-duration="500"
@@ -87,10 +97,5 @@ class SolutionAccueil extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  data_store: state
-});
 
-/* export default connect(mapStateToProps)(SolutionAccueil);
- */
 export default SolutionAccueil;

@@ -9,6 +9,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 AOS.init();
 
 class HeaderAccueil extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props)
     this.state = {
@@ -20,6 +21,7 @@ class HeaderAccueil extends Component {
   }
 
   getData = async () => {
+    this._isMounted = true;
     const { locale, language_id } = this.props;
 
     let data = await getRessources('homepage', 'header', language_id);
@@ -42,7 +44,15 @@ class HeaderAccueil extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.language_id !== this.props.language_id) {
       this.getData();
+      
     }
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+    this.setState = (state,callback)=>{
+      return;
+  };
   }
 
   render() {

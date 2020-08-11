@@ -5,6 +5,7 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 class ReferenceAccueil extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +14,11 @@ class ReferenceAccueil extends Component {
   }
 
   getStartedData = async () => {
+    this._isMounted = true;
     const { locale, language_id } = this.props;
 
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&language_id=' + language_id;
-  
+
     const data = await (await (fetch(url))).json();
 
     let arrayReference = [];
@@ -31,7 +33,7 @@ class ReferenceAccueil extends Component {
 
     this.setState({ reference: arrayReference });
   }
-  
+
   componentDidMount = () => {
     this.getStartedData();
   };
@@ -39,8 +41,17 @@ class ReferenceAccueil extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.idLang !== this.props.idLang) {
       this.getStartedData();
+      this.componentWillUnmount();
     }
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+
 
   render() {
     return (

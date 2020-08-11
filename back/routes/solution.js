@@ -52,8 +52,8 @@ router.get("/", (req, res) => {
 
 router.get("/name", (req, res) => {
 
-  const sql = `SELECT s.title, s.id, s.section, s.language_id, s.image_id, s.title_section, s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.id JOIN language AS l ON s.language_id = l.id WHERE s.section=? && i.section=? && l.locale=? && i.name = ?`;
-  connection.query(sql, [req.query.section, req.query.section, req.query.locale, req.query.name], (error, results, fields) => {
+  const sql = `SELECT s.title, s.id, s.section, s.language_id, s.image_id, s.title_section, s.subtitle, s.description, i.name, i.url, i.alt FROM solution AS s JOIN image AS i ON s.image_id = i.id JOIN language AS l ON s.language_id = l.id WHERE s.language_id=? AND i.name = ?`;
+  connection.query(sql, [req.query.language_id, req.query.name], (error, results, fields) => {
     if (error) {
 
       res.status(501).send("couldn't get solution");

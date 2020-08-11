@@ -24,6 +24,8 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-bootstrap-sidebar": "0.0.1",
     "react-dom": "^16.12.0",
+    "react-gesture-responder": "^2.1.0",
+    "react-grid-dnd": "^2.1.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",

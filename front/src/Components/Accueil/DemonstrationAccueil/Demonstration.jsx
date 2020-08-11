@@ -5,6 +5,7 @@ import getRessources from "../../../utils/getRessources";
 
 
 class DemonstrationAccueil extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -24,7 +25,7 @@ class DemonstrationAccueil extends Component {
   }
 
   getData = async() => {
-    
+    this._isMounted = true;
     const { locale, language_id} = this.props;
     let data = await getRessources("homepage", "demonstration", language_id);
 
@@ -32,6 +33,14 @@ class DemonstrationAccueil extends Component {
       demonstration: data
     });
   }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+    this.setState = (state,callback)=>{
+      return;
+  };
+  }
+  
   render() {
     return (
       <div className="text-center p-5">

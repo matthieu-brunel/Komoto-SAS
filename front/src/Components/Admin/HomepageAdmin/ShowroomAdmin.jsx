@@ -15,7 +15,7 @@ class ShowroomAdmin extends Component{
             showroom: [],
             titreSection:"",
 
-            /*savoir-faire*/
+            
             titreShowroom:"",
             descriptionShowroom:"",
             urlImage:"",

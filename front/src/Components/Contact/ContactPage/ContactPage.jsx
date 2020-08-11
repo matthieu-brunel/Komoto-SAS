@@ -31,15 +31,29 @@ class ContactPage extends Component {
 
   componentDidMount = async () => {
 
-    const { locale } = this.props;
+    const { locale, language_id } = this.props;
 
-    const result = await getRessources("formulaire", null, locale);
-    let data = result[0].name.split(",");
-    //console.log(data);
-    this.setState({
-      formulaire_data: data,
-      message_too_heavy: data[12]
-    });
+    const result = await getRessources("formulaire", null, language_id);
+    let url = SERVER_ADRESS + "/api/formulaire?section=contact&language_id=" + language_id;
+    console.log(url);
+    fetch(url, {
+      method: "GET",
+      "content-type": "application/json",
+      'authorization': 'Bearer ' + localStorage.getItem('token')
+
+    })
+      .then(response => response.json())
+      .then(response => {
+        let data = response[0].name.split(",");
+
+        this.setState({
+          formulaire_data: data,
+          message_too_heavy: data[12]
+        });
+      })
+      .catch(error => console.log(error.message))
+
+
   };
 
 
@@ -342,30 +356,11 @@ class ContactPage extends Component {
             {/* [fin:popup error] */}
 
 
-            {/*             <label
-              className="form-label form-label-top"
-              id="label_18"
-              htmlFor="input_18"
-            >
-              {" "}
-              {formulaire_data[8]}{" "}
-            </label> */}
             <div className="custom-file pb-5">
               <input type="file" className="custom-file-input" onChange={this.handlerUploadFile} />
               <label className="custom-file-label" htmlFor="inputGroupFile01">{formulaire_data[8]}</label>
             </div>
           </div>
-
-          {/*           <input
-            type="file"
-            name="file"
-            className="form-upload validate[upload]"
-            onChange={this.handlerUploadFile}
-          ></input> */}
-
-
-
-
 
 
           {this.state.isLoading ? (
@@ -383,9 +378,6 @@ class ContactPage extends Component {
               </button>
             )}
         </form>
-        {/*         <div class="alert alert-success" role="alert">
-          This is a danger alert—check it out!
-        </div> */}
       </div>
     );
   }

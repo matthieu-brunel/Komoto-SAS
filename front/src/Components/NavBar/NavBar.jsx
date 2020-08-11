@@ -157,6 +157,7 @@ class NavBar extends Component {
   componentDidMount() {
     this.getLanguage();
     this.getDataNavBar();
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -173,36 +174,43 @@ class NavBar extends Component {
     return (
       <div>
         <nav className="navbar div-container-navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Komoto sas</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          <div className="div-navbar-brand">
+            <Link className="navbar-brand" to="/#container-header">Komoto sas</Link>
+          </div>
+          <div className="container-navbar d-flex">
+            <div className="div-button-nav">
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            </div>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <NavLink to="/#container-header" >{data[0]}</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/#SolutionAccueil" >{data[1]}</NavLink>
-              </li>
-              <li className="nav-item">
-                <Link to="/#ReferenceAccueil" >{data[2]}</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Contact" >{data[3]}</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Demonstration" >{data[4]}</Link>
-              </li>
-            </ul>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                  <Link to="/#container-header" >{data[0]}</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/#SolutionAccueil" >{data[1]}</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/#ReferenceAccueil" >{data[2]}</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Contact" >{data[3]}</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Demonstration" >{data[4]}</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="div-select pl-5">
+              <select className="form-control" id="selectLang" onChange={handleChangeLang}>
+                <option id={locale} style={{ display: "none" }}>{locale}</option>
+                {num_lang.length > 0 && num_lang.map((element, index) => <option key={index} id={element} value={index}>{element}</option>)}
+              </select>
+            </div>
           </div>
-          <div className="div-select pl-5">
-            <select className="form-control" id="selectLang" onChange={handleChangeLang}>
-              <option id={locale} style={{ display: "none" }}>{locale}</option>
-              {num_lang.length > 0 && num_lang.map((element, index) => <option key={index} id={element} value={index}>{element}</option>)}
-            </select>
-          </div>
+
         </nav>
 
 

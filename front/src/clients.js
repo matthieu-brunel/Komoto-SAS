@@ -30,7 +30,7 @@ let monUrl = window.location.href;
 
 
 class Client extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -55,7 +55,7 @@ class Client extends Component {
 
 
     getStarted = async () => {
-
+        this._isMounted = true;
         const { idLang } = this.state;
 
         const options = {
@@ -117,9 +117,12 @@ class Client extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+
         if (prevState.idLang !== this.state.idLang) {
             let language_id = this.getIdLanguage(this.state.arrayLang);
-            this.setState({language_id:language_id});
+            console.log("componentDidUpdate : ", language_id);
+            this.setState({ language_id });
+
         }
     }
 
@@ -127,25 +130,33 @@ class Client extends Component {
         this.getStarted();
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+        this.setState = (state, callback) => {
+            return;
+        };
+    }
+
+
+
 
     render() {
 
-
-        //console.log("FROM REDUCER : ",this.props.data_store.num_lang);
         const { idLang, num_lang, navbar, language_id } = this.state;
-        console.log(idLang, language_id);
+        console.log(language_id);
+
         return (
             <div className="">
                 {!urlAdmin.includes(monUrl) ?
                     <div className="">
-                        <NavBar navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang} language_id={this.state.language_id} />
+                        <NavBar navbar_data={navbar} locale={idLang} handleChangeLang={this.handleChangeLang} language_id={language_id} />
                     </div>
                     : null}
                 <Switch>
-                    <Route exact path="/" component={() => <Accueil locale={idLang} language_id={this.state.language_id} handleClickSolution={this.handleClickSolution} />} />
-                    <Route path="/Reference" component={() => <Reference num_lang={num_lang} locale={idLang} language_id={this.state.language_id}/>} />
-                    <Route path="/Contact" component={() => <Contact locale={idLang} />} language_id={this.state.language_id}/>
-                    <Route path="/Demonstration" component={() => <Demonstration locale={idLang} language_id={this.state.language_id}/>} />
+                    <Route exact path="/" component={() => <Accueil locale={idLang} language_id={language_id} handleClickSolution={this.handleClickSolution} />} />
+                    <Route path="/Reference" component={() => <Reference num_lang={num_lang} locale={idLang} language_id={language_id} />} />
+                    <Route path="/Contact" component={() => <Contact locale={idLang} language_id={language_id} />} />
+                    <Route path="/Demonstration" component={() => <Demonstration locale={idLang} language_id={language_id} />} />
                     <Route path="/Mention" component={Mention} />
                     <Route path="/Partenaire" component={Partenaire} />
                     <Route path={`/solution/:id`} component={(props) => <Solution {...props} {...this.state} />} />

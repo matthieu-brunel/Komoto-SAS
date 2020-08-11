@@ -4,12 +4,13 @@ import ContactPage from "./ContactPage/ContactPage";
 import Footer from "./../Footer/Footer";
 
 function Contact(props) {
-  const { locale } = props;
+  const { locale, language_id } = props;
+  console.log(props);
  
   return (
     <div className="sticky-wrap">
       <div>
-        <ContactPage locale={locale}/>
+        <ContactPage locale={locale} language_id={language_id}/>
       </div>
       <div className="sticky-footer">
         <Footer />
