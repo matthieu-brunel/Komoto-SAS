@@ -24,23 +24,23 @@ class DemonstrationAccueil extends Component {
     }
   }
 
-  getData = async() => {
+  getData = async () => {
     this._isMounted = true;
-    const { locale, language_id} = this.props;
+    const { locale, language_id } = this.props;
     let data = await getRessources("homepage", "demonstration", language_id);
-
+    console.log(data);
     this.setState({
       demonstration: data
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this._isMounted = false;
-    this.setState = (state,callback)=>{
+    this.setState = (state, callback) => {
       return;
-  };
+    };
   }
-  
+
   render() {
     return (
       <div className="text-center p-5">

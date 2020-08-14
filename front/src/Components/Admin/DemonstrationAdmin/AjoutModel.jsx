@@ -103,15 +103,14 @@ class AjoutModel extends Component {
             'description': "",
             'model_url': this.state.nameModel,
             "model_alt": this.state.altShowroom,
-            "image_id": 0,
-            'language_id': 0
+            "image_id": null,
+            'language_id': this.props.language_id
         }
 
         let dataImage = {
             'name': this.state.nameImage,
             'url': this.state.urlImage,
             'alt': this.state.altImage,
-            'homepage_id': 0,
             'section': "showroom"
         }
 

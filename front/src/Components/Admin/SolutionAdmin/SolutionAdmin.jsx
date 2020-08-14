@@ -17,6 +17,7 @@ class SolutionAdmin extends Component {
       titreSection: "",
       specSelected: [],
       titreAccueil: "",
+      solutionName:"",
 
       /*solution*/
       arrayDescription: [],
@@ -82,8 +83,9 @@ class SolutionAdmin extends Component {
     console.log("this.state.idLang : ", this.state.idLang);
     console.log("this.state.arrayLang : ", this.state.arrayLang);
     const data = await (await (fetch(url))).json();
-    console.log("DATA : ", data);
-    this.setState({ solutionAdmin: data});
+ 
+    let solutionName = data.length > 0 && JSON.parse(data[0].subtitle);
+    this.setState({ solutionAdmin: data, solutionName:solutionName[0]});
   }
 
 
@@ -192,7 +194,7 @@ class SolutionAdmin extends Component {
                   this.state.solutionAdmin.map((element, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
-                      <td>{element.subtitle}</td>
+                      <td>{this.state.solutionName}</td>
                       <td>{element.title}</td>
                       <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSolutionToEdit.bind(this, index)}>Modifier</button>}</td>
                       <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-solution-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>

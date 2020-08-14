@@ -8,10 +8,10 @@ import Footer from '../Footer/Footer';
 
 
 function Demonstration(props) {
-  const { locale } = props;
+  const { locale, language_id } = props;
   return (
     <div className="sticky-wrap">
-     <div className="pt-5"><DemoModel locale={locale}/></div> 
+     <div className="pt-5"><DemoModel locale={locale} language_id={language_id}/></div> 
       <div className="sticky-footer">
       <Footer />
       </div>

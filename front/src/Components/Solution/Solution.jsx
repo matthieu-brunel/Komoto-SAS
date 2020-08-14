@@ -12,13 +12,22 @@ class Solution extends Component {
     super(props);
     this.state = {
       solution: [],
-      idLang: ""
+      idLang: "",
+      srcSelected: "",
+      altSelected: "",
+      displayModal: false,
+      modalBlur: false
     }
 
   }
 
 
+  handleClickImg = (event) => {
 
+    let src = event.target.src;
+    let alt = event.target.alt;
+    this.setState({ srcSelected: src, altSelected: alt, displayModal: true });
+  }
 
   getSolution = async () => {
 
@@ -33,7 +42,7 @@ class Solution extends Component {
 
     console.log(data);
 
-     for (let obj of data) {
+    for (let obj of data) {
 
       let url = JSON.parse(obj.url);
       let description = JSON.parse(obj.description);
@@ -48,6 +57,10 @@ class Solution extends Component {
     this.getSolution();
   };
 
+  handleClickClose = () => {
+    this.setState({ displayModal: false });
+  }
+
 
   render() {
 
@@ -55,7 +68,31 @@ class Solution extends Component {
       <div className="sticky-wrap">
         <HeaderSolution header={this.state.solution} />
         <SolutionText texte={this.state.solution} />
-        {this.state.solution.length > 0 && <SolutionImage image={this.state.solution[0].url.imageCaroussel} />}
+        {
+          this.state.solution.length > 0 &&
+          <SolutionImage
+            image={this.state.solution[0].url.imageCaroussel}
+            handleClickImg={this.handleClickImg}
+          />
+        }
+
+        {
+          this.state.displayModal &&
+          <div className="container-imagePreview-solution">
+            <div className="div-element-previewImage">
+              <div className="div-close-btn-image-selected">
+                <button type="button" className="btn btn-danger btn-sm" onClick={this.handleClickClose}><span aria-hidden="true">&times;</span><span></span></button>
+              </div>
+              <div className="div-image-selected">
+                <img src={this.state.srcSelected} className="imagepreview" alt={this.state.altSelected} />
+                <p className="alt-image-selected">{this.state.altSelected}</p>
+              </div>
+            </div>
+
+
+          </div>
+        }
+
         <div className="sticky-footer">
           <Footer />
         </div>

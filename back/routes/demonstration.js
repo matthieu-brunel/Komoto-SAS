@@ -58,8 +58,8 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/text", (req, res) => {
-  const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language_id = l.id WHERE section = ? AND l.locale = ?`;
-  connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {
+  const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language_id = l.id WHERE section = ? AND d.language_id= ?`;
+  connection.query(sql,[req.query.section, req.query.language_id], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");
     } else {

@@ -73,14 +73,14 @@ class Client extends Component {
         //Chargement de toutes les solutions
         url = REACT_APP_SERVER_ADDRESS_FULL + "/api/solution?section=solution&language_id=" + language_selected_id;
         let solutionsAll = await (await (fetch(url, options))).json();
-
+        console.log(solutionsAll);
         let arraySolution = [];
 
         for (let obj of solutionsAll) {
             let url = JSON.parse(obj.url);
             let description = JSON.parse(obj.description);
             obj.url = url;
-            obj.description = description;
+           obj.description = description;
             arraySolution.push(obj);
         }
 

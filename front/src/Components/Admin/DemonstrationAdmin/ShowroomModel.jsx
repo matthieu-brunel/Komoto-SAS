@@ -52,14 +52,14 @@ class ShowroomModel extends Component {
 
     getStartedModel = async () => {
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('demonstration', 'demonstration_model', this.props.locale);
+        let data = await getRessources('demonstration', 'demonstration_model', this.props.language_id);
         console.log(data);
 
         this.setState({ dataModel: data });
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.locale !== this.props.locale) {
+        if (prevProps.language_id !== this.props.language_id) {
             this.setState({ dataModel: [] });
             this.getStartedModel();
         }

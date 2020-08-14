@@ -11,6 +11,8 @@ class SolutionAccueil extends Component {
     super(props);
     this.state = {
       solution: [],
+      solutionName: "",
+      labelBtn: ""
     }
   }
 
@@ -39,13 +41,19 @@ class SolutionAccueil extends Component {
 
         let description = JSON.parse(obj.description);
         let url = response.length > 0 && JSON.parse(obj.url);
+        let subtitle = response.length > 0 && JSON.parse(obj.subtitle)
 
         obj.description = description;
         obj.url = url;
+        obj.subtitle = subtitle;
         arraySolution.push(obj);
       }
 
-      this.setState({ solution: arraySolution });
+
+      const solutionName = arraySolution.length > 0 && arraySolution[0].subtitle[0];
+      const labelBtn = arraySolution.length > 0 && arraySolution[0].subtitle[1];
+
+      this.setState({ solution: arraySolution, solutionName, labelBtn });
 
     })
   }
@@ -83,7 +91,7 @@ class SolutionAccueil extends Component {
                   </div>
                   <div className="div-btn-solution-accueil p-3">
                     <button className="btn btn-primary">
-                      <NavLink to={`/solution/${solution.name.toLowerCase()}`} className="text-solution text-white" id={solution.name}>en savoir plus</NavLink>
+                      <NavLink to={`/solution/${solution.name.toLowerCase()}`} className="text-solution text-white" id={solution.name}>{this.state.labelBtn}</NavLink>
                     </button>
                   </div>
                 </div>

@@ -7,11 +7,38 @@
 .div-image-solution{
     width:50%;
     padding: 1rem;
+    cursor: pointer;
 }
 
 .sticky-wrap{
     padding-top: 6rem;
 }
+
+.container-imagePreview-solution{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+}
+
+.div-element-previewImage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.imagepreview{
+    height: 100vh;
+}
+
+.div-close-btn-image-selected{
+    display: flex;
+    justify-content: flex-end;
+    width:100%;
+}
+
 
 
 @media screen and (max-width:767px) {

@@ -17,6 +17,7 @@ class ModificationSolution extends Component {
             descriptionSolution: [],
             imagesSolution: [],
             titreAccueil: "",
+            labelBtn: "",
 
             currentModificationTitle: "",
             currentModificationDescription: "",
@@ -117,6 +118,10 @@ class ModificationSolution extends Component {
 
             case "name-Accueil":
                 this.setState({ titreAccueil: event.target.value });
+                break;
+
+            case "labelBtn":
+                this.setState({ labelBtn: event.target.value });
                 break;
 
             case "title-description-modification-solution-admin":
@@ -254,6 +259,8 @@ class ModificationSolution extends Component {
         $('.registered-title-ok').hide();
         let description = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].description);
         let images = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].url);
+        let subtitle = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].subtitle);
+        console.log(subtitle);
 
         let arraySolution = [];
         let imageSolution = {};
@@ -263,13 +270,12 @@ class ModificationSolution extends Component {
 
         this.setState({
             titreSolution: this.props.solutionAdmin[this.props.idToEdit].title,
-            nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
+            nameSolution: subtitle[0],
             titreAccueil: this.props.solutionAdmin[this.props.idToEdit].title_section,
             descriptionSolution: description,
             objetImageLogoSolution: arraySolution,
             objetImageCaroussel: images.imageCaroussel,
-
-
+            labelBtn: subtitle[1],
             imagesSolution: images
 
         });
@@ -378,7 +384,7 @@ class ModificationSolution extends Component {
 
         let dataSolution = {
             'title': this.state.titreSolution,
-            "subtitle": this.state.nameSolution,
+            "subtitle": JSON.stringify([this.state.nameSolution, this.state.labelBtn]),
             "title_section": this.state.titreAccueil,
             'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionSolution),
             'language_id': this.props.idLang,
@@ -408,7 +414,7 @@ class ModificationSolution extends Component {
         await putRessources("solution", id, [dataSolution, dataImage]);
 
         // fetch pour la table image
-        
+
         await putRessources("image", this.props.solToEdit[1], dataImage);
 
         $('.registered-section-ok').show();
@@ -510,6 +516,10 @@ class ModificationSolution extends Component {
                                 <div className="form-group">
                                     <label>Nom de la solution</label>
                                     <input type="text" className="form-control form-control-sm" value={this.state.nameSolution} id="name-solution-admin" onChange={this.handleChangeInput} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Label du bouton</label>
+                                    <input type="text" className="form-control form-control-sm" value={this.state.labelBtn} id="labelBtn" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="alert alert-success registered-title-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>

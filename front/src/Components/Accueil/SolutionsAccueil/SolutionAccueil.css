@@ -189,7 +189,11 @@
     }
 
     .img-solution{
-        width: 8vw;
+        width: 20vw;
+    }
+
+    .img-solution:hover{
+        filter: grayscale();
     }
 
     .sol-text{

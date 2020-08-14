@@ -14,12 +14,13 @@ class HomeShowroom extends Component {
             displayText: false,
             displayModel: false,
             arrayLang: [],
-            langSelected: "fr"
+            langSelected: "FR",
+            language_id: null
         }
     }
 
     handleClickPart = (event) => {
-        console.log(event.target.id);
+
         switch (event.target.id) {
 
             case "text":
@@ -35,23 +36,49 @@ class HomeShowroom extends Component {
         }
     }
 
+    getIdLanguage(arrayLang) {
+        const { langSelected } = this.state;
+        //conversion IdLang en language_id => "FR" égale 85 par exemple
+        let language_id = "";
+        if (arrayLang.length > 0) {
+
+            for (let locale of arrayLang) {
+                if (langSelected === locale.locale) {
+                    language_id = locale.id;
+                    break;
+                }
+            }
+        }
+        return language_id;
+    }
+
 
     getAllLang = async () => {
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
         let data = await (await (fetch(url))).json();
-        this.setState({ arrayLang: data });
-      }
-    
-      componentDidMount = () => {
-          this.getAllLang();
-      }
-    
-      handleChangeLang = (event) => {
-    
-          let seletedLang = event.target.options[event.target.options.selectedIndex].id;
-          console.log(event.target.options[event.target.options.selectedIndex]);
-          this.setState({ langSelected: seletedLang });
-      }
+        let idLang = this.getIdLanguage(data);
+
+        this.setState({ arrayLang: data, language_id: idLang });
+    }
+
+    componentDidMount = () => {
+        this.getAllLang();
+    }
+
+    handleChangeLang = (event) => {
+
+        let seletedLang = event.target.options[event.target.options.selectedIndex].id;
+        console.log(event.target.options[event.target.options.selectedIndex]);
+        this.setState({ langSelected: seletedLang });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if (prevState.langSelected !== this.state.langSelected) {
+            let language_id = this.getIdLanguage(this.state.arrayLang);
+            this.setState({ language_id });
+        }
+    }
 
     render() {
         const { arrayLang } = this.state;
@@ -75,11 +102,11 @@ class HomeShowroom extends Component {
                         {options}
                     </select>
                 </div>
- 
+
                 <div>
-                    {this.state.displayText && <ShowroomText locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
-                    {this.state.displayModel && <ShowroomModel locale={this.state.langSelected} arrayLang={this.state.arrayLang} />}
-               </div>
+                    {this.state.displayText && <ShowroomText locale={this.state.langSelected} language_id={this.state.language_id} arrayLang={this.state.arrayLang} />}
+                    {this.state.displayModel && <ShowroomModel locale={this.state.langSelected} language_id={this.state.language_id} arrayLang={this.state.arrayLang} />}
+                </div>
 
 
             </div>

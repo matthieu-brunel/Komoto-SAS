@@ -21,6 +21,7 @@ class AjoutSolutionAdmin extends Component {
             description: "",
             arrayDescription: [],
             urlImage: "",
+            labelBtn: "",
 
             altImageLogoSolution: "",
             altImage: "",
@@ -65,6 +66,10 @@ class AjoutSolutionAdmin extends Component {
 
             case "titrePage-Accueil":
                 this.setState({ titreAccueil: event.target.value });
+                break;
+
+            case "labelBtn":
+                this.setState({ labelBtn: event.target.value });
                 break;
 
             case "addDescription-solution-admin":
@@ -198,7 +203,7 @@ class AjoutSolutionAdmin extends Component {
             }
         }
 
-        
+
 
 
         let objetImageFinal = {};
@@ -230,10 +235,10 @@ class AjoutSolutionAdmin extends Component {
         let dataSolution = {
             'title': this.state.titrePage,
             'title_section': this.state.titreAccueil,
-            "subtitle": this.state.nameSolution,
+            "subtitle": JSON.stringify([this.state.nameSolution, this.state.labelBtn]),
             'description': JSON.stringify(sectionDescription),
             'language_id': idLang,
-            'image_id': 0,
+            'image_id': null,
             "section": "solution"
         }
 
@@ -397,9 +402,14 @@ class AjoutSolutionAdmin extends Component {
                                     <label htmlFor="titre-solution-name">Nom de la solution <span style={{ color: "red" }}>*</span></label>
                                     <input className="form-control" value={this.state.nameSolution} id="titre-solution-name" type="text" placeholder="nom de la solution" onChange={this.handleChangeInput} />
                                 </div>
+                                
+                                <div className="form-group">
+                                    <label htmlFor="labelBtn">Label du bouton <span style={{ color: "red" }}>*</span></label>
+                                    <input className="form-control" value={this.state.labelBtn} id="labelBtn" type="text" placeholder="exemple : en savoir plus" onChange={this.handleChangeInput} />
+                                </div>
                             </div>
 
-                           
+
                         </form>
                     </div>
                     <div className="card">
