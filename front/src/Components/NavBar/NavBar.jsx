@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Component } from 'react';
+import { motion } from "framer-motion"
 import $ from "jquery";
 
 import {
@@ -114,12 +115,15 @@ export default NavBar;
  */
 
 
+
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       num_lang: [],
-      data: []
+      data: [],
+      navbarCustomOpen: false
     }
   }
 
@@ -158,6 +162,17 @@ class NavBar extends Component {
     this.getLanguage();
     this.getDataNavBar();
 
+    document.addEventListener("click", (event) => {
+      if(event.srcElement.nodeName === "A" && this.state.navbarCustomOpen !== false){
+        this.handleOpenNavbarCustom();
+        console.log(event.srcElement.nodeName);
+      }
+      
+    });
+  }
+
+  handleOpenNavbarCustom = () => {
+    this.setState({ navbarCustomOpen: !this.state.navbarCustomOpen });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -168,41 +183,45 @@ class NavBar extends Component {
     }
   }
 
+
   render() {
     const { handleChangeLang, locale, language_id } = this.props;
     const { data, num_lang } = this.state;
     return (
       <div>
         <nav className="navbar div-container-navbar navbar-expand-lg navbar-light bg-light">
+          <button className="navbar-toggler" type="button" /* data-toggle="collapse" */ data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={this.handleOpenNavbarCustom}>
+            <span className="navbar-toggler-icon"></span>
+          </button>
           <div className="div-navbar-brand">
             <Link className="navbar-brand" to="/#container-header">Komoto sas</Link>
           </div>
           <div className="container-navbar d-flex">
             <div className="div-button-nav">
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
+
             </div>
 
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div className="div-ul collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <Link to="/#container-header" >{data[0]}</Link>
+                <li className="link-desktop nav-item active">
+                  <Link to="/#container-header">{data[0]}</Link>
                 </li>
-                <li className="nav-item">
+                <li className="link-desktop nav-item">
                   <Link to="/#SolutionAccueil" >{data[1]}</Link>
                 </li>
-                <li className="nav-item">
+                <li className="link-desktop nav-item">
                   <Link to="/#ReferenceAccueil" >{data[2]}</Link>
                 </li>
-                <li className="nav-item">
+                <li className="link-desktop nav-item">
                   <Link to="/Contact" >{data[3]}</Link>
                 </li>
-                <li className="nav-item">
+                <li className="link-desktop nav-item">
                   <Link to="/Demonstration" >{data[4]}</Link>
                 </li>
               </ul>
             </div>
+
+
             <div className="div-select pl-5">
               <select className="form-control" id="selectLang" onChange={handleChangeLang}>
                 <option id={locale} style={{ display: "none" }}>{locale}</option>
@@ -212,7 +231,28 @@ class NavBar extends Component {
           </div>
 
         </nav>
-
+        {
+          this.state.navbarCustomOpen &&
+          <motion.div initial={{opacity:0.5, transform:"translateX(-1000vw)"}} animate={{opacity:1, transform:"translateX(0px)"}} transition={{duration:0.2}} className="navbar-custom">
+            <ul className="ul-list mr-auto text-left pl-3">
+              <li className="link-li">
+                <Link to="/#container-header" >{data[0]}</Link>
+              </li>
+              <li className="link-li">
+                <Link to="/#SolutionAccueil" >{data[1]}</Link>
+              </li>
+              <li className="link-li">
+                <Link to="/#ReferenceAccueil" >{data[2]}</Link>
+              </li>
+              <li className="link-li">
+                <Link to="/Contact" >{data[3]}</Link>
+              </li>
+              <li className="link-li">
+                <Link to="/Demonstration" >{data[4]}</Link>
+              </li>
+            </ul>
+          </motion.div>
+        }
 
       </div>
     )

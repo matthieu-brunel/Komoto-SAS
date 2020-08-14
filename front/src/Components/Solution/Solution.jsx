@@ -15,8 +15,8 @@ class Solution extends Component {
       idLang: "",
       srcSelected: "",
       altSelected: "",
-      displayModal: false,
-      modalBlur: false
+      displayModal: false
+      
     }
 
   }
@@ -88,8 +88,6 @@ class Solution extends Component {
                 <p className="alt-image-selected">{this.state.altSelected}</p>
               </div>
             </div>
-
-
           </div>
         }
 

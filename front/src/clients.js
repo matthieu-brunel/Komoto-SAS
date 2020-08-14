@@ -120,8 +120,10 @@ class Client extends Component {
 
         if (prevState.idLang !== this.state.idLang) {
             let language_id = this.getIdLanguage(this.state.arrayLang);
-            console.log("componentDidUpdate : ", language_id);
+            
+            this.getStarted();
             this.setState({ language_id });
+            
 
         }
     }

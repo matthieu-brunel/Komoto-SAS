@@ -83,7 +83,7 @@ class SolutionAccueil extends Component {
               data-aos-easing="ease-in-out">
               <div className="solution-card">
                 <div className="div-image-solution-accueil">
-                  <img className="img-solution" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.logoSolution[0].name} alt={solution.url.logoSolution[0].alt} />
+                  <img className="img-solution-accueil" src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + solution.url.logoSolution[0].name} alt={solution.url.logoSolution[0].alt} />
                 </div>
                 <div className="sol-text">
                   <div className="card-text" onClick={handleClickSolution}>
