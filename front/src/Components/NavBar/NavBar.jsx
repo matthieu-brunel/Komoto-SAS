@@ -189,11 +189,11 @@ class NavBar extends Component {
     const { data, num_lang } = this.state;
     return (
       <div>
-        <nav className="navbar div-container-navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar div-container-navbar navbar-expand-lg navbar-dark bg-dark">
           <button className="navbar-toggler" type="button" /* data-toggle="collapse" */ data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onClick={this.handleOpenNavbarCustom}>
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="div-navbar-brand">
+          <div className="div-navbar-brand text-white">
             <Link className="navbar-brand" to="/#container-header">Komoto sas</Link>
           </div>
           <div className="container-navbar d-flex">

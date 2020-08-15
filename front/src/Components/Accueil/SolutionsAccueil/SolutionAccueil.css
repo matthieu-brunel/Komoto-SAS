@@ -2,9 +2,7 @@
     width: 50%;
 }
 
-/*  .img-solution{
-    width: 20vw;
-} */
+
 
 .text-solution{
     color: black;
@@ -26,6 +24,10 @@
 
 .sol-title-text{
     color: #19181A;
+}
+
+.div-btn-solution-accueil button a{
+    text-decoration: none;
 }
 
 

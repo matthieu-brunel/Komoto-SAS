@@ -12,10 +12,6 @@
     font-size: 1.2rem!important;
 }
 
-.link-nav{
-    font-style: none;
-    color: gray;
-}
 
 .div-container-navbar{
     position: fixed;
@@ -48,10 +44,14 @@ list-style-type: none;
 }
 
 .link-li{
-    padding: 1rem;;
+    padding: 1rem;
 }
 
-
+.link-li a{
+    color:#343a40!important;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
 
 
 /* Large devices (desktops, 1199.98px and upn) */
@@ -71,6 +71,19 @@ list-style-type: none;
     .link-desktop{
         margin-left: 1rem;
     }
+
+    .link-desktop a,
+    .navbar-brand{
+        /* color:#343a40!important; */
+        color:#fff;
+        font-size: 1.1rem;
+        text-decoration: none;
+    }
+
+    .navbar-brand{
+        font-size:1.5rem;
+    }
+
 }
 
 

@@ -18,7 +18,7 @@ class SolutionImage extends Component {
 
     return (
 
-      <div className="container container-image-solution text-center">
+      <div className="container container-image-solution text-center mb-5">
         {
           image.length > 0 ? image.map((image, index) => (
 

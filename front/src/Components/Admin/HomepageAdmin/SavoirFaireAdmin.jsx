@@ -280,7 +280,7 @@ class SavoirFaireAdmin extends Component {
         // fetch pour envoi d el'image dans le dossier back/public/images
         let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
 
-        if(this.state.document !== null){ fetch(url, options).then(res => res.json()).then(res => console.log(res)); }
+        if (this.state.document !== null) { fetch(url, options).then(res => res.json()).then(res => console.log(res)); }
 
         // fetch pour modification des champs de la table image
         url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.SavoirFaireToEdit[1]}`;
@@ -384,10 +384,10 @@ class SavoirFaireAdmin extends Component {
                             </div>
                             <div className="modal-body">
                                 {this.state.savoirFaire.length > 0 && <div className="form-group">
-                                    <div className="form-group">
+                                    {this.state.idToEdit === 0 && <div className="form-group">
                                         <label htmlFor="titre-section">Titre de la section savoir-faire</label>
                                         <input className="form-control" value={this.state.titreSection} id="titre-section-savoirFaire" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
-                                    </div>
+                                    </div>}
                                     <label>Saisir le titre du savoir-faire</label>
                                     <input type="text" className="form-control" value={this.state.titreSavoirFaire} id="titre-savoirFaire-admin" onChange={this.handleChangeInput} />
 

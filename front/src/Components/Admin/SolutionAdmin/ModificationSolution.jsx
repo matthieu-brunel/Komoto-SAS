@@ -492,7 +492,7 @@ class ModificationSolution extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <div id="accordion" className="position-tab pt-3">
                     <div className="card">
                         <div className="card-header" id="headingOne">
@@ -524,7 +524,7 @@ class ModificationSolution extends Component {
                                 <div className="alert alert-success registered-title-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button>
+                              {/*   <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
 
                             </div>
@@ -686,7 +686,7 @@ class ModificationSolution extends Component {
                                 <div className="alert alert-success registered-image-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                               {/*  <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
                             </div>
                         </div>
@@ -830,7 +830,10 @@ class ModificationSolution extends Component {
                     </div>
                 </div>
 
-                <button className="btn btn-secondary" onClick={this.closeWindowAddSolution}>Fermer le panneau des modifications</button>
+                <div className="container">
+                    <button className="btn btn-secondary" onClick={this.closeWindowAddSolution}>Fermer le panneau des modifications</button>
+                </div>
+
             </div>
 
 

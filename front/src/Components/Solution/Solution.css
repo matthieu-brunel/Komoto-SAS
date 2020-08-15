@@ -10,9 +10,6 @@
     cursor: pointer;
 }
 
-.sticky-wrap{
-    /* padding-top: 6rem; */
-}
 
 .container-imagePreview-solution{
     position: fixed;
@@ -81,9 +78,13 @@
         top:57px;
     }
 
-    .imagepreview{
+    .img-solution{
+        width: 40vw;
+    } 
+
+/*     .imagepreview{
         width: 55vw;
-    }
+    } */
 }
 
 /* Large devices (desktops, 992px and up) */

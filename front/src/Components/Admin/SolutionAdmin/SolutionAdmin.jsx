@@ -3,6 +3,7 @@ import AjoutSolution from './AjoutSolution';
 import DeleteSolution from './DeleteSolution';
 import NavBarAdmin from '../NavBarAdmin/NavBar';
 import ModificationSolution from "./ModificationSolution";
+import "./solutionAdmin.css";
 
 
 

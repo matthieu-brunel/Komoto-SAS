@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
+import { motion } from "framer-motion"
 const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 class SolutionAccueil extends Component {
@@ -90,9 +91,9 @@ class SolutionAccueil extends Component {
                     <p className="text-solution">{solution.title}</p>
                   </div>
                   <div className="div-btn-solution-accueil p-3">
-                    <button className="btn btn-primary">
+                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.9 }} className="btn btn-primary">
                       <NavLink to={`/solution/${solution.name.toLowerCase()}`} className="text-solution text-white" id={solution.name}>{this.state.labelBtn}</NavLink>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </div>
