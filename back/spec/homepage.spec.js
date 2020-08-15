@@ -61,7 +61,8 @@ describe("test homepage CRUD", () => {
         url: SERVER_ADDRESS_FULL + "/api/image"
       },
       (error, response, body) => {
-        homepage.image_id = response.body[0].id;
+
+        homepage.image_id = response.body[response.body.length - 1].id;
         done();
       }
     );
@@ -110,12 +111,14 @@ describe("test homepage CRUD", () => {
     );
   });
 
+
   it("should update homepage", done => {
-    homepage.subtitle = "subtitle";
+    homepage.subtitle = "new subtitle";
     homepage.title = "new title";
     homepage.section = "new section";
     homepage.description = "new description";
-
+    homepage.language_id = homepage.language_id;
+    homepage.image_id = homepage.image_id;
 
     request.put(
       {
@@ -126,30 +129,32 @@ describe("test homepage CRUD", () => {
       },
 
       (error, response, body) => {
-      
-        expect(body[0].subtitle).toBe(homepage.subtitle);
-        expect(body[0].title).toBe(homepage.title);
-        expect(body[0].section).toBe(homepage.section);
-        expect(body[0].description).toBe(homepage.description);
-        expect(body[0].language_id).toBeTruthy();
-        expect(body[0].image_id).toBeTruthy();
+  
+        let data = body;
+        expect(response.statusCode).toBe(200);
+        expect(data[0].subtitle).toBe(homepage.subtitle);
+        expect(data[0].title).toBe(homepage.title);
+        expect(data[0].section).toBe(homepage.section);
+        expect(data[0].description).toBe(homepage.description);
+        expect(data[0].language_id).toBeTruthy();
+        expect(data[0].image_id).toBeTruthy();
         done();
       }
     );
   });
 
-/*   it("delete homepage", done => {
-    request(
-      {
-        method: "delete",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
-        headers: { authorization: 'Bearer ' + token }
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  }); */
+  /*   it("delete homepage", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
+          headers: { authorization: 'Bearer ' + token }
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    }); */
 });

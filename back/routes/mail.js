@@ -92,14 +92,13 @@ router.put("/:id", Auth, (req, res) => {
 router.delete("/:id", Auth, (req, res) => {
   const idmail = req.params.id;
   const data_test = req.body.category;
-
+ 
   if (data_test !== 'new put') {
     const sql = "SELECT * FROM mail where id = ?";
     connection.query(sql, [idmail], (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't get reference");
       } else {
-        console.log(results);
         let getDocumentName = results.length > 0 ? JSON.parse(results[0].description).document : "";
 
         if (getDocumentName !== "") {
@@ -120,19 +119,34 @@ router.delete("/:id", Auth, (req, res) => {
         });
       }
     });
-  }else{
-    const sqlDelete = "DELETE FROM mail";
-    connection.query(sqlDelete, [idmail], (error, results, fields) => {
+  } else {
+
+    const sqlSelect = "SELECT id FROM `mail` order by id desc limit 2";
+    connection.query(sqlSelect, (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't delete mail" + error);
       } else {
 
-        res.json("delete ok");
+        let array_id = [];
+        for(let i of results){
+          array_id.push(i.id);
+        }
+
+        const sqlDelete = "DELETE FROM mail WHERE id=?";
+       
+        for(let index of array_id){
+          connection.query(sqlDelete, [index], (error, results, fields) => {
+             if (error) {
+               res.status(501).send("couldn't delete mail" + error);
+             } else {
+     
+              res.end("delete mail : success");
+             }
+           });
+         }
       }
-    }); 
+    });
   }
-
-
 });
 
 module.exports = router;

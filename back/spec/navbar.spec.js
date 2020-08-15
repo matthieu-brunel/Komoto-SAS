@@ -1,14 +1,17 @@
-/* const request = require("request");
+const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null
+let server = null;
+var obj = {
+  id: null,
+  token:null
 };
 
+
 describe("test navbar CRUD", () => {
-  let server = null;
+
   let data = {};
 
   const navbar = {
@@ -24,89 +27,100 @@ describe("test navbar CRUD", () => {
       {
         json: true,
         body: {
-          user: 'admin',
-          password: 'admin'
+          user: "admin",
+          password: "admin"
         }
       },
       (error, response, body) => {
-        token = response.body.token;
+        obj.token = body.token;
+
+      }
+    );
+
+    request.get(
+      SERVER_ADDRESS_FULL + "/api/language",
+      {
+        json: true
+      },
+      (error, response, body) => {
+        navbar.language_id = response.body[0].id;
         done();
       }
     );
   });
+
 
 
   it("post navbar", done => {
-    request(
+    request.post(
       {
-        method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/navbar",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: navbar
       },
       (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        data = body;
-        navbar.id = body.id;
-        expect(data.description).toBe(navbar.description);
-        expect(data.language_id).toBeTruthy(true);
-        done();
-      }
-    );
-  });
-
-   it("get navbar", done => {
-    request(
-      {
-        method: "get",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/navbar"
-      },
-      (error, response, body) => {
-    
-          expect(body).toEqual([]);
+        if (error) { console.log(error) }
+        else {
           expect(response.statusCode).toBe(200);
-        done();
+          data = body;
+          navbar.id = body.id;
+          expect(data.description).toBe(navbar.description);
+          expect(data.language_id).toBeTruthy();
+          done();
+        }
       }
     );
   });
 
-  it("should update navbar", done => {
-    navbar.description = "name_update";
-    navbar.language_id = 2;
-
-
-    request.put(
-      {
-        url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
-        json: true,
-        headers: { authorization: 'Bearer ' + token },
-        body: navbar
-      },
-
-      (error, response, body) => {
+    it("get navbar", done => {
+      request(
+        {
+          method: "get",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/navbar"
+        },
+        (error, response, body) => {
       
-        expect(body.description).toBe(navbar.description);
-        expect(data.language_id).toBeTruthy(true);
-        done();
-      }
-    );
-  });
+            expect(body).toEqual([]);
+            expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    });
 
-  it("delete navbar", done => {
-    request(
-      {
-        method: "delete",
-        json: true,
-        url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
-        headers: { authorization: 'Bearer ' + token }
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  });
+   it("should update navbar", done => {
+      navbar.description = "name_update";
+   
+      request.put(
+        {
+          url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
+          json: true,
+          headers: { authorization: 'Bearer ' + obj.token },
+          body: navbar
+        },
+  
+        (error, response, body) => {
+        
+          expect(body.description).toBe(navbar.description);
+          expect(data.language_id).toBeTruthy();
+          done();
+        }
+      );
+    }); 
+
+   it("delete navbar", done => {
+      request(
+        {
+          method: "delete",
+          json: true,
+          url: SERVER_ADDRESS_FULL + "/api/navbar/" + navbar.id,
+          headers: { authorization: 'Bearer ' + obj.token }
+        },
+        (error, response, body) => {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
+      );
+    });
 });
- */

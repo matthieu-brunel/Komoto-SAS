@@ -35,7 +35,7 @@ router.post("/", Auth, (req, res) => {
 
 router.get("/", (req, res) => {
   const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt, l.locale, r.language_id FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language_id WHERE r.section=? AND r.language_id=?`;
-  connection.query(sql, [req.query.section,req.query.language_id], (error, results, fields) => {
+  connection.query(sql, [req.query.section, req.query.language_id], (error, results, fields) => {
     if (error) {
 
       res.status(501).send("couldn't get reference");
@@ -93,7 +93,10 @@ router.put("/:id", Auth, (req, res) => {
       if (error) {
         res.status(501).send("couldn't put reference" + error);
       } else {
-        res.json(results);
+        res.json({
+          "update": "success",
+          "reference": reference
+        });
 
         let id_image = reference.image_id;
         const sql = "SELECT * FROM image WHERE id=?";
@@ -220,7 +223,7 @@ router.put("/:id", Auth, (req, res) => {
 
 router.delete("/:id", Auth, (req, res) => {
   const idReference = req.params.id;
-
+  console.log(req.body);
   const sql = "SELECT i.url FROM reference AS r JOIN image AS i ON i.id=r.image_id WHERE r.id=?";
   connection.query(sql, [idReference,], (error, results, fields) => {
 
@@ -256,7 +259,7 @@ router.delete("/:id", Auth, (req, res) => {
             res.status(200).json({ "id": req.params.id });
           }
         });
-      }else{
+      }/* else{
         const sqlImage = "DELETE image FROM image JOIN reference ON image.id=reference.image_id WHERE reference.id=?";
         connection.query(sqlImage, [idReference], (error, results, fields) => {
           if (error) {
@@ -272,7 +275,7 @@ router.delete("/:id", Auth, (req, res) => {
             });
           }
         });
-      }
+      } */
 
     }
   });

@@ -75,9 +75,8 @@ router.get("/:id", (req, res) => {
 
 router.put("/:id",Auth, (req, res) => {
   const idhomepage = req.params.id;
-  const homepage = req.body;
-  console.log(req.body);
-
+  const homepage = req.body[0];
+ 
   const sql = `UPDATE homepage SET subtitle=?, title=?, section=?, description=?,language_id=?, image_id=? WHERE id=${idhomepage}`;
   connection.query(
     sql,
