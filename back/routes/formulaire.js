@@ -7,10 +7,10 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const formulaire = req.body;
-  const sql = "INSERT INTO formulaire (name, id_locale) VALUES (?, ?)";
+  const sql = "INSERT INTO formulaire (name, language_id) VALUES (?, ?)";
   connection.query(
     sql,
-    [formulaire.name, formulaire.id_locale],
+    [formulaire.name, formulaire.language_id],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't post formulaire" + error);
@@ -23,8 +23,8 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT  c.name, l.locale FROM formulaire AS c JOIN language AS l ON c.id_locale = l.id WHERE l.locale=?`;
-  connection.query(sql, [req.query.locale], (error, results, fields) => {
+  const sql = `SELECT f.name, l.locale, f.id FROM formulaire AS f JOIN language AS l ON f.language_id = l.id WHERE f.language_id=?`;
+  connection.query(sql, [req.query.language_id], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get formulaire");
     } else {
@@ -42,6 +42,7 @@ router.get("/all", (req, res) => {
     }
   });
 });
+
 router.get("/:id", (req, res) => {
   const idformulaireOne = parseInt(req.params.id);
   const sql = "SELECT * FROM formulaire where id = ?";
@@ -53,15 +54,16 @@ router.get("/:id", (req, res) => {
     }
   });
 });
+
 router.put("/:id", Auth, (req, res) => {
   const idformulaire = req.params.id;
   const formulaire = req.body;
 
-  const sql = `UPDATE formulaire SET name=?, id_locale=? WHERE id=${idformulaire}`;
+  const sql = `UPDATE formulaire SET name=?, language_id=? WHERE id=${idformulaire}`;
 
   connection.query(
     sql,
-    [formulaire.name, formulaire.id_locale, idformulaire],
+    [formulaire.name, formulaire.language_id, idformulaire],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't put formulaire" + error);
@@ -73,7 +75,7 @@ router.put("/:id", Auth, (req, res) => {
 });
 router.delete("/:id", Auth, (req, res) => {
   const idformulaire = req.params.id;
-  const sql = "DELETE  FROM formulaire WHERE id=?";
+  const sql = "DELETE FROM formulaire WHERE id=?";
   connection.query(sql, [idformulaire], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put formulaire" + error);

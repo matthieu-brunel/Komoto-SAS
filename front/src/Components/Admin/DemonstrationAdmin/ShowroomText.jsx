@@ -51,27 +51,42 @@ class ShowroomText extends Component {
     }
 
     getStartedText = async () => {
+        const { language_id } = this.props;
+        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/demonstration/text?section=demonstration_text&language_id=' + language_id;
+
+        console.log(url);
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('demonstration/text', 'demonstration_text', this.props.locale);
-        let description = data.length > 0 ? JSON.parse(data[0].description) : "";
-        let labelMenuDrop = data.length > 0 ? description.labelMenuDrop : "";
+        //let data = await getRessources('demonstration/text', 'demonstration_text', language_id);
+        fetch(url, {
+            method: "GET",
+            "content-type:": "application/json",
+            'authorization': 'Bearer ' + localStorage.getItem('token')
+        }).then(data => data.json()).then(data => {
+            let description = data.length > 0 ? JSON.parse(data[0].description) : "";
+            let labelMenuDrop = data.length > 0 ? description.labelMenuDrop : "";
 
-        let titre = data.length > 0 ? data[0].title : "";
-        description = description.description;
+            let titre = data.length > 0 ? data[0].title : "";
+            description = description.description;
 
-        this.setState({ dataText: data, description: description, labelMenuDrop: labelMenuDrop, title: titre });
+            this.setState({ dataText: data, description: description, labelMenuDrop: labelMenuDrop, title: titre });
+        })
+
+
+
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.locale !== this.props.locale) {
-            this.setState({ dataText: [], title: "", description: "",labelMenuDrop:"" });
+            this.setState({ dataText: [], title: "", description: "", labelMenuDrop: "" });
+            this.getStartedText();
+        } else if (prevProps.language_id !== this.props.language_id) {
             this.getStartedText();
         }
     }
 
 
     closeModal = () => {
-        this.setState({ dataText: [], title: "", description: "",labelMenuDrop:"" });
+        this.setState({ dataText: [], title: "", description: "", labelMenuDrop: "" });
         this.getStartedText();
     }
 
@@ -102,16 +117,7 @@ class ShowroomText extends Component {
             return options;
         }
 
-        const { arrayLang, locale } = this.props;
-        let language = null;
 
-        for (let i = 0; i < arrayLang.length; i++) {
-            for (let [ ,value] of Object.entries(arrayLang[i])) {
-                if (locale === value) {
-                    language = arrayLang[i].id;
-                }
-            }
-        }
 
         let obj = {};
         obj.description = this.state.description;
@@ -125,8 +131,8 @@ class ShowroomText extends Component {
             'description': JSON.stringify(obj),
             'model_url': "",
             'model_alt': "",
-            'model_id': "",
-            'language': language
+            'image_id': "",
+            'language_id': this.props.language_id
         }
 
         console.log("avant trasfert :", dataShowroom);
@@ -142,10 +148,9 @@ class ShowroomText extends Component {
     }
 
 
-
     render() {
 
-
+        console.log(this.props.language_id);
         return (
             <div>
                 <div>

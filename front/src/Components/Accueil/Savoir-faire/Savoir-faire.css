@@ -1,25 +1,5 @@
 
-/* permet de baisser le contenu .container-savoirFaire
-.container-savoirFaire{
-    position: relative;
-    top: 25rem;
-} */
 
-/*  on injecte une image e narriere plan depuis la balise style (voir dans le render)
- on peut regler la hauteur de l'image avec height: 100vh; */
-
-
-
-/* reset des margin sinon scroll horizontal */
-.container-savoirFaire-card{
-    margin-right:0!important;
-    margin-left:0!important;
-    width: 100%;
-    flex-wrap: wrap;
-}
-
-/* Div vide qui sera en dessous de .container-savoirFaire
-afin de pousser le reste du contenu vers le bas */
 
 
 .div-vide-savoirFaire{
@@ -31,24 +11,12 @@ afin de pousser le reste du contenu vers le bas */
     width:100%;
 }
 
-.img-savoirfaire{
-    width:100%;
-}
 
-.card-savoirfaire{
-    width:50%;
-} 
-
-
-
-.img-savoirfaire{
-    width:100%;
-}
-
-
-@media screen and (max-width:767px) {
-
+/* Small devices (landscape phones, 576px and up) */
+@media screen and (max-width: 767.98px) {
     .container-savoirFaire-card{
+        display: flex;
+        flex-direction: column;
         margin-right:0!important;
         margin-left:0!important;
         align-items: center;
@@ -59,6 +27,73 @@ afin de pousser le reste du contenu vers le bas */
         height:25rem;
         background-color: #fff;
     }
-    
-    
+
+    .img-savoirfaire{
+        width:15%;
     }
+    
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .container-savoirFaire-card{
+        display: flex;
+        flex-direction: row;
+        margin-right:0!important;
+        margin-left:0!important;
+        align-items: center;
+    }
+
+    .div-vide-savoirFaire{
+        height:25rem;
+        background-color: #fff;
+    }
+
+    .img-savoirfaire{
+        width:40%;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .container-savoirFaire-card{
+        display: flex;
+        flex-direction: row;
+        margin-right:0!important;
+        margin-left:0!important;
+        align-items: center;
+    }
+
+    .div-vide-savoirFaire{
+        height:25rem;
+        background-color: #fff;
+    }
+
+    .img-savoirfaire{
+        width:40%;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .container-savoirFaire-card{
+        display: flex;
+        flex-direction: row;
+        margin-right:0!important;
+        margin-left:0!important;
+        align-items: center;
+    }
+
+    .div-vide-savoirFaire{
+        height:25rem;
+        background-color: #fff;
+    }
+
+    .img-savoirfaire{
+        width:40%;
+    }
+
+    .text-solution{
+        font-size: x-large;
+    }
+}

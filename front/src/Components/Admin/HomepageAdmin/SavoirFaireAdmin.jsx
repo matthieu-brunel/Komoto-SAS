@@ -120,7 +120,8 @@ class SavoirFaireAdmin extends Component {
             urlImage: this.state.savoirFaire[index].url,
             nameImage: this.state.savoirFaire[index].name,
             refIdImage: this.state.savoirFaire[index].homepage_id,
-            titreSection: this.state.savoirFaire[index].title        })
+            titreSection: this.state.savoirFaire[index].title
+        })
     }
 
 
@@ -131,11 +132,26 @@ class SavoirFaireAdmin extends Component {
         this.getStartedSavoirFaire();
     }
 
+    getIdLanguage = () => {
+        let id = 0;
+        for (let locale of this.props.arrayLang) {
+            if (this.props.locale === locale.locale) {
+                id = locale.id;
+                break;
+            }
+        }
+
+        console.log("id : ", id);
+        //console.log(event.target.options[event.target.options.selectedIndex]);
+        return id;
+    }
+
+
     getStartedSavoirFaire = async () => {
         const { locale } = this.props;
 
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
+        let savoirFaire = await getRessources("homepage", "SavoirFaire", this.getIdLanguage());
 
         this.setState({ savoirFaire: savoirFaire });
 
@@ -164,7 +180,7 @@ class SavoirFaireAdmin extends Component {
         let description = this.state.SavoirFaireSelected[0].description;
         description.push(this.state.descriptionSavoirFaire);
         savoirFaire[0].description = description;
-        this.setState({ descriptionSavoirFaire: savoirFaire[0].description});
+        this.setState({ descriptionSavoirFaire: savoirFaire[0].description });
     }
 
     deleteDescription = (index, event) => {
@@ -180,7 +196,7 @@ class SavoirFaireAdmin extends Component {
     getIdSavoirFaireToDelete = (index, event) => {
         let arrayIdSavoirFaire = [];
         arrayIdSavoirFaire.push(this.state.savoirFaire[index].id);
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id_image);
+        arrayIdSavoirFaire.push(this.state.savoirFaire[index].image_id);
 
         this.setState({ SavoirFaireToDelete: arrayIdSavoirFaire });
     }
@@ -188,7 +204,7 @@ class SavoirFaireAdmin extends Component {
     getIdSavoirFaireToEdit = (index, event) => {
         let arrayIdSavoirFaire = [];
         arrayIdSavoirFaire.push(this.state.savoirFaire[index].id);
-        arrayIdSavoirFaire.push(this.state.savoirFaire[index].id_image);
+        arrayIdSavoirFaire.push(this.state.savoirFaire[index].image_id);
         this.getSavoirFaire(index);
         this.setState({ SavoirFaireToEdit: arrayIdSavoirFaire, idToEdit: index });
     }
@@ -218,12 +234,12 @@ class SavoirFaireAdmin extends Component {
         }
 
         const { arrayLang, locale } = this.props;
-        let language = null;
+        let language_id = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
-            for (let  [,value] of Object.entries(arrayLang[i])) {
+            for (let [, value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
-                    language = arrayLang[i].id;
+                    language_id = arrayLang[i].id;
                 }
             }
         }
@@ -233,7 +249,7 @@ class SavoirFaireAdmin extends Component {
             "subtitle": this.state.titreSavoirFaire,
             "description": this.state.descriptionSavoirFaire,
             "section": "savoirFaire",
-            "language": language,
+            "language_id": language_id,
             "image_id": this.state.SavoirFaireToEdit[1]
         };
 
@@ -241,14 +257,12 @@ class SavoirFaireAdmin extends Component {
             "name": this.state.nameImage,
             "url": this.state.urlImage,
             "alt": this.state.altImage,
-            "section": "savoirFaire",
-            "homepage_id": 0
-        };
+            "section": "savoirFaire"
+        }
 
 
         const documentImage = new FormData();
         documentImage.append("file", this.state.document);
-
 
         const options = {
             method: "POST",
@@ -263,24 +277,24 @@ class SavoirFaireAdmin extends Component {
 
 
 
-            // fetch pour envoi d el'image dans le dossier back/public/images
-            let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
-            
-            this.state.document !== null && fetch(url, options).then(res => res.json()).then(res => console.log(res));
+        // fetch pour envoi d el'image dans le dossier back/public/images
+        let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/uploadImage';
 
-            // fetch pour modification des champs de la table image
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.SavoirFaireToEdit[1]}`;
-            fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
+        if (this.state.document !== null) { fetch(url, options).then(res => res.json()).then(res => console.log(res)); }
 
-            // fetch pour modification des champs de la table homepage
-            url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.SavoirFaireToEdit[0]}`;
-            fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
+        // fetch pour modification des champs de la table image
+        url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/image/${this.state.SavoirFaireToEdit[1]}`;
+        fetch(url, init(dataImage)).then(res => res.json()).then(res => console.log(res));
+
+        // fetch pour modification des champs de la table homepage
+        url = `${REACT_APP_SERVER_ADDRESS_FULL}/api/homepage/${this.state.SavoirFaireToEdit[0]}`;
+        fetch(url, init(data)).then(res => res.json()).then(res => console.log(res));
 
 
-            //on réactualise les spécialisations
-            this.getStartedSavoirFaire();
-            $("#uploadFileEditSavoirFaireAdmin")[0].value = "";
-     
+        //on réactualise les spécialisations
+        this.getStartedSavoirFaire();
+        $("#uploadFileEditSavoirFaireAdmin")[0].value = "";
+
 
     }
 
@@ -370,10 +384,10 @@ class SavoirFaireAdmin extends Component {
                             </div>
                             <div className="modal-body">
                                 {this.state.savoirFaire.length > 0 && <div className="form-group">
-                                    <div className="form-group">
+                                    {this.state.idToEdit === 0 && <div className="form-group">
                                         <label htmlFor="titre-section">Titre de la section savoir-faire</label>
                                         <input className="form-control" value={this.state.titreSection} id="titre-section-savoirFaire" type="text" placeholder="titre de la section" onChange={this.handleChangeInput} />
-                                    </div>
+                                    </div>}
                                     <label>Saisir le titre du savoir-faire</label>
                                     <input type="text" className="form-control" value={this.state.titreSavoirFaire} id="titre-savoirFaire-admin" onChange={this.handleChangeInput} />
 

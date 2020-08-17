@@ -4,7 +4,8 @@ require("dotenv").config();
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 let obj = {
-  id: null
+  id: null,
+  array_id: []
 };
 
 describe("test mail CRUD", () => {
@@ -14,7 +15,7 @@ describe("test mail CRUD", () => {
   const mail = {
     category: "test_category",
     description: "test_description",
-    date:'mail destinaire'
+    date: 'mail destinataire'
   };
 
 
@@ -48,8 +49,8 @@ describe("test mail CRUD", () => {
         body: mail
       },
       (error, response, body) => {
-        //console.log("body",body);
         expect(response.statusCode).toBe(200);
+       
         obj.id = body.id;
         data = body;
         mail.id = body.id;
@@ -67,7 +68,7 @@ describe("test mail CRUD", () => {
         method: "get",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail",
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
@@ -80,12 +81,12 @@ describe("test mail CRUD", () => {
     mail.category = "new put";
     mail.description = "new put";
     mail.date = "new put";
-
+    mail.id = mail.id;
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: mail
       },
 
@@ -104,9 +105,11 @@ describe("test mail CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token },
+        body: mail
       },
       (error, response, body) => {
+        expect(body).toBe("delete mail : success")
         expect(response.statusCode).toBe(200);
         done();
       }

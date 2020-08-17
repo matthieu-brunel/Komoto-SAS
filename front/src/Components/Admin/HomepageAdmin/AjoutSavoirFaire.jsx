@@ -113,7 +113,6 @@ class AjoutSavoirFaire extends Component{
             'name':this.state.nameImage,
             'url':this.state.urlImage,
             'alt':this.state.altImage,
-            'homepage_id':0,
             'section':'savoirFaire'
         }
 
@@ -122,7 +121,7 @@ class AjoutSavoirFaire extends Component{
             'title':this.state.titreSection,
             'section':"savoirFaire",
             'description':description,
-            'language':idLang,
+            'language_id':idLang,
             'image_id':0
         }
 

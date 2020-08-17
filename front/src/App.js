@@ -21,13 +21,13 @@ class App extends Component {
     super(props);
     this.state = {
         arrayLang: [],
-        langSelected: "fr"
+        langSelected: "FR"
     }
 }
 
 render() {
     return (
-      <div className="App">
+      <div className="App text-center">
 
         <div>
           <Clients />
@@ -53,6 +53,4 @@ render() {
 }
 
 
-
 export default App;
-

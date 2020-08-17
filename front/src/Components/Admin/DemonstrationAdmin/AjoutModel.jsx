@@ -103,15 +103,14 @@ class AjoutModel extends Component {
             'description': "",
             'model_url': this.state.nameModel,
             "model_alt": this.state.altShowroom,
-            "model_id": 0,
-            'language': 0
+            "image_id": null,
+            'language_id': this.props.language_id
         }
 
         let dataImage = {
             'name': this.state.nameImage,
             'url': this.state.urlImage,
             'alt': this.state.altImage,
-            'homepage_id': 0,
             'section': "showroom"
         }
 
@@ -141,7 +140,7 @@ class AjoutModel extends Component {
                 .then(res => res.json())
                 .then(res => {
                     console.log(res.id);
-                    dataHomepage.model_id = res.id;
+                    dataHomepage.image_id = res.id;
                 })
 
             const uploadImage = new FormData()

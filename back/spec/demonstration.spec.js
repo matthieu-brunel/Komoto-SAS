@@ -1,11 +1,21 @@
 const request = require("request");
 require("dotenv").config();
 
+
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 let obj = {
   id: null
 };
+
+let obj_image = {
+  id: null
+};
+
+let obj_language = {
+  id: null
+};
+
 
 describe("test demonstration CRUD", () => {
   let server = null;
@@ -17,8 +27,9 @@ describe("test demonstration CRUD", () => {
     section: "test_section",
     description: "test_description",
     model_url: "test_model_url",
-    model_alt:"test_model_alt",
-    model_id:1
+    model_alt: "test_model_alt",
+    image_id: null,
+    language_id: null
   };
 
 
@@ -34,8 +45,47 @@ describe("test demonstration CRUD", () => {
         }
       },
       (error, response, body) => {
-        token = response.body.token;
+        if (error) {
+          console.log(error)
+        } else {
+          token = response.body.token;
+          done();
+        }
 
+      }
+    );
+  });
+
+  let data_image = {};
+
+
+  it("get image", done => {
+    request(
+      {
+        method: "get",
+        json: true,
+        url: SERVER_ADDRESS_FULL + "/api/image"
+      },
+      (error, response, body) => {
+        obj_image.id = response.body[0].id;
+        demonstration.image_id = obj_image.id;
+        expect(response.statusCode).toBe(200);
+        done();
+      }
+    );
+  });
+
+  it("get language_id", done => {
+    request(
+      {
+        method: "get",
+        json: true,
+        url: SERVER_ADDRESS_FULL + "/api/language"
+      },
+      (error, response, body) => {
+        obj_language.id = response.body[0].id;
+        demonstration.language_id = obj_language.id;
+        expect(response.statusCode).toBe(200);
         done();
       }
     );
@@ -50,16 +100,13 @@ describe("test demonstration CRUD", () => {
         url: SERVER_ADDRESS_FULL + "/api/demonstration",
         headers: {
           authorization: 'Bearer ' + token
-      },
+        },
         body: demonstration
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
-
         obj.id = body.id;
-
         data = body;
-
         demonstration.id = body.id;
         expect(data.subtitle).toBe(demonstration.subtitle);
         expect(data.title).toBe(demonstration.title);
@@ -67,6 +114,8 @@ describe("test demonstration CRUD", () => {
         expect(data.description).toBe(demonstration.description);
         expect(data.model_alt).toBe(demonstration.model_alt);
         expect(data.model_url).toBe(demonstration.model_url);
+        expect(data.language_id).toBeTruthy();
+        expect(data.image_id).toBeTruthy();
         done();
       }
     );
@@ -93,23 +142,26 @@ describe("test demonstration CRUD", () => {
     demonstration.description = "put_des";
     demonstration.model_alt = "put_model_alt";
     demonstration.model_url = "put_mod";
-
+    demonstration.image_id = 2;
+    demonstration.language_id = 5;
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/demonstration/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: demonstration
       },
 
       (error, response, body) => {
-        //console.log("PUT", body);
+
         expect(body.subtitle).toBe(demonstration.subtitle);
         expect(body.title).toBe(demonstration.title);
         expect(body.section).toBe(demonstration.section);
         expect(body.description).toBe(demonstration.description);
         expect(body.model_alt).toBe(demonstration.model_alt);
         expect(body.model_url).toBe(demonstration.model_url);
+        expect(data.image_id).toBeTruthy();
+        expect(data.language_id).toBeTruthy();
         done();
       }
     );
@@ -121,7 +173,7 @@ describe("test demonstration CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/demonstration/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
@@ -130,3 +182,5 @@ describe("test demonstration CRUD", () => {
     );
   });
 });
+
+

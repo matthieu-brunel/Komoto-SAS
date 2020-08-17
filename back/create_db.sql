@@ -55,7 +55,7 @@ CREATE TABLE `demonstration` (
   `description` text NOT NULL,
   `model_url` text NOT NULL,
   `model_alt` text NOT NULL,
-  `model_id` int(11) NOT NULL,
+  `image_id` int(11) NOT NULL,
   `language` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

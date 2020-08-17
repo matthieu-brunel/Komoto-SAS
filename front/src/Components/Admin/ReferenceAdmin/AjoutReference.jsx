@@ -247,7 +247,6 @@ class AjoutReferenceAdmin extends Component {
             'name': this.state.nameReference,
             'url': JSON.stringify(objetImageFinal),
             'alt': "",
-            'homepage_id': 0,
             'section': "reference"
         }
 
@@ -256,12 +255,14 @@ class AjoutReferenceAdmin extends Component {
             sectionDescription.push(i);
         }
 
+        console.log(sectionDescription);
+
         let dataReference = {
             'title': this.state.titrePage,
             'title_section': this.state.titreAccueil,
             "subtitle": this.state.nameReference,
             'description': JSON.stringify(sectionDescription),
-            'language': idLang,
+            'language_id': idLang,
             'image_id': 0,
             "section": "reference"
         }

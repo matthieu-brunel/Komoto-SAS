@@ -5,22 +5,25 @@ const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 class ReferenceAccueil extends Component {
-  constructor() {
-    super();
+  _isMounted = false;
+  constructor(props) {
+    super(props);
     this.state = {
       reference: []
     };
   }
 
-  componentDidMount = async () => {
-    const { locale } = this.props;
-    console.log(locale);
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + locale;
+  getStartedData = async () => {
+    this._isMounted = true;
+    const { locale, language_id } = this.props;
+
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&language_id=' + language_id;
+
     const data = await (await (fetch(url))).json();
-    
+
     let arrayReference = [];
 
-    for(let obj of data){
+    for (let obj of data) {
       let url = JSON.parse(obj.url);
       let description = JSON.parse(obj.description);
       obj.url = url;
@@ -28,29 +31,51 @@ class ReferenceAccueil extends Component {
       arrayReference.push(obj);
     }
 
-    this.setState({reference:arrayReference});
+    this.setState({ reference: arrayReference });
+  }
+
+  componentDidMount = () => {
+    this.getStartedData();
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getStartedData();
+      this.componentWillUnmount();
+    }
+  }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
 
 
   render() {
     return (
-      <div  className="container-reference">
-        <div className="div-title-reference mb-5">
-          <h2 className="title-reference text-left">
+      <div id="ReferenceAccueil" className="container-reference text-center mt-5">
+        <div className="div-title-reference pt-3 pb-3"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out">
+          <h2 className="title-reference p-4">
             {this.state.reference.length > 0
               ? this.state.reference[0].title_section
               : "Titre 1"}
           </h2>
         </div>
-        <div className="container-div-img">
+        <div className="container-div-img mb-5">
           {this.state.reference.map((element, index) => (
-            <div id="ReferenceAccueil" className="div-reference" key={index}>
+            <div className="div-reference" key={index}
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
               <NavLink to={`/Reference/#${element.name}`}>
                 <img
                   className="img-reference"
-                  src={REACT_APP_SERVER_ADDRESS_FULL+"/images/" + element.url.logoRef[0].name}
+                  src={REACT_APP_SERVER_ADDRESS_FULL + "/images/" + element.url.logoRef[0].name}
                   alt={element.url.logoRef[0].alt}
                 />
               </NavLink>

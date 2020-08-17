@@ -75,8 +75,8 @@ class EditModel extends Component {
             'description': "",
             'model_url': this.state.nameModel,
             "model_alt": this.state.altShowroom,
-            "model_id": 0,
-            'language': 0
+            "image_id": 0,
+            'language_id': 0
         }
 
         let dataImage = {
@@ -113,7 +113,7 @@ class EditModel extends Component {
                 .then(res => res.json())
                 .then(res => {
                     console.log(res.id);
-                    dataHomepage.model_id = res.id;
+                    dataHomepage.image_id = res.id;
                 })
 
             const uploadImage = new FormData()

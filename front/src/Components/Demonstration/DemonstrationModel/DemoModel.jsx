@@ -5,6 +5,7 @@ import getRessources from "../../../utils/getRessources";
 
 
 class DemoModel extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -20,11 +21,21 @@ class DemoModel extends Component {
     };
 
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+  
   componentDidMount = async () => {
 
-    const { locale } = this.props;
-    let dataModel = await getRessources("demonstration", "demonstration_model", locale);
-    let data_text = await getRessources("demonstration/text", "demonstration_text", locale);
+    const { locale, language_id } = this.props;
+    let dataModel = await getRessources("demonstration", "demonstration_model", language_id);
+    let data_text = await getRessources("demonstration/text", "demonstration_text", language_id);
+    console.log(data_text);
+    console.log(dataModel);
 
     let objDescription = data_text.length > 0 ? JSON.parse(data_text[0].description) : null;
     let description;
@@ -33,8 +44,8 @@ class DemoModel extends Component {
     arrayObj.push(objDescription);
 
     if (arrayObj.length > 0) {
-      description = objDescription.description;
-      labelBtn = objDescription.labelMenuDrop;
+      description = objDescription !== null ? objDescription.description : "";
+      labelBtn = objDescription !== null ?  objDescription.labelMenuDrop : "";
     }
 
     let arrayDataShowroom = [];
@@ -77,7 +88,7 @@ class DemoModel extends Component {
 
     return (
       <div className="">
-        {showroom_text.length > 0 &&
+                {showroom_text.length > 0 &&
           <div>
             <div className="show-title">
               <h2 className="show-title-text">{showroom_text.length > 0 && showroom_text[0].title}</h2>

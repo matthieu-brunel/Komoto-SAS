@@ -3,9 +3,13 @@ import './Specialisation.css';
 import getRessources from '../../../utils/getRessources';
 import "animate.css/animate.min.css";
 import ScrollAnimation from 'react-animate-on-scroll';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 
 class SpecialisationAccueil extends Component {
+  _isMounted = false;
   constructor() {
     super()
     this.state = {
@@ -13,7 +17,7 @@ class SpecialisationAccueil extends Component {
     }
   }
 
-   getTextToList(data) {
+  getTextToList(data) {
     //variable objet qui servira à accueillir les données
     let objet = data;
     //variable array_description qui servira a convertir le contenu description en tableau grace au slash
@@ -22,58 +26,74 @@ class SpecialisationAccueil extends Component {
     objet.description = array_description;
     //on met a jour le state avec la nouvelle valeur [specialisation=state:[...this.state.specialisation=state actuel,objet=variable objet qui contient les nouvelles données]]
     this.setState({ specialisation: [...this.state.specialisation, objet] });
-  } 
+  }
 
-   componentDidMount = async () => {
-    const { locale } = this.props;
+  getData = async () => {
+    this._isMounted = true;
+    const { locale, language_id } = this.props;
     //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-    let data = await getRessources('homepage', 'specialisation',locale);
-    
+    let data = await getRessources('homepage', 'specialisation', language_id);
+
     //une boucle qui permettra d'itérer chaque objet et de l'envoyer dans la fonction getTextToList
-     for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       this.getTextToList(data[i]);
     }
   }
+  componentDidMount = async () => {
+    this.getData();
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.idLang !== this.props.idLang) {
+      this.getData();
+    }
+  }
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
+
 
 
   render() {
     const { specialisation } = this.state;
-   
+
     return (
-      <div className="">
+      <div className="div-container-spec text-center pt-5">
         <div className="">
-    <h2 className="div-title-specialisation title-specialisation">{specialisation.length > 0 && specialisation[0].title}</h2>
+          <h2 className="div-title-specialisation title-specialisation pb-5">{specialisation.length > 0 && specialisation[0].title}</h2>
         </div>
 
-        <div className="container test1">
+        <div className="container cards"
+          data-aos="fade-up"
+          data-aos-duration="500"
+          data-aos-easing="ease-in-out">
+
           {specialisation.map((specialisation, index) => {
             return (
-
-              <div className="card p-2  tl-card" key={index} >
-                <ScrollAnimation animateIn='fadeIn'>
-                  <div className="div-img-spe container ">
-                    <img src={specialisation.url} className="card-img-top size-img " alt={specialisation.alt} />
-                  </div>
-                </ScrollAnimation>
-                <div className="card-body">
-                  <ScrollAnimation animateIn='fadeIn'>
-                    <div className="">
-                      <h5 className="card-title">{specialisation.subtitle}</h5>
+              <div className="col-sm-6 p-3" key={index}
+                data-aos="fade-up"
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out">
+                <div className="card">
+                  <img src={specialisation.url} className="card-img-top" alt={specialisation.alt} />
+                  <div className="card-body">
+                    <h2 className="card-title font-weight-bold mb-4">{specialisation.subtitle}</h2>
+                    <div className="card-text text-left">
+                      {specialisation.description.map((list, index2) => (<div key={index2}><ul><li className="checkList-spec-accueil ">{list}</li></ul></div>))}
                     </div>
-                  </ScrollAnimation>
-
-                  <ScrollAnimation animateIn='fadeIn'>
-                  <div className=" card-text">
-                 
-                  {specialisation.description.map((list, index) => (<div key={index}><ul><li>{list}</li></ul></div>))}
                   </div>
-                  </ScrollAnimation>
                 </div>
-
               </div>
 
             )
           })}
+        </div>
+        <div id="SolutionAccueil" className="div-vide-spec">
+
         </div>
 
       </div>

@@ -42,6 +42,7 @@ class DeleteMail extends Component {
                     }
                 })
                 .catch(err => console.log("ERROR : ", err));
+              
         }
     }
 

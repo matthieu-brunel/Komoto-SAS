@@ -413,15 +413,14 @@ class ModificationReference extends Component {
       }
     }
 
-    let image_id = this.props.refToEdit[1];
 
     let dataReference = {
       'title': this.state.titrePage,
       "subtitle": this.state.nameReference,
       "title_section": this.state.titreAccueil,
       'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionReference),
-      'language': this.props.idLang,
-      'image_id': image_id,
+      'language_id': this.props.idLang,
+      'image_id': this.props.refToEdit[1],
       "section": "reference"
     }
 
@@ -437,7 +436,6 @@ class ModificationReference extends Component {
       'name': this.state.nameReference,
       "url": JSON.stringify(objet),
       'alt': "",
-      'homepage_id': 0,
       "section": "reference"
     }
 
@@ -447,8 +445,7 @@ class ModificationReference extends Component {
     await putRessources("reference", id, [dataReference, dataImage]);
 
     // fetch pour la table image
-    let id_image = this.props.refToEdit[1];
-    await putRessources("image", id_image, dataImage);
+    await putRessources("image", this.props.refToEdit[1], dataImage);
 
 
     $('.registered-section-ok').show();
@@ -537,7 +534,7 @@ class ModificationReference extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div id="accordion" className="position-tab pt-3">
           <div className="card">
             <div className="card-header" id="headingOne">
@@ -564,7 +561,7 @@ class ModificationReference extends Component {
                 <div className="alert alert-success registered-title-ok" role="alert">
                   <p>Enregistrement des modifications réussi.</p>
                 </div>
-                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button>
+             {/*    <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
 
               </div>
@@ -779,7 +776,7 @@ class ModificationReference extends Component {
                 <div className="alert alert-success registered-image-ok" role="alert">
                   <p>Enregistrement des modifications réussi.</p>
                 </div>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+              {/*   <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
               </div>
             </div>

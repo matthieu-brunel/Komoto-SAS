@@ -1,37 +1,284 @@
-.div-header-savoirFaire {
-    
-    display: flex;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;
-    
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
 
 .test55{
     display: flex;
 }
 
-.test44{
-    position: relative;
-    top: 15rem;
+
+.div-background-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    height: 30vw;
+    background-size:contain;
+}
+
+.div-text-h1-accueil{
+    width: 50%;
+}
+
+.text-accueil{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 3rem;
+    padding: 9rem;
 }
 
 
 
-@media screen and (max-width:767px) {
 
 
-    .test55{
-    display: flex;
-    flex-direction: column;
-    }
-    
-
-    .test44{
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .section-savoirFaire-accueil{
         position: relative;
-        top: 37rem;
+        top: 5rem;
     }
-    
+
+    .div-background-image{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size:cover;
     }
+
+    .text-accueil{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size:2rem;
+        margin-top: -35%;
+        padding: 1rem;
+    }
+
+    .div-text-h1-accueil{
+        width: 100%;
+    }
+ }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .section-savoirFaire-accueil{
+        position: relative;
+        top: 5rem;
+    }
+
+    .div-background-image{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size:cover;
+    }
+
+    .text-accueil{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size:3rem;
+        margin-top: -35%;
+        padding: 1rem;
+    }
+
+    .div-text-h1-accueil{
+        width: 100%;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .section-savoirFaire-accueil{
+        position: relative;
+        top: 5rem;
+    }
+
+    .div-background-image{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size:cover;
+    }
+
+    .text-accueil{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size:3rem;
+        margin-top: -25%;
+        padding: 7rem;
+    }
+
+    .div-text-h1-accueil{
+        width: 100%;
+    }   
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .section-savoirFaire-accueil{
+        position: relative;
+        top: 5rem;
+    }
+
+    .div-background-image{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size:cover;
+    }
+
+    .text-accueil{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size:3rem;
+        margin-top: 11%;
+        padding: 7rem;
+    }
+
+    .div-text-h1-accueil{
+        width: 100%;
+    }     
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .section-savoirFaire-accueil{
+        position: relative;
+        top: 5rem;
+    }
+
+    .div-background-image{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-size:cover;
+    }
+
+    .text-accueil{
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size:5rem;
+        margin-top: -25%;
+        padding: 7rem;
+    }
+
+    .div-text-h1-accueil{
+        width: 60%;
+    }
+
+    .label-arrow{
+        font-size: 1.3rem;
+    }
+
+    /*arrow2 white animation*/
+    .arrow-2{
+        width: 60px;
+        height: 60px;
+        background: #ffffff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50px!important;
+        left: 20px;
+        z-index: 1;
+        display: table;
+      }
+}
+
+/* icon: https://fortawesome.github.io/Font-Awesome/icons/ */
+/* Animation: https://daneden.github.io/animate.css/ */
+
+
+.arrow-container{
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+}
+
+.arrow-1{
+  width: 100px;
+  height: 100px;
+  background: #ffffff;
+  opacity: 0.5;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.arrow-2{
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  z-index: 1;
+  display: table;
+}
+
+.arrow-2:before{
+  width: 52px;
+  height: 52px;
+  content: "";
+  border: 2px solid #19181A;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.arrow-2 i.fa{
+  font-size: 30px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #006064;
+}
+
+/* Custom Animate.css */
+
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
+@-webkit-keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.4, .4, .4);
+            transform: scale3d(.4, .4, .4);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.4, .4, .4);
+            transform: scale3d(.4, .4, .4);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+          animation-name: zoomIn;
+}

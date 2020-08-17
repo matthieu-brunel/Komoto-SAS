@@ -1,15 +1,16 @@
 .container-header-solution{
     display: flex;
+    flex-direction: column;
     padding: 1rem;
 }
 
 .div-logo-solution{
-    width:50%;
+    width:100%;
 }
 
-.img-logo-page-solution{
-    width:100%; 
-}
+/* .img-logo-page-solution{
+    width:50%; 
+} */
 
 .div-titre-page-solution{
     display: flex;
@@ -30,5 +31,6 @@
     .div-logo-solution{
         width:80%;
     }
+
 
 }

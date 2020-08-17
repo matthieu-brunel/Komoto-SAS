@@ -6,6 +6,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 
 
 class SavoirFaireAccueil extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.state = {
@@ -13,35 +14,59 @@ class SavoirFaireAccueil extends Component {
       Header: []
     };
   }
-  componentDidMount = async () => {
-    const { locale } = this.props;
-    let savoirFaire = await getRessources("homepage", "SavoirFaire", locale);
+
+  getData = async () => {
+    this._isMounted = true;
+    const { locale, language_id } = this.props;
+    let savoirFaire = await getRessources("homepage", "SavoirFaire", language_id);
 
     this.setState({ SavoirFaire: savoirFaire });
+  }
+  componentDidMount = async () => {
+    this.getData();
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.language_id !== this.props.language_id) {
+      this.getData();
+     
+    }
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+    this.setState = (state,callback)=>{
+      return;
+  };
+  }
 
   render() {
     return (
-      <div className="container-header-savoirFaire">
+      <div className="container-header-savoirFaire mb-5">
         <div className="container-savoirFaire ">
           {this.state.SavoirFaire.length > 0 && (
 
-            <div className="div-title-savoirFaire ">
+            <div className="div-title-savoirFaire"
+              data-aos="fade-up"
+              data-aos-duration="500"
+              data-aos-easing="ease-in-out">
               <ScrollAnimation animateIn='fadeIn'>
-                <h2 className="title-savoirFaire">{this.state.SavoirFaire[0].title}</h2>
+                <h2 className="title-savoirFaire text-center pb-5">{this.state.SavoirFaire[0].title}</h2>
               </ScrollAnimation>
               <div className="container-savoirFaire-card test55 justify-content-around">
 
-
                 {this.state.SavoirFaire.map((SavoirFaire, index) => {
                   return (
-                    <div className="card-savoirfaire col-lg-3 mb-5" key={index}>
+                    <div className="card-savoirfaire text-center col-lg-2 mb-5" key={index}
+                      data-aos="fade-up"
+                      data-aos-duration="500"
+                      data-aos-easing="ease-in-out">
                       <div>
                         <ScrollAnimation animateIn='fadeIn'>
                           <div>
                             <img className="img-savoirfaire" src={SavoirFaire.url} alt={SavoirFaire.alt} />
                             <div>
-                              <h4>{SavoirFaire.subtitle}</h4>
+                              <h4 className="pt-3">{SavoirFaire.subtitle}</h4>
                               <p>{SavoirFaire.description}</p>
                             </div>
                           </div>

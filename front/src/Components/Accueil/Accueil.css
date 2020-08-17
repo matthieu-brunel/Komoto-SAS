@@ -32,15 +32,16 @@
  
 
 .special{
-    margin-top: 15rem;
+    margin-top: 5rem;
 }
+
 
 
 
 .sticky-wrap {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+   min-height: 100vh;
 }
 
 .sticky-footer {

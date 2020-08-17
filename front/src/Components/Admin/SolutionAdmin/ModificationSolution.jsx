@@ -3,7 +3,7 @@ import putRessources from "./../../../utils/putRessources.js";
 import $ from "jquery";
 import postImages from "./../../../utils/postImages";
 const path = require('path');
-
+const REACT_APP_SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 
 
@@ -12,11 +12,12 @@ class ModificationSolution extends Component {
         super(props);
         this.state = {
             solutionAdmin: [],
-            titrePage: "",
+            titreSolution: "",
             nameSolution: "",
             descriptionSolution: [],
             imagesSolution: [],
             titreAccueil: "",
+            labelBtn: "",
 
             currentModificationTitle: "",
             currentModificationDescription: "",
@@ -108,7 +109,7 @@ class ModificationSolution extends Component {
 
         switch (event.target.id) {
             case "titre-section-edit-sol":
-                this.setState({ titrePage: event.target.value });
+                this.setState({ titreSolution: event.target.value });
                 break;
 
             case "name-solution-admin":
@@ -117,6 +118,10 @@ class ModificationSolution extends Component {
 
             case "name-Accueil":
                 this.setState({ titreAccueil: event.target.value });
+                break;
+
+            case "labelBtn":
+                this.setState({ labelBtn: event.target.value });
                 break;
 
             case "title-description-modification-solution-admin":
@@ -254,6 +259,8 @@ class ModificationSolution extends Component {
         $('.registered-title-ok').hide();
         let description = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].description);
         let images = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].url);
+        let subtitle = JSON.parse(this.props.solutionAdmin[this.props.idToEdit].subtitle);
+        console.log(subtitle);
 
         let arraySolution = [];
         let imageSolution = {};
@@ -262,14 +269,13 @@ class ModificationSolution extends Component {
         arraySolution.push(imageSolution);
 
         this.setState({
-            titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
-            nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
+            titreSolution: this.props.solutionAdmin[this.props.idToEdit].title,
+            nameSolution: subtitle[0],
             titreAccueil: this.props.solutionAdmin[this.props.idToEdit].title_section,
             descriptionSolution: description,
             objetImageLogoSolution: arraySolution,
             objetImageCaroussel: images.imageCaroussel,
-
-
+            labelBtn: subtitle[1],
             imagesSolution: images
 
         });
@@ -291,7 +297,7 @@ class ModificationSolution extends Component {
 
         } else if (prevProps.idToEdit !== this.props.idToEdit) {
             this.setState({
-                titrePage: this.props.solutionAdmin[this.props.idToEdit].title,
+                titreSolution: this.props.solutionAdmin[this.props.idToEdit].title,
                 nameSolution: this.props.solutionAdmin[this.props.idToEdit].subtitle,
             });
 
@@ -337,7 +343,7 @@ class ModificationSolution extends Component {
 
         this.setState({
             descriptionSolution: arrayDescription,
-            titrePage: titrePageAdmin,
+            titreSolution: titrePageAdmin,
             nameSolution: nameSolutionAdmin,
             checkBox: false,
             currentModificationSectionDescription: [],
@@ -375,15 +381,14 @@ class ModificationSolution extends Component {
 
         console.log("descriptionSolution :", descriptionSolution);
 
-        let image_id = this.props.solToEdit[1];
 
         let dataSolution = {
-            'title': this.state.titrePage,
-            "subtitle": this.state.nameSolution,
+            'title': this.state.titreSolution,
+            "subtitle": JSON.stringify([this.state.nameSolution, this.state.labelBtn]),
             "title_section": this.state.titreAccueil,
             'description': this.state.currentModificationSectionDescription.length > 0 ? JSON.stringify(array) : JSON.stringify(this.state.descriptionSolution),
-            'language': this.props.idLang,
-            'image_id': image_id,
+            'language_id': this.props.idLang,
+            'image_id': this.props.solToEdit[1],
             "section": "solution"
         }
 
@@ -400,7 +405,6 @@ class ModificationSolution extends Component {
             'name': this.state.nameSolution,
             "url": JSON.stringify(objet),
             'alt': "",
-            'homepage_id': 0,
             "section": "solution"
         }
 
@@ -410,9 +414,8 @@ class ModificationSolution extends Component {
         await putRessources("solution", id, [dataSolution, dataImage]);
 
         // fetch pour la table image
-        let id_image = this.props.solToEdit[1];
-        await putRessources("image", id_image, dataImage);
 
+        await putRessources("image", this.props.solToEdit[1], dataImage);
 
         $('.registered-section-ok').show();
         $('.registered-title-ok').show();
@@ -489,7 +492,7 @@ class ModificationSolution extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <div id="accordion" className="position-tab pt-3">
                     <div className="card">
                         <div className="card-header" id="headingOne">
@@ -508,16 +511,20 @@ class ModificationSolution extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="titre-section">Titre de la Solution</label>
-                                    <input className="form-control form-control-sm" value={this.state.titrePage} id="titre-section-eit-sol" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
+                                    <input className="form-control form-control-sm" value={this.state.titreSolution} id="titre-section-edit-sol" type="text" placeholder="titre de la solution" onChange={this.handleChangeInput} />
                                 </div>
                                 <div className="form-group">
                                     <label>Nom de la solution</label>
                                     <input type="text" className="form-control form-control-sm" value={this.state.nameSolution} id="name-solution-admin" onChange={this.handleChangeInput} />
                                 </div>
+                                <div className="form-group">
+                                    <label>Label du bouton</label>
+                                    <input type="text" className="form-control form-control-sm" value={this.state.labelBtn} id="labelBtn" onChange={this.handleChangeInput} />
+                                </div>
                                 <div className="alert alert-success registered-title-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button>
+                              {/*   <button type="button" className="btn btn-secondary" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
 
                             </div>
@@ -679,7 +686,7 @@ class ModificationSolution extends Component {
                                 <div className="alert alert-success registered-image-ok" role="alert">
                                     <p>Enregistrement des modifications réussi.</p>
                                 </div>
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button>
+                               {/*  <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModalModificationCancel}>Fermer</button> */}
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleClickValidation}>Enregistrer</button>
                             </div>
                         </div>
@@ -823,7 +830,10 @@ class ModificationSolution extends Component {
                     </div>
                 </div>
 
-                <button className="btn btn-secondary" onClick={this.closeWindowAddSolution}>Fermer le panneau des modifications</button>
+                <div className="container">
+                    <button className="btn btn-secondary" onClick={this.closeWindowAddSolution}>Fermer le panneau des modifications</button>
+                </div>
+
             </div>
 
 

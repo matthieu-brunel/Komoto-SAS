@@ -3,6 +3,7 @@ import AjoutSolution from './AjoutSolution';
 import DeleteSolution from './DeleteSolution';
 import NavBarAdmin from '../NavBarAdmin/NavBar';
 import ModificationSolution from "./ModificationSolution";
+import "./solutionAdmin.css";
 
 
 
@@ -17,6 +18,7 @@ class SolutionAdmin extends Component {
       titreSection: "",
       specSelected: [],
       titreAccueil: "",
+      solutionName:"",
 
       /*solution*/
       arrayDescription: [],
@@ -32,7 +34,7 @@ class SolutionAdmin extends Component {
       idToEdit: null,
       solToEdit: [],
       arrayLang: [],
-      langSelected: "fr",
+      langSelected: "FR",
       idLang: null,
       solutionAdmin: [],
       openEditSolution: false,
@@ -52,19 +54,19 @@ class SolutionAdmin extends Component {
   getAllLang = async () => {
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
     let data = await (await (fetch(url))).json();
-    let language = null;
+    let language_id = null;
 
     for (let i = 0; i < data.length; i++) {
       for (let  [,value] of Object.entries(data[i])) {
         if (this.state.langSelected === value) {
-          language = data[i].id;
+          language_id = data[i].id;
         }
       }
     }
 
     this.setState({
       arrayLang: data,
-      idLang: language
+      idLang: language_id
     });
   }
 
@@ -77,10 +79,14 @@ class SolutionAdmin extends Component {
 
 
   getStartedSolutionAdmin = async () => {
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&locale=' + this.state.langSelected;
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/solution?section=solution&language_id=' + this.state.idLang;
+    console.log(url);
+    console.log("this.state.idLang : ", this.state.idLang);
+    console.log("this.state.arrayLang : ", this.state.arrayLang);
     const data = await (await (fetch(url))).json();
-    console.log("DATA : ", data);
-    this.setState({ solutionAdmin: data});
+ 
+    let solutionName = data.length > 0 && JSON.parse(data[0].subtitle);
+    this.setState({ solutionAdmin: data, solutionName:solutionName[0]});
   }
 
 
@@ -91,6 +97,8 @@ class SolutionAdmin extends Component {
       this.closeModalModificationSolution();
     }else if(prevState.solution !== this.state.solution){
       console.log("je suis !=");
+      this.getStartedSolutionAdmin();
+    }else if(prevState.idLang !== this.state.idLang){
       this.getStartedSolutionAdmin();
     }
   }
@@ -187,7 +195,7 @@ class SolutionAdmin extends Component {
                   this.state.solutionAdmin.map((element, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
-                      <td>{element.subtitle}</td>
+                      <td>{this.state.solutionName}</td>
                       <td>{element.title}</td>
                       <td> {<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editSpecAmdin" onClick={this.getIdSolutionToEdit.bind(this, index)}>Modifier</button>}</td>
                       <td>{<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete-solution-admin" onClick={this.getIdSpecToDelete.bind(this, index)}>Supprimer</button>}</td>

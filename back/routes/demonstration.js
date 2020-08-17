@@ -7,9 +7,9 @@ router.use(parser.json());
 
 router.post("/",Auth, (req, res) => {
   const demonstration = req.body;
-  console.log(demonstration);
+ 
   const sql =
-    "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, model_id, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO demonstration ( title, subtitle, section, description, model_url , model_alt, image_id, language_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -19,8 +19,8 @@ router.post("/",Auth, (req, res) => {
       demonstration.description,
       demonstration.model_url,
       demonstration.model_alt,
-      demonstration.model_id,
-      demonstration.language,
+      demonstration.image_id,
+      demonstration.language_id,
     ],
     (error, results, fields) => {
       if (error) {
@@ -35,7 +35,7 @@ router.post("/",Auth, (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const sql = `SELECT d.id, d.model_url, d.model_id, d.model_alt, i.name, i.url, i.alt FROM demonstration AS d LEFT JOIN image AS i ON d.model_id = i.id WHERE d.section="demonstration_model"`;
+  const sql = `SELECT d.id, d.model_url, d.image_id, d.model_alt, i.name, i.url, i.alt FROM demonstration AS d LEFT JOIN image AS i ON d.image_id = i.id WHERE d.section="demonstration_model"`;
   connection.query(sql, (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");
@@ -58,8 +58,8 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/text", (req, res) => {
-  const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language = l.id WHERE section = ? AND l.locale = ?`;
-  connection.query(sql,[req.query.section, req.query.locale], (error, results, fields) => {
+  const sql = `SELECT d.title, d.id, d.subtitle, d.section, d.description, l.locale FROM demonstration AS d JOIN language AS l ON d.language_id = l.id WHERE section = ? AND d.language_id= ?`;
+  connection.query(sql,[req.query.section, req.query.language_id], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't get demonstration");
     } else {

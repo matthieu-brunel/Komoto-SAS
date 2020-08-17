@@ -50,18 +50,15 @@ class AjoutText extends Component {
 
 
    addNewHeader = async () => {
-        const { arrayLang, locale } = this.props;
-
+        const { arrayLang, language_id } = this.props;
+/* 
         let idLang;
 
         for (let i in arrayLang) {
             if (Object.values(arrayLang[i]).includes(locale)) {
                 idLang = Object.values(arrayLang[i])[2];
             }
-        }
-
-        console.log("BAEBZFZEFZe :",idLang)
-
+        } */
 
         let obj = {};
         obj.description = this.state.description;
@@ -74,8 +71,8 @@ class AjoutText extends Component {
             'description': JSON.stringify(obj),
             'model_url':"",
             'model_alt':"",
-            'model_id': 0,
-            'language': idLang
+            'image_id': null,
+            'language_id': language_id
         }
 
         const options = {

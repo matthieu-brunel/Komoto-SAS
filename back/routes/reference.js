@@ -9,9 +9,8 @@ router.use(parser.json());
 
 router.post("/", Auth, (req, res) => {
   const reference = req.body;
-  console.log(reference)
   const sql =
-    "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language) VALUES (? , ? , ? , ?, ?, ?, ?)";
+    "INSERT INTO reference (title, subtitle, section, title_section, description, image_id, language_id) VALUES (? , ? , ? , ?, ?, ?, ?)";
   connection.query(
     sql,
     [
@@ -21,7 +20,7 @@ router.post("/", Auth, (req, res) => {
       reference.title_section,
       reference.description,
       reference.image_id,
-      reference.language
+      reference.language_id
     ],
     (error, results, fields) => {
       if (error) {
@@ -35,11 +34,11 @@ router.post("/", Auth, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language WHERE r.section=? && i.section=? && locale=?`;
-  connection.query(sql, [req.query.section, req.query.section, req.query.locale], (error, results, fields) => {
+  const sql = `SELECT r.description, r.title_section ,r.id,r.image_id, r.title,r.subtitle, i.name, i.url, i.alt, l.locale, r.language_id FROM reference AS r JOIN image AS i ON r.image_id = i.id JOIN language AS l ON l.id = r.language_id WHERE r.section=? AND r.language_id=?`;
+  connection.query(sql, [req.query.section, req.query.language_id], (error, results, fields) => {
     if (error) {
 
-      res.status(501).send("couldn't get solution");
+      res.status(501).send("couldn't get reference");
     } else {
       res.json(results);
     }
@@ -77,8 +76,7 @@ router.put("/:id", Auth, (req, res) => {
   const reference = req.body[0];
   const referenceDataImage = req.body[1];
 
-
-  const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language=? WHERE id=${idReference}`;
+  const sql = `UPDATE reference SET title=?, subtitle=?, section=?, title_section=?, description=?, image_id=?, language_id=? WHERE id=${idReference}`;
   connection.query(
     sql,
     [
@@ -88,14 +86,17 @@ router.put("/:id", Auth, (req, res) => {
       reference.title_section,
       reference.description,
       reference.image_id,
-      reference.language,
+      reference.language_id,
       idReference
     ],
     (error, results, fields) => {
       if (error) {
         res.status(501).send("couldn't put reference" + error);
       } else {
-        res.json(results);
+        res.json({
+          "update": "success",
+          "reference": reference
+        });
 
         let id_image = reference.image_id;
         const sql = "SELECT * FROM image WHERE id=?";
@@ -134,8 +135,8 @@ router.put("/:id", Auth, (req, res) => {
               if (arrayCurrent.length < arrayNew.length) {
                 for (let i = 0; i < arrayNew.length; i++) {
                   if (!arrayCurrent.includes(arrayNew[i])) {
-                    console.log("ajout du fichier : " + arrayNew[i]);
-                  }
+/*                     console.log("ajout du fichier : " + arrayNew[i]);
+ */                  }
                   if (!arrayNew.includes(arrayCurrent[i])) {
                     if (arrayCurrent[i] !== undefined) {
                       arrayImageToDelete.push(arrayCurrent[i]);
@@ -163,22 +164,22 @@ router.put("/:id", Auth, (req, res) => {
                   }
                 }
               }
-
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("*********************************************************************");
-              console.log("CurrentObj :", currentObj);
-              console.log("newObj :", newObj);
-              console.log("=====================================================================");
-              console.log("=====================================================================");
-              console.log("delete array image :", arrayImageToDelete);
-              console.log("*********************************************************************");
-
-
+              /* 
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("\n");
+                            console.log("*********************************************************************");
+                            console.log("CurrentObj :", currentObj);
+                            console.log("newObj :", newObj);
+                            console.log("=====================================================================");
+                            console.log("=====================================================================");
+                            console.log("delete array image :", arrayImageToDelete);
+                            console.log("*********************************************************************");
+              
+               */
 
             } else {
               for (let i of currentObj.imageCaroussel) {
@@ -191,20 +192,19 @@ router.put("/:id", Auth, (req, res) => {
               for (let i = 0; i < arrayImageToDelete.length; i++) {
                 fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
                   if (err) throw err;
-                  console.log('successfully deleted ' + arrayImageToDelete[i]);
-                });
+/*                   console.log('successfully deleted ' + arrayImageToDelete[i]);
+ */                });
               }
             }
 
 
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, homepage_id=?, section=? WHERE id=${id_image}`;
+            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${id_image}`;
             connection.query(
               sqlUpdate,
               [
                 referenceDataImage.name,
                 referenceDataImage.url,
                 referenceDataImage.alt,
-                referenceDataImage.homepage_id,
                 referenceDataImage.section,
                 id_image
               ],
@@ -223,46 +223,60 @@ router.put("/:id", Auth, (req, res) => {
 
 router.delete("/:id", Auth, (req, res) => {
   const idReference = req.params.id;
-
+  console.log(req.body);
   const sql = "SELECT i.url FROM reference AS r JOIN image AS i ON i.id=r.image_id WHERE r.id=?";
-  connection.query(sql, [idReference], (error, results, fields) => {
+  connection.query(sql, [idReference,], (error, results, fields) => {
 
     if (error) {
       res.status(501).send("couldn't get solution for delete images solution");
     } else {
+      if (results[0].url !== "test_url_image") {
+        let arrayImageToDelete = [];
 
-      console.log(JSON.parse(results[0].url));
+        let currentObj = JSON.parse(results[0].url);
+        /*  console.log("currentObj :", currentObj); */
 
-      let arrayImageToDelete = [];
-
-      let currentObj = JSON.parse(results[0].url);
-      console.log("currentObj :", currentObj);
-
-      for (let nameObj in currentObj) {
-        for (let i of currentObj[nameObj]) {
-          arrayImageToDelete.push(i.name);
+        for (let nameObj in currentObj) {
+          for (let i of currentObj[nameObj]) {
+            arrayImageToDelete.push(i.name);
+          }
         }
-      }
 
-      console.log(arrayImageToDelete);
-
-      if (arrayImageToDelete.length > 0) {
-        for (let i = 0; i < arrayImageToDelete.length; i++) {
-          fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
-            if (err) throw err;
-            console.log('successfully deleted ' + arrayImageToDelete[i]);
-          });
+        if (arrayImageToDelete.length > 0) {
+          for (let i = 0; i < arrayImageToDelete.length; i++) {
+            fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
+              if (err) throw err;
+  /*             console.log('successfully deleted ' + arrayImageToDelete[i]);
+   */          });
+          }
         }
-      }
 
-      const sqlReference = "DELETE FROM reference WHERE id=?";
-      connection.query(sqlReference, [idReference], (error, results, fields) => {
-        if (error) {
-          res.status(501).send("couldn't put image" + error);
-        } else {
-          res.status(200).json({ "id": req.params.id });
-        }
-      });
+        const sqlReference = "DELETE FROM reference WHERE id=?";
+        connection.query(sqlReference, [idReference], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't put image" + error);
+          } else {
+            res.status(200).json({ "id": req.params.id });
+          }
+        });
+      }/* else{
+        const sqlImage = "DELETE image FROM image JOIN reference ON image.id=reference.image_id WHERE reference.id=?";
+        connection.query(sqlImage, [idReference], (error, results, fields) => {
+          if (error) {
+            res.status(501).send("couldn't delete image" + error);
+          } else {
+            const sqlReference = "DELETE FROM reference WHERE id=?";
+            connection.query(sqlReference, [idReference], (error, results, fields) => {
+              if (error) {
+                res.status(501).send("couldn't delete image" + error);
+              } else {
+                res.status(200).json({ "id": req.params.id });
+              }
+            });
+          }
+        });
+      } */
+
     }
   });
 });

@@ -120,7 +120,7 @@ class AjoutShowroom extends Component{
             'title':this.state.titreSection,
             'section':"demonstration",
             'description':description,
-            'language':idLang,
+            'language_id':idLang,
             'image_id':0
         }
 
@@ -186,7 +186,7 @@ class AjoutShowroom extends Component{
                         
                         <div className="form-group">
                             <label htmlFor="titre-savoiFaire-admin">Titre du showroom</label>
-                            <input className="form-control " defaultValue={this.state.titreShowroom} id="titre-savoiFaire-admin" type="text" placeholder="titre de la specialisation" onChange={this.handleChangeInput}/>
+                            <input className="form-control " defaultValue={this.state.titreShowroom} id="titre-savoiFaire-admin" type="text" placeholder="titre" onChange={this.handleChangeInput}/>
                         </div>
 
                         <label>Saisir une description </label>

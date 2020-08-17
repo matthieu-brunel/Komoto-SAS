@@ -1,10 +1,11 @@
-const request = require("request");
+/* const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 let obj = {
-  id: null
+  id: null,
+  image_id: null
 };
 
 describe("test solution CRUD", () => {
@@ -16,8 +17,17 @@ describe("test solution CRUD", () => {
     title: "test_title",
     section: "test_section",
     description: "test_description",
-    language: "french",
-    image_id: 1
+    title_section: "test_title_section",
+    language_id: "french",
+    image_id: obj.image_id
+  };
+
+  const image = {
+    name: "test_name_image",
+    url: "test_url_image",
+    alt: "test_alt_image",
+    homepage_id: 1,
+    section: "test_section_image"
   };
 
 
@@ -39,6 +49,21 @@ describe("test solution CRUD", () => {
         done();
       }
     );
+
+    request(
+      {
+        method: "post",
+        json: true,
+        url: SERVER_ADDRESS_FULL + "/api/image",
+        headers: { authorization: 'Bearer ' + token },
+        body: image
+      },
+      (error, response, body) => {
+        expect(response.statusCode).toBe(200);
+        obj.image_id = body.id;
+        done();
+      }
+    );
   });
 
 
@@ -48,7 +73,7 @@ describe("test solution CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution",
-        headers: {authorization: 'Bearer ' + token},
+        headers: { authorization: 'Bearer ' + token },
         body: solution
       },
       (error, response, body) => {
@@ -63,7 +88,8 @@ describe("test solution CRUD", () => {
         expect(data.title).toBe(solution.title);
         expect(data.section).toBe(solution.section);
         expect(data.description).toBe(solution.description);
-        expect(data.language).toBe(solution.language);
+        expect(data.language_id).toBe(solution.language_id);
+        expect(data.title_section).toBe(solution.title_section);
         expect(data.image_id).toBe(solution.image_id);
         done();
       }
@@ -89,42 +115,47 @@ describe("test solution CRUD", () => {
     solution.title = "new put";
     solution.section = "new put";
     solution.description = "new put";
-    solution.language = "new put";
-    solution.image_id = 2;
+    solution.language_id = "new put";
+    solution.title_section = "new put";
+    solution.image_id = obj.image_id;
 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
         json: true,
-        headers: {authorization: 'Bearer ' + token},
-        body: solution
+        headers: { authorization: 'Bearer ' + token },
+        body: [solution, image]
       },
 
       (error, response, body) => {
-        //console.log("PUT", body);
-        expect(body.subtitle).toBe(solution.subtitle);
-        expect(body.title).toBe(solution.title);
-        expect(body.section).toBe(solution.section);
-        expect(body.description).toBe(solution.description);
-        expect(body.language).toBe(solution.language);
-        expect(body.image_id).toBe(solution.image_id);
+        //console.log("PUT", solution);
+        const response_body = JSON.parse(response.request.body);
+        expect(response_body[0].subtitle).toBe(solution.subtitle);
+        expect(response_body[0].title).toBe(solution.title);
+        expect(response_body[0].section).toBe(solution.section);
+        expect(response_body[0].description).toBe(solution.description);
+        expect(response_body[0].language_id).toBe(solution.language_id);
+        expect(response_body[0].title_section).toBe(solution.title_section);
+        expect(response_body[0].image_id).toBe(solution.image_id);
         done();
       }
     );
   });
 
-it("delete solution", done => {
+  it("delete solution", done => {
     request(
       {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
-        headers: {authorization: 'Bearer ' + token}
+        headers: { authorization: 'Bearer ' + token },
+        body:obj
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
         done();
       }
     );
-  }); 
+  });
 });
+ */

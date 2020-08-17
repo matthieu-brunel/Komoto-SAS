@@ -39,7 +39,7 @@ class ReferenceAdmin extends Component {
       idToEdit: null,
       refToEdit: [],
       arrayLang: [],
-      langSelected: "fr",
+      langSelected: "FR",
       idLang: null,
       referenceAdmin: [],
       openEditReference: false,
@@ -135,19 +135,20 @@ class ReferenceAdmin extends Component {
   getAllLang = async () => {
     let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/language';
     let data = await (await (fetch(url))).json();
-    let language = null;
+    console.log(data);
+    let language_id = null;
 
     for (let i = 0; i < data.length; i++) {
       for (let [,value] of Object.entries(data[i])) {
         if (this.state.langSelected === value) {
-          language = data[i].id;
+          language_id = data[i].id;
         }
       }
     }
 
     this.setState({
       arrayLang: data,
-      idLang: language
+      idLang: language_id
     });
   }
 
@@ -159,7 +160,7 @@ class ReferenceAdmin extends Component {
 
   getStartedreferenceAdmin = async () => {
 
-    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&locale=' + this.state.langSelected;
+    let url = REACT_APP_SERVER_ADDRESS_FULL + '/api/reference?section=reference&language_id=' + this.state.idLang;
     const data = await (await (fetch(url))).json();
     console.log(data);
     this.setState({ referenceAdmin: data });
@@ -171,6 +172,8 @@ class ReferenceAdmin extends Component {
       this.setState({ reference: "", specSelected: "", titreSection: "" });
       this.getStartedreferenceAdmin();
       this.closeModalModificationReference();
+    }else if(prevState.idLang !== this.state.idLang){
+      this.getStartedreferenceAdmin();
     }
   }
 
@@ -249,12 +252,11 @@ class ReferenceAdmin extends Component {
   render() {
     let options = [];
     for (let i in this.state.arrayLang) {
-
       options.push(<option key={i} id={this.state.arrayLang[i].locale}>{this.state.arrayLang[i].locale}</option>)
     }
 
     return (
-      <div>
+      <div className="text-center">
         <div>
           <NavBarAdmin />
         </div>

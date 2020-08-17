@@ -52,14 +52,14 @@ class ShowroomModel extends Component {
 
     getStartedModel = async () => {
         //on récupère les données depuis la fonction externe getRessources de maniere aysnchrone
-        let data = await getRessources('demonstration', 'demonstration_model', this.props.locale);
+        let data = await getRessources('demonstration', 'demonstration_model', this.props.language_id);
         console.log(data);
 
         this.setState({ dataModel: data });
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.locale !== this.props.locale) {
+        if (prevProps.language_id !== this.props.language_id) {
             this.setState({ dataModel: [] });
             this.getStartedModel();
         }
@@ -87,7 +87,7 @@ class ShowroomModel extends Component {
 
         let arrayId = [];
         arrayId.push(this.state.dataModel[index].id);
-        arrayId.push(this.state.dataModel[index].model_id);
+        arrayId.push(this.state.dataModel[index].image_id);
         this.setState({ ShowroomToDelete: arrayId });
     }
 
@@ -107,12 +107,12 @@ class ShowroomModel extends Component {
         }
 
         const { arrayLang, locale } = this.props;
-        let language = null;
+        let language_id = null;
 
         for (let i = 0; i < arrayLang.length; i++) {
             for (let [key, value] of Object.entries(arrayLang[i])) {
                 if (locale === value) {
-                    language = arrayLang[i].id;
+                    language_id = arrayLang[i].id;
                 }
             }
         }
@@ -129,8 +129,8 @@ class ShowroomModel extends Component {
             'description': JSON.stringify(obj),
             'model_url': "",
             'model_alt': "",
-            'model_id': "",
-            'language': language
+            'image_id': "",
+            'language_id': language_id
         }
 
         console.log("avant trasfert :", dataShowroom);

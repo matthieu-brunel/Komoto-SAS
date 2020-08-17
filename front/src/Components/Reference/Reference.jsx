@@ -15,8 +15,8 @@ class Reference extends Component {
   }
 
   componentDidMount = async () => {
-    const { locale } = this.props;
-    let data = await getRessources("reference", "reference", locale);
+    const { locale, language_id } = this.props;
+    let data = await getRessources("reference", "reference", language_id);
     let arrayReference = [];
     for(let obj of data){
       let url = JSON.parse(obj.url);
@@ -28,6 +28,12 @@ class Reference extends Component {
     
     this.setState({reference:arrayReference});
   };
+
+  componentWillUnmount(){
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
 
 
 

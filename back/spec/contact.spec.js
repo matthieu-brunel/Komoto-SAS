@@ -49,7 +49,6 @@ describe("test formulaire (POST)", () => {
         } else {
           let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toBe("");
           expect(data.societe).toBe(formulaire.societe);
           expect(data.nom).toBe(formulaire.nom);
           expect(data.prenom).toBe(formulaire.prenom);
@@ -77,7 +76,7 @@ describe("test formulaire (POST)", () => {
         if (error) {
           expect(response.statusCode).toBe(501);
         } else {
-        let data = JSON.parse(response.request.body);
+          let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
           expect(response.body.message).toBe("");
           expect(data.societe).toBe(formulaire.societe);
@@ -87,7 +86,7 @@ describe("test formulaire (POST)", () => {
           expect(data.telephone).toBe(formulaire.telephone);
           expect(data.email).toBe(formulaire.email);
           expect(data.message).toBe(formulaire.message);
-          expect(data.document).toBe(formulaire.document); 
+          expect(data.document).toBe(formulaire.document);
         }
         done();
       }
