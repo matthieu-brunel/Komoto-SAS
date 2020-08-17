@@ -20,7 +20,8 @@ class AjoutContact extends Component {
             /*contact*/
             arrayDescription: [],
             addDescription: "",
-            fieldAddName: ""
+            fieldAddName: "",
+            
         }
     }
 
@@ -30,6 +31,7 @@ class AjoutContact extends Component {
             case "fieldAddName":
                 this.setState({ fieldAddName: event.target.value });
                 break;
+      
 
             default:
                 break;
@@ -90,7 +92,9 @@ class AjoutContact extends Component {
         return (
             <div>
                 <div className="container-fieldName-block row align-items-end">
+                    
                     <div className="input-fieldName-formulaire col-8">
+
                         <label htmlFor="fieldAddName">Saisir un nom de label</label>
                         <input className="form-control" type="text" value={this.state.fieldAddName} id="fieldAddName" placeholder="exemple : Société" onChange={this.handleChangeInput} />
                     </div>
@@ -98,28 +102,29 @@ class AjoutContact extends Component {
                     <div className="div-button-add-fieldName col-4">
                         <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter</button>
                     </div>
+                    <div className="d-flex justify-content-end">
+                        <div className="div-recorded-add-contact">
+                            {
+                                arrayDescription.length > 0
+                                    ?
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.sendData}>Enregistrer</button>
+                                    :
+                                    <button type="button" className="btn btn-secondary">Enregistrer</button>
+
+                            }
+                        </div>
+
+                        <div className="div-close-add-contact ml-2">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="div-display-fieldName col-12 mt-3">
                         <DragNDrop list={this.state.arrayDescription} onChange={this.onChange} deleteDescription={this.deleteDescription} />
                     </div>
                 </div>
-                <div className="d-flex justify-content-end">
-                    <div className="div-recorded-add-contact">
-                        {
-                            arrayDescription.length > 0
-                                ?
-                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.sendData}>Enregistrer</button>
-                                :
-                                <button type="button" className="btn btn-secondary">Enregistrer</button>
 
-                        }
-                    </div>
-
-                    <div className="div-close-add-contact ml-2">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
 
 
             </div>
