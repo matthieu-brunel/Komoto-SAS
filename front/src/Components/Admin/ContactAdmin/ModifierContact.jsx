@@ -21,6 +21,7 @@ class ModifierContact extends Component {
             arrayDescription: [],
             addDescription: "",
             fieldAddName: "",
+            fieldAddTitle: "",
             arrayTest: []
         }
     }
@@ -30,6 +31,9 @@ class ModifierContact extends Component {
         switch (event.target.id) {
             case "fieldAddName":
                 this.setState({ fieldAddName: event.target.value });
+                break;
+            case "fieldAddTitle":
+                this.setState({ fieldAddTitle: event.target.value });
                 break;
 
             default:
@@ -41,6 +45,8 @@ class ModifierContact extends Component {
 
         this.setState({ arrayDescription: [...this.state.arrayDescription, this.state.fieldAddName], fieldAddName: "" });
     }
+
+
 
     onChange = (sourceId, sourceIndex, targetIndex, targetId) => {
 
@@ -74,16 +80,16 @@ class ModifierContact extends Component {
     sendData = () => {
 
         let dataFormulaire = this.state.arrayDescription;
+        
+        dataFormulaire.unshift(this.state.fieldAddTitle) ;
+
 
         let objetData = {
             "name": dataFormulaire.join(","),
             "language_id": this.props.language_id
         }
-
-        const url = REACT_APP_SERVER_ADDRESS_FULL + "/api/formulaire/" + this.props.id;
-        console.log(url);
-        console.log(objetData);
-        console.log(this.state);
+         const url = REACT_APP_SERVER_ADDRESS_FULL + "/api/formulaire/" + this.props.id;
+      
         fetch(url, {
             method: "PUT",
             headers: new Headers({
@@ -95,7 +101,7 @@ class ModifierContact extends Component {
             .then(response => response.json())
             .then(response => this.props.getStartedContactAdmin())
             .catch(err => console.log(err.message))
-        this.setState({ arrayDescription: [] });
+        this.setState({ arrayDescription: [] }); 
 
 
     }
@@ -106,6 +112,22 @@ class ModifierContact extends Component {
 
         return (
             <div>
+
+                <div>
+                    <p>merci de saisir les champs dans l'orde suivant : Société , Nom, Prenom, Adresse, Telephone, Email, Description du besoin ,pièce jointe</p>
+                </div>
+                <div className="container-fieldTitle-block row align-items-end">
+                    <div className="input-fieldTitle-formulaire col-8">
+                        <label htmlFor="fieldAddTitle">Saisir un titre</label>
+                        <input className="form-control" type="text" value={this.state.fieldAddTitle} id="fieldAddTitle" placeholder="exemple : Nous contacter" onChange={this.handleChangeInput} />
+                    </div>
+                </div>
+
+
+
+
+
+
                 <div className="container-fieldName-block row align-items-end">
                     <div className="input-fieldName-formulaire col-8">
                         <label htmlFor="fieldAddName">Saisir un nom de label</label>
@@ -116,6 +138,10 @@ class ModifierContact extends Component {
                         <button type="button" className="btn btn-primary" onClick={this.addDescription}>Ajouter</button>
                     </div>
                 </div>
+
+
+
+
                 <div className="row">
                     <div className="div-display-fieldName col-12 mt-3">
                         <DragNDrop list={this.state.arrayDescription.length > 0 ? this.state.arrayDescription : []} onChange={this.onChange} deleteDescription={this.deleteDescription} />
@@ -125,7 +151,7 @@ class ModifierContact extends Component {
                 <div className="d-flex justify-content-end">
                     <div className="div-recorded-add-contact">
                         {
-                            this.state.arrayDescription.length > 0
+                            this.state.arrayDescription.length > 0 && this.state.fieldAddTitle !== ""
                                 ?
                                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.sendData}>Enregistrer</button>
                                 :

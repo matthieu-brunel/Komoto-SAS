@@ -17,7 +17,7 @@ function DragNDrop(props) {
         id="items"
         boxesPerRow={1}
         rowHeight={50}
-        style={{ height: "400px" }}
+        style={{ height: "800px" }}
       >
         {props.list.map((item, index) => (
           <GridItem key={index}>
