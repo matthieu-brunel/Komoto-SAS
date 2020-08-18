@@ -3,10 +3,6 @@ require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null
-};
-
 
 
 describe("test image CRUD", () => {
@@ -14,6 +10,11 @@ describe("test image CRUD", () => {
   let data = {};
 
 
+  let obj = {
+    id: null,
+    token:null
+  };
+  
   const image = {
     name: "test_name",
     url: "test_url",
@@ -34,7 +35,7 @@ describe("test image CRUD", () => {
         }
       },
       (error, response, body) => {
-        token = response.body.token;
+        obj.token = body.token;
         done();
       }
     );
@@ -49,7 +50,7 @@ describe("test image CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/image",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: image
       },
       (error, response, body) => {
@@ -91,7 +92,7 @@ describe("test image CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: image
       },
 
@@ -105,20 +106,6 @@ describe("test image CRUD", () => {
     );
   });
 
-  /*   it("delete image", done => {
-      request(
-        {
-          method: "delete",
-          json: true,
-          url: SERVER_ADDRESS_FULL + "/api/image/" + obj.id,
-          headers: {authorization: 'Bearer ' + token}
-        },
-        (error, response, body) => {
-          expect(response.statusCode).toBe(200);
-          done();
-        }
-      );
-    }); */
 });
 
 

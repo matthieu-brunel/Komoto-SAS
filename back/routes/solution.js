@@ -10,6 +10,7 @@ router.use(parser.json());
 
 
 router.post("/", Auth, (req, res) => {
+
   const solution = req.body;
   const sql =
     "INSERT INTO solution (title, subtitle, section, title_section, description, language_id, image_id) VALUES (? , ? , ? , ?, ? , ?, ?)";
@@ -95,6 +96,7 @@ router.get("/:id", (req, res) => {
 
 
 router.put("/:id", Auth, (req, res) => {
+ 
   const idsolution = req.params.id;
   const solution = req.body[0];
   const solutionDataImage = req.body[1];
@@ -115,122 +117,136 @@ router.put("/:id", Auth, (req, res) => {
       if (error) {
         res.status(501).send("couldn't put solution" + error);
       } else {
-        res.json(results);
-
-        let imageID = solution.image_id;
-        const sql = "SELECT * FROM image WHERE id=?";
-        connection.query(sql, [imageID], (error, results, fields) => {
+        const sql = "SELECT * FROM solution where id = ?";
+        connection.query(sql, [idsolution], (error, results, fields) => {
           if (error) {
-            res.status(501).send("couldn't get image");
+            res.status(501).send("couldn't get solution");
           } else {
+            res.json(results);
+          }
+        });
+        
+        if (req.body[1].url !== "test_url_image") {
+         
 
-            let arrayImageToDelete = [];
-            let currentObj = JSON.parse(results[0].url);
-            let newObj = JSON.parse(solutionDataImage.url);
+          let imageID = solution.image_id;
+          const sql = "SELECT * FROM image WHERE id=?";
+          connection.query(sql, [imageID], (error, results, fields) => {
+            if (error) {
+              res.status(501).send("couldn't get image");
+            } else {
 
-            if (newObj.logoSolution[0].name !== currentObj.logoSolution[0].name) {
-              arrayImageToDelete.push(currentObj.logoSolution[0].name);
-            }
+              let arrayImageToDelete = [];
+              let currentObj = JSON.parse(results[0].url);
+              let newObj = JSON.parse(solutionDataImage.url);
 
-            if (newObj.imageCaroussel.length > 0) {
-
-              let arrayCurrent = [];
-              let arrayNew = [];
-
-              for (let i = 0; i < currentObj.imageCaroussel.length; i++) {
-                arrayCurrent.push(currentObj.imageCaroussel[i].name);
+              if (newObj.logoSolution[0].name !== currentObj.logoSolution[0].name) {
+                arrayImageToDelete.push(currentObj.logoSolution[0].name);
               }
 
-              for (let i = 0; i < newObj.imageCaroussel.length; i++) {
-                arrayNew.push(newObj.imageCaroussel[i].name);
-              }
+              if (newObj.imageCaroussel.length > 0) {
 
-              //si la longueur du tableau arrayNew est inférieure à la longueur du tableau arrayCurrent
-              //alors on ajoute l'élément qui ne figure pas dans le tableau arrayNew
-              if (arrayCurrent.length < arrayNew.length) {
-                for (let i = 0; i < arrayNew.length; i++) {
-                  if (!arrayCurrent.includes(arrayNew[i])) {
-                    console.log("ajout du fichier : " + arrayNew[i]);
+                let arrayCurrent = [];
+                let arrayNew = [];
+
+                for (let i = 0; i < currentObj.imageCaroussel.length; i++) {
+                  arrayCurrent.push(currentObj.imageCaroussel[i].name);
+                }
+
+                for (let i = 0; i < newObj.imageCaroussel.length; i++) {
+                  arrayNew.push(newObj.imageCaroussel[i].name);
+                }
+
+                //si la longueur du tableau arrayNew est inférieure à la longueur du tableau arrayCurrent
+                //alors on ajoute l'élément qui ne figure pas dans le tableau arrayNew
+                if (arrayCurrent.length < arrayNew.length) {
+                  for (let i = 0; i < arrayNew.length; i++) {
+                    if (!arrayCurrent.includes(arrayNew[i])) {
+                      console.log("ajout du fichier : " + arrayNew[i]);
+                    }
+                    if (!arrayNew.includes(arrayCurrent[i])) {
+                      if (arrayCurrent[i] !== undefined) {
+                        arrayImageToDelete.push(arrayCurrent[i]);
+                      }
+                    }
                   }
-                  if (!arrayNew.includes(arrayCurrent[i])) {
-                    if (arrayCurrent[i] !== undefined) {
+                }
+
+                //si la longueur du tableau arrayNew est supérieure à la longueur du tableau arrayCurrent
+                //alors on supprime l'élément qui ne figure pas dans le tableau arrayCurrent
+
+                if (arrayCurrent.length > arrayNew.length) {
+                  for (let i = 0; i < arrayCurrent.length; i++) {
+                    if (!arrayNew.includes(arrayCurrent[i])) {
                       arrayImageToDelete.push(arrayCurrent[i]);
                     }
                   }
                 }
-              }
 
-              //si la longueur du tableau arrayNew est supérieure à la longueur du tableau arrayCurrent
-              //alors on supprime l'élément qui ne figure pas dans le tableau arrayCurrent
 
-              if (arrayCurrent.length > arrayNew.length) {
-                for (let i = 0; i < arrayCurrent.length; i++) {
-                  if (!arrayNew.includes(arrayCurrent[i])) {
-                    arrayImageToDelete.push(arrayCurrent[i]);
+                if (arrayCurrent.length === arrayNew.length) {
+                  for (let i = 0; i < arrayCurrent.length; i++) {
+                    if (!arrayNew.includes(arrayCurrent[i])) {
+                      arrayImageToDelete.push(arrayCurrent[i]);
+                    }
                   }
                 }
+
+                console.log("\n");
+                console.log("\n");
+                console.log("\n");
+                console.log("\n");
+                console.log("\n");
+                console.log("\n");
+                console.log("*********************************************************************");
+                console.log("CurrentObj :", currentObj);
+                console.log("newObj :", newObj);
+                console.log("=====================================================================");
+                console.log("=====================================================================");
+                console.log("delete array image :", arrayImageToDelete);
+                console.log("*********************************************************************");
+
+
+
+              } else {
+                for (let i of currentObj.imageCaroussel) {
+                  arrayImageToDelete.push(i.name)
+                }
               }
 
 
-              if (arrayCurrent.length === arrayNew.length) {
-                for (let i = 0; i < arrayCurrent.length; i++) {
-                  if (!arrayNew.includes(arrayCurrent[i])) {
-                    arrayImageToDelete.push(arrayCurrent[i]);
+              if (arrayImageToDelete.length > 0) {
+                for (let i = 0; i < arrayImageToDelete.length; i++) {
+                  fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
+                    if (err) throw err;
+                    console.log('successfully deleted ' + arrayImageToDelete[i]);
+                  });
+                }
+              }
+
+
+              const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${imageID}`;
+              connection.query(
+                sqlUpdate,
+                [
+                  solutionDataImage.name,
+                  solutionDataImage.url,
+                  solutionDataImage.alt,
+                  solutionDataImage.section,
+                  imageID
+                ],
+                (error, results, fields) => {
+                  if (error) {
+                    res.status(501).send("couldn't put Image" + error);
                   }
                 }
-              }
-
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("\n");
-              console.log("*********************************************************************");
-              console.log("CurrentObj :", currentObj);
-              console.log("newObj :", newObj);
-              console.log("=====================================================================");
-              console.log("=====================================================================");
-              console.log("delete array image :", arrayImageToDelete);
-              console.log("*********************************************************************");
-
-
-
-            } else {
-              for (let i of currentObj.imageCaroussel) {
-                arrayImageToDelete.push(i.name)
-              }
+              );
             }
+          });
+        }else{
+          /////
+        }
 
-
-            if (arrayImageToDelete.length > 0) {
-              for (let i = 0; i < arrayImageToDelete.length; i++) {
-                fs.unlink(path.join("public/images/", arrayImageToDelete[i]), (err) => {
-                  if (err) throw err;
-                  console.log('successfully deleted ' + arrayImageToDelete[i]);
-                });
-              }
-            }
-
-
-            const sqlUpdate = `UPDATE image SET name=?, url=?, alt=?, section=? WHERE id=${imageID}`;
-            connection.query(
-              sqlUpdate,
-              [
-                solutionDataImage.name,
-                solutionDataImage.url,
-                solutionDataImage.alt,
-                solutionDataImage.section,
-                imageID
-              ],
-              (error, results, fields) => {
-                if (error) {
-                  res.status(501).send("couldn't put Image" + error);
-                }
-              }
-            );
-          }
-        });
       }
     }
   );
@@ -247,7 +263,8 @@ router.delete("/:id", Auth, (req, res) => {
     if (error) {
       res.status(501).send("couldn't get image");
     } else {
-      if (results[0].url !== 'test_url_image') {
+      
+      if (req.body[0].url !== 'test_url_image') {
 
         let arrayImageToDelete = [];
 

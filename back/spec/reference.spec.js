@@ -151,6 +151,7 @@ describe("test reference CRUD", () => {
         if (error) {
           console.log(error);
         } else {
+         
           expect(response.statusCode).toBe(200);
           expect(body.reference.subtitle).toBe(reference.subtitle);
           expect(body.reference.title).toBe(reference.title);
@@ -167,25 +168,24 @@ describe("test reference CRUD", () => {
   });
 
   it("delete reference", done => {
-      request(
-        {
-          method: "delete",
-          json: true,
-          url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
-          headers: { authorization: 'Bearer ' + obj.token },
-          body: obj
-        },
-        (error, response, body) => {
-          if(error){
-            console.log(error);
-          }else{
-            console.log(body);
-            expect(response.statusCode).toBe(200);
-            done();
-          }
+    request(
+      {
+        method: "delete",
+        json: true,
+        url: SERVER_ADDRESS_FULL + "/api/reference/" + obj.id,
+        headers: { authorization: 'Bearer ' + obj.token },
+        body: [image, reference]
+      },
+      (error, response, body) => {
+        if (error) {
+          console.log(error);
+        } else {
+          expect(response.statusCode).toBe(200);
+          done();
         }
-      );
-    });
+      }
+    );
+  });
 
 
 });

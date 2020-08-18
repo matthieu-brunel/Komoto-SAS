@@ -105,9 +105,7 @@ router.post("/", (req, res) => {
     if (error) {
       res.status(501).send(error.message);
     } else {
-      res.status(200).json({
-        message: ""
-      });
+      res.status(200).json(req.body);
     }
   });
 });

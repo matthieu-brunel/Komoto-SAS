@@ -47,16 +47,16 @@ describe("test formulaire (POST)", () => {
         if (error) {
           expect(response.statusCode).toBe(501);
         } else {
-          let data = JSON.parse(response.request.body);
+
           expect(response.statusCode).toBe(200);
-          expect(data.societe).toBe(formulaire.societe);
-          expect(data.nom).toBe(formulaire.nom);
-          expect(data.prenom).toBe(formulaire.prenom);
-          expect(data.adresse).toBe(formulaire.adresse);
-          expect(data.telephone).toBe(formulaire.telephone);
-          expect(data.email).toBe(formulaire.email);
-          expect(data.message).toBe(formulaire.message);
-          expect(data.document).toBe(formulaire.document);
+          expect(body.societe).toBe(formulaire.societe);
+          expect(body.nom).toBe(formulaire.nom);
+          expect(body.prenom).toBe(formulaire.prenom);
+          expect(body.adresse).toBe(formulaire.adresse);
+          expect(body.telephone).toBe(formulaire.telephone);
+          expect(body.email).toBe(formulaire.email);
+          expect(body.message).toBe(formulaire.message);
+          expect(body.document).toBe(formulaire.document);
         }
         done();
       }
@@ -76,17 +76,15 @@ describe("test formulaire (POST)", () => {
         if (error) {
           expect(response.statusCode).toBe(501);
         } else {
-          let data = JSON.parse(response.request.body);
           expect(response.statusCode).toBe(200);
-          expect(response.body.message).toBe("");
-          expect(data.societe).toBe(formulaire.societe);
-          expect(data.nom).toBe(formulaire.nom);
-          expect(data.prenom).toBe(formulaire.prenom);
-          expect(data.adresse).toBe(formulaire.adresse);
-          expect(data.telephone).toBe(formulaire.telephone);
-          expect(data.email).toBe(formulaire.email);
-          expect(data.message).toBe(formulaire.message);
-          expect(data.document).toBe(formulaire.document);
+          expect(body.societe).toBe(formulaire.societe);
+          expect(body.nom).toBe(formulaire.nom);
+          expect(body.prenom).toBe(formulaire.prenom);
+          expect(body.adresse).toBe(formulaire.adresse);
+          expect(body.telephone).toBe(formulaire.telephone);
+          expect(body.email).toBe(formulaire.email);
+          expect(body.message).toBe(formulaire.message);
+          expect(body.document).toBe(formulaire.document);
         }
         done();
       }
