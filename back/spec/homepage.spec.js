@@ -3,13 +3,15 @@ require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null
-};
-
 describe("test homepage CRUD", () => {
   let server = null;
   let data = {};
+
+  let obj = {
+    id: null,
+    token:null
+  };
+
 
   const homepage = {
     subtitle: "test_subtitle",
@@ -40,7 +42,7 @@ describe("test homepage CRUD", () => {
         }
       },
       (error, response, body) => {
-        token = response.body.token;
+        obj.token = body.token;
       }
     );
 
@@ -50,7 +52,7 @@ describe("test homepage CRUD", () => {
         json: true
       },
       (error, response, body) => {
-        homepage.language_id = response.body[0].id;
+        homepage.language_id = body[body.length - 1].id;
       }
     );
 
@@ -62,7 +64,7 @@ describe("test homepage CRUD", () => {
       },
       (error, response, body) => {
 
-        homepage.image_id = response.body[response.body.length - 1].id;
+        homepage.image_id = body[body.length - 1].id;
         done();
       }
     );
@@ -75,7 +77,7 @@ describe("test homepage CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/homepage",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: homepage
       },
       (error, response, body) => {
@@ -111,20 +113,18 @@ describe("test homepage CRUD", () => {
     );
   });
 
-
+ 
   it("should update homepage", done => {
     homepage.subtitle = "new subtitle";
     homepage.title = "new title";
     homepage.section = "new section";
     homepage.description = "new description";
-    homepage.language_id = homepage.language_id;
-    homepage.image_id = homepage.image_id;
 
     request.put(
       {
-        url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
+        url: SERVER_ADDRESS_FULL + "/api/homepage/" + homepage.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: [homepage, image]
       },
 
@@ -143,18 +143,18 @@ describe("test homepage CRUD", () => {
     );
   });
 
-  /*   it("delete homepage", done => {
+  it("delete homepage", done => {
       request(
         {
           method: "delete",
           json: true,
-          url: SERVER_ADDRESS_FULL + "/api/homepage/" + obj.id,
-          headers: { authorization: 'Bearer ' + token }
+          url: SERVER_ADDRESS_FULL + "/api/homepage/" + homepage.id,
+          headers: { authorization: 'Bearer ' + obj.token }
         },
         (error, response, body) => {
           expect(response.statusCode).toBe(200);
           done();
         }
       );
-    }); */
+    });
 });

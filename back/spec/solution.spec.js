@@ -1,16 +1,19 @@
-/* const request = require("request");
+const request = require("request");
 require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null,
-  image_id: null
-};
+
 
 describe("test solution CRUD", () => {
   let server = null;
   let data = {};
+
+  let obj = {
+    id: null,
+    image_id: null,
+    token: null
+  };
 
   const solution = {
     subtitle: "test_subtitle",
@@ -18,15 +21,14 @@ describe("test solution CRUD", () => {
     section: "test_section",
     description: "test_description",
     title_section: "test_title_section",
-    language_id: "french",
-    image_id: obj.image_id
+    image_id: null,
+    language_id: null
   };
 
   const image = {
     name: "test_name_image",
     url: "test_url_image",
     alt: "test_alt_image",
-    homepage_id: 1,
     section: "test_section_image"
   };
 
@@ -39,29 +41,43 @@ describe("test solution CRUD", () => {
       {
         json: true,
         body: {
-          user: 'admin',
-          password: 'admin'
+          user: "admin",
+          password: "admin"
         }
       },
       (error, response, body) => {
-        token = response.body.token;
 
-        done();
+        obj.token = body.token;
       }
     );
 
-    request(
+    request.get(
+      SERVER_ADDRESS_FULL + "/api/language",
       {
-        method: "post",
+        json: true
+      },
+      (error, response, body) => {
+
+        solution.language_id = body[body.length - 1].id;
+      }
+    );
+
+    request.get(
+      {
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/image",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: image
       },
       (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        obj.image_id = body.id;
-        done();
+        if (error) {
+          console.log(error);
+        } else {
+
+          obj.image_id = body[body.length - 1].id
+          solution.image_id = body[body.length - 1].id;
+          done();
+        }
       }
     );
   });
@@ -73,10 +89,11 @@ describe("test solution CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: solution
       },
       (error, response, body) => {
+
         expect(response.statusCode).toBe(200);
 
         obj.id = body.id;
@@ -101,7 +118,7 @@ describe("test solution CRUD", () => {
       {
         method: "get",
         json: true,
-        url: SERVER_ADDRESS_FULL + "/api/solution"
+        url: SERVER_ADDRESS_FULL + "/api/solution/all"
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
@@ -115,28 +132,26 @@ describe("test solution CRUD", () => {
     solution.title = "new put";
     solution.section = "new put";
     solution.description = "new put";
-    solution.language_id = "new put";
     solution.title_section = "new put";
-    solution.image_id = obj.image_id;
 
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: [solution, image]
       },
 
       (error, response, body) => {
-        //console.log("PUT", solution);
-        const response_body = JSON.parse(response.request.body);
-        expect(response_body[0].subtitle).toBe(solution.subtitle);
-        expect(response_body[0].title).toBe(solution.title);
-        expect(response_body[0].section).toBe(solution.section);
-        expect(response_body[0].description).toBe(solution.description);
-        expect(response_body[0].language_id).toBe(solution.language_id);
-        expect(response_body[0].title_section).toBe(solution.title_section);
-        expect(response_body[0].image_id).toBe(solution.image_id);
+      
+        expect(response.statusCode).toBe(200);
+        expect(body[0].subtitle).toBe(solution.subtitle);
+        expect(body[0].title).toBe(solution.title);
+        expect(body[0].section).toBe(solution.section);
+        expect(body[0].description).toBe(solution.description);
+        expect(body[0].language_id).toBe(solution.language_id);
+        expect(body[0].title_section).toBe(solution.title_section);
+        expect(body[0].image_id).toBe(solution.image_id);
         done();
       }
     );
@@ -148,14 +163,19 @@ describe("test solution CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/solution/" + obj.id,
-        headers: { authorization: 'Bearer ' + token },
-        body:obj
+        headers: { authorization: 'Bearer ' + obj.token },
+        body: [image, solution]
       },
       (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
+        if (error) {
+          console.log(error);
+        } else {
+          expect(response.statusCode).toBe(200);
+          done();
+        }
       }
     );
   });
+
+
 });
- */

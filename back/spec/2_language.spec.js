@@ -13,7 +13,7 @@ describe("test language CRUD", () => {
 
   const language = {
     name: "test_name",
-    locale: "test_locale"
+    locale: "test_loc"
   };
 
 
@@ -88,11 +88,15 @@ describe("test language CRUD", () => {
       },
 
       (error, response, body) => {
-      
+
         expect(body.name).toBe(language.name);
         expect(body.locale).toBeTruthy();
         done();
       }
     );
   });
+
+
+
+
 });

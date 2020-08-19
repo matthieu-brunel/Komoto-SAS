@@ -40,15 +40,11 @@ describe("test formulaire CRUD", () => {
         json: true
       },
       (error, response, body) => {
-        formulaire.language_id = response.body[0].id;
+        formulaire.language_id = body[body.length - 1].id;
         done();
       }
     );
   });
-
-
-
-
 
   it("post formulaire", done => {
     request(
@@ -87,7 +83,7 @@ describe("test formulaire CRUD", () => {
 
   it("should update formulaire", done => {
     formulaire.name = "name_update";
- 
+
     request.put(
       {
         url: SERVER_ADDRESS_FULL + "/api/formulaire/" + formulaire.id,
@@ -120,33 +116,4 @@ describe("test formulaire CRUD", () => {
   });
 
 
-  /*   it("delete image", done => {
-      request(
-        {
-          method: "delete",
-          json: true,
-          url: SERVER_ADDRESS_FULL + "/api/image/" + obj_image.id,
-          headers: { authorization: 'Bearer ' + token }
-        },
-        (error, response, body) => {
-          expect(response.statusCode).toBe(200);
-          done();
-        }
-      );
-    });
-  
-    it("delete language_id", done => {
-      request(
-        {
-          method: "delete",
-          json: true,
-          url: SERVER_ADDRESS_FULL + "/api/language/" + obj_language.id,
-          headers: { authorization: 'Bearer ' + token }
-        },
-        (error, response, body) => {
-          expect(response.statusCode).toBe(200);
-          done();
-        }
-      );
-    }); */
 });

@@ -5,7 +5,8 @@ const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
 let obj = {
   id: null,
-  array_id: []
+  array_id: [],
+  token:null
 };
 
 describe("test mail CRUD", () => {
@@ -15,7 +16,7 @@ describe("test mail CRUD", () => {
   const mail = {
     category: "test_category",
     description: "test_description",
-    date: 'mail destinataire'
+    date: '2020-07-22 04:38:09'
   };
 
 
@@ -31,8 +32,7 @@ describe("test mail CRUD", () => {
         }
       },
       (error, response, body) => {
-        token = response.body.token;
-
+        obj.token = body.token;
         done();
       }
     );
@@ -68,7 +68,7 @@ describe("test mail CRUD", () => {
         method: "get",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail",
-        headers: { authorization: 'Bearer ' + token }
+        headers: { authorization: 'Bearer ' + obj.token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);
@@ -86,7 +86,7 @@ describe("test mail CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: mail
       },
 
@@ -105,7 +105,7 @@ describe("test mail CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/mail/" + obj.id,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: mail
       },
       (error, response, body) => {

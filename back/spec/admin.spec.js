@@ -3,15 +3,18 @@ require("dotenv").config();
 
 const SERVER_ADDRESS_FULL = process.env.REACT_APP_SERVER_ADDRESS_FULL;
 
-let obj = {
-  id: null
-};
 
-let token;
+
 
 describe("test admin CRUD", () => {
   let server = null;
   let data = {};
+
+  let obj = {
+    id: null,
+    token:null
+  };
+  
 
   const admin = {
     user: "test_user",
@@ -31,8 +34,7 @@ describe("test admin CRUD", () => {
         }
       },
       (error, response, body) => {
-        token = response.body.token;
-
+        obj.token = body.token;
         done();
       }
     );
@@ -45,7 +47,7 @@ describe("test admin CRUD", () => {
         method: "post",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin",
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: admin
       },
       (error, response, body) => {
@@ -73,7 +75,7 @@ describe("test admin CRUD", () => {
       {
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
         json: true,
-        headers: { authorization: 'Bearer ' + token },
+        headers: { authorization: 'Bearer ' + obj.token },
         body: admin
       },
 
@@ -92,7 +94,7 @@ describe("test admin CRUD", () => {
         method: "delete",
         json: true,
         url: SERVER_ADDRESS_FULL + "/api/admin/" + obj.id,
-        headers: { authorization: 'Bearer ' + token }
+        headers: { authorization: 'Bearer ' + obj.token }
       },
       (error, response, body) => {
         expect(response.statusCode).toBe(200);

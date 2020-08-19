@@ -7,7 +7,7 @@ router.use(parser.json());
 
 
 
-router.post("/",Auth, (req, res) => {
+router.post("/", Auth, (req, res) => {
   const homepage = req.body;
 
   const sql =
@@ -15,8 +15,8 @@ router.post("/",Auth, (req, res) => {
   connection.query(
     sql,
     [
-        homepage.name,
-        homepage.locale
+      homepage.name,
+      homepage.locale
     ],
     (error, results, fields) => {
       if (error) {
@@ -33,8 +33,8 @@ router.post("/",Auth, (req, res) => {
 
 router.get("/", (req, res) => {
   const sql = `SELECT name, locale, id FROM language`;
-  connection.query(sql,[req.query.section,req.query.section], (error, results, fields) => {
-    
+  connection.query(sql, [req.query.section, req.query.section], (error, results, fields) => {
+
     if (error) {
       res.status(501).send("couldn't get language");
     } else {
@@ -58,15 +58,15 @@ router.get("/:id", (req, res) => {
 });
 
 
-router.put("/:id",Auth, (req, res) => {
+router.put("/:id", Auth, (req, res) => {
   const idLanguage = req.params.id;
   const language = req.body;
   const sql = `UPDATE language SET name=?, locale=? WHERE id=${idLanguage}`;
   connection.query(
     sql,
     [
-        language.name,
-        language.locale
+      language.name,
+      language.locale
     ],
     (error, results, fields) => {
       if (error) {
@@ -79,14 +79,14 @@ router.put("/:id",Auth, (req, res) => {
 });
 
 
-router.delete("/:id",Auth, (req, res) => {
+router.delete("/:id", Auth, (req, res) => {
   const idLanguage = req.params.id;
   const sql = "DELETE FROM language WHERE id=?";
   connection.query(sql, [idLanguage], (error, results, fields) => {
     if (error) {
       res.status(501).send("couldn't put language" + error);
     } else {
-      res.json(req.body);
+      res.json({"delete":"success"});
     }
   });
 });
