@@ -167,7 +167,7 @@ describe("test reference CRUD", () => {
     );
   });
 
-  it("delete reference", done => {
+/*   it("delete reference", done => {
     request(
       {
         method: "delete",
@@ -185,7 +185,7 @@ describe("test reference CRUD", () => {
         }
       }
     );
-  });
+  }); */
 
 
 });

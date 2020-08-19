@@ -76,7 +76,7 @@ describe("test upload formulaire (POST)", () => {
 
   });
 
-  it(" delete language id row", done => {
+   it(" delete language id row", done => {
     request(
       {
         method: "delete",
@@ -92,20 +92,4 @@ describe("test upload formulaire (POST)", () => {
     );
   });
 
-
-  it(" delete image id row", done => {
-    request(
-      {
-        method: "delete",
-        json: true,
-        url: SERVER_ADDRESS_FULL + '/api/image/' + obj.image_id,
-        headers: { authorization: "Bearer " + obj.token },
-
-      },
-      (error, response, body) => {
-        expect(response.statusCode).toBe(200);
-        done();
-      }
-    );
-  });
 });
